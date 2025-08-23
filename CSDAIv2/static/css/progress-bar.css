@@ -1,0 +1,329 @@
+/* Progress Bar Styles for CSDAI Unified Analyzer */
+/* This CSS file contains all the styling for the progress bar implementation */
+
+/* Main wizard progress bar at the top */
+.wizard-progress {
+  margin-bottom: 40px;
+}
+
+.progress-container {
+  margin-bottom: 20px;
+}
+
+.progress-bar-custom {
+  height: 8px;
+  background-color: #e9ecef;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #0d6efd 0%, #198754 100%);
+  transition: width 0.3s ease;
+  border-radius: 4px;
+}
+
+/* Step indicators */
+.step-indicators {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.step-indicator {
+  text-align: center;
+  flex: 1;
+}
+
+.step-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #e9ecef;
+  color: #6c757d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 8px;
+  font-weight: 600;
+  border: 2px solid #e9ecef;
+  transition: all 0.3s ease;
+}
+
+.step-circle.active {
+  background-color: #0d6efd;
+  color: white;
+  border-color: #0d6efd;
+}
+
+.step-circle.completed {
+  background-color: #198754;
+  color: white;
+  border-color: #198754;
+}
+
+.step-label {
+  font-size: 0.9rem;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.step-label.active,
+.step-label.completed {
+  color: #495057;
+  font-weight: 600;
+}
+
+/* Analysis progress container (Step 4 specific) */
+.analysis-progress-container {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 15px;
+  padding: 30px;
+  margin: 20px 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.analysis-progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.progress-percentage {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #0d6efd;
+}
+
+/* Main progress bar (animated) */
+.main-progress-bar {
+  margin-bottom: 30px;
+}
+
+.main-progress-bar .progress {
+  height: 20px;
+  border-radius: 10px;
+  background-color: #e9ecef;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.main-progress-bar .progress-bar {
+  border-radius: 10px;
+  background: linear-gradient(90deg, #0d6efd 0%, #198754 50%, #20c997 100%);
+  transition: width 0.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.main-progress-bar .progress-bar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Analysis stage cards */
+.analysis-stages {
+  margin-top: 30px;
+}
+
+.stage-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border: 2px solid #e9ecef;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.stage-card.active {
+  border-color: #0d6efd;
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 15px rgba(13, 110, 253, 0.2);
+}
+
+.stage-card.completed {
+  border-color: #198754;
+  background: linear-gradient(135deg, #e8f5e8 0%, #c3e6cb 100%);
+  transform: translateY(-1px);
+}
+
+.stage-icon {
+  font-size: 2.5rem;
+  margin-bottom: 12px;
+  color: #6c757d;
+  transition: color 0.3s ease;
+}
+
+.stage-card.active .stage-icon {
+  color: #0d6efd;
+  animation: pulse 2s infinite;
+}
+
+.stage-card.completed .stage-icon {
+  color: #198754;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.stage-title {
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #495057;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.stage-status {
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Analysis log feed */
+.analysis-feed {
+  margin-top: 30px;
+}
+
+.analysis-feed .card {
+  border: none;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.analysis-feed .card-header {
+  background: linear-gradient(135deg, #495057 0%, #343a40 100%);
+  color: white;
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+}
+
+.analysis-feed .card-body {
+  padding: 0;
+  background: #f8f9fa;
+  border-radius: 0 0 8px 8px;
+}
+
+#analysis-log {
+  padding: 15px;
+  height: 200px;
+  overflow-y: auto;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.log-entry {
+  padding: 3px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.timestamp {
+  color: #6c757d;
+  margin-right: 12px;
+  font-weight: 500;
+}
+
+.message {
+  color: #495057;
+}
+
+.log-entry.success .message {
+  color: #198754;
+  font-weight: 500;
+}
+
+.log-entry.warning .message {
+  color: #fd7e14;
+  font-weight: 500;
+}
+
+.log-entry.error .message {
+  color: #dc3545;
+  font-weight: 500;
+}
+
+/* Estimated time section */
+.estimated-time .alert {
+  border: none;
+  background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
+  border-left: 4px solid #17a2b8;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .analysis-progress-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .progress-percentage {
+    margin-top: 10px;
+  }
+  
+  .stage-card {
+    margin-bottom: 15px;
+    padding: 15px;
+    min-height: 120px;
+  }
+  
+  .stage-icon {
+    font-size: 2rem;
+  }
+  
+  .stage-title {
+    font-size: 0.9rem;
+  }
+}
+
+/* Loading spinners */
+.spinner-border-sm {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Custom scrollbar for log */
+#analysis-log::-webkit-scrollbar {
+  width: 6px;
+}
+
+#analysis-log::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+#analysis-log::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+#analysis-log::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
