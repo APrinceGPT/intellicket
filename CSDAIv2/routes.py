@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 
 Flask Routes Module
@@ -23,12 +24,6 @@ from flask import request, render_template_string, abort, session, Response, jso
 
 
 # Import security and configuration
-
-import sys
-
-sys.path.append('../shared')
-
-
 
 from security import (
 
@@ -70,7 +65,7 @@ from wizard_templates import (
 
 # Import analyzer classes
 
-from analyzers import DSAgentLogAnalyzer, AMSPAnalyzer, ConflictAnalyzer, ResourceAnalyzer
+from analyzers import DSAgentLogAnalyzer, AMSPAnalyzer, ConflictAnalyzer, ResourceAnalyzer, DSAgentOfflineAnalyzer, DiagnosticPackageAnalyzer
 
 
 
@@ -954,11 +949,20 @@ Candidates Summary:
             for candidate in candidates:
                 raw_result += f"- {candidate.get('name', 'Unknown')}: {candidate.get('count', 'N/A')} scans\n"
             
-            if resource_analysis_data.get('ml_insights'):
-                raw_result += f"\nML Analysis: Performance Score {resource_analysis_data['ml_insights'].get('performance_score', 'N/A')}%"
-            
             if resource_analysis_data.get('rag_insights'):
                 raw_result += f"\nKnowledge Sources: {resource_analysis_data['rag_insights'].get('knowledge_sources_used', 'N/A')}"
+
+        elif analysis_type == "ds_agent_offline":
+            analyzer = DSAgentOfflineAnalyzer(session_manager=session_manager, session_id=analysis_session_id)
+            analysis_results = analyzer.analyze_log_file(temp_paths[0])
+            result = format_ds_agent_offline_results(analysis_results)
+            raw_result = f"DS Agent Offline Analysis Results:\n\n{analysis_results.get('summary', 'No summary available')}"
+
+        elif analysis_type == "ds_agent_offline":
+            analyzer = DSAgentOfflineAnalyzer(session_manager=session_manager, session_id=analysis_session_id)
+            analysis_results = analyzer.analyze_log_file(temp_paths[0])
+            result = format_ds_agent_offline_results(analysis_results)
+            raw_result = f"DS Agent Offline Analysis Results:\n\n{analysis_results.get('summary', 'No summary available')}"
 
         
 
@@ -1193,11 +1197,53 @@ Candidates Summary:
             for candidate in candidates:
                 raw_result += f"- {candidate.get('name', 'Unknown')}: {candidate.get('count', 'N/A')} scans\n"
             
-            if resource_analysis_data.get('ml_insights'):
-                raw_result += f"\nML Analysis: Performance Score {resource_analysis_data['ml_insights'].get('performance_score', 'N/A')}%"
-            
             if resource_analysis_data.get('rag_insights'):
                 raw_result += f"\nKnowledge Sources: {resource_analysis_data['rag_insights'].get('knowledge_sources_used', 'N/A')}"
+
+        elif analysis_type == "ds_agent_offline":
+            analyzer = DSAgentOfflineAnalyzer(session_manager=session_manager, session_id=analysis_session_id)
+            analysis_results = analyzer.analyze_log_file(temp_paths[0])
+            result = format_ds_agent_offline_results(analysis_results)
+            raw_result = f"DS Agent Offline Analysis Results:\n\n{analysis_results.get('summary', 'No summary available')}"
+
+        elif analysis_type == "diagnostic_package":
+            analyzer = DiagnosticPackageAnalyzer(session_manager=session_manager, session_id=analysis_session_id)
+            if len(temp_paths) == 1:
+                # Single ZIP file analysis
+                analysis_results = analyzer.analyze(temp_paths[0])
+                result = format_diagnostic_package_results(analysis_results)
+                
+                files_analyzed = analysis_results.get('package_summary', {}).get('total_files_analyzed', 0)
+                correlations = analysis_results.get('correlation_analysis', {})
+                correlation_count = len(correlations.get('correlations', [])) if correlations else 0
+                
+                raw_result = f"""Diagnostic Package Analysis Results:
+
+Package Summary:
+- Files Analyzed: {files_analyzed}
+- Cross-log Correlations: {correlation_count}
+- Analysis Completed: {analysis_results.get('package_summary', {}).get('analysis_timestamp', 'Unknown')}
+
+Executive Summary:
+{analysis_results.get('executive_summary', {}).get('overview', 'No executive summary available')}
+
+Key Findings:
+"""
+                for finding in analysis_results.get('executive_summary', {}).get('key_findings', []):
+                    raw_result += f"- {finding}\n"
+                    
+                if analysis_results.get('ml_insights'):
+                    raw_result += f"\nML Analysis: Overall Health Score {analysis_results['ml_insights'].get('overall_health_score', 'N/A')}%"
+                
+                if analysis_results.get('dynamic_rag_analysis'):
+                    rag_data = analysis_results['dynamic_rag_analysis']
+                    if rag_data.get('knowledge_sources'):
+                        raw_result += f"\nKnowledge Sources: {len(rag_data['knowledge_sources'])} sources consulted"
+            else:
+                raise SecurityError("Diagnostic package analysis requires exactly one ZIP file.")
+        
+        else:
+            raise SecurityError(f"Unknown analysis type: {analysis_type}")
 
         
 
@@ -1256,17 +1302,15 @@ Candidates Summary:
         
 
     except Exception as e:
-
+        import traceback
+        error_traceback = traceback.format_exc()
         print(f"❌ Background analysis failed for session {analysis_session_id}: {str(e)}")
-
+        print(f"📋 Full traceback: {error_traceback}")
         session_manager.update_session(analysis_session_id, {
-
             'status': 'error',
-
-            'error_message': str(e)
-
+            'error_message': str(e),
+            'error_traceback': error_traceback
         })
-
     finally:
 
         # Clean up temp files
@@ -1556,184 +1600,6 @@ def format_ds_log_results(analysis: Dict[str, Any], is_multiple: bool = False) -
 
         """
 
-    # ML Analysis Section
-
-    if analysis.get('ml_insights'):
-
-        ml_insights = analysis['ml_insights']
-
-        html += f"""
-
-        <div class="row mb-4" id="ml-analysis-section">
-
-            <div class="col-12">
-            <div class="card border-info">
-            <div class="card-header bg-info text-white"><i class="fas fa-wrench"></i>  Machine Learning Analysis</div>
-
-                    <div class="card-body">
-
-        """
-
-        if ml_insights.get('overview'):
-
-            ml_overview = ml_insights['overview']
-
-            html += f"""
-
-                        <div class="row mb-3">
-            <div class="col-md-4">
-
-                                <strong>Entries Analyzed:</strong> {ml_overview.get('total_entries', 0)}<br>
-
-                                <strong>ML Features:</strong> {len(ml_overview.get('ml_features_used', []))}
-
-                            </div>
-
-                            <div class="col-md-4">
-
-                                <strong>Anomalies Detected:</strong> 
-
-                                <span class="badge bg-warning">{ml_insights.get('anomaly_analysis', {}).get('anomaly_count', 0)}</span><br>
-
-                                <strong>Anomaly Rate:</strong> {ml_insights.get('anomaly_analysis', {}).get('anomaly_score', 0):.1f}%
-
-                            </div>
-
-                            <div class="col-md-4">
-
-                                <strong>Pattern Clusters:</strong> {len(ml_insights.get('pattern_analysis', {}).get('clusters', []))}<br>
-
-                                <strong>ML Recommendations:</strong> {len(ml_insights.get('recommendations', []))}
-
-                            </div>
-
-                        </div>
-
-            """
-
-        # Anomaly Analysis
-
-        if ml_insights.get('anomaly_analysis', {}).get('anomalies'):
-
-            html += """
-
-                        <h6><i class="fas fa-brain"></i>Detected Anomalies:</h6>
-
-                        <div class='table-responsive'>
-
-                            <table class="table table-sm">
-
-                                <thead>
-
-                                    <tr>
-
-                                        <th>Timestamp</th>
-
-                                        <th>Message</th>
-
-                                        <th>Confidence</th>
-
-                                    </tr>
-
-                                </thead>
-
-                                <tbody>
-
-            """
-
-            for anomaly in ml_insights['anomaly_analysis']['anomalies'][:5]:  # Show top 5
-
-                html += f"""
-
-                                    <tr>
-
-                                        <td>{anomaly.get('timestamp', 'N/A')}</td>
-
-                                        <td>{anomaly.get('message', 'N/A')[:100]}...</td>
-
-                                        <td><span class="badge bg-danger">{anomaly.get('confidence', 0):.2f}</span></td>
-
-                                    </tr>
-
-                """
-
-            html += """
-
-                                </tbody>
-
-                            </table>
-
-                        </div>
-
-            """
-
-        # DS Agent Specific Analysis
-        if ml_insights.get('ds_agent_analysis'):
-            ds_analysis = ml_insights['ds_agent_analysis']
-            
-            html += """
-                        <h6><i class="fas fa-cogs"></i>DS Agent Component Analysis:</h6>
-            """
-            
-            # Component Health
-            component_health = ds_analysis.get('component_health', {})
-            if component_health:
-                html += """
-                        <div class='table-responsive mb-3'>
-                            <table class="table table-sm">
-                                <thead>
-                                    <tr>
-                                        <th>Component</th>
-                                        <th>Entries</th>
-                                        <th>Health Score</th>
-                                        <th>Issues</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                """
-                
-                for component, health in component_health.items():
-                    health_score = health.get('health_score', 0)
-                    badge_class = 'bg-success' if health_score > 90 else 'bg-warning' if health_score > 70 else 'bg-danger'
-                    total_issues = health.get('warning_count', 0) + health.get('error_count', 0)
-                    
-                    html += f"""
-                                        <tr>
-                                            <td>{component}</td>
-                                            <td>{health.get('total_entries', 0)}</td>
-                                            <td><span class="badge {badge_class}">{health_score:.0f}%</span></td>
-                                            <td>{total_issues} issues</td>
-                                        </tr>
-                    """
-                
-                html += """
-                                </tbody>
-                            </table>
-                        </div>
-                """
-            
-            # Error Patterns
-            error_patterns = ds_analysis.get('error_patterns', {})
-            if error_patterns.get('metrics_failures', 0) > 0:
-                html += f"""
-                        <div class="alert alert-info">
-                            <strong>AMSP Metrics:</strong> {error_patterns['metrics_failures']} device control metrics failures detected. 
-                            This is normal for systems without device control enabled.
-                        </div>
-                """
-
-        html += """
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        """
-
     # RAG Analysis Section
 
     if analysis.get('rag_insights'):
@@ -1861,243 +1727,7 @@ def format_ds_log_results(analysis: Dict[str, Any], is_multiple: bool = False) -
 
         """
 
-    # AI-Powered Comprehensive Analysis Section
-
-    # Connection Health Section - Cloud One Workload Security
-
-    if analysis.get('connection_health'):
-
-        conn_health = analysis['connection_health']
-
-        
-
-        # Determine status color and icon
-
-        status_colors = {
-
-            'healthy': ('#198754', '<i class=\"fa-solid fa-check-circle text-success\"></i>'),
-
-            'mostly_healthy': ('#198754', '<i class=\"fa-solid fa-circle text-warning\"></i>'),
-
-            'unstable': ('#fd7e14', '<i class="fa-solid fa-exclamation-triangle"></i>'),
-
-            'unhealthy': ('#dc3545', '<i class="fas fa-exclamation-circle text-danger"></i>'),
-
-            'no_connection_activity': ('#6c757d', 'â“'),
-
-            'unknown': ('#6c757d', 'â“')
-
-        }
-
-        
-
-        status_color, status_icon = status_colors.get(conn_health['overall_status'], ('#6c757d', 'â“'))
-
-        
-
-        html += f"""
-        <div class="row mb-4" id="connection-health-section">
-
-            <div class="col-12">
-            <div class="card border-warning">
-            <div class="card-header bg-warning text-dark">
-
-                        <i class="fas fa-brain"></i><strong>Cloud One Workload Security Connection Health</strong>
-
-                    </div>
-
-                    <div class="card-body">
-            <div class="row mb-3">
-
-                            <div class="col-md-8">
-
-                                <h5 style="color: {status_color};">
-
-                                    {status_icon} Connection Status: {conn_health['overall_status'].replace('_', ' ').title()}
-
-                                </h5>
-
-                                <p class="text-muted mb-2">
-
-                                    Deep Security Agent connectivity to Trend Micro Cloud One Workload Security servers
-
-                                </p>
-
-                            </div>
-
-                            <div class="col-md-4 text-end">
-            <div class="d-flex flex-column gap-1">
-
-                                    <small><strong>Connection Attempts:</strong> {conn_health['connection_attempts']}</small>
-
-                                    <small><strong>Successful:</strong> <span class="text-success">{conn_health['successful_connections']}</span></small>
-
-                                    <small><strong>Failed:</strong> <span class="text-danger">{conn_health['failed_connections']}</span></small>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        
-
-                        <div class="row mb-3">
-            <div class="col-md-6">
-
-                                <h6><i class="fas fa-brain"></i>Connected Regions:</h6>
-
-                                <ul class="list-unstyled mb-0">
-
-        """
-
-        if conn_health['connected_regions']:
-
-            for region in conn_health['connected_regions']:
-
-                html += f'<li><span class="badge bg-success me-1">âœ“</span> {region}</li>'
-
-        else:
-
-            html += '<li><span class="text-muted">No regions detected in logs</span></li>'
-
-        
-
-        html += f"""
-
-                                </ul>
-
-                            </div>
-
-                            <div class="col-md-6">
-
-                                <h6><i class="fas fa-brain"></i>Heartbeat Status:</h6>
-
-                                <p class="mb-0">
-
-                                    <span class="badge {'bg-success' if conn_health['heartbeat_status'] == 'healthy' else 'bg-secondary'}">
-
-                                        {conn_health['heartbeat_status'].replace('_', ' ').title()}
-
-                                    </span>
-
-                                </p>
-
-                                {f'<small class="text-muted">Last Success: {conn_health["last_successful_connection"]}</small>' if conn_health['last_successful_connection'] else ""}
-
-                            </div>
-
-                        </div>
-
-        """
-
-        # Connection Issues Section
-
-        if (conn_health['dns_issues'] or conn_health['ssl_certificate_issues'] or 
-
-            conn_health['proxy_issues'] or conn_health['firewall_issues']):
-
-            
-
-            html += """
-
-                        <div class="alert alert-warning mb-3">
-
-                            <h6 class="alert-heading"><i class="fas fa-brain"></i>Detected Connection Issues:</h6>
-
-                            <div class="row">
-
-            """
-
-            if conn_health["dns_issues"]:
-
-                html += f"""
-
-                                <div class="col-md-6 mb-2">
-
-                                    <strong><i class="fas fa-brain"></i>DNS Issues:</strong> {len(conn_health['dns_issues'])} detected
-
-                                    <br><small class="text-muted">DNS resolution failures for Cloud One endpoints</small>
-
-                                </div>
-
-                """
-
-            if conn_health['firewall_issues']:
-
-                html += f"""
-
-                                <div class="col-md-6 mb-2">
-
-                                    <strong><i class="fas fa-brain"></i>Firewall Issues:</strong> {len(conn_health['firewall_issues'])} detected
-
-                                    <br><small class="text-muted">Port 443 or connection blocking detected</small>
-
-                                </div>
-
-                """
-
-            if conn_health['proxy_issues']:
-
-                html += f"""
-
-                                <div class="col-md-6 mb-2">
-
-                                    <strong><i class="fas fa-brain"></i>Proxy Issues:</strong> {len(conn_health['proxy_issues'])} detected
-
-                                    <br><small class="text-muted">Proxy authentication or configuration problems</small>
-
-                                </div>
-
-                """
-
-            if conn_health['ssl_certificate_issues']:
-
-                html += f"""
-
-                                <div class="col-md-6 mb-2">
-
-                                    <strong><i class="fas fa-brain"></i>SSL/Certificate Issues:</strong> {len(conn_health['ssl_certificate_issues'])} detected
-
-                                    <br><small class="text-muted">Certificate validation or SSL handshake failures</small>
-
-                                </div>
-
-                """
-
-            html += """
-
-                            </div>
-
-                        </div>
-
-            """
-
-        else:
-
-            html += """
-
-                        <div class="alert alert-success mb-3">
-
-                            <span class="fw-bold"><i class="fa-solid fa-check-circle text-success"></i> No Connection Issues Detected</span>
-
-                            <br><small>No DNS, firewall, proxy, or SSL certificate issues found in the logs.</small>
-
-                        </div>
-
-            """
-
-        html += """
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        """
+    # Connection Health Section Removed - Cloud One Workload Security Connection Health component eliminated
 
     # Multiple File Analysis Breakdown
 
@@ -2253,614 +1883,47 @@ def format_ds_log_results(analysis: Dict[str, Any], is_multiple: bool = False) -
 
 
 def generate_ai_summary_for_ds_logs(analysis: Dict[str, Any]) -> str:
-
-    """Generate practical AI-powered Deep Security Agent Connection Analysis for network administrators"""
-
+    """Generate practical AI-powered Deep Security Agent Analysis for network administrators"""
     summary = analysis.get('summary', {})
-
-    connection_health = analysis.get('connection_health', {})
-
-    ml_insights = analysis.get('ml_insights', {})
-
+    # Connection Health Analysis Removed - Cloud One Workload Security Connection Health component eliminated
     rag_insights = analysis.get('rag_insights', {})
-
     
-
-    # Generate connection-focused AI analysis
-
     ai_summary = f"""
-
-    <div class="ai-analysis-container">
-
-        <h5><i class="fas fa-brain"></i>Deep Security Agent Connection Analysis</h5>
-
-        <p>AI analysis of {summary.get('total_lines', 0):,} log entries focusing on Cloud One Workload Security connectivity:</p>
-
-        
-
-        """
-
-    if connection_health:
-
-        status = connection_health.get('overall_status', 'unknown')
-
-        success_rate = 0
-
-        if connection_health.get('connection_attempts', 0) > 0:
-
-            success_rate = (connection_health.get('successful_connections', 0) / connection_health.get('connection_attempts', 1)) * 100
-
-        
-
-        # Connection Status Summary
-
-        if status == 'healthy':
-
-            ai_summary += f"""
-
-            <div class="alert alert-success">
-
-                <h6><i class="fa-solid fa-check-circle text-success"></i> Agent Connection Status: Healthy</h6>
-
-                <p><strong>Success Rate:</strong> {success_rate:.1f}% ({connection_health.get('successful_connections', 0)}/{connection_health.get('connection_attempts', 0)} successful)</p>
-
-                <p><strong>Assessment:</strong> DS Agent maintaining stable communication with Cloud One Workload Security.</p>
-
-            </div>
-
-            """
-
-        elif status in ['mostly_healthy', 'unstable']:
-
-            ai_summary += f"""
-
-            <div class="alert alert-warning">
-
-                <h6><i class="fa-solid fa-circle text-warning"></i> Agent Connection Status: {"Intermittent Issues" if status == 'mostly_healthy' else "Frequent Issues"}</h6>
-
-                <p><strong>Success Rate:</strong> {success_rate:.1f}% - Indicates connectivity problems</p>
-
-                <p><strong>Impact:</strong> May cause delayed policy updates or protection gaps.</p>
-
-            </div>
-
-            """
-
-        elif status == 'unhealthy':
-
-            ai_summary += f"""
-
-            <div class="alert alert-danger">
-
-                <h6><i class="fas fa-exclamation-circle text-danger"></i> Agent Connection Status: Critical Issues</h6>
-
-                <p><strong>Success Rate:</strong> {success_rate:.1f}% - Agent effectively isolated</p>
-
-                <p><strong>Impact:</strong> Security protection compromised due to communication failure.</p>
-
-            </div>
-
-            """
-
-        else:
-
-            ai_summary += f"""
-
-            <div class="alert alert-info">
-
-                <h6><i class="fas fa-chart-bar"></i> Agent Connection Status: Limited Activity</h6>
-
-                <p>Minimal connection activity detected. This may be normal for short log periods.</p>
-
-            </div>
-
-            """
-
-        # Log Analysis with AI Interpretation
-
-        ai_summary += """
-
-        <div class="mt-3">
-
-            <h6><i class="fas fa-brain"></i>Log Analysis & AI Interpretation</h6>
-
-        """
-
-        # DNS Issues Analysis
-
-        dns_issues = connection_health.get('dns_issues', [])
-
-        if dns_issues:
-
-            ai_summary += f"""
-
-            <div class="card mt-2">
-            <div class="card-header bg-warning text-dark"><i class="fas fa-brain"></i>DNS Resolution Issues ({len(dns_issues)} detected)</div>
-
-                <div class="card-body">
-
-                    <h6>Sample Log Entries:</h6>
-
-                    <div class="bg-light p-2 mb-2 log-entry">
-
-            """
-
-            for issue in dns_issues[:2]:  # Show 2 sample logs
-
-                ai_summary += f"""
-
-                        <div class="mb-1"><strong>[{issue.get('timestamp', 'N/A')}]</strong> {issue.get('message', '')[:150]}...</div>
-
-                """
-
-            ai_summary += f"""
-
-                    </div>
-
-                    <div class="alert alert-light">
-
-                        <strong><i class="fas fa-brain"></i>AI Interpretation:</strong> Agent unable to resolve Cloud One endpoint hostnames. 
-
-                        This prevents communication with workload.*.cloudone.trendmicro.com servers.
-
-                    </div>
-
-                    <h6><i class="fas fa-brain"></i>Troubleshooting Steps:</h6>
-
-                    <ol>
-
-                        <li>Test DNS resolution: <code>nslookup workload.us-1.cloudone.trendmicro.com</code></li>
-
-                        <li>Check corporate DNS server configuration</li>
-
-                        <li>Verify *.cloudone.trendmicro.com is not blocked by DNS filtering</li>
-
-                    </ol>
-
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card border-info">
+                <div class="card-header bg-info text-white">
+                    <h5><i class="fas fa-brain"></i>Deep Security Agent Analysis</h5>
                 </div>
-
-            </div>
-
-            """
-
-        # Firewall Issues Analysis
-
-        firewall_issues = connection_health.get('firewall_issues', [])
-
-        port_issues = connection_health.get('communication_port_issues', [])
-
-        if firewall_issues or port_issues:
-
-            ai_summary += f"""
-
-            <div class="card mt-2">
-            <div class="card-header bg-danger text-white"><i class="fas fa-lightbulb"></i> Firewall/Network Issues ({len(firewall_issues)} detected)</div>
-
                 <div class="card-body">
-
-                    <h6>Sample Log Entries:</h6>
-
-                    <div class="bg-light p-2 mb-2 log-entry">
-
-            """
-
-            for issue in firewall_issues[:2]:  # Show 2 sample logs
-
-                ai_summary += f"""
-
-                        <div class="mb-1"><strong>[{issue.get('timestamp', 'N/A')}]</strong> {issue.get('message', '')[:150]}...</div>
-
-                """
-
-            ai_summary += f"""
-
+                    <div class="alert alert-info">
+                        <h6><i class="fa-solid fa-info-circle"></i> Connection Health Analysis Unavailable</h6>
+                        <p>Connection health analysis has been removed from this system. Analyzing log patterns, errors, and general DS Agent functionality only.</p>
                     </div>
-
-                    <div class="alert alert-light">
-
-                        <strong><i class="fas fa-brain"></i>AI Interpretation:</strong> Network infrastructure blocking DS Agent communication. 
-
-                        Ports 443, 4120, 4119 required for Cloud One connectivity.
-
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <h6><i class="fas fa-chart-bar"></i> Log Analysis Summary</h6>
+                            <ul class="list-unstyled">
+                                <li><strong>Total Lines:</strong> {summary.get('total_lines', 0):,}</li>
+                                <li><strong>Errors:</strong> <span class="text-danger">{summary.get('error_count', 0)}</span></li>
+                                <li><strong>Warnings:</strong> <span class="text-warning">{summary.get('warning_count', 0)}</span></li>
+                                <li><strong>Critical Issues:</strong> <span class="text-danger">{summary.get('critical_count', 0)}</span></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <h6><i class="fas fa-recommendations"></i> Analysis Focus</h6>
+                            <p>This analysis focuses on DS Agent log patterns, error identification, and general troubleshooting guidance without connection health monitoring.</p>
+                        </div>
                     </div>
-
-                    <h6><i class="fas fa-brain"></i>Troubleshooting Steps:</h6>
-
-                    <ol>
-
-                        <li>Check firewall rules for outbound HTTPS (443, 4120, 4119, 4118)</li>
-
-                        <li>Whitelist *.cloudone.trendmicro.com in firewall</li>
-
-                        <li>Test connectivity: <code>telnet workload.us-1.cloudone.trendmicro.com 443</code></li>
-
-                    </ol>
-
-            """
-
-            if port_issues:
-
-                affected_ports = list(set([issue.get('port', 'unknown') for issue in port_issues]))
-
-                ai_summary += f"<p><strong>Affected Ports:</strong> {', '.join(affected_ports)}</p>"
-
-            ai_summary += """
-
                 </div>
-
             </div>
-
-            """
-
-        # Proxy Issues Analysis
-
-        proxy_issues = connection_health.get('proxy_issues', [])
-
-        if proxy_issues:
-
-            ai_summary += f"""
-
-            <div class="card mt-2">
-            <div class="card-header bg-warning text-dark"><i class="fas fa-brain"></i>Proxy Configuration Issues ({len(proxy_issues)} detected)</div>
-
-                <div class="card-body">
-
-                    <h6>Sample Log Entries:</h6>
-
-                    <div class="bg-light p-2 mb-2 log-entry">
-
-            """
-
-            for issue in proxy_issues[:2]:  # Show 2 sample logs
-
-                ai_summary += f"""
-
-                        <div class="mb-1"><strong>[{issue.get('timestamp', 'N/A')}]</strong> {issue.get('message', '')[:150]}...</div>
-
-                """
-
-            ai_summary += f"""
-
-                    </div>
-
-                    <div class="alert alert-light">
-
-                        <strong><i class="fas fa-brain"></i>AI Interpretation:</strong> Proxy server blocking or misconfiguring DS Agent traffic. 
-
-                        HTTP 407 errors indicate authentication issues.
-
-                    </div>
-
-                    <h6><i class="fas fa-brain"></i>Troubleshooting Steps:</h6>
-
-                    <ol>
-
-                        <li>Configure DS Agent proxy: <code>dsa_control -m proxy://proxy.server:port</code></li>
-
-                        <li>Verify proxy credentials and authentication method</li>
-
-                        <li>Whitelist *.cloudone.trendmicro.com in proxy rules</li>
-
-                    </ol>
-
-                </div>
-
-            </div>
-
-            """
-
-        # SSL Certificate Issues Analysis
-
-        ssl_issues = connection_health.get('ssl_certificate_issues', [])
-
-        if ssl_issues:
-
-            ai_summary += f"""
-
-            <div class="card mt-2">
-            <div class="card-header bg-danger text-white"><i class="fas fa-brain"></i>SSL Certificate Issues ({len(ssl_issues)} detected)</div>
-
-                <div class="card-body">
-
-                    <h6>Sample Log Entries:</h6>
-
-                    <div class="bg-light p-2 mb-2 log-entry">
-
-            """
-
-            for issue in ssl_issues[:2]:  # Show 2 sample logs
-
-                ai_summary += f"""
-
-                        <div class="mb-1"><strong>[{issue.get('timestamp', 'N/A')}]</strong> {issue.get('message', '')[:150]}...</div>
-
-                """
-
-            ai_summary += f"""
-
-                    </div>
-
-                    <div class="alert alert-light">
-
-                        <strong><i class="fas fa-brain"></i>AI Interpretation:</strong> SSL handshake failures or certificate validation errors. 
-
-                        Often caused by incorrect system time or SSL inspection.
-
-                    </div>
-
-                    <h6><i class="fas fa-brain"></i>Troubleshooting Steps:</h6>
-
-                    <ol>
-
-                        <li>Verify system time and timezone accuracy</li>
-
-                        <li>Check certificate trust store and root CAs</li>
-
-                        <li>Review corporate SSL inspection configuration</li>
-
-                    </ol>
-
-                </div>
-
-            </div>
-
-            """
-
-        # Agent Command Failures Analysis
-
-        agent_failures = connection_health.get('agent_command_failures', [])
-
-        if agent_failures:
-
-            ai_summary += f"""
-
-            <div class="card mt-2">
-            <div class="card-header bg-warning text-dark"><i class="fas fa-brain"></i>DS Agent Command Failures ({len(agent_failures)} detected)</div>
-
-                <div class="card-body">
-
-                    <h6>Sample Log Entries:</h6>
-
-                    <div class="bg-light p-2 mb-2 log-entry">
-
-            """
-
-            for failure in agent_failures[:2]:  # Show 2 sample logs
-
-                ai_summary += f"""
-
-                        <div class="mb-1"><strong>[{failure.get('timestamp', 'N/A')}]</strong> {failure.get('message', '')[:150]}...</div>
-
-                """
-
-            ai_summary += f"""
-
-                    </div>
-
-                    <div class="alert alert-light">
-
-                        <strong><i class="fas fa-brain"></i>AI Interpretation:</strong> DS Agent commands (SetSecurityConfiguration, GetAgentStatus, HeartbeatNow) failing. 
-
-                        Indicates communication breakdown with DS Manager.
-
-                    </div>
-
-                    <h6><i class="fas fa-brain"></i>Troubleshooting Steps:</h6>
-
-                    <ol>
-
-                        <li>Check agent activation status</li>
-
-                        <li>Verify DS Manager accessibility</li>
-
-                        <li>Test agent-manager communication on port 4120</li>
-
-                    </ol>
-
-                </div>
-
-            </div>
-
-            """
-
-        # Heartbeat Analysis
-
-        heartbeat_data = connection_health.get('heartbeat_analysis', {})
-
-        if heartbeat_data.get('total_heartbeats', 0) > 0:
-
-            success_rate_hb = 0
-
-            if heartbeat_data['total_heartbeats'] > 0:
-
-                success_rate_hb = (heartbeat_data.get('successful_heartbeats', 0) / heartbeat_data['total_heartbeats']) * 100
-
-            
-
-            ai_summary += f"""
-
-            <div class="card mt-2">
-            <div class="card-header bg-info text-white"><i class="fas fa-brain"></i>Heartbeat Analysis</div>
-
-                <div class="card-body">
-
-                    <p><strong>Heartbeat Statistics:</strong> {heartbeat_data.get('successful_heartbeats', 0)}/{heartbeat_data.get('total_heartbeats', 0)} successful ({success_rate_hb:.1f}%)</p>
-
-                    <p><strong>Average Interval:</strong> {heartbeat_data.get('average_interval', 0):.0f} seconds</p>
-
-                    <div class="alert alert-light">
-
-                        <strong><i class="fas fa-brain"></i>AI Interpretation:</strong> DS Agent heartbeats monitor communication health. 
-
-                        Standard interval is ~600 seconds (10 minutes).
-
-                    </div>
-
-            """
-
-            if success_rate_hb < 80:
-
-                ai_summary += """
-
-                    <h6><i class="fas fa-brain"></i>Troubleshooting Steps:</h6>
-
-                    <ol>
-
-                        <li>Check network stability between agent and manager</li>
-
-                        <li>Verify DS Manager service availability</li>
-
-                        <li>Monitor for network latency or packet loss</li>
-
-                    </ol>
-
-                """
-
-            ai_summary += """
-
-                </div>
-
-            </div>
-
-            """
-
-        ai_summary += "</div>"  # Close Log Analysis section
-
-        
-
-        # Regional Connectivity Status
-
-        if connection_health.get('connected_regions'):
-
-            regions = ', '.join(connection_health['connected_regions'])
-
-            ai_summary += f"""
-
-            <div class="card mt-3">
-            <div class="card-header bg-success text-white"><i class="fas fa-brain"></i>Regional Connectivity</div>
-
-                <div class="card-body">
-
-                    <p><strong>Connected Regions:</strong> {regions}</p>
-
-                    <p><strong>AI Assessment:</strong> Agent successfully connected to Cloud One regional endpoints, indicating proper global load balancing.</p>
-
-                </div>
-
-            </div>
-
-            """
-
-        # No Issues Found
-
-        if not any([dns_issues, firewall_issues, proxy_issues, ssl_issues, agent_failures]):
-
-            ai_summary += """
-
-            <div class="alert alert-success mt-3">
-
-                <h6><i class="fa-solid fa-check-circle text-success"></i> No Major Connection Issues Detected</h6>
-
-                <p><strong>AI Assessment:</strong> Log analysis shows no significant connectivity problems. Agent appears to be communicating normally with Cloud One Workload Security.</p>
-
-            </div>
-
-            """
-
-    else:
-
-        ai_summary += """
-
-        <div class="alert alert-info">
-
-            <h6><i class="fas fa-chart-bar"></i> Connection Analysis Unavailable</h6>
-
-            <p>Connection health analysis could not be performed. Ensure logs contain DS Agent communication entries.</p>
-
         </div>
-
-        """
-
-    # Summary Recommendations
-
-    recommendations = analysis.get('recommendations', [])
-
-    if recommendations:
-
-        ai_summary += """
-
-        <div class="card mt-3" id="priority-actions-section">
-            <div class="card-header bg-primary text-white"><i class="fa-solid fa-bullseye me-2"></i>Priority Actions</div>
-
-            <div class="card-body">
-
-                <ol>
-
-        """
-
-        for rec in recommendations[:5]:
-
-            ai_summary += f"<li>{rec}</li>"
-
-        ai_summary += """
-
-                </ol>
-
-            </div>
-
-        </div>
-
-        """
-
-    # Analysis Coverage
-
-    timespan = summary.get('timespan', {})
-
-    if timespan.get('start') and timespan.get('end'):
-
-        ai_summary += f"""
-
-        <div class="mt-3">
-
-            <small class="text-muted">
-
-                <strong>Analysis Period:</strong> {timespan["start"]} to {timespan["end"]} | 
-
-                <strong>Data Quality:</strong> {summary.get('parsed_lines', 0):,}/{summary.get('total_lines', 0):,} lines parsed |
-
-                <strong>Connection Events:</strong> {connection_health.get('connection_attempts', 0)} analyzed
-
-            </small>
-
-        </div>
-
-        """
-
-    ai_summary += """
-
-        <div class="mt-3">
-
-            <small class="text-muted">
-
-                <i class="fas fa-robot"></i> AI analysis combines log pattern recognition with Deep Security expertise 
-
-                to provide practical network troubleshooting guidance.
-
-            </small>
-
-        </div>
-
     </div>
-
     """
-
+    
     return ai_summary
-
-
-
-
-
-
 
 def format_amsp_results(analysis: Dict[str, Any]) -> str:
 
@@ -2981,12 +2044,14 @@ def format_conflict_results(analysis: str, process_count: int) -> str:
         recommendation = ""
         
         # Determine if conflicts exist
+        # IMPORTANT: Check "NO CONFLICTS" first to avoid substring matching bug
+        # "NO CONFLICTS DETECTED" contains "CONFLICTS DETECTED" as substring
         for line in lines:
-            if "CONFLICTS DETECTED" in line.upper():
-                conflicts_detected = True
-                break
             if "NO CONFLICTS DETECTED" in line.upper():
                 conflicts_detected = False
+                break
+            if "CONFLICTS DETECTED" in line.upper():
+                conflicts_detected = True
                 break
         
         # Parse conflicts
@@ -3162,7 +2227,6 @@ def format_resource_results(analysis_data: dict, process_count: int, busy_count:
     analysis_text = analysis_data.get('analysis_text', '')
     candidates = analysis_data.get('candidates', [])
     status = analysis_data.get('status', 'unknown')
-    ml_insights = analysis_data.get('ml_insights')
     rag_insights = analysis_data.get('rag_insights')
     security_impact = analysis_data.get('security_impact', {})
     performance_metrics = analysis_data.get('performance_metrics', {})
@@ -3295,55 +2359,6 @@ def format_resource_results(analysis_data: dict, process_count: int, busy_count:
         </div>
         """
     
-    # ML Analysis Section
-    if ml_insights:
-        html += f"""
-        <div class="row mb-4" id="ml-analysis-section">
-            <div class="col-12">
-                <div class="card border-info">
-                    <div class="card-header bg-info text-white"><i class="fas fa-brain"></i> Machine Learning Analysis</div>
-                    <div class="card-body">
-                        <div class="row mb-3">
-                            <div class="col-md-4">
-                                <strong>Processes Analyzed:</strong> {ml_insights.get('total_processes', 0)}<br>
-                                <strong>ML Features Used:</strong> {len(ml_insights.get('features_analyzed', []))}
-                            </div>
-                            <div class="col-md-4">
-                                <strong>Performance Score:</strong> 
-                                <span class="badge bg-{'success' if ml_insights.get('performance_score', 0) > 80 else 'warning' if ml_insights.get('performance_score', 0) > 60 else 'danger'}">{ml_insights.get('performance_score', 0):.0f}%</span><br>
-                                <strong>Optimization Potential:</strong> {ml_insights.get('optimization_potential', 'Unknown')}
-                            </div>
-                            <div class="col-md-4">
-                                <strong>Resource Patterns:</strong> {len(ml_insights.get('resource_patterns', []))}<br>
-                                <strong>ML Recommendations:</strong> {len(ml_insights.get('recommendations', []))}
-                            </div>
-                        </div>
-        """
-        
-        if ml_insights.get('resource_patterns'):
-            html += """
-                        <h6><i class="fas fa-chart-line"></i> Resource Usage Patterns:</h6>
-                        <div class="list-group">
-            """
-            for pattern in ml_insights['resource_patterns'][:3]:
-                html += f"""
-                            <div class="list-group-item">
-                                <h6 class="mb-1">{pattern.get('pattern_name', 'Unknown Pattern')}</h6>
-                                <p class="mb-1">{pattern.get('description', 'No description available')}</p>
-                                <small class="text-muted">Impact: {pattern.get('impact', 'Unknown')}</small>
-                            </div>
-                """
-            html += """
-                        </div>
-            """
-        
-        html += """
-                    </div>
-                </div>
-            </div>
-        </div>
-        """
-    
     # RAG Analysis Section
     if rag_insights:
         html += f"""
@@ -3428,6 +2443,885 @@ def get_html_template():
     from templates import HTML_TEMPLATE
 
     return HTML_TEMPLATE
+
+
+def format_ds_agent_offline_results(analysis: Dict[str, Any]) -> str:
+    """Format DS Agent Offline analysis results for display"""
+    
+    # Handle case where analysis failed
+    if 'error' in analysis:
+        return f"""
+        <div class="analysis-container">
+            <div class="header">
+                <h2>🔴 DS Agent Offline Analysis Failed</h2>
+                <div class="error-message">
+                    <strong>Error:</strong> {analysis['error']}
+                </div>
+            </div>
+        </div>
+        """
+    
+    summary = analysis.get('summary', {})
+    offline_analysis = analysis.get('offline_analysis', {})
+    recommendations = analysis.get('recommendations', [])
+    
+    # Calculate severity levels
+    severity = offline_analysis.get('severity_summary', {})
+    total_issues = summary.get('offline_issues', 0)
+    critical_issues = summary.get('critical_issues', 0)
+    
+    # Determine overall status
+    if critical_issues > 0:
+        status_icon = "🔥"
+        status_text = "CRITICAL OFFLINE ISSUES DETECTED"
+        status_class = "critical"
+    elif total_issues > 0:
+        status_icon = "⚠️"
+        status_text = "OFFLINE ISSUES DETECTED"
+        status_class = "warning"
+    else:
+        status_icon = "✅"
+        status_text = "NO CRITICAL OFFLINE ISSUES"
+        status_class = "success"
+    
+    # Build HTML result
+    result = f"""
+    <div class="analysis-container">
+        <div class="header">
+            <h2>{status_icon} DS Agent Offline Analysis Results</h2>
+            <div class="status-badge {status_class}">
+                <strong>{status_text}</strong>
+            </div>
+        </div>
+        
+        <div class="summary-section">
+            <h3>📊 Analysis Summary</h3>
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <span class="label">File Analyzed:</span>
+                    <span class="value">{summary.get('file_path', 'Unknown')}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Total Log Lines:</span>
+                    <span class="value">{summary.get('total_lines', 0):,}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Parsed Lines:</span>
+                    <span class="value">{summary.get('parsed_lines', 0):,}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Offline Issues Found:</span>
+                    <span class="value">{total_issues}</span>
+                </div>
+            </div>
+        </div>
+    """
+    
+    # Add severity breakdown if issues found
+    if total_issues > 0:
+        result += f"""
+        <div class="severity-section">
+            <h3>🎯 Issue Severity Breakdown</h3>
+            <div class="severity-grid">
+                <div class="severity-item critical">
+                    <span class="count">{severity.get('critical', 0)}</span>
+                    <span class="label">Critical</span>
+                </div>
+                <div class="severity-item high">
+                    <span class="count">{severity.get('high', 0)}</span>
+                    <span class="label">High</span>
+                </div>
+                <div class="severity-item medium">
+                    <span class="count">{severity.get('medium', 0)}</span>
+                    <span class="label">Medium</span>
+                </div>
+                <div class="severity-item low">
+                    <span class="count">{severity.get('low', 0)}</span>
+                    <span class="label">Low</span>
+                </div>
+            </div>
+        </div>
+        """
+    
+    # Add root cause analysis
+    root_causes = offline_analysis.get('root_cause_analysis', [])
+    if root_causes:
+        result += """
+        <div class="root-cause-section">
+            <h3>🔍 Root Cause Analysis</h3>
+            <div class="root-causes">
+        """
+        
+        for cause in root_causes:
+            severity_class = cause.get('severity', 'medium')
+            result += f"""
+                <div class="root-cause-item {severity_class}">
+                    <div class="cause-header">
+                        <h4>{cause.get('type', 'Unknown').replace('_', ' ').title()}</h4>
+                        <span class="severity-badge {severity_class}">{cause.get('severity', 'Unknown').upper()}</span>
+                    </div>
+                    <div class="cause-description">{cause.get('description', 'No description available')}</div>
+                    <div class="cause-impact"><strong>Impact:</strong> {cause.get('impact', 'Unknown impact')}</div>
+                    <div class="cause-count"><strong>Occurrences:</strong> {cause.get('count', 0)}</div>
+                </div>
+            """
+        
+        result += """
+            </div>
+        </div>
+        """
+    
+    # Add issue categories
+    categories = ['communication_issues', 'service_issues', 'cloud_one_issues', 'system_issues']
+    category_titles = {
+        'communication_issues': '📡 Communication Issues',
+        'service_issues': '⚙️ Service Issues', 
+        'cloud_one_issues': '☁️ Cloud One Issues',
+        'system_issues': '🖥️ System Issues'
+    }
+    
+    for category in categories:
+        issues = offline_analysis.get(category, [])
+        if issues:
+            result += f"""
+            <div class="issues-section">
+                <h3>{category_titles.get(category, category.replace('_', ' ').title())}</h3>
+                <div class="issues-list">
+            """
+            
+            for issue in issues[:10]:  # Limit to first 10 for display
+                severity_class = issue.get('severity', 'medium')
+                result += f"""
+                    <div class="issue-item {severity_class}">
+                        <div class="issue-header">
+                            <span class="timestamp">{issue.get('timestamp', 'Unknown time')}</span>
+                            <span class="severity-badge {severity_class}">{issue.get('severity', 'Unknown').upper()}</span>
+                        </div>
+                        <div class="issue-category">{issue.get('category', 'Unknown category').replace('_', ' ').title()}</div>
+                        <div class="issue-message">{issue.get('message', 'No message available')[:200]}...</div>
+                        <div class="issue-component"><strong>Component:</strong> {issue.get('component', 'Unknown')}</div>
+                    </div>
+                """
+            
+            if len(issues) > 10:
+                result += f"""
+                    <div class="more-issues">
+                        <em>... and {len(issues) - 10} more {category.replace('_', ' ')} issues</em>
+                    </div>
+                """
+            
+            result += """
+                </div>
+            </div>
+            """
+    
+    # Add timeline analysis
+    timeline_analysis = offline_analysis.get('timeline_analysis', {})
+    patterns = timeline_analysis.get('patterns', [])
+    
+    if patterns:
+        result += """
+        <div class="timeline-section">
+            <h3>📈 Timeline Patterns</h3>
+            <div class="patterns-list">
+        """
+        
+        for pattern in patterns:
+            result += f"""
+                <div class="pattern-item">
+                    <span class="pattern-text">{pattern}</span>
+                </div>
+            """
+        
+        result += """
+            </div>
+        </div>
+        """
+    
+    # Add recommendations
+    if recommendations:
+        result += """
+        <div class="recommendations-section">
+            <h3>💡 Recommendations</h3>
+            <div class="recommendations-list">
+        """
+        
+        for rec in recommendations:
+            # Determine recommendation type and styling
+            if rec.startswith("🔥"):
+                rec_class = "critical"
+            elif rec.startswith("⚠️"):
+                rec_class = "warning"
+            elif rec.startswith("☁️"):
+                rec_class = "cloud"
+            elif rec.startswith("🖥️"):
+                rec_class = "system"
+            elif rec.startswith("🎯"):
+                rec_class = "rootcause"
+            else:
+                rec_class = "general"
+            
+            result += f"""
+                <div class="recommendation-item {rec_class}">
+                    {rec}
+                </div>
+            """
+        
+        result += """
+            </div>
+        </div>
+        """
+    
+    # Add RAG insights if available
+    rag_insights = analysis.get('rag_insights')
+    if rag_insights and not rag_insights.get('error'):
+        result += f"""
+        <div class="rag-section">
+            <h3>🧠 Enhanced AI Analysis</h3>
+            <div class="rag-content">
+                {rag_insights}
+            </div>
+        </div>
+        """
+    
+    result += """
+    </div>
+    <style>
+        .analysis-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        
+        .status-badge.critical { background-color: #dc3545; }
+        .status-badge.warning { background-color: #ffc107; color: #000; }
+        .status-badge.success { background-color: #28a745; }
+        
+        .summary-section, .severity-section, .root-cause-section, 
+        .issues-section, .timeline-section, .recommendations-section,
+        .ml-section, .rag-section {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .summary-grid, .severity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .summary-item, .severity-item {
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            text-align: center;
+        }
+        
+        .severity-item.critical { border-left: 4px solid #dc3545; }
+        .severity-item.high { border-left: 4px solid #fd7e14; }
+        .severity-item.medium { border-left: 4px solid #ffc107; }
+        .severity-item.low { border-left: 4px solid #20c997; }
+        
+        .root-cause-item {
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .root-cause-item.critical { border-left: 4px solid #dc3545; }
+        .root-cause-item.high { border-left: 4px solid #fd7e14; }
+        .root-cause-item.medium { border-left: 4px solid #ffc107; }
+        
+        .cause-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .severity-badge {
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        
+        .severity-badge.critical { background-color: #dc3545; color: white; }
+        .severity-badge.high { background-color: #fd7e14; color: white; }
+        .severity-badge.medium { background-color: #ffc107; color: black; }
+        .severity-badge.low { background-color: #20c997; color: white; }
+        
+        .issue-item {
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .issue-item.critical { border-left: 4px solid #dc3545; }
+        .issue-item.high { border-left: 4px solid #fd7e14; }
+        .issue-item.medium { border-left: 4px solid #ffc107; }
+        .issue-item.low { border-left: 4px solid #20c997; }
+        
+        .issue-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .timestamp {
+            font-family: monospace;
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+        
+        .pattern-item {
+            background: #e3f2fd;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 8px;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .recommendation-item {
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            border-left: 4px solid #6c757d;
+        }
+        
+        .recommendation-item.critical {
+            background: #f8d7da;
+            border-left-color: #dc3545;
+        }
+        
+        .recommendation-item.warning {
+            background: #fff3cd;
+            border-left-color: #ffc107;
+        }
+        
+        .recommendation-item.cloud {
+            background: #d1ecf1;
+            border-left-color: #17a2b8;
+        }
+        
+        .recommendation-item.system {
+            background: #d4edda;
+            border-left-color: #28a745;
+        }
+        
+        .recommendation-item.rootcause {
+            background: #e2e3e5;
+            border-left-color: #6f42c1;
+        }
+        
+        .ml-content, .rag-content {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #007bff;
+        }
+        
+        .more-issues {
+            text-align: center;
+            padding: 10px;
+            color: #6c757d;
+            font-style: italic;
+        }
+        
+        .label {
+            font-weight: bold;
+            color: #495057;
+        }
+        
+        .value {
+            color: #007bff;
+            font-weight: 500;
+        }
+        
+        .count {
+            font-size: 1.5em;
+            font-weight: bold;
+            display: block;
+        }
+    </style>
+    """
+    
+    return result
+
+
+def format_diagnostic_package_results(analysis: Dict[str, Any]) -> str:
+    """Format diagnostic package analysis results for display"""
+    result = """
+    <style>
+        .diagnostic-package-container {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 100%;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            border-radius: 15px;
+        }
+        .diagnostic-header {
+            background: rgba(255,255,255,0.95);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+        .diagnostic-title {
+            color: #2c3e50;
+            font-size: 2.2em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .diagnostic-subtitle {
+            color: #34495e;
+            font-size: 1.1em;
+            text-align: center;
+            opacity: 0.8;
+        }
+        .package-stats {
+            background: rgba(255,255,255,0.95);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .stat-item {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            display: block;
+        }
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        .executive-summary {
+            background: rgba(255,255,255,0.95);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+        .summary-header {
+            color: #2c3e50;
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .summary-content {
+            color: #34495e;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+        .key-findings {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+        }
+        .finding-item {
+            margin: 10px 0;
+            padding: 8px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .finding-item:last-child {
+            border-bottom: none;
+        }
+        .correlations-section {
+            background: rgba(255,255,255,0.95);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+        .correlation-item {
+            background: #f1f8ff;
+            border: 1px solid #c6e2ff;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .correlation-title {
+            font-weight: 600;
+            color: #0366d6;
+            margin-bottom: 8px;
+        }
+        .correlation-details {
+            color: #586069;
+            font-size: 0.95em;
+        }
+        .analysis-section {
+            background: rgba(255,255,255,0.95);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+        .section-header {
+            color: #2c3e50;
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .health-score {
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            display: inline-block;
+            font-weight: bold;
+        }
+        .health-score.warning {
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+        }
+        .health-score.critical {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+        }
+        .rag-insights {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        .knowledge-source {
+            background: white;
+            border-radius: 6px;
+            padding: 10px;
+            margin: 8px 0;
+            border-left: 3px solid #f39c12;
+        }
+        .files-analyzed {
+            background: rgba(255,255,255,0.95);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+        .file-item {
+            background: #f8f9fa;
+            border-radius: 6px;
+            padding: 12px;
+            margin: 8px 0;
+            border-left: 4px solid #6c757d;
+        }
+        .file-name {
+            font-weight: 600;
+            color: #495057;
+        }
+        .file-details {
+            font-size: 0.9em;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+    </style>
+    
+    <div class="diagnostic-package-container">
+        <div class="diagnostic-header">
+            <h1 class="diagnostic-title">🔍 Diagnostic Package Analysis</h1>
+            <p class="diagnostic-subtitle">Comprehensive Multi-Log Analysis with Cross-Correlation</p>
+        </div>
+    """
+    
+    
+    # Package statistics - extract from the correct keys
+    package_summary = analysis.get('package_summary', {})
+    files_analyzed = package_summary.get('total_files_analyzed', 0)
+    
+    correlation_analysis = analysis.get('correlation_analysis', {})
+    correlation_count = 0
+    if correlation_analysis:
+        correlation_count += len(correlation_analysis.get('timing_correlations', []))
+        correlation_count += len(correlation_analysis.get('component_correlations', []))
+        correlation_count += len(correlation_analysis.get('issue_correlations', []))
+        correlation_count += len(correlation_analysis.get('cross_log_patterns', []))
+    
+    # Extract duration from package summary
+    duration_str = package_summary.get('analysis_duration', '0s')
+    try:
+        # Parse duration string like "0:00:01.234567" to seconds
+        if ':' in duration_str:
+            parts = duration_str.split(':')
+            if len(parts) == 3:
+                hours, minutes, seconds = parts
+                analysis_duration = float(hours) * 3600 + float(minutes) * 60 + float(seconds)
+            else:
+                analysis_duration = float(parts[-1])
+        else:
+            # Handle simple number or "Xs" format
+            analysis_duration = float(duration_str.replace('s', ''))
+    except:
+        analysis_duration = 0.0
+    
+    result += f"""
+        <div class="package-stats">
+            <h3 class="section-header">📊 Package Overview</h3>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-value">{files_analyzed}</span>
+                    <span class="stat-label">Files Analyzed</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">{correlation_count}</span>
+                    <span class="stat-label">Cross-Correlations</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">{analysis_duration:.1f}s</span>
+                    <span class="stat-label">Analysis Duration</span>
+                </div>
+            </div>
+        </div>
+    """
+    
+    # Executive Summary
+    executive_summary = analysis.get('executive_summary', {})
+    top_level_recommendations = analysis.get('recommendations', [])
+    
+    # Always show executive summary section, even if empty
+    result += """
+        <div class="executive-summary">
+            <h3 class="summary-header">📋 Executive Summary</h3>
+    """
+    
+    if executive_summary:
+        overview = executive_summary.get('overview', '')
+        key_findings = executive_summary.get('key_findings', [])
+        exec_recommendations = executive_summary.get('recommendations', [])
+        
+        if overview:
+            result += f'<div class="summary-content">{overview}</div>'
+        
+        result += """
+            <div class="key-findings">
+                <h4>🔑 Key Findings</h4>
+        """
+        
+        if key_findings:
+            for finding in key_findings:
+                result += f'<div class="finding-item">• {finding}</div>'
+        else:
+            result += '<div class="finding-item">• Analysis completed successfully</div>'
+        
+        result += """
+            </div>
+            
+            <div class="key-findings">
+                <h4>� Recommendations</h4>
+        """
+        
+        # Combine executive summary recommendations with top-level recommendations
+        all_recommendations = exec_recommendations + top_level_recommendations
+        if all_recommendations:
+            for recommendation in all_recommendations:
+                result += f'<div class="finding-item">• {recommendation}</div>'
+        else:
+            result += '<div class="finding-item">• No specific recommendations at this time</div>'
+        
+        result += """
+            </div>
+        """
+    else:
+        # No executive summary, but show basic info
+        result += """
+            <div class="summary-content">Diagnostic package analysis has been completed.</div>
+            
+            <div class="key-findings">
+                <h4>🔑 Key Findings</h4>
+                <div class="finding-item">• Analysis completed successfully</div>
+            </div>
+            
+            <div class="key-findings">
+                <h4>💡 Recommendations</h4>
+        """
+        
+        if top_level_recommendations:
+            for recommendation in top_level_recommendations:
+                result += f'<div class="finding-item">• {recommendation}</div>'
+        else:
+            result += '<div class="finding-item">• No specific recommendations at this time</div>'
+        
+        result += """
+            </div>
+        """
+    
+    result += "</div>"
+    
+    # Cross-log correlations
+    if correlation_count > 0:
+        result += """
+            <div class="correlations-section">
+                <h3 class="section-header">🔗 Cross-Log Correlations</h3>
+        """
+        
+        # Display different types of correlations from correlation_analysis
+        for correlation_type in ['timing_correlations', 'component_correlations', 'issue_correlations', 'cross_log_patterns']:
+            correlations_list = correlation_analysis.get(correlation_type, [])
+            if correlations_list:
+                for correlation in correlations_list:
+                    if isinstance(correlation, dict):
+                        description = correlation.get('description', str(correlation))
+                        correlation_name = correlation_type.replace('_', ' ').title()
+                        
+                        result += f"""
+                            <div class="correlation-item">
+                                <div class="correlation-title">{correlation_name}</div>
+                                <div class="correlation-details">{description}</div>
+                            </div>
+                        """
+                    else:
+                        # Simple string correlation
+                        correlation_name = correlation_type.replace('_', ' ').title()
+                        result += f"""
+                            <div class="correlation-item">
+                                <div class="correlation-title">{correlation_name}</div>
+                                <div class="correlation-details">{str(correlation)}</div>
+                            </div>
+                        """
+        
+        result += "</div>"
+    
+    # Individual Analysis Results - use correct key
+    individual_analyses = analysis.get('individual_analyses', {})
+    if individual_analyses:
+        result += """
+            <div class="analysis-section">
+                <h3 class="section-header">📄 Individual File Analysis</h3>
+        """
+        
+        for analysis_type, file_analysis in individual_analyses.items():
+            if file_analysis and not isinstance(file_analysis, dict) or 'error' in (file_analysis if isinstance(file_analysis, dict) else {}):
+                continue
+                
+            display_name = analysis_type.replace('_', ' ').title()
+            
+            if isinstance(file_analysis, dict):
+                summary = file_analysis.get('summary', 'Analysis completed')
+                if 'analysis_text' in file_analysis:
+                    summary = file_analysis['analysis_text'][:200] + "..." if len(file_analysis.get('analysis_text', '')) > 200 else file_analysis.get('analysis_text', 'Analysis completed')
+                
+                result += f"""
+                    <div class="file-item">
+                        <div class="file-name">{display_name}</div>
+                        <div class="file-details">
+                            <strong>Type:</strong> {analysis_type}<br>
+                            <strong>Summary:</strong> {summary}
+                        </div>
+                    </div>
+                """
+        
+        result += "</div>"
+    
+    # ML Insights
+    ml_insights = analysis.get('ml_insights')
+    if ml_insights:
+        health_score = ml_insights.get('overall_health_score', 0)
+        health_class = 'health-score'
+        if health_score < 30:
+            health_class += ' critical'
+        elif health_score < 70:
+            health_class += ' warning'
+        
+        result += f"""
+            <div class="analysis-section">
+                <h3 class="section-header">🤖 ML-Enhanced Analysis</h3>
+                <p><span class="{health_class}">Overall Health Score: {health_score}%</span></p>
+        """
+        
+        component_scores = ml_insights.get('component_health_scores', {})
+        if component_scores:
+            result += "<h4>Component Health Breakdown:</h4>"
+            for component, score in component_scores.items():
+                result += f"<p><strong>{component}:</strong> {score}%</p>"
+        
+        anomalies = ml_insights.get('anomalies_detected', [])
+        if anomalies:
+            result += "<h4>🚨 Anomalies Detected:</h4>"
+            for anomaly in anomalies:
+                result += f"<p>• {anomaly}</p>"
+        
+        result += "</div>"
+    
+    # RAG Insights
+    rag_insights = analysis.get('rag_insights')
+    if rag_insights:
+        result += """
+            <div class="analysis-section">
+                <h3 class="section-header">📚 Knowledge Base Insights</h3>
+                <div class="rag-insights">
+        """
+        
+        ai_summary = rag_insights.get('ai_summary', '')
+        if ai_summary:
+            result += f"<p><strong>AI Analysis:</strong> {ai_summary}</p>"
+        
+        knowledge_sources = rag_insights.get('knowledge_sources_used', [])
+        if knowledge_sources:
+            result += "<h4>📖 Knowledge Sources Referenced:</h4>"
+            for source in knowledge_sources:
+                source_name = source.get('source', 'Unknown')
+                relevance = source.get('relevance_score', 0)
+                result += f"""
+                    <div class="knowledge-source">
+                        <strong>{source_name}</strong> (Relevance: {relevance:.1f})
+                    </div>
+                """
+        
+        result += """
+                </div>
+            </div>
+        """
+    
+    result += """
+    </div>
+    """
+    
+    return result
 
 
 

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Dynamic RAG System for Deep Security Log Analysis
 Creates intelligent, context-aware prompts based on log content and external knowledge
@@ -82,7 +83,6 @@ class DynamicRAGSystem:
         # Extract components
         component_patterns = {
             'amsp': r'amsp|anti-malware|scan.*engine',
-            'firewall': r'firewall|tmebc|filter.*engine',
             'dsm': r'dsm|deep.*security.*manager',
             'agent': r'ds.*agent|deep.*security.*agent',
             'notifier': r'notifier|notification.*service',
@@ -481,6 +481,8 @@ Prioritize {analysis_priority.lower()}-level issues requiring immediate attentio
                 'knowledge_sources_used': len(knowledge_sources),
                 'prompt_length': len(dynamic_prompt),
                 'ai_available': self.ai_available,
+                'ml_enhanced': bool(ml_insights),
+                'ml_insights_used': len(ml_insights.keys()) if ml_insights else 0,
                 'timestamp': datetime.now().isoformat()
             }
         }

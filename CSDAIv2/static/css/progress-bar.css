@@ -112,7 +112,7 @@
 .main-progress-bar .progress-bar {
   border-radius: 10px;
   background: linear-gradient(90deg, #0d6efd 0%, #198754 50%, #20c997 100%);
-  transition: width 0.5s ease;
+  /* Removed CSS transition - handled by JavaScript for smooth animation */
   position: relative;
   overflow: hidden;
 }
@@ -129,8 +129,17 @@
 }
 
 @keyframes shimmer {
-  0% { left: -100%; }
-  100% { left: 100%; }
+  0% { 
+    left: -100%; 
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% { 
+    left: 100%; 
+    opacity: 0.3;
+  }
 }
 
 /* Analysis stage cards */
@@ -143,7 +152,7 @@
   border-radius: 12px;
   padding: 20px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);  /* Smoother transition */
   border: 2px solid #e9ecef;
   min-height: 140px;
   display: flex;
@@ -169,12 +178,12 @@
   font-size: 2.5rem;
   margin-bottom: 12px;
   color: #6c757d;
-  transition: color 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);  /* Smoother transition */
 }
 
 .stage-card.active .stage-icon {
   color: #0d6efd;
-  animation: pulse 2s infinite;
+  animation: pulse 2.5s ease-in-out infinite;  /* Slightly slower for smoother effect */
 }
 
 .stage-card.completed .stage-icon {
@@ -182,9 +191,18 @@
 }
 
 @keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
+  0% { 
+    transform: scale(1); 
+    opacity: 1;
+  }
+  50% { 
+    transform: scale(1.05); 
+    opacity: 0.8;
+  }
+  100% { 
+    transform: scale(1); 
+    opacity: 1;
+  }
 }
 
 .stage-title {
@@ -232,12 +250,18 @@
   font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
   font-size: 0.85rem;
   line-height: 1.4;
+  scroll-behavior: smooth;
 }
 
 .log-entry {
   padding: 3px 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   animation: fadeIn 0.3s ease-in;
+  transition: background-color 0.3s ease;
+}
+
+.log-entry.new-entry {
+  background-color: rgba(13, 110, 253, 0.1);
 }
 
 @keyframes fadeIn {
@@ -311,19 +335,67 @@
 
 /* Custom scrollbar for log */
 #analysis-log::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 #analysis-log::-webkit-scrollbar-track {
   background: #f1f1f1;
-  border-radius: 3px;
+  border-radius: 4px;
 }
 
 #analysis-log::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
-  border-radius: 3px;
+  background: linear-gradient(135deg, #0d6efd, #0056b3);
+  border-radius: 4px;
+  transition: background 0.3s ease;
 }
 
 #analysis-log::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
+  background: linear-gradient(135deg, #0056b3, #004085);
+}
+
+/* Auto-scroll indicator */
+.auto-scroll-indicator {
+  position: absolute;
+  bottom: 20px;
+  right: 25px;
+  background: rgba(13, 110, 253, 0.9);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Scroll to bottom button */
+.scroll-to-bottom-btn {
+  position: absolute;
+  bottom: 50px;
+  right: 25px;
+  background: rgba(13, 110, 253, 0.8);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.3s ease;
+  font-size: 0.875rem;
+  z-index: 11;
+}
+
+.scroll-to-bottom-btn:hover {
+  background: rgba(13, 110, 253, 1);
+  transform: scale(1.1);
+}
+
+.scroll-to-bottom-btn.visible {
+  opacity: 1;
+  pointer-events: auto;
 }

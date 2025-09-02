@@ -14,8 +14,8 @@ class Config:
     
     # Security settings
     SECRET_KEY = os.environ.get('FLASK_SECRET_KEY', 'your-secret-key-here-change-in-production')
-    MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16MB max file size
-    UPLOAD_EXTENSIONS = {'.xml'}
+    MAX_CONTENT_LENGTH = 1024 * 1024 * 1024  # 1GB max file size for diagnostic packages
+    UPLOAD_EXTENSIONS = {'.xml', '.log', '.txt', '.csv', '.zip', '.pdf', '.db', '.dat', '.cfg', '.conf', '.json'}
     
     # Claude/Anthropic API configuration - Load from environment variables
     OPENAI_BASE_URL = os.environ.get('OPENAI_BASE_URL', 'https://api.rdsec.trendmicro.com/prod/aiendpoint/v1/')

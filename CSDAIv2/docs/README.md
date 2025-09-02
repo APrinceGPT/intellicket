@@ -14,7 +14,6 @@ The Deep Security Agent Log Analyzer is an AI-powered tool designed to analyze T
 
 ### 🎯 **Component-Specific Analysis**
 - **Anti-Malware**: AMSP, Aegis, ADC modules
-- **Firewall**: Network traffic filtering
 - **Intrusion Prevention**: DPI/IPS modules  
 - **Integrity Monitoring**: File integrity monitoring
 - **Log Inspection**: Log analysis modules

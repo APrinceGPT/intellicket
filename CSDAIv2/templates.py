@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 HTML Templates Module
 Contains the main HTML template for the Deep Security Unified Analyzer.

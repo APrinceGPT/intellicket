@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Deep Security Unified Analyzer - Main Application
 Optimized main entry point with modular architecture.
@@ -7,8 +8,7 @@ import os
 import sys
 import httpx
 
-# Add shared directory to path
-sys.path.append('../shared')
+# Note: Using local config.py instead of shared to avoid conflicts
 
 # Import Flask and configuration
 from flask import Flask, session
@@ -26,7 +26,7 @@ try:
     print("✅ ML-Enhanced Analysis Available")
 except ImportError as e:
     ML_AVAILABLE = False
-    print(f"⚠️ ML features not available: {e}")
+    print(f"⚠�  ML features not available: {e}")
 
 try:
     from dynamic_rag_system import DynamicRAGSystem, apply_dynamic_rag_to_analysis
@@ -34,7 +34,7 @@ try:
     print("✅ Dynamic RAG-Enhanced Analysis Available")
 except ImportError as e:
     DYNAMIC_RAG_AVAILABLE = False
-    print(f"⚠️ Dynamic RAG features not available: {e}")
+    print(f"⚠�  Dynamic RAG features not available: {e}")
 
 # Initialize OpenAI client
 try:
@@ -80,7 +80,7 @@ try:
         OPENAI_AVAILABLE = True
         print("✅ OpenAI client initialized and tested successfully")
     except Exception as test_error:
-        print(f"⚠️ OpenAI client created but test failed: {test_error}")
+        print(f"⚠�  OpenAI client created but test failed: {test_error}")
         OPENAI_AVAILABLE = True
         print("✅ OpenAI client initialized (test skipped)")
     
@@ -89,7 +89,7 @@ try:
         os.environ[var] = value
         
 except Exception as e:
-    print(f"❌ OpenAI client initialization failed: {e}")
+    print(f"� � OpenAI client initialization failed: {e}")
     OPENAI_AVAILABLE = False
     client = None
 
@@ -110,7 +110,7 @@ try:
     register_api_routes(app, config)
     print("✅ REST API routes registered")
 except ImportError as e:
-    print(f"⚠️ REST API routes not available: {e}")
+    print(f"⚠�  REST API routes not available: {e}")
 
 def initialize_application():
     """Initialize application components"""
@@ -121,7 +121,7 @@ def initialize_application():
         config.validate_config()
         print("✅ Configuration validated")
     except Exception as e:
-        print(f"❌ Configuration validation failed: {e}")
+        print(f"� � Configuration validation failed: {e}")
         return False
     
     # Initialize session manager
@@ -143,25 +143,27 @@ def initialize_application():
 if __name__ == "__main__":
     # Initialize application
     if not initialize_application():
-        print("❌ Application initialization failed!")
+        print("� � Application initialization failed!")
         sys.exit(1)
     
     # Display startup information
     print("\n" + "="*60)
-    print("🛡️  TREND MICRO DEEP SECURITY UNIFIED ANALYZER")
+    print("🛡️   TREND MICRO DEEP SECURITY UNIFIED ANALYZER")
     print("="*60)
-    print(f"🌐 Server starting on: http://localhost:{config.PORT}")
-    print(f"🎯 Analysis types available: 4")
+    print(f"🌐  Server starting on: http://localhost:{config.PORT}")
+    print(f"🎯 Analysis types available: 6")
     print(f"🤖 AI Analysis: {'✅ Enabled' if OPENAI_AVAILABLE else '❌ Disabled'}")
     print(f"🧠 ML Analysis: {'✅ Enabled' if ML_AVAILABLE else '❌ Disabled'}")
     print(f"📚 Dynamic RAG Enhancement: {'✅ Enabled' if DYNAMIC_RAG_AVAILABLE else '❌ Disabled'}")
-    print(f"🔒 Security: {'✅ Host validation enabled' if config.ALLOWED_HOSTS else '⚠️ Open access'}")
+    print(f"🔒 Security: {'✅ Host validation enabled' if config.ALLOWED_HOSTS else '⚠️  Open access'}")
     print("="*60)
     print("📖 Supported Analysis Types:")
     print("   • DS Agent Logs (ds_agent.log)")
+    print("   • DS Agent Offline (ds_agent.log - specialized offline analysis)")
     print("   • AMSP Anti-Malware (AMSP-Inst_LocalDebugLog)")
     print("   • AV Conflicts (RunningProcess.xml)")
     print("   • Resource Analysis (RunningProcess.xml + TopNBusyProcess.txt)")
+    print("   • Diagnostic Package (ZIP files with comprehensive log data)")
     print("="*60)
     print("🎮 Ready for analysis! Open your browser to get started.")
     print()
@@ -177,5 +179,5 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print("\n👋 Shutting down Deep Security Unified Analyzer...")
     except Exception as e:
-        print(f"❌ Server error: {e}")
+        print(f"� � Server error: {e}")
         sys.exit(1)

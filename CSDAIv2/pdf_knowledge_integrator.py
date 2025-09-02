@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Enhanced PDF Knowledge Integration for Dynamic RAG
 Processes proprietary Deep Security documentation for expert analysis
@@ -204,7 +205,6 @@ class PDFKnowledgeIntegrator:
             r'^(\d+\.\d*[:\-\s]+.*?)$',
             r'^([A-Z][A-Z\s]{10,}?)$',
             r'^(AMSP.*?)$',
-            r'^(Firewall.*?)$',
             r'^(Anti-Malware.*?)$',
             r'^(Intrusion Prevention.*?)$',
             r'^(Web Reputation.*?)$',
@@ -288,8 +288,6 @@ class PDFKnowledgeIntegrator:
             return 'configuration'
         elif any(word in title_lower for word in ['amsp', 'anti-malware', 'scan']):
             return 'amsp'
-        elif any(word in title_lower for word in ['firewall', 'network', 'filter']):
-            return 'firewall'
         elif any(word in title_lower for word in ['intrusion', 'ips', 'prevention']):
             return 'intrusion_prevention'
         elif any(word in title_lower for word in ['web reputation', 'url', 'web']):
@@ -303,7 +301,7 @@ class PDFKnowledgeIntegrator:
         """Extract key terms from content"""
         # Deep Security specific keywords
         ds_keywords = {
-            'amsp', 'anti-malware', 'scan engine', 'firewall', 'ips', 'intrusion prevention',
+            'amsp', 'anti-malware', 'scan engine', 'ips', 'intrusion prevention',
             'web reputation', 'application control', 'integrity monitoring', 'log inspection',
             'dsm', 'deep security manager', 'agent', 'policy', 'rule', 'event', 'alert',
             'threat', 'malware', 'virus', 'trojan', 'worm', 'spyware', 'adware',
@@ -377,12 +375,6 @@ class PDFKnowledgeIntegrator:
                 'component': 'amsp',
                 'severity': 'critical',
                 'pattern_base': r'(?i)amsp.*(?:crash|failed|error|stop)'
-            },
-            {
-                'keywords': ['firewall', 'connection', 'timeout'],
-                'component': 'firewall',
-                'severity': 'warning',
-                'pattern_base': r'(?i)firewall.*(?:timeout|connection.*failed|unreachable)'
             },
             {
                 'keywords': ['dsm', 'authentication', 'failed'],

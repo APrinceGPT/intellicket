@@ -66,11 +66,18 @@ document.addEventListener('DOMContentLoaded', function() {
     // Global variables
     let currentStageIndex = 0;
     let overallProgress = 0;
+    let targetProgress = 0;  // Smooth transition target
     const totalDuration = stages.reduce((sum, stage) => sum + stage.duration, 0);
     let stageStartTime = Date.now();
     let progressInterval;
+    let smoothProgressInterval;  // Dedicated interval for smooth progress transitions
+    let autoScrollEnabled = true;
+    let userScrollTimer = null;
     let backendCompleted = false;  // Track if backend analysis is actually complete
     let progressSlowdown = 1;  // Factor to slow down progress when backend is still processing
+    let lastBackendProgress = 0;  // Track last backend progress to prevent backward movement
+    let animationFrameId = null;  // For smooth animation using requestAnimationFrame
+    let lastProgressMessage = '';  // Track last progress message to prevent duplicates
     
     // Get session ID from template (this would be passed from Flask)
     const sessionId = document.querySelector('[data-session-id]')?.getAttribute('data-session-id') || '';
@@ -80,21 +87,123 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Progress Bar: Total stage duration:', totalDuration, 'ms');
     
     /**
-     * Update the main progress bar display
+     * Update the main progress bar display with ultra-smooth animation
      */
     function updateProgress() {
         const progressBar = document.getElementById('main-progress');
         const progressText = document.getElementById('progress-text');
         
         if (progressBar && progressText) {
-            progressBar.style.width = overallProgress + '%';
-            progressBar.setAttribute('aria-valuenow', Math.round(overallProgress));
-            progressText.textContent = Math.round(overallProgress) + '%';
+            // Cancel any existing animation
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+            }
+            
+            // Use requestAnimationFrame for ultra-smooth animation
+            function smoothUpdate() {
+                const currentWidth = parseFloat(progressBar.style.width) || 0;
+                const diff = targetProgress - currentWidth;
+                
+                if (Math.abs(diff) > 0.05) {  // Reduced threshold for smoother animation
+                    // Smooth interpolation with exponential easing for natural feel
+                    const newWidth = currentWidth + (diff * 0.08);  // Slightly slower for smoother effect
+                    
+                    // Set width directly without any CSS transitions
+                    progressBar.style.width = newWidth + '%';
+                    progressBar.style.transition = 'none';  // Ensure no CSS transitions interfere
+                    progressBar.setAttribute('aria-valuenow', Math.round(newWidth));
+                    progressText.textContent = Math.round(newWidth) + '%';
+                    
+                    animationFrameId = requestAnimationFrame(smoothUpdate);
+                } else {
+                    // Close enough, set final value
+                    progressBar.style.width = targetProgress + '%';
+                    progressBar.style.transition = 'none';
+                    progressBar.setAttribute('aria-valuenow', Math.round(targetProgress));
+                    progressText.textContent = Math.round(targetProgress) + '%';
+                }
+            }
+            
+            // Start smooth animation
+            smoothUpdate();
         }
     }
     
     /**
-     * Add a new entry to the analysis log
+     * Setup auto-scroll behavior with user interaction detection
+     */
+    function setupAutoScroll() {
+        const logContainer = document.getElementById('analysis-log');
+        const scrollIndicator = document.getElementById('auto-scroll-indicator');
+        const scrollButton = document.getElementById('scroll-to-bottom-btn');
+        
+        if (!logContainer) return;
+        
+        // Handle scroll-to-bottom button click
+        if (scrollButton) {
+            scrollButton.addEventListener('click', function() {
+                autoScrollEnabled = true;
+                logContainer.scrollTo({
+                    top: logContainer.scrollHeight,
+                    behavior: 'smooth'
+                });
+                scrollButton.classList.remove('visible');
+                if (scrollIndicator) {
+                    scrollIndicator.style.opacity = '0';
+                }
+            });
+        }
+        
+        // Detect user scrolling
+        logContainer.addEventListener('scroll', function() {
+            const isAtBottom = logContainer.scrollTop + logContainer.clientHeight >= logContainer.scrollHeight - 10;
+            
+            if (!isAtBottom) {
+                // User scrolled up, disable auto-scroll temporarily
+                autoScrollEnabled = false;
+                if (scrollIndicator) {
+                    scrollIndicator.textContent = 'Auto-scroll paused';
+                    scrollIndicator.style.opacity = '1';
+                    scrollIndicator.style.backgroundColor = 'rgba(220, 53, 69, 0.9)';
+                }
+                
+                // Show scroll-to-bottom button
+                if (scrollButton) {
+                    scrollButton.classList.add('visible');
+                }
+                
+                // Clear existing timer
+                if (userScrollTimer) {
+                    clearTimeout(userScrollTimer);
+                }
+                
+                // Re-enable auto-scroll after 3 seconds of no scrolling
+                userScrollTimer = setTimeout(() => {
+                    autoScrollEnabled = true;
+                    if (scrollIndicator) {
+                        scrollIndicator.style.opacity = '0';
+                        scrollIndicator.style.backgroundColor = 'rgba(13, 110, 253, 0.9)';
+                        scrollIndicator.textContent = 'Auto-scrolling';
+                    }
+                    if (scrollButton) {
+                        scrollButton.classList.remove('visible');
+                    }
+                }, 3000);
+            } else {
+                // User is at bottom, re-enable auto-scroll
+                autoScrollEnabled = true;
+                if (scrollIndicator) {
+                    scrollIndicator.style.opacity = '0';
+                }
+                if (scrollButton) {
+                    scrollButton.classList.remove('visible');
+                }
+            }
+        });
+    }
+    
+    /**
+     * Add a new entry to the analysis log with performance optimization
      */
     function addLogEntry(message, type = 'info') {
         const logContainer = document.getElementById('analysis-log');
@@ -106,14 +215,46 @@ document.addEventListener('DOMContentLoaded', function() {
                           type === 'error' ? 'error' : '';
         
         const logEntry = document.createElement('div');
-        logEntry.className = `log-entry ${entryClass}`;
+        logEntry.className = `log-entry ${entryClass} new-entry`;
         logEntry.innerHTML = `
             <span class="timestamp">[${timestamp}]</span>
             <span class="message">${message}</span>
         `;
         
-        logContainer.appendChild(logEntry);
-        logContainer.scrollTop = logContainer.scrollHeight;
+        // Use DocumentFragment for better performance
+        const fragment = document.createDocumentFragment();
+        fragment.appendChild(logEntry);
+        logContainer.appendChild(fragment);
+        
+        // Remove the highlight effect after a moment
+        setTimeout(() => {
+            logEntry.classList.remove('new-entry');
+        }, 1000);
+        
+        // Throttled auto-scroll - only scroll if enabled and not too frequent
+        if (autoScrollEnabled) {
+            // Use requestAnimationFrame for smooth scrolling
+            requestAnimationFrame(() => {
+                // Show auto-scroll indicator
+                const scrollIndicator = document.getElementById('auto-scroll-indicator');
+                if (scrollIndicator) {
+                    scrollIndicator.style.opacity = '1';
+                }
+                
+                // Smooth automatic scrolling to bottom
+                logContainer.scrollTo({
+                    top: logContainer.scrollHeight,
+                    behavior: 'smooth'
+                });
+                
+                // Hide auto-scroll indicator after scrolling completes
+                setTimeout(() => {
+                    if (scrollIndicator) {
+                        scrollIndicator.style.opacity = '0';
+                    }
+                }, 500);
+            });
+        }
     }
     
     /**
@@ -175,41 +316,56 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     /**
-     * Update overall progress based on stage completion
+     * Update overall progress based on stage completion with smooth transitions
      */
     function updateOverallProgress() {
-        if (currentStageIndex < stages.length && !backendCompleted) {
-            const completedDuration = stages.slice(0, currentStageIndex)
-                .reduce((sum, stage) => sum + stage.duration, 0);
-            const currentStageDuration = stages[currentStageIndex]?.duration || 0;
-            let currentStageProgress = Math.min(Date.now() - stageStartTime, currentStageDuration);
-            
-            // Apply slowdown factor to prevent progress from completing before backend
-            currentStageProgress = currentStageProgress * progressSlowdown;
-            
-            let calculatedProgress = ((completedDuration + currentStageProgress) / totalDuration) * 100;
-            
-            // Don't let progress exceed 95% until backend confirms completion
-            if (!backendCompleted && calculatedProgress > 95) {
-                calculatedProgress = 95;
-                progressSlowdown = 0.1; // Slow down significantly at 95%
-            } else if (!backendCompleted && calculatedProgress > 85) {
-                progressSlowdown = 0.3; // Slow down at 85%
-            }
-            
-            overallProgress = calculatedProgress;
-            updateProgress();
+        if (backendCompleted) {
+            return; // Stop fake progress when backend is complete
         }
+        
+        // Only use fake progress as a fallback for the first few seconds
+        // or when backend hasn't provided progress yet
+        if (!lastBackendProgress || lastBackendProgress === 0) {
+            // Minimal fake progress only for the first 10-15 seconds to show activity
+            const elapsedTime = Date.now() - stageStartTime;
+            let fallbackProgress = Math.min(elapsedTime / 15000 * 10, 10); // Max 10% in 15 seconds
+            
+            if (fallbackProgress > overallProgress) {
+                overallProgress = fallbackProgress;
+                targetProgress = fallbackProgress;
+                updateProgress();
+            }
+        }
+        // All other progress updates come from backend via checkAnalysisStatus()
     }
     
     /**
-     * Start the analysis process and progress tracking
+     * Start the analysis process and progress tracking with improved timing
      */
     function startAnalysis() {
         addLogEntry('Starting Deep Security analysis...', 'info');
         
-        // Start overall progress tracking
-        progressInterval = setInterval(updateOverallProgress, 100);
+        // Initialize progress bar to ensure clean state
+        const progressBar = document.getElementById('main-progress');
+        if (progressBar) {
+            progressBar.style.width = '0%';
+            progressBar.style.transition = 'none';  // Disable any CSS transitions
+            progressBar.setAttribute('aria-valuenow', 0);
+        }
+        
+        const progressText = document.getElementById('progress-text');
+        if (progressText) {
+            progressText.textContent = '0%';
+        }
+        
+        // Reset all progress variables
+        overallProgress = 0;
+        targetProgress = 0;
+        currentStageIndex = 0;
+        stageStartTime = Date.now();
+        
+        // Start overall progress tracking with optimized frequency
+        progressInterval = setInterval(updateOverallProgress, 250); // Slightly increased for smoother feel
         
         // Start first stage
         activateStage(0);
@@ -219,7 +375,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     /**
-     * Check the actual analysis status from the backend
+     * Check the actual analysis status from the backend with improved synchronization
      */
     function checkAnalysisStatus() {
         if (!sessionId) {
@@ -242,10 +398,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log('Progress Bar: Current stage:', data.analysis_stage);
                 console.log('Progress Bar: Progress message:', data.progress_message);
                 
-                // Update progress with real backend data if available
-                if (data.progress_percentage && data.progress_percentage > overallProgress) {
-                    overallProgress = data.progress_percentage;
-                    updateProgress();
+                // Update progress with real backend data if available and higher than current
+                if (data.progress_percentage && data.progress_percentage > lastBackendProgress) {
+                    lastBackendProgress = data.progress_percentage;
+                    
+                    // Update from backend progress with minimal threshold for responsiveness
+                    if (data.progress_percentage > targetProgress + 0.5) {  // Reduced threshold to 0.5%
+                        const newTarget = Math.min(data.progress_percentage, 99); // Cap at 99% until completion
+                        
+                        // Smooth transition to backend progress
+                        targetProgress = newTarget;
+                        overallProgress = newTarget;
+                        
+                        console.log('Progress Bar: Updating from backend:', newTarget + '%');
+                        updateProgress();
+                    }
                 }
                 
                 // Update current stage text if backend provides it
@@ -256,34 +423,27 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
                 
-                // Add backend progress messages to log
-                if (data.progress_message && data.progress_message !== 'Processing...') {
+                // Add backend progress messages to log (throttled to prevent spam)
+                if (data.progress_message && data.progress_message !== 'Processing...' && 
+                    data.progress_message !== lastProgressMessage) {
                     addLogEntry(data.progress_message, 'info');
+                    lastProgressMessage = data.progress_message;
                 }
                 
                 if (data.status === 'completed') {
                     // Backend analysis is actually complete
                     backendCompleted = true;
                     clearInterval(progressInterval);
+                    
+                    // Smooth completion to 100%
+                    targetProgress = 100;
                     overallProgress = 100;
                     updateProgress();
                     
                     addLogEntry('Backend analysis confirmed complete!', 'success');
                     
-                    // Complete all visual stages immediately
-                    while (currentStageIndex < stages.length) {
-                        const stage = stages[currentStageIndex];
-                        const stageElement = document.getElementById(stage.id);
-                        if (stageElement) {
-                            stageElement.classList.remove('active');
-                            stageElement.classList.add('completed');
-                            const statusElement = stageElement.querySelector('.stage-status');
-                            if (statusElement) {
-                                statusElement.innerHTML = '<i class="fa-solid fa-check text-success"></i>';
-                            }
-                        }
-                        currentStageIndex++;
-                    }
+                    // Complete all visual stages with smooth transitions
+                    completeAllStagesSmooth();
                     
                     addLogEntry('Analysis completed successfully! Redirecting...', 'success');
                     const currentStageElement = document.getElementById('current-stage');
@@ -299,6 +459,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else if (data.status === 'error' || data.status === 'failed') {
                     // Analysis failed
                     clearInterval(progressInterval);
+                    if (animationFrameId) {
+                        cancelAnimationFrame(animationFrameId);
+                    }
                     addLogEntry('Analysis failed. Please try again.', 'error');
                     
                     const currentStageElement = document.getElementById('current-stage');
@@ -319,8 +482,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                     
                 } else {
-                    // Still processing, check again more frequently
-                    setTimeout(checkAnalysisStatus, 1500);  // Reduced from 2000ms to 1500ms
+                    // Still processing, check again
+                    setTimeout(checkAnalysisStatus, 1800);  // Slightly increased interval for smoother flow
                 }
             })
             .catch(error => {
@@ -328,8 +491,48 @@ document.addEventListener('DOMContentLoaded', function() {
                 addLogEntry('Connection error, retrying...', 'warning');
                 
                 // Retry after shorter delay
-                setTimeout(checkAnalysisStatus, 2000);  // Reduced from 3000ms
+                setTimeout(checkAnalysisStatus, 2500);
             });
+    }
+    
+    /**
+     * Complete all remaining stages with smooth transitions
+     */
+    function completeAllStagesSmooth() {
+        const remainingStages = stages.slice(currentStageIndex);
+        
+        remainingStages.forEach((stage, index) => {
+            setTimeout(() => {
+                const stageElement = document.getElementById(stage.id);
+                if (stageElement) {
+                    stageElement.classList.remove('active');
+                    stageElement.classList.add('completed');
+                    const statusElement = stageElement.querySelector('.stage-status');
+                    if (statusElement) {
+                        statusElement.innerHTML = '<i class="fa-solid fa-check text-success"></i>';
+                    }
+                }
+                currentStageIndex++;
+            }, index * 300); // Stagger completions by 300ms for smooth effect
+        });
+    }
+    
+    /**
+     * Cleanup function to prevent memory leaks
+     */
+    function cleanup() {
+        if (progressInterval) {
+            clearInterval(progressInterval);
+        }
+        if (smoothProgressInterval) {
+            clearInterval(smoothProgressInterval);
+        }
+        if (animationFrameId) {
+            cancelAnimationFrame(animationFrameId);
+        }
+        if (userScrollTimer) {
+            clearTimeout(userScrollTimer);
+        }
     }
     
     /**
@@ -347,9 +550,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Set up event listeners
     document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('beforeunload', cleanup);  // Cleanup on page unload
     
     // Initialize the progress bar system
     if (document.getElementById('main-progress')) {
+        setupAutoScroll();
         startAnalysis();
     }
 });

@@ -1,5 +1,0 @@
-2024-08-10 10:00:00 INFO DS Agent started successfully
-2024-08-10 10:00:01 INFO Loading configuration
-2024-08-10 10:00:02 INFO Service ready
-2024-08-10 10:00:03 WARNING Connection timeout detected
-2024-08-10 10:00:04 ERROR Failed to connect to server

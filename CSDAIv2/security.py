@@ -41,15 +41,19 @@ def validate_file(file) -> str:
         file_type = 'pdf'
     elif filename.lower().endswith(('.log', '.txt')):
         file_type = 'log'
+    elif filename.lower().endswith('.zip'):
+        file_type = 'zip'
+    elif filename.lower().endswith(('.db', '.dat', '.json', '.csv', '.cfg', '.conf')):
+        file_type = 'data'
     else:
-        raise SecurityError("File must be an XML, PDF, or LOG file (.log, .txt)")
+        raise SecurityError("File must be an XML, PDF, LOG, ZIP, or DATA file (.log, .txt, .xml, .pdf, .zip, .db, .dat, .json, .csv, .cfg, .conf)")
     
     # Check file size (basic check, Flask's MAX_CONTENT_LENGTH handles the rest)
     file.seek(0, 2)  # Seek to end
     size = file.tell()
     file.seek(0)  # Reset to beginning
     
-    if size > 50 * 1024 * 1024:  # 50MB limit
+    if size > 500 * 1024 * 1024:  # 500MB limit per file
         raise SecurityError("File too large")
     
     if size == 0:

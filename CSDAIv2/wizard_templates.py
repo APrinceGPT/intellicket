@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Wizard Step Templates for CSDAI Unified Analyzer
 # Content-only templates designed to be embedded within the main HTML template
 
@@ -60,6 +61,20 @@ WIZARD_STEP_1_TEMPLATE = """
         </div>
         
         <div class="col-md-6 col-lg-3 mb-4">
+          <div class="analysis-type-card" data-type="ds_agent_offline">
+            <div class="text-center">
+              <i class="fa-solid fa-unlink analysis-icon"></i>
+              <h5 class="analysis-title">DS Agent Offline</h5>
+              <p class="analysis-desc">Specialized analysis for diagnosing agent offline issues and connectivity problems</p>
+              <div class="file-requirements">
+                <strong>Required:</strong> ds_agent.log files<br>
+                <small class="text-muted">Logs from offline period</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-3 mb-4">
           <div class="analysis-type-card" data-type="amsp_logs">
             <div class="text-center">
               <i class="fa-solid fa-shield-virus analysis-icon"></i>
@@ -96,6 +111,20 @@ WIZARD_STEP_1_TEMPLATE = """
               <div class="file-requirements">
                 <strong>Required:</strong> RunningProcess.xml + TopNBusyProcess.txt<br>
                 <small class="text-muted">Process list and performance data</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 mb-4">
+          <div class="analysis-type-card" data-type="diagnostic_package">
+            <div class="text-center">
+              <i class="fa-solid fa-archive analysis-icon"></i>
+              <h5 class="analysis-title">Diagnostic Package</h5>
+              <p class="analysis-desc">Comprehensive analysis of Deep Security diagnostic packages with multi-log correlation</p>
+              <div class="file-requirements">
+                <strong>Required:</strong> Diagnostic package ZIP files<br>
+                <small class="text-muted">Complete diagnostic packages from DS Manager</small>
               </div>
             </div>
           </div>
@@ -358,16 +387,7 @@ WIZARD_STEP_3_TEMPLATE = """
       <div class="config-section mb-4">
         <h5><i class="fa-solid fa-cogs me-2"></i>Advanced Options</h5>
         <div class="row">
-          <div class="col-md-6">
-            <div class="form-check form-switch mb-3">
-              <input class="form-check-input" type="checkbox" name="ml_analysis" id="ml-analysis" checked>
-              <label class="form-check-label" for="ml-analysis">
-                <strong>Enable ML Analysis</strong><br>
-                <small class="text-muted">Use machine learning for enhanced insights</small>
-              </label>
-            </div>
-          </div>
-          <div class="col-md-6">
+          <div class="col-md-12">
             <div class="form-check form-switch mb-3">
               <input class="form-check-input" type="checkbox" name="rag_enhancement" id="rag-enhancement" checked>
               <label class="form-check-label" for="rag-enhancement">
@@ -435,7 +455,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     const progressSteps = [
         { text: "Initializing AI models...", delay: 500 },
-        { text: "Loading ML algorithms...", delay: 1000 },
         { text: "Connecting to RAG system...", delay: 1500 },
         { text: "Preparing expert analysis engine...", delay: 2000 },
         { text: "Analysis engine ready! Click to proceed.", delay: 2500 }
@@ -546,10 +565,10 @@ WIZARD_STEP_4_TEMPLATE = """
       <!-- Main Progress Bar -->
       <div class="main-progress-bar mb-4">
         <div class="progress" style="height: 20px; border-radius: 10px;">
-          <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" 
+          <div class="progress-bar bg-primary" 
                role="progressbar" 
                id="main-progress" 
-               style="width: 0%; transition: width 0.5s ease;"
+               style="width: 0%;"
                aria-valuenow="0" 
                aria-valuemin="0" 
                aria-valuemax="100">
@@ -587,7 +606,7 @@ WIZARD_STEP_4_TEMPLATE = """
               <div class="stage-icon">
                 <i class="fa-solid fa-magic"></i>
               </div>
-              <div class="stage-title">ML Enhancement</div>
+              <div class="stage-title">RAG Enhancement</div>
               <div class="stage-status">
                 <i class="fa-solid fa-clock text-muted"></i>
               </div>
@@ -616,13 +635,17 @@ WIZARD_STEP_4_TEMPLATE = """
             <i class="fa-solid fa-terminal me-2"></i>Analysis Log
           </h6>
         </div>
-        <div class="card-body" style="height: 200px; overflow-y: auto; background: #f8f9fa;">
+        <div class="card-body" style="height: 200px; overflow-y: auto; background: #f8f9fa; position: relative;">
           <div id="analysis-log" style="font-family: monospace; font-size: 0.9em;">
             <div class="log-entry text-success">
               <span class="timestamp">[00:00:00]</span>
               <span class="message">Analysis session initiated...</span>
             </div>
           </div>
+          <div class="auto-scroll-indicator" id="auto-scroll-indicator">Auto-scrolling</div>
+          <button class="scroll-to-bottom-btn" id="scroll-to-bottom-btn" title="Scroll to bottom">
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
         </div>
       </div>
     </div>
@@ -759,14 +782,8 @@ WIZARD_STEP_5_TEMPLATE = """
               <button class="analysis-nav-tab" data-section="component-analysis" role="tab">
                 <i class="fa-solid fa-wrench me-1"></i>Component Analysis
               </button>
-              <button class="analysis-nav-tab" data-section="ml-analysis" role="tab">
-                <i class="fa-solid fa-brain me-1"></i>ML Analysis
-              </button>
               <button class="analysis-nav-tab" data-section="rag-analysis" role="tab">
                 <i class="fa-solid fa-database me-1"></i>RAG Analysis
-              </button>
-              <button class="analysis-nav-tab" data-section="connection-health" role="tab">
-                <i class="fa-solid fa-cloud me-1"></i>Connection Health
               </button>
               <button class="analysis-nav-tab" data-section="ai-analysis" role="tab">
                 <i class="fa-solid fa-robot me-1"></i>AI Analysis
@@ -919,9 +936,7 @@ document.addEventListener('DOMContentLoaded', function() {
             'summary-stats': 'Summary Statistics',
             'recommendations': 'Key Recommendations', 
             'component-analysis': 'Component Analysis',
-            'ml-analysis': 'Machine Learning Analysis',
             'rag-analysis': 'RAG-Enhanced Knowledge Analysis',
-            'connection-health': 'Cloud One Workload Security Connection Health',
             'ai-analysis': 'AI-Powered Comprehensive Analysis',
             'priority-actions': 'Priority Actions'
         };
@@ -934,8 +949,8 @@ document.addEventListener('DOMContentLoaded', function() {
                       const variations = [
                           sectionKey.replace('-', '_') + '-section',
                           sectionKey.replace('-', '') + '-section',
-                          sectionTitle.toLowerCase().replace(/\s+/g, '-') + '-section',
-                          sectionTitle.toLowerCase().replace(/\s+/g, '_') + '-section'
+                          sectionTitle.toLowerCase().replace(/\\s+/g, '-') + '-section',
+                          sectionTitle.toLowerCase().replace(/\\s+/g, '_') + '-section'
                       ];
                       for (const variation of variations) {
                           sectionElement = tempDiv.querySelector(`#${variation}`);
@@ -1156,9 +1171,7 @@ document.addEventListener('DOMContentLoaded', function() {
             'summary-stats': 'Summary Statistics',
             'recommendations': 'Key Recommendations',
             'component-analysis': 'Component Analysis',
-            'ml-analysis': 'Machine Learning Analysis',
             'rag-analysis': 'RAG-Enhanced Knowledge Analysis',
-            'connection-health': 'Connection Health',
             'ai-analysis': 'AI-Powered Analysis',
             'priority-actions': 'Priority Actions'
         };
@@ -1222,7 +1235,6 @@ document.addEventListener('DOMContentLoaded', function() {
             'component-analysis': '<i class="fa-solid fa-wrench"></i>',
             'ml-analysis': '<i class="fa-solid fa-brain"></i>',
             'rag-analysis': '<i class="fa-solid fa-database"></i>',
-            'connection-health': '<i class="fa-solid fa-cloud"></i>',
             'ai-analysis': '<i class="fa-solid fa-robot"></i>',
             'priority-actions': '<i class="fa-solid fa-exclamation-circle"></i>'
         };
@@ -1586,7 +1598,6 @@ SESSION_DETAIL_TEMPLATE = """
               <strong>Output Format:</strong> {{ session_data.configuration.output_format.title() if session_data.configuration.output_format else 'N/A' }}
             </div>
             <div class="col-md-6">
-              <strong>ML Analysis:</strong> {{ "Yes" if session_data.configuration.ml_analysis else 'No' }}<br>
               <strong>RAG Enhancement:</strong> {{ "Yes" if session_data.configuration.rag_enhancement else 'No' }}
             </div>
           </div>
@@ -1621,14 +1632,8 @@ SESSION_DETAIL_TEMPLATE = """
                   <button class="analysis-nav-tab" data-section="component-analysis" role="tab">
                     <i class="fa-solid fa-wrench me-1"></i>Component Analysis
                   </button>
-                  <button class="analysis-nav-tab" data-section="ml-analysis" role="tab">
-                    <i class="fa-solid fa-brain me-1"></i>ML Analysis
-                  </button>
                   <button class="analysis-nav-tab" data-section="rag-analysis" role="tab">
                     <i class="fa-solid fa-database me-1"></i>RAG Analysis
-                  </button>
-                  <button class="analysis-nav-tab" data-section="connection-health" role="tab">
-                    <i class="fa-solid fa-cloud me-1"></i>Connection Health
                   </button>
                   <button class="analysis-nav-tab" data-section="ai-analysis" role="tab">
                     <i class="fa-solid fa-robot me-1"></i>AI Analysis
@@ -1692,9 +1697,7 @@ SESSION_DETAIL_TEMPLATE = """
                   'summary-stats': 'Summary Statistics',
                   'recommendations': 'Key Recommendations', 
                   'component-analysis': 'Component Analysis',
-                  'ml-analysis': 'Machine Learning Analysis',
                   'rag-analysis': 'RAG-Enhanced Knowledge Analysis',
-                  'connection-health': 'Cloud One Workload Security Connection Health',
                   'ai-analysis': 'AI-Powered Comprehensive Analysis',
                   'priority-actions': 'Priority Actions'
               };
@@ -1707,8 +1710,8 @@ SESSION_DETAIL_TEMPLATE = """
                       const variations = [
                           sectionKey.replace('-', '_') + '-section',
                           sectionKey.replace('-', '') + '-section',
-                          sectionTitle.toLowerCase().replace(/\s+/g, '-') + '-section',
-                          sectionTitle.toLowerCase().replace(/\s+/g, '_') + '-section'
+                          sectionTitle.toLowerCase().replace(/\\s+/g, '-') + '-section',
+                          sectionTitle.toLowerCase().replace(/\\s+/g, '_') + '-section'
                       ];
                       for (const variation of variations) {
                           sectionElement = tempDiv.querySelector(`#${variation}`);
@@ -1933,9 +1936,7 @@ SESSION_DETAIL_TEMPLATE = """
                   'summary-stats': 'Summary Statistics',
                   'recommendations': 'Key Recommendations',
                   'component-analysis': 'Component Analysis',
-                  'ml-analysis': 'Machine Learning Analysis',
                   'rag-analysis': 'RAG-Enhanced Knowledge Analysis',
-                  'connection-health': 'Connection Health',
                   'ai-analysis': 'AI-Powered Analysis',
                   'priority-actions': 'Priority Actions'
               };

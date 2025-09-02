@@ -264,6 +264,69 @@ class UserGuidance:
                     'Performance optimization recommendations',
                     'Deep Security policy configuration guidance'
                 ]
+            },
+            'ds_agent_offline': {
+                'title': 'DS Agent Offline Analysis',
+                'description': 'Specialized analysis for diagnosing Deep Security Agent offline issues',
+                'file_requirements': ['ds_agent.log files'],
+                'typical_use_cases': [
+                    'Troubleshooting agent offline status in manager',
+                    'Diagnosing heartbeat failures',
+                    'Identifying connectivity and communication issues',
+                    'Analyzing Cloud One Workload Security connection problems',
+                    'Detecting service crashes and startup failures',
+                    'Investigating network and DNS resolution issues'
+                ],
+                'preparation_tips': [
+                    'Collect logs from when agent went offline',
+                    'Include logs showing the transition from online to offline',
+                    'Gather logs from both agent and manager if possible',
+                    'Check network connectivity and firewall rules',
+                    'Verify DNS resolution for manager hostname',
+                    'Test ports 4119, 4120, 4118 connectivity'
+                ],
+                'file_details': {
+                    'ds_agent.log': 'Deep Security Agent log containing communication, service, and system events'
+                },
+                'expected_outcomes': [
+                    'Root cause analysis of offline issues',
+                    'Specific connectivity problem identification',
+                    'Service and system issue detection',
+                    'Step-by-step resolution recommendations',
+                    'Network configuration guidance',
+                    'Cloud One connectivity troubleshooting'
+                ]
+            },
+            'diagnostic_package': {
+                'title': 'Deep Security Diagnostic Package',
+                'description': 'Comprehensive analysis of Deep Security diagnostic packages with multi-log correlation',
+                'file_requirements': ['Diagnostic package ZIP files'],
+                'typical_use_cases': [
+                    'Complete system health assessment',
+                    'Multi-component issue correlation',
+                    'Comprehensive troubleshooting analysis',
+                    'End-to-end Deep Security environment review',
+                    'Complex issue investigation with multiple logs',
+                    'Performance and configuration optimization'
+                ],
+                'preparation_tips': [
+                    'Generate diagnostic package from Deep Security Manager',
+                    'Include diagnostic data from the problem timeframe',
+                    'Ensure package contains all relevant log files',
+                    'Use fresh diagnostic packages (within 7 days)',
+                    'Include both agent and manager diagnostic data if available'
+                ],
+                'file_details': {
+                    'diagnostic_package.zip': 'Complete diagnostic package from Deep Security Manager containing multiple log files and configuration data'
+                },
+                'expected_outcomes': [
+                    'Comprehensive multi-log analysis with correlation',
+                    'System-wide health assessment',
+                    'Component interaction analysis',
+                    'Performance optimization recommendations',
+                    'Configuration review and recommendations',
+                    'AI-enhanced pattern detection across multiple logs'
+                ]
             }
         },
         'common_issues': {

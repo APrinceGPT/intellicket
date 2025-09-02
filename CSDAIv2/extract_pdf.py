@@ -14,8 +14,8 @@ def extract_pdf_text(pdf_path):
             
             all_text = ""
             
-            # Extract text from first 50 pages (to avoid too much output)
-            max_pages = min(50, len(pdf_reader.pages))
+            # Extract ALL pages (not just first 50)
+            max_pages = len(pdf_reader.pages)
             
             for page_num in range(max_pages):
                 page = pdf_reader.pages[page_num]
@@ -32,14 +32,15 @@ def extract_pdf_text(pdf_path):
         return f"Error extracting PDF: {str(e)}"
 
 if __name__ == "__main__":
-    pdf_path = "deepsecurity20.pdf"
+    pdf_path = "pdf/Anti Malware.pdf"  # Target the Anti Malware PDF
     text_content = extract_pdf_text(pdf_path)
     
     # Save to text file for analysis
-    with open("deepsecurity20_extracted.txt", "w", encoding="utf-8") as f:
+    with open("anti_malware_extracted.txt", "w", encoding="utf-8") as f:
         f.write(text_content)
     
-    print("PDF text extracted and saved to deepsecurity20_extracted.txt")
+    print("Anti Malware PDF text extracted and saved to anti_malware_extracted.txt")
+    print(f"Total content length: {len(text_content)} characters")
     
     # Show first 2000 characters as preview
     print("\n=== PREVIEW (First 2000 characters) ===")
