@@ -1,7 +1,10 @@
+# Intellicket - Cybersecurity Log Analysis Platform
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# dependencies
-/node_modules
+# ========================
+# Node.js & Dependencies
+# ========================
+node_modules/
 /.pnp
 .pnp.*
 .yarn/*
@@ -9,33 +12,157 @@
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
-
-# testing
-/coverage
-
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
-# misc
-.DS_Store
-*.pem
-
-# debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
-
-# vercel
-.vercel
-
-# typescript
+# ========================
+# Next.js (Main Frontend)
+# ========================
+/.next/
+/out/
+.next/
 *.tsbuildinfo
 next-env.d.ts
+
+# Admin Dashboard Next.js
+/intellicket-admin/.next/
+/intellicket-admin/out/
+/intellicket-admin/*.tsbuildinfo
+/intellicket-admin/next-env.d.ts
+
+# ========================
+# Python & Backend
+# ========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+
+# CSDAIv2 Python cache
+/CSDAIv2/__pycache__/
+/CSDAIv2/*/__pycache__/
+/CSDAIv2/*/*/__pycache__/
+*.pyc
+
+# ========================
+# Environment & Config
+# ========================
+.env*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# ========================
+# Build & Distribution
+# ========================
+/build
+/dist
+*.tar.gz
+*.zip
+
+# ========================
+# Temporary & Cache Files
+# ========================
+.DS_Store
+*.pem
+/coverage
+*.log
+*.tmp
+*.temp
+
+# CSDAIv2 temporary files
+/CSDAIv2/temp/
+/CSDAIv2/exports/
+/CSDAIv2/uploads/
+/CSDAIv2/cache/
+
+# ========================
+# Database Files
+# ========================
+*.db
+*.sqlite
+*.sqlite3
+/CSDAIv2/admin/admin.db
+/knowledge_base/*.db
+
+# ========================
+# ML Models & Large Files
+# ========================
+/ml_models/
+/CSDAIv2/ml_models/
+*.pkl
+*.joblib
+*.h5
+*.model
+
+# ========================
+# Testing & Debug
+# ========================
+test_*.py
+debug_*.py
+*.test.js
+*.test.ts
+*.test.tsx
+
+# Test files at all levels
+test*.py
+*test*.py
+*_test.py
+test_*.*
+*test*.*
+
+# ========================
+# Utilities Directory (Complete Exclusion)
+# ========================
+/Utilities/
+Utilities/
+
+# ========================
+# IDE & Editor
+# ========================
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~
+
+# ========================
+# Documentation Cleanup
+# ========================
+*_COMPREHENSIVE_REPORT.md
+*_COMPLETE.md
+*_IMPLEMENTATION.md
+*_PLAN.md
+*_SUMMARY.md
+*_REPORT.md
+*_FIX_*.md
+/Delete Me/
+
+# ========================
+# Deployment & Services
+# ========================
+.vercel
+.netlify
+
+# ========================
+# Utilities & Scripts (IGNORED COMPLETELY)
+# ========================
+# Entire Utilities directory is ignored above
+
+# ========================
+# Keep Important Files
+# ========================
+
+# Keep configuration templates
+!.env.example
+!.env.template

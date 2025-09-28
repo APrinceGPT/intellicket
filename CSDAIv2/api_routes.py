@@ -1,24 +1,93 @@
 # -*- coding: utf-8 -*-
 """
-REST API Routes for TrendAI Integration
-Provides REST API endpoints for the TrendAI frontend integration
+REST API Routes for Intellicket Integration
+Provides REST API endpoints for the Intellicket frontend integration
 Using the exact same code from CSDAIv2 routes.py for consistent results
 """
 
 import os
 import uuid
 import re
+import json
+import numpy as np
 from datetime import datetime
 from flask import request, jsonify, send_file
 from werkzeug.utils import secure_filename
+
+# Safe JSON encoder for NumPy types
+class SafeJSONEncoder(json.JSONEncoder):
+    """JSON encoder that handles NumPy data types"""
+    def default(self, obj):
+        obj_type = type(obj)
+        obj_module = obj_type.__module__
+        
+        # Debug logging for troublesome types
+        if 'int32' in str(obj_type) or obj_module == 'numpy':
+            print(f"🔍 Converting NumPy type: {obj_type} from module {obj_module}, value: {obj}")
+        
+        # Check for any NumPy scalar types first
+        if hasattr(obj, 'dtype'):
+            print(f"🔄 Converting dtype object: {obj.dtype}")
+            if np.issubdtype(obj.dtype, np.integer):
+                return int(obj)
+            elif np.issubdtype(obj.dtype, np.floating):
+                return float(obj)
+            elif np.issubdtype(obj.dtype, np.bool_):
+                return bool(obj)
+            else:
+                return str(obj)
+        # Check for NumPy arrays
+        if isinstance(obj, np.ndarray):
+            print(f"🔄 Converting NumPy array of shape {obj.shape}")
+            return obj.tolist()
+        # Check for specific NumPy types (fallback)
+        if isinstance(obj, (np.integer, np.int32, np.int64)):
+            print(f"🔄 Converting NumPy integer: {obj}")
+            return int(obj)
+        if isinstance(obj, (np.floating, np.float32, np.float64)):
+            print(f"🔄 Converting NumPy float: {obj}")
+            return float(obj)
+        if isinstance(obj, np.bool_):
+            print(f"🔄 Converting NumPy bool: {obj}")
+            return bool(obj)
+        # Check if it's any NumPy type by module
+        if obj_module == 'numpy':
+            print(f"🔄 Converting NumPy module type: {obj_type}")
+            try:
+                result = obj.item()  # Convert NumPy scalar to Python scalar
+                print(f"✅ Converted to: {type(result)} = {result}")
+                return result
+            except (ValueError, AttributeError):
+                print(f"⚠️ Using string conversion for: {obj}")
+                return str(obj)
+        
+        print(f"⚠️ Unhandled type in SafeJSONEncoder: {obj_type}")
+        return super().default(obj)
+
+def safe_jsonify(data, **kwargs):
+    """Safe jsonify that handles NumPy types"""
+    try:
+        # Convert to JSON string first with safe encoder
+        json_str = json.dumps(data, cls=SafeJSONEncoder, ensure_ascii=False)
+        # Parse back to dict and use Flask's jsonify
+        safe_data = json.loads(json_str)
+        return jsonify(safe_data, **kwargs)
+    except Exception as e:
+        print(f"❌ JSON serialization error: {e}")
+        # Fallback to error response
+        return jsonify({'success': False, 'error': f'Data serialization failed: {str(e)}'}, **kwargs), 500
 
 # Import existing analyzer components and security
 from analyzers import DSAgentLogAnalyzer, AMSPAnalyzer, ConflictAnalyzer, ResourceAnalyzer, DSAgentOfflineAnalyzer, DiagnosticPackageAnalyzer
 from security import SecurityError, validate_file, create_secure_temp_file, cleanup_temp_file
 
+# Import session manager for admin interface synchronization
+from simple_session_manager import simple_session_manager as session_manager
+
 # Import formatting functions from routes.py
 from routes import (
-    format_ds_log_results, format_amsp_results, format_conflict_results, 
+    format_ds_log_results, format_ds_log_results_v2, should_use_enhanced_formatter,
+    format_amsp_results, format_conflict_results, 
     format_resource_results, format_ds_agent_offline_results, format_diagnostic_package_results
 )
 
@@ -29,7 +98,7 @@ class APIError(Exception):
         self.status_code = status_code
 
 def register_api_routes(app, config):
-    """Register REST API routes for TrendAI integration"""
+    """Register REST API routes for Intellicket integration"""
     
     # In-memory session storage (in production, use Redis or database)
     api_sessions = {}
@@ -37,7 +106,7 @@ def register_api_routes(app, config):
     @app.route('/api/health', methods=['GET'])
     def api_health():
         """Health check endpoint"""
-        return jsonify({
+        return safe_jsonify({
             'status': 'ok',
             'message': 'CSDAIv2 API is running',
             'timestamp': datetime.now().isoformat(),
@@ -54,61 +123,59 @@ def register_api_routes(app, config):
             analyzer_type = request.form.get('analyzer_type', 'diagnostic_package')
             print(f"🎯 Extract and filter request for analyzer type: {analyzer_type}")
             
-            # Define file patterns for each analyzer type - CORRECTED PATTERNS
+            # Define file patterns for each analyzer type - CORRECTED PATTERNS WITH FILE SUBSTITUTIONS
             analyzer_file_patterns = {
-                'ds_agent': {
-                    'required_files': ['ds_agent.log', 'ds_agent-err.log'],
-                    'optional_files': [],  # Only extract core DS Agent files, not numbered logs
-                    'description': 'DS Agent log files (ds_agent.log, ds_agent-err.log only)'
-                },
-                'ds_logs': {  # Alias for ds_agent 
-                    'required_files': ['ds_agent.log', 'ds_agent-err.log'],
-                    'optional_files': [],  # Only extract core DS Agent files, not numbered logs
-                    'description': 'DS Agent log files (ds_agent.log, ds_agent-err.log only)'
-                },
-                'amsp': {
-                    'required_files': ['AMSPInstallDebuglog.log', 'ds_am.log', 'ds_agent.log'],
-                    'optional_files': [],  # Only extract the 3 core AMSP files as specified
-                    'description': 'AMSP Anti-Malware log files (AMSPInstallDebuglog.log, ds_am.log, ds_agent.log only)'
-                },
-                'amsp_logs': {  # Alias for amsp
-                    'required_files': ['AMSPInstallDebuglog.log', 'ds_am.log', 'ds_agent.log'],
-                    'optional_files': [],  # Only extract the 3 core AMSP files as specified
-                    'description': 'AMSP Anti-Malware log files (AMSPInstallDebuglog.log, ds_am.log, ds_agent.log only)'
-                },
-                'resource': {
-                    'required_files': ['TopNBusyProcess.txt', 'RunningProcess.xml'],
-                    'optional_files': ['RunningProcesses.xml'],  # Alternative spelling
-                    'description': 'Resource analysis files (TopNBusyProcess.txt, RunningProcess.xml)'
-                },
-                'resource_analysis': {  # Alias for resource
-                    'required_files': ['TopNBusyProcess.txt', 'RunningProcess.xml'],
-                    'optional_files': ['RunningProcesses.xml'],  # Alternative spelling
-                    'description': 'Resource analysis files (TopNBusyProcess.txt, RunningProcess.xml)'
-                },
-                'ds_agent_offline': {
-                    'required_files': ['ds_connect.log', 'ds_agent.log', 'ds_agent-err.log'],
-                    'optional_files': [],  # Only extract the 3 core files as specified
-                    'description': 'DS Agent Offline analysis (ds_connect.log, ds_agent.log, ds_agent-err.log only)'
-                },
-                'conflict': {
-                    'required_files': ['RunningProcess.xml'],
-                    'optional_files': ['RunningProcesses.xml'],  # Alternative spelling
-                    'description': 'Antivirus conflict analysis files (RunningProcess.xml only)'
-                },
-                'av_conflicts': {  # Alias for conflict
-                    'required_files': ['RunningProcess.xml'],
-                    'optional_files': ['RunningProcesses.xml'],  # Alternative spelling
-                    'description': 'Antivirus conflict analysis files (RunningProcess.xml only)'
-                },
-                'diagnostic_package': {
-                    'required_files': [],
-                    'optional_files': [],
-                    'description': 'Complete diagnostic package analysis (all readable files)'
-                }
-            }
-            
-            # Process uploaded ZIP file
+                    'ds_agent': {
+                        'required_files': ['ds_agent.log', 'ds_agent-err.log'],
+                        'optional_files': [],  # Only extract core DS Agent files, not numbered logs
+                        'description': 'DS Agent log files (ds_agent.log, ds_agent-err.log only)'
+                    },
+                    'ds_logs': {  # Alias for ds_agent 
+                        'required_files': ['ds_agent.log', 'ds_agent-err.log'],
+                        'optional_files': [],  # Only extract core DS Agent files, not numbered logs
+                        'description': 'DS Agent log files (ds_agent.log, ds_agent-err.log only)'
+                    },
+                    'amsp': {
+                        'required_files': ['AMSPInstallDebuglog.log', 'ds_am.log', 'ds_agent.log'],
+                        'optional_files': [],  # Only extract the 3 core AMSP files as specified
+                        'description': 'AMSP Anti-Malware log files (AMSPInstallDebuglog.log, ds_am.log, ds_agent.log only)'
+                    },
+                    'amsp_logs': {  # Alias for amsp
+                        'required_files': ['AMSPInstallDebuglog.log', 'ds_am.log', 'ds_agent.log'],
+                        'optional_files': [],  # Only extract the 3 core AMSP files as specified
+                        'description': 'AMSP Anti-Malware log files (AMSPInstallDebuglog.log, ds_am.log, ds_agent.log only)'
+                    },
+                    'resource': {
+                        'required_files': ['TopNBusyProcess.txt', 'RunningProcesses.xml'],
+                        'optional_files': [],  # No alternatives needed now
+                        'description': 'Resource analysis files (TopNBusyProcess.txt, RunningProcesses.xml)'
+                    },
+                    'resource_analysis': {  # Alias for resource
+                        'required_files': ['TopNBusyProcess.txt', 'RunningProcesses.xml'],
+                        'optional_files': [],  # No alternatives needed now
+                        'description': 'Resource analysis files (TopNBusyProcess.txt, RunningProcesses.xml)'
+                    },
+                    'ds_agent_offline': {
+                        'required_files': ['ds_agent.log'],  # Only ds_agent.log is truly required
+                        'optional_files': ['ds_connect.log', 'ds_agent-err.log'],  # These enhance analysis but aren't required
+                        'description': 'DS Agent Offline analysis (requires ds_agent.log, optionally uses ds_connect.log and ds_agent-err.log)'
+                    },
+                    'conflict': {
+                        'required_files': ['RunningProcesses.xml'],
+                        'optional_files': [],  # No alternatives needed now
+                        'description': 'Antivirus conflict analysis files (RunningProcesses.xml only)'
+                    },
+                    'av_conflicts': {  # Alias for conflict
+                        'required_files': ['RunningProcesses.xml'],
+                        'optional_files': [],  # No alternatives needed now
+                        'description': 'Antivirus conflict analysis files (RunningProcesses.xml only)'
+                    },
+                    'diagnostic_package': {
+                        'required_files': [],
+                        'optional_files': [],
+                        'description': 'Complete diagnostic package analysis (all readable files)'
+                    }
+                }            # Process uploaded ZIP file
             uploaded_zip = None
             for key in request.files:
                 file = request.files[key]
@@ -117,7 +184,7 @@ def register_api_routes(app, config):
                     break
             
             if not uploaded_zip:
-                return jsonify({'success': False, 'error': 'No ZIP file provided'}), 400
+                return safe_jsonify({'success': False, 'error': 'No ZIP file provided'}), 400
             
             print(f"📦 Processing ZIP file: {uploaded_zip.filename}")
             
@@ -182,7 +249,7 @@ def register_api_routes(app, config):
                 
                 # Check if we have required files (unless it's diagnostic_package type)
                 if analyzer_type != 'diagnostic_package' and missing_required:
-                    return jsonify({
+                    return safe_jsonify({
                         'success': False,
                         'error': f'Missing required files for {analyzer_type} analysis: {", ".join(missing_required)}',
                         'available_files': [os.path.basename(f) for f in file_list],
@@ -242,7 +309,7 @@ def register_api_routes(app, config):
                     }
                 }
                 
-                return jsonify({
+                return safe_jsonify({
                     'success': True,
                     'session_id': session_id,
                     'analyzer_type': analyzer_type,
@@ -270,7 +337,7 @@ def register_api_routes(app, config):
             for temp_file in temp_files:
                 if os.path.exists(temp_file):
                     cleanup_temp_file(temp_file)
-            return jsonify({'success': False, 'error': str(e)}), 500
+            return safe_jsonify({'success': False, 'error': str(e)}), 500
     
     @app.route('/analyze-extracted/<session_id>', methods=['POST'])
     def api_analyze_extracted(session_id):
@@ -290,12 +357,12 @@ def register_api_routes(app, config):
             print(f"🚀 Starting analysis for extracted session: {session_id}")
             
             if session_id not in api_sessions:
-                return jsonify({'success': False, 'error': 'Session not found'}), 404
+                return safe_jsonify({'success': False, 'error': 'Session not found'}), 404
             
             session_data = api_sessions[session_id]
             
             if session_data['status'] != 'extracted':
-                return jsonify({'success': False, 'error': f'Session status is {session_data["status"]}, expected "extracted"'}), 400
+                return safe_jsonify({'success': False, 'error': f'Session status is {session_data["status"]}, expected "extracted"'}), 400
             
             # Update session status to processing
             session_data['status'] = 'processing'
@@ -316,7 +383,7 @@ def register_api_routes(app, config):
                 result = None
                 raw_result = None
                 
-                if analysis_type == "ds_agent":
+                if analysis_type == "ds_agent" or analysis_type == "ds_logs":
                     # DS Agent analysis with standardized output handling
                     session_manager = SimpleSessionManager(api_sessions, session_id)
                     analyzer = DSAgentLogAnalyzer(session_manager=session_manager, session_id=session_id)
@@ -329,13 +396,60 @@ def register_api_routes(app, config):
                         result = f"<div class='alert alert-danger'><strong>Error:</strong> {analysis_results.get('summary', 'Analysis failed')}</div>"
                         raw_result = f"DS Agent Analysis - ERROR: {analysis_results.get('summary', 'Analysis failed')}"
                     else:
-                        # Get formatted output or create from standardized data
-                        if 'formatted_output' in analysis_results:
+                        # NEW: Prioritize structured data format for modern frontend
+                        if 'structured_data' in analysis_results:
+                            # Modern structured data format for clean sectioned display
+                            structured_data = analysis_results['structured_data']
+                            metadata = analysis_results.get('metadata', {})
+                            
+                            # Generate HTML from structured data for legacy support
+                            is_multiple = len(temp_paths) > 1
+                            if 'legacy_html' in analysis_results and analysis_results['legacy_html']:
+                                result = analysis_results['legacy_html']
+                            elif 'raw_data' in analysis_results:
+                                # Generate HTML from raw data for backward compatibility
+                                if should_use_enhanced_formatter(analysis_results['raw_data']):
+                                    result = format_ds_log_results_v2(analysis_results['raw_data'], is_multiple)
+                                else:
+                                    result = format_ds_log_results(analysis_results['raw_data'], is_multiple)
+                            else:
+                                # Fallback HTML generation
+                                result = f"""
+                                <div class="analysis-container">
+                                    <h2>🛡️ DS Agent Analysis Results (Structured)</h2>
+                                    <div class="summary-section">
+                                        <h3>📊 Summary</h3>
+                                        <p>{analysis_results.get('summary', 'Analysis completed')}</p>
+                                    </div>
+                                </div>
+                                """
+                            
+                            # Store structured data for modern frontend consumption
+                            session_data['structured_analysis'] = structured_data
+                            session_data['raw_analysis_data'] = analysis_results.get('raw_data', {})
+                            
+                            # Enhanced raw_result format for frontend parsing
+                            summary_stats = structured_data.get('summary_statistics', {})
+                            issues = structured_data.get('issues_found', {})
+                            
+                            total_lines = summary_stats.get('total_lines', 0)
+                            errors_found = len(issues.get('errors', []))
+                            warnings_found = len(issues.get('warnings', []))
+                            critical_issues = len(issues.get('critical_issues', []))
+                            
+                        # Legacy handling for backward compatibility
+                        elif 'formatted_html' in analysis_results:
+                            result = analysis_results['formatted_html']
+                        elif 'formatted_output' in analysis_results:  # Backward compatibility
                             result = analysis_results['formatted_output']
                         elif 'raw_data' in analysis_results:
                             # Generate formatted output from raw data using the formatter
                             is_multiple = len(temp_paths) > 1
-                            result = format_ds_log_results(analysis_results['raw_data'], is_multiple)
+                            # Auto-select formatter version based on content
+                            if should_use_enhanced_formatter(analysis_results['raw_data']):
+                                result = format_ds_log_results_v2(analysis_results['raw_data'], is_multiple)
+                            else:
+                                result = format_ds_log_results(analysis_results['raw_data'], is_multiple)
                         else:
                             # Generate formatted output from standardized data
                             result = f"""
@@ -349,16 +463,35 @@ def register_api_routes(app, config):
                                     <h3>📋 Details</h3>
                                     <ul>{''.join(f'<li>{detail}</li>' for detail in analysis_results.get('details', []))}</ul>
                                 </div>
-                                <div class="recommendations-section">
-                                    <h3>💡 Recommendations</h3>
-                                    <ul>{''.join(f'<li>{rec}</li>' for rec in analysis_results.get('recommendations', []))}</ul>
-                                </div>
                             </div>
                             """
+                        
+                        # Generate metadata and raw_result for all paths
                         metadata = analysis_results.get('metadata', {})
-                        raw_result = f"DS Agent Log Analysis Results:\nFiles Analyzed: {len(temp_paths)}\nStatus: {analysis_results.get('summary', 'Completed')}"
+                        if 'structured_data' not in analysis_results:
+                            # CRITICAL FIX: Generate proper raw_result format for frontend parsing
+                            total_lines = metadata.get('log_entries_processed', 0)
+                            errors_found = metadata.get('errors_found', 0)
+                            warnings_found = metadata.get('warnings_found', 0)
+                            critical_issues = metadata.get('critical_issues', 0)
+                        
+                        raw_result = f"""DS Agent Log Analysis Results:
+
+Files Analyzed: {len(temp_paths)}
+Total Lines: {total_lines}
+Errors Found: {errors_found}
+Warnings Found: {warnings_found}
+Critical Issues: {critical_issues}
+Analysis Type: {analysis_results.get('analysis_type', 'ds_logs')}
+Status: {analysis_results.get('summary', 'Analysis completed')}
+
+Details ({len(analysis_results.get('details', []))} items):
+{chr(10).join(f'- {detail}' for detail in analysis_results.get('details', [])[:10])}"""
+                        
+                        # CRITICAL FIX: Store standardized results for proper frontend display
+                        session_data['standardized_results'] = analysis_results
                 
-                elif analysis_type == "amsp":
+                elif analysis_type == "amsp" or analysis_type == "amsp_logs":
                     session_manager = SimpleSessionManager(api_sessions, session_id)
                     analyzer = AMSPAnalyzer(session_manager=session_manager, session_id=session_id)
                     analysis_results = analyzer.analyze(temp_paths)
@@ -388,15 +521,14 @@ def register_api_routes(app, config):
                                     <h3>📋 Details</h3>
                                     <ul>{''.join(f'<li>{detail}</li>' for detail in analysis_results.get('details', []))}</ul>
                                 </div>
-                                <div class="recommendations-section">
-                                    <h3>💡 Recommendations</h3>
-                                    <ul>{''.join(f'<li>{rec}</li>' for rec in analysis_results.get('recommendations', []))}</ul>
-                                </div>
                             </div>
                             """
                         raw_result = f"AMSP Analysis Results:\nFiles Analyzed: {len(temp_paths)}\nStatus: {analysis_results.get('summary', 'Completed')}"
+                        
+                        # CRITICAL FIX: Store standardized results for proper frontend display
+                        session_data['standardized_results'] = analysis_results
                 
-                elif analysis_type == "resource":
+                elif analysis_type == "resource" or analysis_type == "resource_analysis":
                     session_manager = SimpleSessionManager(api_sessions, session_id)
                     analyzer = ResourceAnalyzer(session_manager=session_manager, session_id=session_id)
                     analysis_results = analyzer.analyze(temp_paths)
@@ -412,7 +544,11 @@ def register_api_routes(app, config):
                             result = analysis_results['formatted_output']
                         elif 'raw_data' in analysis_results:
                             # Generate formatted output from raw data using the formatter
-                            result = format_resource_results(analysis_results['raw_data'])
+                            # Extract counts from analysis_results metadata or raw_data
+                            metadata = analysis_results.get('metadata', {})
+                            process_count = metadata.get('processes_found', 0)
+                            busy_count = metadata.get('busy_processes_found', 0)
+                            result = format_resource_results(analysis_results['raw_data'], process_count, busy_count)
                         else:
                             # Generate basic formatted output from standardized data
                             result = f"""
@@ -426,18 +562,23 @@ def register_api_routes(app, config):
                                     <h3>📋 Details</h3>
                                     <ul>{''.join(f'<li>{detail}</li>' for detail in analysis_results.get('details', []))}</ul>
                                 </div>
-                                <div class="recommendations-section">
-                                    <h3>💡 Recommendations</h3>
-                                    <ul>{''.join(f'<li>{rec}</li>' for rec in analysis_results.get('recommendations', []))}</ul>
-                                </div>
                             </div>
                             """
                         raw_result = f"Resource Analysis Results:\nFiles Analyzed: {len(temp_paths)}\nStatus: {analysis_results.get('summary', 'Completed')}"
+                        
+                        # CRITICAL FIX: Store standardized results for proper frontend display
+                        session_data['standardized_results'] = analysis_results
                 
-                elif analysis_type == "conflict":
+                elif analysis_type == "conflict" or analysis_type == "av_conflicts":
                     session_manager = SimpleSessionManager(api_sessions, session_id)
                     analyzer = ConflictAnalyzer(session_manager=session_manager, session_id=session_id)
-                    analysis_results = analyzer.analyze(temp_paths)
+                    
+                    # Create file mapping for original names (needed for RunningProcesses.xml detection)
+                    file_mapping = {}
+                    for file_info in matched_files:
+                        file_mapping[file_info['extracted_path']] = file_info['original_name']
+                    
+                    analysis_results = analyzer.analyze(temp_paths, file_mapping=file_mapping)
                     
                     # Handle standardized analyzer output
                     if analysis_results.get('status') == 'error' or analysis_results.get('error', False):
@@ -464,13 +605,49 @@ def register_api_routes(app, config):
                                     <h3>📋 Details</h3>
                                     <ul>{''.join(f'<li>{detail}</li>' for detail in analysis_results.get('details', []))}</ul>
                                 </div>
-                                <div class="recommendations-section">
-                                    <h3>💡 Recommendations</h3>
-                                    <ul>{''.join(f'<li>{rec}</li>' for rec in analysis_results.get('recommendations', []))}</ul>
-                                </div>
                             </div>
                             """
                         raw_result = f"Conflict Analysis Results:\nFiles Analyzed: {len(temp_paths)}\nStatus: {analysis_results.get('summary', 'Completed')}"
+                        
+                        # CRITICAL FIX: Store standardized results for proper frontend display
+                        session_data['standardized_results'] = analysis_results
+                
+                elif analysis_type == "ds_agent_offline":
+                    session_manager = SimpleSessionManager(api_sessions, session_id)
+                    analyzer = DSAgentOfflineAnalyzer(session_manager=session_manager, session_id=session_id)
+                    analysis_results = analyzer.analyze(temp_paths)
+                    
+                    # Handle standardized analyzer output
+                    if analysis_results.get('status') == 'error' or analysis_results.get('error', False):
+                        session_data['status'] = 'error'
+                        result = f"<div class='alert alert-danger'><strong>Error:</strong> {analysis_results.get('summary', 'Analysis failed')}</div>"
+                        raw_result = f"DS Agent Offline Analysis - ERROR: {analysis_results.get('summary', 'Analysis failed')}"
+                    else:
+                        # Get formatted output or create from standardized data
+                        if 'formatted_output' in analysis_results:
+                            result = analysis_results['formatted_output']
+                        elif 'raw_data' in analysis_results:
+                            # Generate formatted output from raw data using the formatter
+                            result = format_ds_agent_offline_results(analysis_results['raw_data'])
+                        else:
+                            # Generate basic formatted output from standardized data
+                            result = f"""
+                            <div class="analysis-container">
+                                <h2>🔴 DS Agent Offline Analysis Results</h2>
+                                <div class="summary-section">
+                                    <h3>📊 Summary</h3>
+                                    <p>{analysis_results.get('summary', 'Analysis completed')}</p>
+                                </div>
+                                <div class="details-section">
+                                    <h3>📋 Details</h3>
+                                    <ul>{''.join(f'<li>{detail}</li>' for detail in analysis_results.get('details', []))}</ul>
+                                </div>
+                            </div>
+                            """
+                        raw_result = f"DS Agent Offline Analysis Results:\nFiles Analyzed: {len(temp_paths)}\nStatus: {analysis_results.get('summary', 'Completed')}"
+                        
+                        # CRITICAL FIX: Store standardized results for proper frontend display
+                        session_data['standardized_results'] = analysis_results
                 
                 elif analysis_type == "diagnostic_package":
                     session_manager = SimpleSessionManager(api_sessions, session_id)
@@ -504,13 +681,12 @@ def register_api_routes(app, config):
                                     <h3>📋 Details</h3>
                                     <ul>{''.join(f'<li>{detail}</li>' for detail in analysis_results.get('details', []))}</ul>
                                 </div>
-                                <div class="recommendations-section">
-                                    <h3>💡 Recommendations</h3>
-                                    <ul>{''.join(f'<li>{rec}</li>' for rec in analysis_results.get('recommendations', []))}</ul>
-                                </div>
                             </div>
                             """
                         raw_result = f"Diagnostic Package Analysis Results:\nFiles Analyzed: {len(temp_paths)}\nStatus: {analysis_results.get('summary', 'Completed')}"
+                        
+                        # CRITICAL FIX: Store standardized results for proper frontend display
+                        session_data['standardized_results'] = analysis_results
                 
                 else:
                     raise ValueError(f"Unknown analysis type: {analysis_type}")
@@ -524,9 +700,24 @@ def register_api_routes(app, config):
                 session_data['raw_results'] = raw_result
                 session_data['completed_at'] = datetime.now().isoformat()
                 
+                # SYNC COMPLETION WITH ADMIN SESSION MANAGER
+                try:
+                    if session_id in session_manager.sessions:
+                        session_manager.update_session(session_id, {
+                            'status': 'completed',  # Explicitly set to completed for admin interface
+                            'results': result,
+                            'raw_results': raw_result,
+                            'completed_at': session_data['completed_at'],
+                            'analysis_complete': True,
+                            'progress': 100
+                        })
+                        print(f"✅ Analysis completion synced with admin interface (status: completed)")
+                except Exception as sync_error:
+                    print(f"⚠️ Failed to sync completion with admin: {sync_error}")
+                
                 print(f"✅ Analysis completed for extracted session: {session_id}")
                 
-                return jsonify({
+                return safe_jsonify({
                     'success': True,
                     'session_id': session_id,
                     'status': session_data['status'],
@@ -538,11 +729,11 @@ def register_api_routes(app, config):
                 session_data['status'] = 'error'
                 session_data['error_message'] = str(analysis_error)
                 print(f"❌ Analysis error: {str(analysis_error)}")
-                return jsonify({'success': False, 'error': str(analysis_error)}), 500
+                return safe_jsonify({'success': False, 'error': str(analysis_error)}), 500
                 
         except Exception as e:
             print(f"❌ Analyze extracted error: {str(e)}")
-            return jsonify({'success': False, 'error': str(e)}), 500
+            return safe_jsonify({'success': False, 'error': str(e)}), 500
     
     @app.route('/test-extract', methods=['POST']) 
     def api_test_extract():
@@ -552,7 +743,7 @@ def register_api_routes(app, config):
             sample_zip = "../sample_logs/Diagnostic Package.zip"
             
             if not os.path.exists(sample_zip):
-                return jsonify({'error': 'Sample diagnostic package not found'}), 404
+                return safe_jsonify({'error': 'Sample diagnostic package not found'}), 404
             
             # Test different analyzer types
             test_results = {}
@@ -596,7 +787,7 @@ def register_api_routes(app, config):
                     'description': patterns['description']
                 }
             
-            return jsonify({
+            return safe_jsonify({
                 'success': True,
                 'sample_zip_exists': True,
                 'analyzer_patterns': test_results,
@@ -604,11 +795,11 @@ def register_api_routes(app, config):
             })
             
         except Exception as e:
-            return jsonify({'success': False, 'error': str(e)}), 500
+            return safe_jsonify({'success': False, 'error': str(e)}), 500
     
     @app.route('/upload', methods=['POST'])
     def api_upload():
-        """File upload endpoint for TrendAI integration"""
+        """File upload endpoint for Intellicket integration"""
         # Initialize temp_files at the beginning to avoid UnboundLocalError
         temp_files = []
         
@@ -677,7 +868,35 @@ def register_api_routes(app, config):
             
             print(f"💾 Session stored. Total sessions: {len(api_sessions)}")
             
-            return jsonify({
+            # SYNC WITH ADMIN SESSION MANAGER - This ensures files show up in admin dashboard
+            try:
+                # Create or update session in admin session manager
+                admin_session_data = {
+                    'session_id': session_id,
+                    'user_id': 'api_user',
+                    'created_at': datetime.now().isoformat(),
+                    'analysis_type': analysis_type,
+                    'uploaded_files': uploaded_files,  # This is the key field admin looks for
+                    'configuration': {
+                        'analysis_depth': 'expert',
+                        'ml_analysis': True,
+                        'rag_enhancement': True,
+                        'correlation_analysis': True,
+                        'output_format': 'html'
+                    },
+                    'status': 'uploaded',
+                    'current_step': 4
+                }
+                
+                # Add to admin session manager
+                session_manager.sessions[session_id] = admin_session_data
+                print(f"✅ Session synced with admin interface. Admin sessions: {len(session_manager.sessions)}")
+                
+            except Exception as sync_error:
+                print(f"⚠️ Failed to sync with admin session manager: {sync_error}")
+                # Continue anyway - this shouldn't break the API functionality
+            
+            return safe_jsonify({
                 'success': True,
                 'session_id': session_id,
                 'files_uploaded': len(uploaded_files),
@@ -689,16 +908,16 @@ def register_api_routes(app, config):
             # Clean up temp files on error
             for temp_file in temp_files:
                 cleanup_temp_file(temp_file)
-            return jsonify({'success': False, 'error': f"Security error: {str(e)}"}), 400
+            return safe_jsonify({'success': False, 'error': f"Security error: {str(e)}"}), 400
         except APIError as e:
             print(f"� � API Error: {e.message}")
-            return jsonify({'success': False, 'error': e.message}), e.status_code
+            return safe_jsonify({'success': False, 'error': e.message}), e.status_code
         except Exception as e:
             print(f"� � Unexpected error: {str(e)}")
             # Clean up temp files on error
             for temp_file in temp_files:
                 cleanup_temp_file(temp_file)
-            return jsonify({'success': False, 'error': str(e)}), 500
+            return safe_jsonify({'success': False, 'error': str(e)}), 500
     
     @app.route('/status/<session_id>', methods=['GET'])
     def api_status(session_id):
@@ -709,7 +928,7 @@ def register_api_routes(app, config):
             
             if session_id not in api_sessions:
                 print(f"❌ Session {session_id} not found")
-                return jsonify({'success': False, 'error': 'Session not found'}), 404
+                return safe_jsonify({'success': False, 'error': 'Session not found'}), 404
             
             session_data = api_sessions[session_id]
             print(f"📊 Current status: {session_data['status']}")
@@ -729,7 +948,7 @@ def register_api_routes(app, config):
                 if session_data['status'] == 'error':
                     progress_response['error'] = session_data.get('error_message', 'Analysis failed')
                 
-                return jsonify(progress_response)
+                return safe_jsonify(progress_response)
             
             # If analysis hasn't started, start it using CSDAIv2 logic
             if session_data['status'] == 'uploaded':
@@ -805,9 +1024,10 @@ Files Processed: {analysis_results.get('metadata', {}).get('files_processed', le
                             raw_result = f"""DS Agent Log Analysis Results:
 
 Files Analyzed: {metadata.get('files_processed', len(temp_paths))}
-Total Lines: {metadata.get('total_lines', 0)}
+Total Lines: {metadata.get('log_entries_processed', metadata.get('total_lines', 0))}
 Errors Found: {metadata.get('errors_found', 0)}
 Warnings Found: {metadata.get('warnings_found', 0)}
+Critical Issues: {metadata.get('critical_issues', 0)}
 
 Analysis Type: {analysis_results.get('analysis_type', 'unknown')}
 Status: {analysis_results.get('summary', 'Analysis completed')}
@@ -870,10 +1090,6 @@ Debug Info:
                                         <h3>📋 Details</h3>
                                         <ul>{''.join(f'<li>{detail}</li>' for detail in analysis_results.get('details', []))}</ul>
                                     </div>
-                                    <div class="recommendations-section">
-                                        <h3>💡 Recommendations</h3>
-                                        <ul>{''.join(f'<li>{rec}</li>' for rec in analysis_results.get('recommendations', []))}</ul>
-                                    </div>
                                 </div>
                                 """
                             metadata = analysis_results.get('metadata', {})
@@ -885,6 +1101,9 @@ Critical Issues: {metadata.get('critical_issues', 0)}
 
 Status: {analysis_results.get('summary', 'Analysis completed')}
 """
+                        
+                        # CRITICAL FIX: Store standardized results for proper frontend display
+                        session_data['standardized_results'] = analysis_results
                         
                     elif analysis_type == "amsp_logs" or analysis_type == "amsp":
                         # Create session manager for progress tracking
@@ -925,6 +1144,9 @@ BPF Failures: {metadata.get('bpf_failures', 0)}
 Status: {analysis_results.get('summary', 'Analysis completed')}
 """
                         
+                        # CRITICAL FIX: Store standardized results for proper frontend display
+                        session_data['standardized_results'] = analysis_results
+                        
                     elif analysis_type == "av_conflicts" or analysis_type == "conflict":
                         # Create session manager for progress tracking
                         class SimpleSessionManager:
@@ -942,8 +1164,13 @@ Status: {analysis_results.get('summary', 'Analysis completed')}
                             session_id=session_id
                         )
                         
+                        # Create file mapping for original names (needed for RunningProcesses.xml detection)
+                        file_mapping = {}
+                        for file_info in uploaded_files:
+                            file_mapping[file_info['temp_path']] = file_info['name']
+                        
                         # Use standardized analyze method
-                        analysis_results = analyzer.analyze(temp_paths)
+                        analysis_results = analyzer.analyze(temp_paths, file_mapping=file_mapping)
                         
                         # Check if analysis resulted in an error
                         if analysis_results.get('error', False):
@@ -962,6 +1189,9 @@ Conflicts Detected: {'Yes' if metadata.get('conflicts_detected', False) else 'No
 
 Status: {analysis_results.get('summary', 'Analysis completed')}
 """
+                        
+                        # CRITICAL FIX: Store standardized results for proper frontend display
+                        session_data['standardized_results'] = analysis_results
                         
                     elif analysis_type == "resource_analysis" or analysis_type == "resource":
                         # Create a simple session manager for progress tracking
@@ -1008,55 +1238,9 @@ Recommendations:
 """
                         for rec in analysis_results.get('recommendations', []):
                             raw_result += f"- {rec}\n"
-                    
-                    elif analysis_type == "diagnostic_package":
-                        # Create a simple session manager for progress tracking
-                        class SimpleSessionManager:
-                            def __init__(self, sessions_dict, session_id):
-                                self.sessions = sessions_dict
-                                self.session_id = session_id
-                            
-                            def update_session(self, session_id, progress_data):
-                                if session_id in self.sessions:
-                                    self.sessions[session_id].update(progress_data)
                         
-                        session_manager = SimpleSessionManager(api_sessions, session_id)
-                        analyzer = DiagnosticPackageAnalyzer(
-                            session_manager=session_manager,
-                            session_id=session_id
-                        )
-                        
-                        if len(temp_paths) == 1:
-                            # Single ZIP file analysis - use consistent analyze() method
-                            analysis_results = analyzer.analyze(temp_paths[0])
-                            result = format_diagnostic_package_results(analysis_results)
-                            
-                            files_analyzed = analysis_results.get('files_analyzed', 0)
-                            correlations = analysis_results.get('cross_log_correlations', {})
-                            correlation_count = len(correlations.get('correlations', []))
-                            
-                            raw_result = f"""Diagnostic Package Analysis Results:
-
-Package Summary:
-- Files Analyzed: {files_analyzed}
-- Cross-log Correlations: {correlation_count}
-- Analysis Completed: {analysis_results.get('completed_at', 'Unknown')}
-
-Executive Summary:
-{analysis_results.get('executive_summary', {}).get('overview', 'No executive summary available')}
-
-Key Findings:
-"""
-                            for finding in analysis_results.get('executive_summary', {}).get('key_findings', []):
-                                raw_result += f"- {finding}\n"
-                                
-                            if analysis_results.get('ml_insights'):
-                                raw_result += f"\nML Analysis: Overall Health Score {analysis_results['ml_insights'].get('overall_health_score', 'N/A')}%"
-                            
-                            if analysis_results.get('rag_insights'):
-                                raw_result += f"\nKnowledge Sources: {analysis_results['rag_insights'].get('knowledge_sources_used', 'N/A')}"
-                        else:
-                            raise SecurityError("Diagnostic package analysis requires exactly one ZIP file.")
+                        # CRITICAL FIX: Store standardized results for proper frontend display
+                        session_data['standardized_results'] = analysis_results
                     
                     else:
                         raise APIError(f"Unknown analysis type: {analysis_type}")
@@ -1064,12 +1248,29 @@ Key Findings:
                     # Update session with results and final progress
                     session_data['results'] = result
                     session_data['raw_results'] = raw_result
+                    # CRITICAL FIX: Store standardized analyzer output for proper frontend display
+                    session_data['standardized_results'] = analysis_results
                     session_data['status'] = 'completed'
                     session_data['analysis_complete'] = True
                     session_data['progress_percentage'] = 100
                     session_data['progress_message'] = 'Analysis completed successfully'
                     session_data['analysis_stage'] = 'Completed'
                     session_data['completed_at'] = datetime.now().isoformat()
+                    
+                    # SYNC COMPLETION WITH ADMIN SESSION MANAGER
+                    try:
+                        if session_id in session_manager.sessions:
+                            session_manager.update_session(session_id, {
+                                'status': 'completed',
+                                'results': result,
+                                'raw_results': raw_result,
+                                'completed_at': session_data['completed_at'],
+                                'analysis_complete': True,
+                                'progress_percentage': 100
+                            })
+                            print(f"✅ Analysis completion synced with admin interface")
+                    except Exception as sync_error:
+                        print(f"⚠️ Failed to sync completion with admin: {sync_error}")
                     
                     print(f"✅ Analysis completed for session: {session_id}")
                     
@@ -1088,7 +1289,7 @@ Key Findings:
                         cleanup_temp_file(temp_path)
             
             # Always return the current status with comprehensive progress information
-            return jsonify({
+            return safe_jsonify({
                 'success': True,
                 'session_id': session_id,
                 'status': session_data['status'],
@@ -1104,7 +1305,7 @@ Key Findings:
             
         except Exception as e:
             print(f"� � Status check error: {str(e)}")
-            return jsonify({'success': False, 'error': str(e)}), 500
+            return safe_jsonify({'success': False, 'error': str(e)}), 500
     
     @app.route('/results/<session_id>', methods=['GET'])
     def api_results(session_id):
@@ -1115,13 +1316,13 @@ Key Findings:
             
             if session_id not in api_sessions:
                 print(f"� � Session {session_id} not found for results")
-                return jsonify({'success': False, 'error': 'Session not found'}), 404
+                return safe_jsonify({'success': False, 'error': 'Session not found'}), 404
             
             session_data = api_sessions[session_id]
             print(f"📊 Session status: {session_data['status']}, Complete: {session_data.get('analysis_complete', False)}")
             
             if not session_data['analysis_complete']:
-                return jsonify({
+                return safe_jsonify({
                     'success': False, 
                     'error': 'Analysis not complete'
                 }), 400
@@ -1129,7 +1330,7 @@ Key Findings:
             # Check if analysis failed
             if session_data['status'] == 'error':
                 error_message = session_data.get('error', 'Analysis failed')
-                return jsonify({
+                return safe_jsonify({
                     'success': False,
                     'error': error_message,
                     'session_id': session_id,
@@ -1138,36 +1339,56 @@ Key Findings:
             
             results = session_data['results']
             if not results:
-                return jsonify({
+                return safe_jsonify({
                     'success': False, 
                     'error': 'No results available'
                 }), 404
             
-            # Return the HTML formatted results (same as CSDAIv2)
-            return jsonify({
-                'success': True,
-                'session_id': session_id,
-                'analysis_type': session_data['analysis_type'],
-                'results': results,  # This is the formatted HTML
-                'raw_results': session_data.get('raw_results', results),
-                'completed_at': session_data.get('completed_at', datetime.now().isoformat())
-            })
+            # FIXED: Return standardized analyzer output instead of just HTML
+            # Check if we have standardized analysis results stored
+            standardized_results = session_data.get('standardized_results')
+            
+            if standardized_results:
+                # Return standardized format for proper frontend display
+                return safe_jsonify({
+                    'success': True,
+                    'session_id': session_id,
+                    'analysis_type': session_data['analysis_type'],
+                    # CRITICAL FIX: Return standardized structure instead of HTML
+                    'analysis_result': standardized_results,  # Standardized analyzer output
+                    'results': results,  # Keep HTML for backward compatibility
+                    'raw_results': session_data.get('raw_results', results),
+                    'completed_at': session_data.get('completed_at', datetime.now().isoformat()),
+                    'format_version': 'standardized_v2'  # Version indicator
+                })
+            else:
+                # Fallback: Legacy HTML format with improvement flag
+                return safe_jsonify({
+                    'success': True,
+                    'session_id': session_id,
+                    'analysis_type': session_data['analysis_type'],
+                    'results': results,  # Legacy HTML format
+                    'raw_results': session_data.get('raw_results', results),
+                    'completed_at': session_data.get('completed_at', datetime.now().isoformat()),
+                    'format_version': 'legacy_html',  # Version indicator
+                    'note': 'Consider upgrading to standardized format for better frontend display'
+                })
             
         except Exception as e:
             print(f"� � Results error: {str(e)}")
-            return jsonify({'success': False, 'error': str(e)}), 500
+            return safe_jsonify({'success': False, 'error': str(e)}), 500
     
     @app.route('/export/<session_id>', methods=['GET'])
     def api_export(session_id):
         """Export analysis results as a file"""
         try:
             if session_id not in api_sessions:
-                return jsonify({'success': False, 'error': 'Session not found'}), 404
+                return safe_jsonify({'success': False, 'error': 'Session not found'}), 404
             
             session_data = api_sessions[session_id]
             
             if not session_data['analysis_complete']:
-                return jsonify({
+                return safe_jsonify({
                     'success': False, 
                     'error': 'Analysis not complete'
                 }), 400
@@ -1231,7 +1452,7 @@ Trend Micro Deep Security Analysis Tool
             )
             
         except Exception as e:
-            return jsonify({'success': False, 'error': str(e)}), 500
+            return safe_jsonify({'success': False, 'error': str(e)}), 500
     
     @app.route('/api/sessions/cleanup', methods=['POST'])
     def api_cleanup():
@@ -1247,19 +1468,84 @@ Trend Micro Deep Security Analysis Tool
                 del api_sessions[session_id]
                 cleaned_sessions += 1
             
-            return jsonify({
+            return safe_jsonify({
                 'success': True,
                 'cleaned_sessions': cleaned_sessions
             })
             
         except Exception as e:
-            return jsonify({'success': False, 'error': str(e)}), 500
+            return safe_jsonify({'success': False, 'error': str(e)}), 500
     
+    @app.route('/cleanup/session/<session_id>', methods=['DELETE'])
+    def api_cleanup_session(session_id):
+        """Cleanup specific session and its temp files"""
+        try:
+            if session_id in api_sessions:
+                session_data = api_sessions[session_id]
+                
+                # Clean up temp files for this session
+                for temp_file in session_data.get('temp_files', []):
+                    cleanup_temp_file(temp_file)
+                
+                # Remove session
+                del api_sessions[session_id]
+                
+                return safe_jsonify({
+                    'success': True,
+                    'message': f'Session {session_id} cleaned up successfully',
+                    'session_id': session_id
+                })
+            else:
+                return safe_jsonify({
+                    'success': False,
+                    'message': f'Session {session_id} not found'
+                }), 404
+                
+        except Exception as e:
+            return safe_jsonify({'success': False, 'error': str(e)}), 500
+    
+    @app.route('/cleanup/cache', methods=['POST'])
+    def api_cleanup_cache():
+        """Cleanup old sessions and temp files (alias for sessions/cleanup)"""
+        try:
+            cleaned_sessions = 0
+            for session_id, session_data in list(api_sessions.items()):
+                # Clean up temp files
+                for temp_file in session_data.get('temp_files', []):
+                    cleanup_temp_file(temp_file)
+                
+                # Remove session
+                del api_sessions[session_id]
+                cleaned_sessions += 1
+            
+            return safe_jsonify({
+                'success': True,
+                'message': f'Cache cleanup completed - {cleaned_sessions} sessions cleaned',
+                'cleaned_sessions': cleaned_sessions
+            })
+            
+        except Exception as e:
+            return safe_jsonify({'success': False, 'error': str(e)}), 500
+
     # Include the exact formatting functions from CSDAIv2 routes.py
     def format_ds_log_results(analysis, is_multiple=False):
-        """Import from routes.py - DS log formatting function"""
-        from routes import format_ds_log_results as format_func
-        return format_func(analysis, is_multiple)
+        """Import from routes.py - DS log formatting function with auto-version selection"""
+        # Safety check for None analysis
+        if not analysis:
+            return """
+            <div class="alert alert-danger">
+                <h4><i class="fas fa-exclamation-triangle"></i> Analysis Error</h4>
+                <p>The analysis data is not available. Please try again or contact support.</p>
+            </div>
+            """
+        
+        from routes import format_ds_log_results as format_func, format_ds_log_results_v2, should_use_enhanced_formatter
+        
+        # Auto-select formatter version based on content
+        if should_use_enhanced_formatter(analysis):
+            return format_ds_log_results_v2(analysis, is_multiple)
+        else:
+            return format_func(analysis, is_multiple)
     
     def format_amsp_results(analysis):
         """Import from routes.py - AMSP formatting function"""
@@ -1276,4 +1562,4 @@ Trend Micro Deep Security Analysis Tool
         from routes import format_resource_results as format_func
         return format_func(analysis_data, process_count, busy_count)
     
-    print("✅ REST API routes registered for TrendAI integration with CSDAIv2 backend")
+    print("✅ REST API routes registered for Intellicket integration with CSDAIv2 backend")

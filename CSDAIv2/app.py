@@ -1,7 +1,18 @@
 # -*- coding: utf-8 -*-
 """
 Deep Security Unified Analyzer - Main Application
-Optimized main entry point with modular architecture.
+Optimized main entry point with mo# Register all routes
+register_routes(app)
+
+# Register REST API routes for Intellicket integration
+try:
+    from api_routes import register_api_routes
+    register_api_routes(app, config)
+    print("✅ REST API routes registered")
+except ImportError as e:
+    print(f"⚠️ REST API routes not available: {e}")
+
+# Note: Removed Rich Data API v2 for simplified architectureitecture.
 """
 
 import os
@@ -16,8 +27,10 @@ from flask import Flask, session
 # Import modular components
 from config import get_config
 from security import validate_host_access
-from ui_components import session_manager, wizard, guidance
+from simple_session_manager import simple_session_manager as session_manager
 from routes import register_routes
+
+# Note: Removed Rich Data API v2 imports for simplified architecture
 
 # Import ML and RAG systems
 try:
@@ -101,16 +114,36 @@ app.secret_key = config.SECRET_KEY
 app.config['MAX_CONTENT_LENGTH'] = config.MAX_CONTENT_LENGTH
 app.config['PERMANENT_SESSION_LIFETIME'] = 86400  # 24 hours
 
+# Add CORS support for admin interface
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+    return response
+
 # Register all routes
 register_routes(app)
 
-# Register REST API routes for TrendAI integration
+# Register REST API routes for Intellicket integration
 try:
     from api_routes import register_api_routes
     register_api_routes(app, config)
     print("✅ REST API routes registered")
 except ImportError as e:
-    print(f"⚠�  REST API routes not available: {e}")
+    print(f"⚠️  REST API routes not available: {e}")
+
+# Register Admin API routes for Unified Admin Interface
+try:
+    from admin.unified_admin_routes import register_admin_routes
+    register_admin_routes(app, config)
+    print("✅ Admin API routes registered")
+except ImportError as e:
+    print(f"⚠️  Admin routes not available: {e}")
+except Exception as e:
+    print(f"⚠️  Admin routes initialization failed: {e}")
+
+# Note: Removed Rich Data API v2 registration for simplified architecture
 
 def initialize_application():
     """Initialize application components"""
@@ -151,19 +184,23 @@ if __name__ == "__main__":
     print("🛡️   TREND MICRO DEEP SECURITY UNIFIED ANALYZER")
     print("="*60)
     print(f"🌐  Server starting on: http://localhost:{config.PORT}")
-    print(f"🎯 Analysis types available: 6")
+    print(f"🎯 Backend analysis engines available: 7")
+    print(f"🎯 Frontend-exposed analyzers: 4")
     print(f"🤖 AI Analysis: {'✅ Enabled' if OPENAI_AVAILABLE else '❌ Disabled'}")
     print(f"🧠 ML Analysis: {'✅ Enabled' if ML_AVAILABLE else '❌ Disabled'}")
     print(f"📚 Dynamic RAG Enhancement: {'✅ Enabled' if DYNAMIC_RAG_AVAILABLE else '❌ Disabled'}")
     print(f"🔒 Security: {'✅ Host validation enabled' if config.ALLOWED_HOSTS else '⚠️  Open access'}")
     print("="*60)
-    print("📖 Supported Analysis Types:")
+    print("📖 Intellicket Frontend-Accessible Analysis Types:")
+    print("   • AMSP Anti-Malware (AMSP-Inst_LocalDebugLog)")
+    print("   • AV Conflicts (RunningProcesses.xml)")
+    print("   • Resource Analysis (RunningProcesses.xml + TopNBusyProcess.txt)")
+    print("   • Diagnostic Package (ZIP files with comprehensive log data)")
+    print("")
+    print("🔧 Backend-Only Analysis Engines (API accessible):")
     print("   • DS Agent Logs (ds_agent.log)")
     print("   • DS Agent Offline (ds_agent.log - specialized offline analysis)")
-    print("   • AMSP Anti-Malware (AMSP-Inst_LocalDebugLog)")
-    print("   • AV Conflicts (RunningProcess.xml)")
-    print("   • Resource Analysis (RunningProcess.xml + TopNBusyProcess.txt)")
-    print("   • Diagnostic Package (ZIP files with comprehensive log data)")
+    print("   • DS Agent Enhanced (modular with ML/RAG integration)")
     print("="*60)
     print("🎮 Ready for analysis! Open your browser to get started.")
     print()

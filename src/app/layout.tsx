@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "TrendAI - Intelligent Trend Micro Support",
-  description: "Get expert support for your Trend Micro products with our intelligent ticket system. Fast, reliable, and powered by AI technology.",
+  title: "Intellicket - Intelligent Cybersecurity Support Platform",
+  description: "AI-powered cybersecurity log analysis and support platform. Expert analysis for your security products with intelligent ticket resolution and advanced threat detection.",
 };
 
 export default function RootLayout({

@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+/* Dark Theme Variables */
+:root {
+  --bg-primary: rgb(15 23 42); /* slate-900 */
+  --bg-secondary: rgb(30 41 59); /* slate-800 */
+  --bg-tertiary: rgb(51 65 85); /* slate-700 */
+  --bg-card: rgb(30 41 59); /* slate-800 */
+  --bg-elevated: rgb(51 65 85); /* slate-700 */
+  
+  --text-primary: rgb(248 250 252); /* slate-50 */
+  --text-secondary: rgb(203 213 225); /* slate-300 */
+  --text-muted: rgb(148 163 184); /* slate-400 */
+  
+  --border-primary: rgb(71 85 105); /* slate-600 */
+  --border-secondary: rgb(100 116 139); /* slate-500 */
+  
+  --accent-blue: rgb(59 130 246); /* blue-500 */
+  --accent-green: rgb(34 197 94); /* green-500 */
+  --accent-yellow: rgb(234 179 8); /* yellow-500 */
+  --accent-red: rgb(239 68 68); /* red-500 */
+  --accent-purple: rgb(147 51 234); /* purple-500 */
+}
+
+/* Base styles */
+html {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: linear-gradient(135deg, rgb(15 23 42) 0%, rgb(30 41 59) 100%);
+  min-height: 100vh;
+}
+
+/* Custom scrollbar for dark theme */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(30 41 59);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(71 85 105);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(100 116 139);
+}
+
+/* Dark theme optimized animations */
+@keyframes pulse-dark {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.6);
+  }
+}
+
+/* Card hover effects for dark theme */
+.dark-card-hover {
+  transition: all 0.2s ease-in-out;
+}
+
+.dark-card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+}
+
+/* Status indicator animations */
+.status-indicator {
+  animation: pulse-dark 2s infinite;
+}
+
+.status-indicator.online {
+  background-color: rgb(34 197 94);
+  animation: glow 2s infinite;
+}
+
+.status-indicator.offline {
+  background-color: rgb(239 68 68);
+}
+
+.status-indicator.checking {
+  background-color: rgb(234 179 8);
+  animation: pulse-dark 1s infinite;
+}

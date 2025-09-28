@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useBackend } from '@/contexts/BackendContext';
+import Image from 'next/image';
 
 const products = [
   { 
@@ -73,13 +74,15 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <img 
+              <Image 
                 src="/trendlogo.png" 
                 alt="Trend Micro Logo" 
+                width={48}
+                height={48}
                 className="h-12 w-auto"
               />
               <div className="border-l border-white/30 pl-4">
-                <h1 className="text-2xl font-bold text-white">TrendAI</h1>
+                <h1 className="text-2xl font-bold text-white">Intellicket</h1>
                 <p className="text-xs text-red-400 font-medium">AI Support Platform</p>
               </div>
             </div>
@@ -121,8 +124,8 @@ export default function Home() {
       <main className="flex-1 flex flex-col items-center justify-center px-4 py-16 relative z-10">
         <div className="max-w-6xl mx-auto text-center mb-20">
           <div className="mb-8">
-            <span className="inline-flex items-center px-6 py-3 rounded-full text-sm font-medium bg-gradient-to-r from-red-500/20 to-orange-500/20 text-red-300 border border-red-500/30 mb-6 backdrop-blur-sm">
-              <span className="w-2 h-2 bg-red-400 rounded-full mr-3 animate-pulse"></span>
+            <span className="inline-flex items-center px-6 py-3 rounded-full text-sm font-medium bg-gradient-to-r from-blue-500/20 to-cyan-500/20 text-blue-300 border border-blue-500/30 mb-6 backdrop-blur-sm">
+              <span className="w-2 h-2 bg-blue-400 rounded-full mr-3 animate-pulse"></span>
               🚀 AI-Powered Security Support Platform
             </span>
           </div>
@@ -259,6 +262,57 @@ export default function Home() {
               </button>
             ))}
           </div>
+
+          {/* Intellicket Portal Section */}
+          <div className="mt-16 text-center">
+            <div className="mb-8">
+              <h3 className="text-3xl font-bold text-white mb-4">
+                Need Help Creating a Support Case?
+              </h3>
+              <p className="text-lg text-gray-300 max-w-3xl mx-auto">
+                Use our intelligent portal to submit support requests. Our AI will analyze your case 
+                and recommend the best analyzer for your specific needs.
+              </p>
+            </div>
+            
+            <button
+              onClick={() => router.push('/portal')}
+              className="relative px-12 py-6 bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-500 text-white rounded-2xl hover:from-purple-700 hover:via-blue-700 hover:to-cyan-600 transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-3xl group overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 via-blue-600/20 to-cyan-500/20 animate-pulse"></div>
+              <div className="relative flex items-center space-x-4">
+                <div className="flex items-center space-x-2">
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                  </svg>
+                  <span className="text-2xl font-bold">Open Intellicket Portal</span>
+                </div>
+                <div className="flex flex-col items-start text-left">
+                  <span className="text-sm font-medium opacity-90">AI-Powered Case Analysis</span>
+                  <span className="text-xs opacity-75">Submit cases • Get recommendations • Quick resolution</span>
+                </div>
+                <div className="absolute -top-2 -right-2 w-4 h-4 bg-cyan-300 rounded-full animate-ping"></div>
+              </div>
+            </button>
+
+            <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+              <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10">
+                <div className="text-purple-400 text-2xl mb-2">🤖</div>
+                <h4 className="text-white font-semibold mb-1">AI Analysis</h4>
+                <p className="text-gray-400 text-sm">Intelligent analyzer recommendations based on your case description</p>
+              </div>
+              <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10">
+                <div className="text-blue-400 text-2xl mb-2">⚡</div>
+                <h4 className="text-white font-semibold mb-1">Fast Resolution</h4>
+                <p className="text-gray-400 text-sm">Direct routing to the most suitable diagnostic tool</p>
+              </div>
+              <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10">
+                <div className="text-cyan-400 text-2xl mb-2">🎯</div>
+                <h4 className="text-white font-semibold mb-1">Precise Support</h4>
+                <p className="text-gray-400 text-sm">Context-aware assistance tailored to your specific issue</p>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Security Features Banner */}
@@ -297,13 +351,15 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="md:col-span-2">
               <div className="flex items-center space-x-4 mb-4">
-                <img 
+                <Image 
                   src="/trendlogo.png" 
                   alt="Trend Micro Logo" 
+                  width={32}
+                  height={32}
                   className="h-8 w-auto"
                 />
                 <div className="border-l border-white/30 pl-4">
-                  <h3 className="text-xl font-bold text-white">TrendAI</h3>
+                  <h3 className="text-xl font-bold text-white">Intellicket</h3>
                   <p className="text-xs text-red-400 font-medium">AI Support Platform</p>
                 </div>
               </div>
@@ -354,7 +410,7 @@ export default function Home() {
           <div className="border-t border-white/20 mt-12 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center">
               <p className="text-gray-400 text-sm">
-                &copy; 2025 TrendAI by Trend Micro. All rights reserved. | Securing your digital transformation.
+                &copy; 2025 Intellicket - AI-Powered Cybersecurity Platform. All rights reserved. | Securing your digital transformation.
               </p>
               <div className="flex space-x-6 mt-4 md:mt-0">
                 <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</a>

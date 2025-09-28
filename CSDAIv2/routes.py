@@ -41,7 +41,35 @@ from security import (
 
 from config import get_config
 
-from ui_components import session_manager, wizard, guidance
+# UI components functionality moved to frontend
+# from ui_components import session_manager, wizard, guidance
+from simple_session_manager import simple_session_manager as session_manager
+
+# Minimal wizard and guidance fallbacks for server-side routes (not used by Next.js frontend)
+class MinimalWizard:
+    STEPS = {
+        1: {'name': 'Analysis Type Selection', 'description': 'Choose analysis type'},
+        2: {'name': 'File Upload', 'description': 'Upload files'},
+        3: {'name': 'Ready', 'description': 'Ready for analysis'},
+        4: {'name': 'Processing', 'description': 'Analysis in progress'},
+        5: {'name': 'Results', 'description': 'View results'}
+    }
+    
+    def can_proceed_to_step(self, session_id, target_step):
+        return True  # Frontend handles validation
+    
+    def get_step_info(self, step):
+        return self.STEPS.get(step, {})
+    
+    def get_progress_percentage(self, step):
+        return int((step / len(self.STEPS)) * 100)
+
+class MinimalGuidance:
+    def get_analysis_guidance(self, analysis_type):
+        return {}  # Frontend handles guidance
+
+wizard = MinimalWizard()
+guidance = MinimalGuidance()
 
 from wizard_templates import (
 
@@ -843,23 +871,61 @@ def start_analysis(analysis_session_id):
 
             if len(temp_paths) == 1:
 
-                analysis_results = analyzer.analyze_log_file(temp_paths[0])
+                try:
+                    analysis_results = analyzer.analyze_log_file(temp_paths[0])
+                    
+                    # Check if analysis succeeded
+                    if not analysis_results:
+                        raise Exception("Analysis returned no results")
+                    
+                    # Auto-select formatter version based on content
+                    if should_use_enhanced_formatter(analysis_results):
+                        result = format_ds_log_results_v2(analysis_results, False)
+                    else:
+                        result = format_ds_log_results(analysis_results, False)
 
-                result = format_ds_log_results(analysis_results, False)
-
-                raw_result = f"DS Agent Log Analysis Results:\n\n{analysis_results.get('summary', 'No summary available')}"
+                    raw_result = analysis_results  # Store full structured analysis results instead of summary text
+                    
+                except Exception as e:
+                    print(f"❌ DS Agent analysis failed: {e}")
+                    result = f"""
+                    <div class="alert alert-danger">
+                        <h4><i class="fas fa-exclamation-triangle"></i> DS Agent Analysis Failed</h4>
+                        <p>Error: {str(e)}</p>
+                        <p>Please verify the log file format and try again.</p>
+                    </div>
+                    """
+                    raw_result = f"DS Agent Analysis Failed: {str(e)}"
 
             else:
 
-                # Multiple DS log file analysis
+                try:
+                    # Multiple DS log file analysis
+                    analysis_results = analyzer.analyze_multiple_log_files(temp_paths)
+                    
+                    # Check if analysis succeeded
+                    if not analysis_results:
+                        raise Exception("Multiple file analysis returned no results")
 
-                analysis_results = analyzer.analyze_multiple_log_files(temp_paths)
+                    # Auto-select formatter version based on content
+                    if should_use_enhanced_formatter(analysis_results):
+                        result = format_ds_log_results_v2(analysis_results, True)
+                    else:
+                        result = format_ds_log_results(analysis_results, True)  # True indicates multiple files
 
-                result = format_ds_log_results(analysis_results, True)  # True indicates multiple files
-
-                file_count = len(temp_paths)
-
-                raw_result = f"Multiple DS Agent Log Analysis Results ({file_count} files):\n\n{analysis_results.get('summary', 'No summary available')}"
+                    file_count = len(temp_paths)
+                    raw_result = analysis_results  # Store full structured analysis results instead of summary text
+                    
+                except Exception as e:
+                    print(f"❌ Multiple DS Agent analysis failed: {e}")
+                    result = f"""
+                    <div class="alert alert-danger">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Multiple DS Agent Analysis Failed</h4>
+                        <p>Error: {str(e)}</p>
+                        <p>Please verify the log file formats and try again.</p>
+                    </div>
+                    """
+                    raw_result = f"Multiple DS Agent Analysis Failed: {str(e)}"
 
                 
 
@@ -893,7 +959,7 @@ def start_analysis(analysis_session_id):
 
             if len(temp_paths) < 2:
 
-                raise SecurityError("Resource analysis requires both RunningProcess.xml and TopNBusyProcess.txt files")
+                raise SecurityError("Resource analysis requires both RunningProcesses.xml and TopNBusyProcess.txt files")
 
             
 
@@ -920,7 +986,7 @@ def start_analysis(analysis_session_id):
                         txt_file = path
             
             if not xml_file or not txt_file:
-                raise SecurityError("Could not identify RunningProcess.xml and TopNBusyProcess.txt files. Please ensure both files are uploaded.")
+                raise SecurityError("Could not identify RunningProcesses.xml and TopNBusyProcess.txt files. Please ensure both files are uploaded.")
             
             processes = analyzer.extract_processes_from_xml(xml_file)
             busy_processes = analyzer.parse_top_n_busy_process(txt_file)
@@ -936,7 +1002,7 @@ def start_analysis(analysis_session_id):
             raw_result = f"""Resource Analysis Results:
 
 Files Analyzed:
-- Running Processes: {len(processes)} processes from RunningProcess.xml
+- Running Processes: {len(processes)} processes from RunningProcesses.xml
 - Busy Processes: {len(busy_processes)} processes from TopNBusyProcess.txt
 
 Exclusion Candidates Found: {len(candidates)}
@@ -1091,23 +1157,61 @@ def run_analysis_background(analysis_session_id):
 
             if len(temp_paths) == 1:
 
-                analysis_results = analyzer.analyze_log_file(temp_paths[0])
+                try:
+                    analysis_results = analyzer.analyze_log_file(temp_paths[0])
+                    
+                    # Check if analysis succeeded
+                    if not analysis_results:
+                        raise Exception("Analysis returned no results")
+                    
+                    # Auto-select formatter version based on content
+                    if should_use_enhanced_formatter(analysis_results):
+                        result = format_ds_log_results_v2(analysis_results, False)
+                    else:
+                        result = format_ds_log_results(analysis_results, False)
 
-                result = format_ds_log_results(analysis_results, False)
-
-                raw_result = f"DS Agent Log Analysis Results:\n\n{analysis_results.get('summary', 'No summary available')}"
+                    raw_result = analysis_results  # Store full structured analysis results instead of summary text
+                    
+                except Exception as e:
+                    print(f"❌ DS Agent analysis failed: {e}")
+                    result = f"""
+                    <div class="alert alert-danger">
+                        <h4><i class="fas fa-exclamation-triangle"></i> DS Agent Analysis Failed</h4>
+                        <p>Error: {str(e)}</p>
+                        <p>Please verify the log file format and try again.</p>
+                    </div>
+                    """
+                    raw_result = f"DS Agent Analysis Failed: {str(e)}"
 
             else:
 
-                # Multiple DS log file analysis
+                try:
+                    # Multiple DS log file analysis
+                    analysis_results = analyzer.analyze_multiple_log_files(temp_paths)
+                    
+                    # Check if analysis succeeded
+                    if not analysis_results:
+                        raise Exception("Multiple file analysis returned no results")
 
-                analysis_results = analyzer.analyze_multiple_log_files(temp_paths)
+                    # Auto-select formatter version based on content
+                    if should_use_enhanced_formatter(analysis_results):
+                        result = format_ds_log_results_v2(analysis_results, True)
+                    else:
+                        result = format_ds_log_results(analysis_results, True)  # True indicates multiple files
 
-                result = format_ds_log_results(analysis_results, True)  # True indicates multiple files
-
-                file_count = len(temp_paths)
-
-                raw_result = f"Multiple DS Agent Log Analysis Results ({file_count} files):\n\n{analysis_results.get('summary', 'No summary available')}"
+                    file_count = len(temp_paths)
+                    raw_result = analysis_results  # Store full structured analysis results instead of summary text
+                    
+                except Exception as e:
+                    print(f"❌ Multiple DS Agent analysis failed: {e}")
+                    result = f"""
+                    <div class="alert alert-danger">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Multiple DS Agent Analysis Failed</h4>
+                        <p>Error: {str(e)}</p>
+                        <p>Please verify the log file formats and try again.</p>
+                    </div>
+                    """
+                    raw_result = f"Multiple DS Agent Analysis Failed: {str(e)}"
 
                 
 
@@ -1141,7 +1245,7 @@ def run_analysis_background(analysis_session_id):
 
             if len(temp_paths) < 2:
 
-                raise SecurityError("Resource analysis requires both RunningProcess.xml and TopNBusyProcess.txt files")
+                raise SecurityError("Resource analysis requires both RunningProcesses.xml and TopNBusyProcess.txt files")
 
             
 
@@ -1168,7 +1272,7 @@ def run_analysis_background(analysis_session_id):
                         txt_file = path
             
             if not xml_file or not txt_file:
-                raise SecurityError("Could not identify RunningProcess.xml and TopNBusyProcess.txt files. Please ensure both files are uploaded.")
+                raise SecurityError("Could not identify RunningProcesses.xml and TopNBusyProcess.txt files. Please ensure both files are uploaded.")
             
             processes = analyzer.extract_processes_from_xml(xml_file)
             busy_processes = analyzer.parse_top_n_busy_process(txt_file)
@@ -1184,7 +1288,7 @@ def run_analysis_background(analysis_session_id):
             raw_result = f"""Resource Analysis Results:
 
 Files Analyzed:
-- Running Processes: {len(processes)} processes from RunningProcess.xml
+- Running Processes: {len(processes)} processes from RunningProcesses.xml
 - Busy Processes: {len(busy_processes)} processes from TopNBusyProcess.txt
 
 Exclusion Candidates Found: {len(candidates)}
@@ -1395,6 +1499,28 @@ def render_wizard_step(step, session_data, error=None):
 
 
 
+def should_use_enhanced_formatter(analysis: Dict[str, Any]) -> bool:
+    """Determine whether to use the enhanced v2 formatter based on analysis content"""
+    # Safety check for None analysis
+    if not analysis or not isinstance(analysis, dict):
+        return False
+        
+    # Use v2 if we have new sections (module_status or configuration)
+    if analysis.get('module_status') or analysis.get('configuration'):
+        return True
+    
+    # Use v2 for large files (40,000+ lines)
+    summary = analysis.get('summary', {})
+    if summary.get('total_lines', 0) >= 40000:
+        return True
+    
+    # Use v2 if significant complexity (high error/warning counts)
+    if summary.get('error_count', 0) + summary.get('warning_count', 0) > 100:
+        return True
+    
+    return False
+
+
 def format_ds_log_results(analysis: Dict[str, Any], is_multiple: bool = False) -> str:
 
     """Format DS log analysis results as HTML with full AI, ML, and RAG analysis"""
@@ -1470,33 +1596,6 @@ def format_ds_log_results(analysis: Dict[str, Any], is_multiple: bool = False) -
                     <p style=\"font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif !important;\"><strong>Time Range:</strong> {summary['timespan']['start'] or 'N/A'} to {summary['timespan']['end'] or 'N/A'}</p>
 
                     {'<p style="font-family: Inter, Segoe UI, Roboto, sans-serif !important;"><strong>Files Analyzed:</strong> ' + str(summary.get('file_count', 1)) + '</p>' if is_multiple else ''}
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="col-md-6">
-            <div class="card font-consistent" id="recommendations-section">
-
-                <div class="card-header font-consistent" style=\"font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif !important;\"><i class="fa-solid fa-bullseye me-2"></i>Key Recommendations</div>
-
-                <div class="card-body font-consistent" style=\"font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif !important;\">
-
-                    <ul class="list-unstyled" style=\"font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif !important;\">
-
-    """
-
-    for rec in analysis['recommendations']:
-
-        html += f'<li class="mb-2" style="font-family: Inter, \'Segoe UI\', Roboto, sans-serif !important;">{rec}</li>'
-
-    
-
-    html += """
-
-                    </ul>
 
                 </div>
 
@@ -1877,9 +1976,364 @@ def format_ds_log_results(analysis: Dict[str, Any], is_multiple: bool = False) -
     return html
 
 
-
-
-
+def format_ds_log_results_v2(analysis: Dict[str, Any], is_multiple: bool = False) -> str:
+    """Enhanced DS log analysis results with 6-section output structure for 40k+ line processing"""
+    # Safety check for None or invalid analysis
+    if not analysis or not isinstance(analysis, dict):
+        return f"""
+        <div class="alert alert-danger">
+            <h4><i class="fas fa-exclamation-triangle"></i> Analysis Error</h4>
+            <p>The analysis data is not available. Please try again or contact support.</p>
+        </div>
+        """
+    
+    summary = analysis.get('summary', {})
+    if not summary:
+        return f"""
+        <div class="alert alert-warning">
+            <h4><i class="fas fa-exclamation-triangle"></i> Incomplete Analysis</h4>
+            <p>The analysis summary is not available. The log file may not be compatible with DS Agent analysis.</p>
+        </div>
+        """
+    
+    # Status determination
+    if summary['critical_count'] > 0:
+        status_color = "#dc3545"
+        status_text = "CRITICAL ISSUES DETECTED"
+        status_icon = '<i class="fas fa-exclamation-circle text-danger"></i>'
+    elif summary['error_count'] > 10:
+        status_color = "#fd7e14"
+        status_text = "MULTIPLE ERRORS DETECTED"
+        status_icon = '<i class="fa-solid fa-exclamation-triangle"></i>'
+    elif summary['warning_count'] > 20:
+        status_color = "#ffc107"
+        status_text = "WARNINGS DETECTED"
+        status_icon = '<i class="fa-solid fa-exclamation-triangle"></i>'
+    else:
+        status_color = "#198754"
+        status_text = "HEALTHY"
+        status_icon = '<i class="fa-solid fa-check-circle text-success"></i>'
+    
+    html = f"""
+    <div class="mb-4 font-consistent">
+        <h4 style="color: {status_color}; font-family: Inter, 'Segoe UI', Roboto, sans-serif !important;">{status_icon} DS Agent Log Analysis v2 - Status: {status_text}</h4>
+        {'<p style="font-family: Inter, Segoe UI, Roboto, sans-serif !important;"><i class="fas fa-layer-group"></i> <strong>Multiple File Analysis:</strong> ' + str(summary.get('file_count', 1)) + ' files analyzed</p>' if is_multiple else ''}
+        <p style="font-family: Inter, 'Segoe UI', Roboto, sans-serif !important; color: #6c757d;"><i class="fas fa-rocket"></i> Enhanced processing for large log files (40,000+ lines supported)</p>
+    </div>
+    
+    <!-- Section 1: Summary Statistics -->
+    <div class="row mb-4 font-consistent">
+        <div class="col-12">
+            <div class="card border-primary">
+                <div class="card-header bg-primary text-white" style="font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif !important;">
+                    <i class="fas fa-chart-bar"></i> Section 1: Summary Statistics
+                </div>
+                <div class="card-body" style="font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif !important;">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h6>File Processing</h6>
+                            <p><strong>Total Lines:</strong> {summary['total_lines']:,}</p>
+                            <p><strong>Parsed Lines:</strong> {summary['parsed_lines']:,}</p>
+                            <p><strong>Parsing Rate:</strong> {(summary['parsed_lines']/summary['total_lines']*100) if summary['total_lines'] > 0 else 0:.1f}%</p>
+                        </div>
+                        <div class="col-md-4">
+                            <h6>Issue Counts</h6>
+                            <p><strong>Critical Issues:</strong> <span style="color: #dc3545;">{summary['critical_count']}</span></p>
+                            <p><strong>Errors:</strong> <span style="color: #fd7e14;">{summary['error_count']}</span></p>
+                            <p><strong>Warnings:</strong> <span style="color: #ffc107;">{summary['warning_count']}</span></p>
+                        </div>
+                        <div class="col-md-4">
+                            <h6>Time Analysis</h6>
+                            <p><strong>Start Time:</strong> {summary['timespan']['start'] or 'N/A'}</p>
+                            <p><strong>End Time:</strong> {summary['timespan']['end'] or 'N/A'}</p>
+                            {'<p><strong>Files Analyzed:</strong> ' + str(summary.get('file_count', 1)) + '</p>' if is_multiple else ''}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Section 2: Module Status -->"""
+    
+    # Add Module Status section
+    module_status = analysis.get('module_status', {})
+    if module_status:
+        html += f"""
+    <div class="row mb-4 font-consistent">
+        <div class="col-12">
+            <div class="card border-success">
+                <div class="card-header bg-success text-white" style="font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif !important;">
+                    <i class="fas fa-toggle-on"></i> Section 2: Module Status
+                </div>
+                <div class="card-body" style="font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif !important;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6 class="text-success"><i class="fas fa-check-circle"></i> Enabled Modules ({len(module_status.get('enabled_modules', []))})</h6>
+                            <ul class="list-unstyled">"""
+        
+        for module in module_status.get('enabled_modules', []):
+            html += f'<li><span class="badge bg-success me-2">ON</span>{module}</li>'
+        
+        html += f"""
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="text-secondary"><i class="fas fa-times-circle"></i> Disabled Modules ({len(module_status.get('disabled_modules', []))})</h6>
+                            <ul class="list-unstyled">"""
+        
+        for module in module_status.get('disabled_modules', []):
+            html += f'<li><span class="badge bg-secondary me-2">OFF</span>{module}</li>'
+        
+        html += """
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>"""
+    else:
+        html += """
+    <div class="row mb-4 font-consistent">
+        <div class="col-12">
+            <div class="card border-warning">
+                <div class="card-header bg-warning text-dark" style="font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif !important;">
+                    <i class="fas fa-exclamation-triangle"></i> Section 2: Module Status
+                </div>
+                <div class="card-body text-center" style="font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif !important;">
+                    <p class="text-muted">No module status information found in log file</p>
+                </div>
+            </div>
+        </div>
+    </div>"""
+    
+    # Add DS Configuration section
+    configuration = analysis.get('configuration', {})
+    html += f"""
+    <!-- Section 3: DS Configuration -->
+    <div class="row mb-4 font-consistent">
+        <div class="col-12">
+            <div class="card border-info">
+                <div class="card-header bg-info text-white" style="font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif !important;">
+                    <i class="fas fa-cogs"></i> Section 3: DS Configuration
+                </div>
+                <div class="card-body" style="font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif !important;">"""
+    
+    if configuration:
+        html += '<div class="row">'
+        config_items = []
+        
+        for key, value in configuration.items():
+            if key == 'manager_url':
+                config_items.append(f'<p><strong>Manager URL:</strong> <code>{value}</code></p>')
+            elif key == 'agent_initiated':
+                config_items.append(f'<p><strong>Agent Initiated:</strong> <span class="badge bg-{"success" if value.lower() == "true" else "secondary"}">{value.upper()}</span></p>')
+            elif key == 'azure_status':
+                config_items.append(f'<p><strong>Azure Status:</strong> <span class="badge bg-{"success" if value.lower() == "true" else "secondary"}">{value.upper()}</span></p>')
+            elif key == 'secure_boot':
+                config_items.append(f'<p><strong>Secure Boot:</strong> <span class="badge bg-{"success" if value.lower() == "true" else "secondary"}">{value.upper()}</span></p>')
+            elif key == 'fips_available':
+                config_items.append(f'<p><strong>FIPS Available:</strong> <span class="badge bg-{"success" if value == "1" else "secondary"}">{value}</span></p>')
+            elif key == 'proxy_settings' and isinstance(value, dict):
+                config_items.append(f'<p><strong>Proxy Settings:</strong> Auto: {value.get("auto", "N/A")}, PAC: {value.get("pac_url") or "None"}</p>')
+            elif key == 'bios_uuid' and isinstance(value, dict):
+                config_items.append(f'<p><strong>BIOS UUID:</strong> {value.get("new", "N/A")}</p>')
+            else:
+                config_items.append(f'<p><strong>{key.replace("_", " ").title()}:</strong> {value}</p>')
+        
+        # Split config items into columns
+        mid_point = len(config_items) // 2
+        html += f'<div class="col-md-6">{"".join(config_items[:mid_point])}</div>'
+        html += f'<div class="col-md-6">{"".join(config_items[mid_point:])}</div>'
+        html += '</div>'
+    else:
+        html += '<p class="text-muted text-center">No configuration information found in log file</p>'
+    
+    html += """
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Section 4: Issues Found -->
+    <div class="row mb-4 font-consistent">
+        <div class="col-12">
+            <div class="card border-danger">
+                <div class="card-header bg-danger text-white" style="font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif !important;">
+                    <i class="fas fa-exclamation-triangle"></i> Section 4: Issues Found
+                </div>
+                <div class="card-body" style="font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif !important;">"""
+    
+    # Critical Issues
+    if analysis.get('critical_issues'):
+        html += '<h6 class="text-danger"><i class="fas fa-times-circle"></i> Critical Issues</h6><div class="list-group mb-3">'
+        for issue in analysis['critical_issues'][:5]:  # Show top 5
+            html += f"""
+                <div class="list-group-item list-group-item-danger">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h6 class="mb-1">Line {issue['line']} - {issue['component']}</h6>
+                        <small>{issue['timestamp']}</small>
+                    </div>
+                    <p class="mb-1">{issue['message']}</p>
+                </div>"""
+        html += '</div>'
+    
+    # Errors
+    if analysis.get('errors'):
+        html += '<h6 class="text-warning"><i class="fas fa-exclamation-triangle"></i> Errors</h6><div class="list-group mb-3">'
+        for error in analysis['errors'][:5]:  # Show top 5
+            html += f"""
+                <div class="list-group-item list-group-item-warning">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h6 class="mb-1">Line {error['line']} - {error['component']}</h6>
+                        <small>{error['timestamp']}</small>
+                    </div>
+                    <p class="mb-1">{error['message']}</p>
+                </div>"""
+        html += '</div>'
+    
+    # Known Issues
+    if analysis.get('known_issues'):
+        html += '<h6 class="text-info"><i class="fas fa-info-circle"></i> Known Issues</h6><div class="list-group mb-3">'
+        for issue in analysis['known_issues'][:3]:  # Show top 3
+            html += f"""
+                <div class="list-group-item list-group-item-info">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h6 class="mb-1">{issue['issue_type']}</h6>
+                        <span class="badge bg-{{"danger" if issue["severity"] == "critical" else "warning" if issue["severity"] == "warning" else "info"}}">{issue['severity'].upper()}</span>
+                    </div>
+                    <p class="mb-1">{issue['description']}</p>
+                    <small class="text-muted">Resolution: {issue['resolution']}</small>
+                </div>"""
+        html += '</div>'
+    
+    if not any([analysis.get('critical_issues'), analysis.get('errors'), analysis.get('known_issues')]):
+        html += '<p class="text-success text-center"><i class="fas fa-check-circle"></i> No significant issues found in the log file</p>'
+    
+    html += """
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Section 5: Recommendations -->
+    <div class="row mb-4 font-consistent">
+        <div class="col-12">
+            <div class="card border-primary">
+                <div class="card-header bg-primary text-white" style="font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif !important;">
+                    <i class="fas fa-lightbulb"></i> Section 5: Recommendations
+                </div>
+                <div class="card-body" style="font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif !important;">
+                    <ul class="list-unstyled">"""
+    
+    for rec in analysis.get('recommendations', []):
+        html += f'<li class="mb-2"><i class="fas fa-arrow-right text-primary me-2"></i>{rec}</li>'
+    
+    if not analysis.get('recommendations'):
+        html += '<li class="text-muted">No specific recommendations available</li>'
+    
+    html += """
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Section 6: Component Analysis -->
+    <div class="row mb-4 font-consistent">
+        <div class="col-12">
+            <div class="card border-secondary">
+                <div class="card-header bg-secondary text-white" style="font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif !important;">
+                    <i class="fas fa-puzzle-piece"></i> Section 6: Component Analysis
+                </div>
+                <div class="card-body" style="font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif !important;">"""
+    
+    if analysis.get('component_analysis'):
+        html += '<div class="table-responsive"><table class="table table-striped">'
+        html += '''
+                    <thead>
+                        <tr>
+                            <th>Component</th>
+                            <th>Total Entries</th>
+                            <th>Errors</th>
+                            <th>Warnings</th>
+                            <th>Health Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>'''
+        
+        for component, stats in analysis['component_analysis'].items():
+            total = stats['total_entries']
+            errors = stats['errors']
+            warnings = stats['warnings']
+            
+            # Calculate health status
+            if errors > 0:
+                health = 'Poor'
+                health_color = 'danger'
+            elif warnings > 5:
+                health = 'Warning'
+                health_color = 'warning'
+            else:
+                health = 'Good'
+                health_color = 'success'
+            
+            html += f'''
+                        <tr>
+                            <td>{component}</td>
+                            <td>{total}</td>
+                            <td><span class="text-danger">{errors}</span></td>
+                            <td><span class="text-warning">{warnings}</span></td>
+                            <td><span class="badge bg-{health_color}">{health}</span></td>
+                        </tr>'''
+        
+        html += '</tbody></table></div>'
+    else:
+        html += '<p class="text-muted text-center">No component analysis data available</p>'
+    
+    html += """
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- AI Enhancement Footer -->"""
+    
+    # Add AI/ML/RAG insights if available
+    if analysis.get('rag_insights') or analysis.get('ml_insights'):
+        html += '''
+    <div class="row mb-4 font-consistent">
+        <div class="col-12">
+            <div class="card border-info">
+                <div class="card-header bg-info text-white" style="font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif !important;">
+                    <i class="fas fa-brain"></i> AI Enhanced Analysis
+                </div>
+                <div class="card-body" style="font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif !important;">'''
+        
+        # Safe null checking for AI analysis
+        rag_insights = analysis.get('rag_insights') or {}
+        if rag_insights.get('ai_analysis'):
+            html += f'<h6><i class="fas fa-robot"></i> AI Analysis</h6><p>{rag_insights["ai_analysis"]}</p>'
+        
+        if analysis.get('ml_insights'):
+            html += '<h6><i class="fas fa-chart-line"></i> ML Insights</h6><p>Machine learning patterns and anomaly detection applied</p>'
+        
+        html += '''
+                </div>
+            </div>
+        </div>
+    </div>'''
+    
+    html += '''
+    </div>
+    <script>
+        // Enhanced version indicator
+        console.log("DS Agent Log Analyzer v2 - Enhanced for 40k+ line processing");
+    </script>
+    '''
+    
+    return html
 
 
 def generate_ai_summary_for_ds_logs(analysis: Dict[str, Any]) -> str:
@@ -2227,6 +2681,7 @@ def format_resource_results(analysis_data: dict, process_count: int, busy_count:
     analysis_text = analysis_data.get('analysis_text', '')
     candidates = analysis_data.get('candidates', [])
     status = analysis_data.get('status', 'unknown')
+    warning = analysis_data.get('warning', '')
     rag_insights = analysis_data.get('rag_insights')
     security_impact = analysis_data.get('security_impact', {})
     performance_metrics = analysis_data.get('performance_metrics', {})
@@ -2236,6 +2691,14 @@ def format_resource_results(analysis_data: dict, process_count: int, busy_count:
         status_color = "#dc3545"
         status_text = "ANALYSIS ERROR"
         status_icon = '<i class="fas fa-exclamation-circle text-danger"></i>'
+    elif status == "partial_xml_only":
+        status_color = "#fd7e14"
+        status_text = "XML-ONLY ANALYSIS (LIMITED DATA)"
+        status_icon = '<i class="fas fa-exclamation-triangle text-warning"></i>'
+    elif status == "partial_txt_only":
+        status_color = "#fd7e14" 
+        status_text = "TXT-ONLY ANALYSIS (LIMITED DATA)"
+        status_icon = '<i class="fas fa-exclamation-triangle text-warning"></i>'
     elif len(candidates) > 0:
         status_color = "#ffc107"
         status_text = "EXCLUSION CANDIDATES FOUND"
@@ -2253,7 +2716,20 @@ def format_resource_results(analysis_data: dict, process_count: int, busy_count:
     <div class="mb-4 font-consistent">
         <h4 style="color: {status_color}; font-family: Inter, 'Segoe UI', Roboto, sans-serif !important;">{status_icon} Resource Analysis - Status: {status_text}</h4>
     </div>
+    """
     
+    # Add warning section if present
+    if warning:
+        html += f"""
+    <div class="alert alert-warning mb-4 font-consistent" role="alert">
+        <h5 class="alert-heading font-consistent" style="font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif !important;">
+            <i class="fas fa-exclamation-triangle me-2"></i>Analysis Limitation Notice
+        </h5>
+        <p class="mb-0 font-consistent" style="font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif !important;">{warning}</p>
+    </div>
+    """
+    
+    html += f"""
     <div class="row mb-4 font-consistent" id="summary-stats-section">
         <div class="col-md-6">
             <div class="card font-consistent">
@@ -2638,40 +3114,6 @@ def format_ds_agent_offline_results(analysis: Dict[str, Any]) -> str:
         </div>
         """
     
-    # Add recommendations
-    if recommendations:
-        result += """
-        <div class="recommendations-section">
-            <h3>💡 Recommendations</h3>
-            <div class="recommendations-list">
-        """
-        
-        for rec in recommendations:
-            # Determine recommendation type and styling
-            if rec.startswith("🔥"):
-                rec_class = "critical"
-            elif rec.startswith("⚠️"):
-                rec_class = "warning"
-            elif rec.startswith("☁️"):
-                rec_class = "cloud"
-            elif rec.startswith("🖥️"):
-                rec_class = "system"
-            elif rec.startswith("🎯"):
-                rec_class = "rootcause"
-            else:
-                rec_class = "general"
-            
-            result += f"""
-                <div class="recommendation-item {rec_class}">
-                    {rec}
-                </div>
-            """
-        
-        result += """
-            </div>
-        </div>
-        """
-    
     # Add RAG insights if available
     rag_insights = analysis.get('rag_insights')
     if rag_insights and not rag_insights.get('error'):
@@ -2715,7 +3157,7 @@ def format_ds_agent_offline_results(analysis: Dict[str, Any]) -> str:
         .status-badge.success { background-color: #28a745; }
         
         .summary-section, .severity-section, .root-cause-section, 
-        .issues-section, .timeline-section, .recommendations-section,
+        .issues-section, .timeline-section,
         .ml-section, .rag-section {
             background: white;
             border: 1px solid #dee2e6;
@@ -2805,38 +3247,6 @@ def format_ds_agent_offline_results(analysis: Dict[str, Any]) -> str:
             border-radius: 5px;
             margin-bottom: 8px;
             border-left: 4px solid #2196f3;
-        }
-        
-        .recommendation-item {
-            padding: 12px;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            border-left: 4px solid #6c757d;
-        }
-        
-        .recommendation-item.critical {
-            background: #f8d7da;
-            border-left-color: #dc3545;
-        }
-        
-        .recommendation-item.warning {
-            background: #fff3cd;
-            border-left-color: #ffc107;
-        }
-        
-        .recommendation-item.cloud {
-            background: #d1ecf1;
-            border-left-color: #17a2b8;
-        }
-        
-        .recommendation-item.system {
-            background: #d4edda;
-            border-left-color: #28a745;
-        }
-        
-        .recommendation-item.rootcause {
-            background: #e2e3e5;
-            border-left-color: #6f42c1;
         }
         
         .ml-content, .rag-content {
@@ -3132,7 +3542,6 @@ def format_diagnostic_package_results(analysis: Dict[str, Any]) -> str:
     if executive_summary:
         overview = executive_summary.get('overview', '')
         key_findings = executive_summary.get('key_findings', [])
-        exec_recommendations = executive_summary.get('recommendations', [])
         
         if overview:
             result += f'<div class="summary-content">{overview}</div>'
@@ -3150,21 +3559,6 @@ def format_diagnostic_package_results(analysis: Dict[str, Any]) -> str:
         
         result += """
             </div>
-            
-            <div class="key-findings">
-                <h4>� Recommendations</h4>
-        """
-        
-        # Combine executive summary recommendations with top-level recommendations
-        all_recommendations = exec_recommendations + top_level_recommendations
-        if all_recommendations:
-            for recommendation in all_recommendations:
-                result += f'<div class="finding-item">• {recommendation}</div>'
-        else:
-            result += '<div class="finding-item">• No specific recommendations at this time</div>'
-        
-        result += """
-            </div>
         """
     else:
         # No executive summary, but show basic info
@@ -3174,19 +3568,6 @@ def format_diagnostic_package_results(analysis: Dict[str, Any]) -> str:
             <div class="key-findings">
                 <h4>🔑 Key Findings</h4>
                 <div class="finding-item">• Analysis completed successfully</div>
-            </div>
-            
-            <div class="key-findings">
-                <h4>💡 Recommendations</h4>
-        """
-        
-        if top_level_recommendations:
-            for recommendation in top_level_recommendations:
-                result += f'<div class="finding-item">• {recommendation}</div>'
-        else:
-            result += '<div class="finding-item">• No specific recommendations at this time</div>'
-        
-        result += """
             </div>
         """
     

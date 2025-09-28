@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function ServiceGatewayPage() {
   const [isIntegrationReady, setIsIntegrationReady] = useState(false);
@@ -60,13 +61,15 @@ export default function ServiceGatewayPage() {
                 href="/"
                 className="flex items-center space-x-3 hover:opacity-80 transition-opacity"
               >
-                <img 
+                <Image 
                   src="/trendlogo.png" 
                   alt="Trend Micro Logo" 
+                  width={40}
+                  height={40}
                   className="h-10 w-auto"
                 />
                 <div className="border-l border-white/30 pl-3">
-                  <div className="text-xl font-bold text-green-400">TrendAI</div>
+                  <div className="text-xl font-bold text-green-400">Intellicket</div>
                   <div className="text-xs text-gray-400">AI Support Platform</div>
                 </div>
               </Link>
@@ -155,13 +158,15 @@ export default function ServiceGatewayPage() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="md:col-span-2">
               <div className="flex items-center space-x-4 mb-4">
-                <img 
+                <Image 
                   src="/trendlogo.png" 
                   alt="Trend Micro Logo" 
+                  width={32}
+                  height={32}
                   className="h-8 w-auto"
                 />
                 <div className="border-l border-white/30 pl-4">
-                  <h3 className="text-xl font-bold text-white">TrendAI</h3>
+                  <h3 className="text-xl font-bold text-white">Intellicket</h3>
                   <p className="text-xs text-red-400 font-medium">AI Support Platform</p>
                 </div>
               </div>
@@ -212,7 +217,7 @@ export default function ServiceGatewayPage() {
           <div className="border-t border-white/20 mt-12 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center">
               <p className="text-gray-400 text-sm">
-                &copy; 2025 TrendAI by Trend Micro. All rights reserved. | Securing your digital transformation.
+                &copy; 2025 Intellicket - AI-Powered Cybersecurity Platform. All rights reserved. | Securing your digital transformation.
               </p>
               <div className="flex space-x-6 mt-4 md:mt-0">
                 <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</a>

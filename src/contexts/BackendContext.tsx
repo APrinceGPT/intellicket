@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, useEffect, useRef, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, useRef, useCallback, ReactNode } from 'react';
 
 type BackendStatus = 'checking' | 'connected' | 'error';
 
@@ -31,7 +31,7 @@ export function BackendProvider({ children }: BackendProviderProps) {
 
   const API_BASE = '/api/csdai';
 
-  const checkBackendStatus = async () => {
+  const checkBackendStatus = useCallback(async () => {
     if (!isMountedRef.current) return;
     
     console.log('🔍 Global backend check...', new Date().toLocaleTimeString());
@@ -78,7 +78,7 @@ export function BackendProvider({ children }: BackendProviderProps) {
         retryCountRef.current++;
       }
     }
-  };
+  }, []);
 
   // Start global backend monitoring immediately when app loads
   useEffect(() => {
@@ -113,7 +113,7 @@ export function BackendProvider({ children }: BackendProviderProps) {
       clearTimeout(startTimeout);
       if (connectionInterval) clearInterval(connectionInterval);
     };
-  }, []);
+  }, [checkBackendStatus, backendStatus]);
 
   // Cleanup on unmount
   useEffect(() => {

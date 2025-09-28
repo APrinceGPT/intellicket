@@ -1,11 +1,42 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import CSDAIv2Integration from '../../../components/deep-security/CSDAIv2Integration';
+import ErrorBoundary from '../../../components/common/ErrorBoundary';
+import Image from 'next/image';
 
-export default function DeepSecurityPage() {
+// Create a separate component for the search params logic
+function DeepSecurityContent() {
   const [isIntegrationReady, setIsIntegrationReady] = useState(true); // Set to true to show the integration by default
+  const searchParams = useSearchParams();
+  
+  // Get analyzer from URL params
+  const analyzerParam = searchParams?.get('analyzer');
+  const autoUploadedParam = searchParams?.get('autoUploaded');
+  
+  // Get case context from session storage if it exists
+  const [caseContext, setCaseContext] = useState(null);
+  
+  useEffect(() => {
+    // Check for case context in session storage
+    const storedContext = sessionStorage.getItem('caseContext');
+    if (storedContext) {
+      try {
+        const parsed = JSON.parse(storedContext);
+        // Add autoUploaded flag from URL parameter if present
+        if (autoUploadedParam === 'true') {
+          parsed.autoUploaded = true;
+        }
+        setCaseContext(parsed);
+        // Clear after use to prevent persistence across sessions
+        sessionStorage.removeItem('caseContext');
+      } catch (error) {
+        console.error('Error parsing case context:', error);
+      }
+    }
+  }, [autoUploadedParam]);
 
   const products = [
     { id: 'deep-security', name: 'Deep Security', icon: '🛡️' },
@@ -17,7 +48,14 @@ export default function DeepSecurityPage() {
   // This component now contains the integrated CSDAIv2 system
   const IntegrationPlaceholder = () => {
     if (isIntegrationReady) {
-      return <CSDAIv2Integration />;
+      return (
+        <ErrorBoundary>
+          <CSDAIv2Integration 
+            initialAnalyzer={analyzerParam || undefined} 
+            caseContext={caseContext || undefined} 
+          />
+        </ErrorBoundary>
+      );
     }
     
     return (
@@ -59,13 +97,15 @@ export default function DeepSecurityPage() {
                 href="/"
                 className="flex items-center space-x-3 hover:opacity-80 transition-opacity"
               >
-                <img 
+                <Image 
                   src="/trendlogo.png" 
                   alt="Trend Micro Logo" 
+                  width={40}
+                  height={40}
                   className="h-10 w-auto"
                 />
                 <div className="border-l border-white/30 pl-3">
-                  <div className="text-xl font-bold text-red-400">TrendAI</div>
+                  <div className="text-xl font-bold text-red-400">Intellicket</div>
                   <div className="text-xs text-gray-400">AI Support Platform</div>
                 </div>
               </Link>
@@ -95,21 +135,17 @@ export default function DeepSecurityPage() {
             Deep Security <span className="text-red-400">Support</span>
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Get comprehensive support for your Trend Micro Deep Security deployments with our integrated
-            <span className="text-red-400"> Deep Security Unified Analyzer</span>. Our AI-powered system 
-            provides advanced log analysis, conflict detection, and performance optimization to help you 
-            resolve issues quickly and efficiently.
+            Experience next-generation Deep Security troubleshooting with our 
+            <span className="text-red-400"> AI-Enhanced Unified Analyzer Suite</span>. Featuring intelligent 
+            analyzers for AMSP performance monitoring, conflict resolution, agent diagnostics, and resource optimization - 
+            each powered by <span className="text-blue-400 font-semibold">machine learning algorithms</span> and 
+            <span className="text-green-400 font-semibold">dynamic knowledge retrieval</span> to deliver 
+            precise insights and automated recommendations for faster issue resolution.
           </p>
         </div>
 
         {/* Integration Area - CSDAIv2 Deep Security Unified Analyzer */}
         <div className="mb-16">
-          <h2 className="text-3xl font-bold text-white mb-8 text-center">
-            Deep Security Unified Analyzer
-            <span className="block text-lg text-red-400 font-normal mt-2">
-              AI-powered log analysis and diagnostics system
-            </span>
-          </h2>
           <IntegrationPlaceholder />
         </div>
 
@@ -153,13 +189,15 @@ export default function DeepSecurityPage() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="md:col-span-2">
               <div className="flex items-center space-x-4 mb-4">
-                <img 
+                <Image 
                   src="/trendlogo.png" 
                   alt="Trend Micro Logo" 
+                  width={32}
+                  height={32}
                   className="h-8 w-auto"
                 />
                 <div className="border-l border-white/30 pl-4">
-                  <h3 className="text-xl font-bold text-white">TrendAI</h3>
+                  <h3 className="text-xl font-bold text-white">Intellicket</h3>
                   <p className="text-xs text-red-400 font-medium">AI Support Platform</p>
                 </div>
               </div>
@@ -210,7 +248,7 @@ export default function DeepSecurityPage() {
           <div className="border-t border-white/20 mt-12 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center">
               <p className="text-gray-400 text-sm">
-                &copy; 2025 TrendAI by Trend Micro. All rights reserved. | Securing your digital transformation.
+                &copy; 2025 Intellicket - AI-Powered Cybersecurity Platform. All rights reserved. | Securing your digital transformation.
               </p>
               <div className="flex space-x-6 mt-4 md:mt-0">
                 <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</a>
@@ -222,5 +260,28 @@ export default function DeepSecurityPage() {
         </div>
       </footer>
     </div>
+  );
+}
+
+// Loading component for Suspense fallback
+function DeepSecurityLoading() {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-red-900/20 to-black relative overflow-hidden flex items-center justify-center">
+      <div className="text-center">
+        <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-red-700 rounded-2xl mx-auto mb-4 flex items-center justify-center shadow-2xl animate-pulse">
+          <span className="text-white font-bold text-2xl">🛡️</span>
+        </div>
+        <p className="text-white text-lg">Loading Deep Security Support...</p>
+      </div>
+    </div>
+  );
+}
+
+// Main exported component with Suspense boundary
+export default function DeepSecurityPage() {
+  return (
+    <Suspense fallback={<DeepSecurityLoading />}>
+      <DeepSecurityContent />
+    </Suspense>
   );
 }

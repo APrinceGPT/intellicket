@@ -95,7 +95,7 @@ WIZARD_STEP_1_TEMPLATE = """
               <h5 class="analysis-title">AV Conflicts</h5>
               <p class="analysis-desc">Detect conflicting antivirus software that may interfere with Deep Security</p>
               <div class="file-requirements">
-                <strong>Required:</strong> RunningProcess.xml<br>
+                <strong>Required:</strong> RunningProcesses.xml<br>
                 <small class="text-muted">Process list export</small>
               </div>
             </div>
@@ -109,7 +109,7 @@ WIZARD_STEP_1_TEMPLATE = """
               <h5 class="analysis-title">Resource Analysis</h5>
               <p class="analysis-desc">Analyze system performance and recommend scan exclusions for optimization</p>
               <div class="file-requirements">
-                <strong>Required:</strong> RunningProcess.xml + TopNBusyProcess.txt<br>
+                <strong>Required:</strong> RunningProcesses.xml + TopNBusyProcess.txt<br>
                 <small class="text-muted">Process list and performance data</small>
               </div>
             </div>
@@ -776,9 +776,6 @@ WIZARD_STEP_5_TEMPLATE = """
               <button class="analysis-nav-tab" data-section="summary-stats" role="tab">
                 <i class="fa-solid fa-chart-bar me-1"></i>Summary Statistics
               </button>
-              <button class="analysis-nav-tab" data-section="recommendations" role="tab">
-                <i class="fa-solid fa-bullseye me-1"></i>Key Recommendations
-              </button>
               <button class="analysis-nav-tab" data-section="component-analysis" role="tab">
                 <i class="fa-solid fa-wrench me-1"></i>Component Analysis
               </button>
@@ -934,7 +931,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Extract sections by looking for specific patterns
         const sections = {
             'summary-stats': 'Summary Statistics',
-            'recommendations': 'Key Recommendations', 
             'component-analysis': 'Component Analysis',
             'rag-analysis': 'RAG-Enhanced Knowledge Analysis',
             'ai-analysis': 'AI-Powered Comprehensive Analysis',
@@ -968,14 +964,6 @@ document.addEventListener('DOMContentLoaded', function() {
                           if (statsCard) {
                               window.analysisSections[sectionKey] = `<div class="row mb-4"><div class="col-12">${statsCard.outerHTML}</div></div>`;
                               console.log(`Session Detail - Found ${sectionKey} by ID (first card): #${sectionElement.id}`);
-                              continue;
-                          }
-                      } else if (sectionKey === 'recommendations') {
-                          // For recommendations, get only the second card (Key Recommendations card)
-                          const recommendationsCard = sectionElement.querySelector('.col-md-6:last-child .card, #recommendations-section');
-                          if (recommendationsCard) {
-                              window.analysisSections[sectionKey] = `<div class="row mb-4"><div class="col-12">${recommendationsCard.outerHTML}</div></div>`;
-                              console.log(`Session Detail - Found ${sectionKey} by ID (recommendations card): #${sectionElement.id}`);
                               continue;
                           }
                       } else {
@@ -1169,7 +1157,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function getSectionDisplayName(sectionKey) {
         const displayNames = {
             'summary-stats': 'Summary Statistics',
-            'recommendations': 'Key Recommendations',
             'component-analysis': 'Component Analysis',
             'rag-analysis': 'RAG-Enhanced Knowledge Analysis',
             'ai-analysis': 'AI-Powered Analysis',
@@ -1231,7 +1218,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function getSectionIcon(sectionKey) {
         const icons = {
             'summary-stats': '<i class="fa-solid fa-chart-bar"></i>',
-            'recommendations': '<i class="fa-solid fa-bullseye"></i>',
             'component-analysis': '<i class="fa-solid fa-wrench"></i>',
             'ml-analysis': '<i class="fa-solid fa-brain"></i>',
             'rag-analysis': '<i class="fa-solid fa-database"></i>',
@@ -1491,7 +1477,17 @@ SESSIONS_TEMPLATE = """
                         <span class="badge bg-secondary">{{ session.status.title() }}</span>
                       {% endif %}
                     </td>
-                    <td>{{ session.created_at.strftime('%Y-%m-%d %H:%M') if session.created_at else 'N/A' }}</td>
+                    <td>
+                      {% if session.created_at %}
+                        {% if session.created_at is string %}
+                          {{ session.created_at[:16].replace('T', ' ') }}
+                        {% else %}
+                          {{ session.created_at.strftime('%Y-%m-%d %H:%M') }}
+                        {% endif %}
+                      {% else %}
+                        N/A
+                      {% endif %}
+                    </td>
                     <td>{{ session.uploaded_files|length if session.uploaded_files else 0 }} files</td>
                     <td>
                       <a href="/session/{{ session.session_id }}" class="btn btn-sm btn-outline-primary">
@@ -1570,7 +1566,16 @@ SESSION_DETAIL_TEMPLATE = """
               {% endif %}
             </div>
             <div class="col-md-6">
-              <strong>Created:</strong> {{ session_data.created_at.strftime('%Y-%m-%d %H:%M:%S') if session_data.created_at else 'N/A' }}<br>
+              <strong>Created:</strong> 
+              {% if session_data.created_at %}
+                {% if session_data.created_at is string %}
+                  {{ session_data.created_at[:19].replace('T', ' ') }}
+                {% else %}
+                  {{ session_data.created_at.strftime('%Y-%m-%d %H:%M:%S') }}
+                {% endif %}
+              {% else %}
+                N/A
+              {% endif %}<br>
               <strong>Files Uploaded:</strong> {{ session_data.uploaded_files|length if session_data.uploaded_files else 0 }}<br>
               <strong>Duration:</strong> 
               <span class="fs-6">
@@ -1625,9 +1630,6 @@ SESSION_DETAIL_TEMPLATE = """
                   </button>
                   <button class="analysis-nav-tab" data-section="summary-stats" role="tab">
                     <i class="fa-solid fa-chart-bar me-1"></i>Summary Statistics
-                  </button>
-                  <button class="analysis-nav-tab" data-section="recommendations" role="tab">
-                    <i class="fa-solid fa-bullseye me-1"></i>Key Recommendations
                   </button>
                   <button class="analysis-nav-tab" data-section="component-analysis" role="tab">
                     <i class="fa-solid fa-wrench me-1"></i>Component Analysis
@@ -1695,7 +1697,6 @@ SESSION_DETAIL_TEMPLATE = """
               // Extract sections by looking for card headers with specific text
               const sections = {
                   'summary-stats': 'Summary Statistics',
-                  'recommendations': 'Key Recommendations', 
                   'component-analysis': 'Component Analysis',
                   'rag-analysis': 'RAG-Enhanced Knowledge Analysis',
                   'ai-analysis': 'AI-Powered Comprehensive Analysis',
@@ -1729,14 +1730,6 @@ SESSION_DETAIL_TEMPLATE = """
                           if (statsCard) {
                               window.analysisSections[sectionKey] = `<div class="row mb-4"><div class="col-12">${statsCard.outerHTML}</div></div>`;
                               console.log(`Found ${sectionKey} by ID (first card): #${sectionElement.id}`);
-                              continue;
-                          }
-                      } else if (sectionKey === 'recommendations') {
-                          // For recommendations, get only the second card (Key Recommendations card)
-                          const recommendationsCard = sectionElement.querySelector('.col-md-6:last-child .card, #recommendations-section');
-                          if (recommendationsCard) {
-                              window.analysisSections[sectionKey] = `<div class="row mb-4"><div class="col-12">${recommendationsCard.outerHTML}</div></div>`;
-                              console.log(`Found ${sectionKey} by ID (recommendations card): #${sectionElement.id}`);
                               continue;
                           }
                       } else {
@@ -1934,7 +1927,6 @@ SESSION_DETAIL_TEMPLATE = """
           function getSectionDisplayName(sectionKey) {
               const displayNames = {
                   'summary-stats': 'Summary Statistics',
-                  'recommendations': 'Key Recommendations',
                   'component-analysis': 'Component Analysis',
                   'rag-analysis': 'RAG-Enhanced Knowledge Analysis',
                   'ai-analysis': 'AI-Powered Analysis',
@@ -1996,7 +1988,6 @@ SESSION_DETAIL_TEMPLATE = """
           function getSectionIcon(sectionKey) {
               const icons = {
                   'summary-stats': '<i class="fa-solid fa-chart-bar"></i>',
-                  'recommendations': '<i class="fa-solid fa-bullseye"></i>',
                   'component-analysis': '<i class="fa-solid fa-wrench"></i>',
                   'ml-analysis': '<i class="fa-solid fa-brain"></i>',
                   'rag-analysis': '<i class="fa-solid fa-database"></i>',
