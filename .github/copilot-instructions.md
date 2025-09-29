@@ -1,43 +1,40 @@
 # Intellicket AI Coding Agent Instructions
 
 ## Priorities
-1. **Startup Protocol**: If starting development (`python CSDAIv2/app.py` and `npm run dev`), always request the user to manually start the backend and frontend in separate terminals.
+1. **Startup Protocol**: Always ask the user if you want to start the app.py or npm run dev. Always ask if you are also creating a fallback logic to the codebase. Always ask question if you are unsure about something.
 2. **Change Management**: Request approval before modifying: architecture, technology stack, file structure, configurations, or environment variables
 3. **Shell Commands**: Always use PowerShell syntax for Windows environment
-4. **Testing Protocol**: Use existing test scripts in `Utilities/5. Test Files/` before implementing changes
-5. **Code Standards**: Follow established patterns - proxy routes, standardized analyzers, session management
-
+4. **Testing Protocol**: Use existing test scripts in `Utilities/5. Test Files/` (100+ test files) before implementing changes
+5. **Code Standards**: Follow established patterns - proxy routes, standardized analyzers, session management via `AnalyzerOutputStandardizer`
 
 ## 🏗️ Architecture Overview
 Intellicket is a **cybersecurity log analysis platform** with triple-stack architecture:
-- **Main Frontend**: Next.js 15.5 with App Router (`src/`) - TypeScript, Tailwind CSS, React 19
-- **Admin Interface**: Unified admin dashboard (`intellicket-admin/`) - Next.js on port 3001
-- **Backend**: Flask Python application (`CSDAIv2/`) - ML-enhanced Dynamic RAG system with modular analyzers
-- **Integration**: REST API proxy layer (`src/app/api/csdai/`) bridges frontend-backend
+- **Main Frontend**: Next.js 15.5 with App Router (`src/`) - TypeScript, Tailwind CSS, React 19, Turbopack
+- **Admin Interface**: Unified admin dashboard (`intellicket-admin/`) - Next.js on port 3001 with system management
+- **Backend**: Flask Python application (`CSDAIv2/`) - ML-enhanced Dynamic RAG system with 7+ modular analyzers
+- **Integration**: REST API proxy layer (`src/app/api/csdai/`) bridges frontend-backend communications
 - **Admin API**: Comprehensive admin endpoints (`CSDAIv2/admin/unified_admin_routes.py`) for system management
-- **Testing**: Comprehensive test suite with `test_*.py` scripts in `Utilities/5. Test Files/` + root-level validation scripts
+- **Testing**: Comprehensive test suite with 100+ `test_*.py` scripts in `Utilities/5. Test Files/` + root-level validation scripts
 - **Knowledge Base**: PDF documents in `CSDAIv2/pdf/` and structured reports in root directory
 
 ## 🚀 Development Workflow
 
 ### Start Development Environment
 ```powershell
-# Option 1: Individual terminals
+# Option 1: Automated startup (RECOMMENDED)
+.\start_intellicket.ps1  # Complete ecosystem startup with dependency checks
+
+# Option 2: Manual startup (3 terminals)
 # Backend (Terminal 1)
 Set-Location CSDAIv2; python app.py
 # Main Frontend (Terminal 2) 
-npm run dev
+npm run dev  # Uses Turbopack for fast refresh
 # Admin Interface (Terminal 3)
-Set-Location intellicket-admin; npm run dev
+Set-Location intellicket-admin; npm run dev --port 3001
 
-# Option 2: Use provided startup scripts
-.\start_intellicket.ps1  # Complete ecosystem startup
-# or
-python start_intellicket.py  # Cross-platform version
-
-# Access: 
+# Access URLs: 
 # - Main App: http://localhost:3000 (frontend) + http://localhost:5003 (backend)
-# - Admin Panel: http://localhost:3001 (unified admin interface)
+# - Admin Panel: http://localhost:3001 (unified system management)
 ```
 
 ### Key Commands
@@ -84,6 +81,8 @@ python start_intellicket.py  # Cross-platform version
 - `CSDAIv2/ml_analyzer.py` - Machine learning pattern recognition and health scoring (763 lines)
 - `CSDAIv2/api_routes.py` - REST API endpoints for Intellicket integration (1452 lines)
 - `CSDAIv2/config.py` - Environment-based configuration with validation
+
+### ASK FEEDBACK EVERYTIME BEFORE MODIFYING AS THIS WILL CONFUSED THE AI AGENT WHEN CODING WHICH UI COMPONENTS TO USE
 - `CSDAIv2/ui_components.py` - **SESSION & UX MANAGEMENT** (364 lines) - Wizard-based UI controller with contextual guidance
 
 ### Project Documentation Pattern
@@ -264,7 +263,7 @@ session_manager.cleanup_old_sessions()  # Periodic maintenance
 
 ### Test Organization
 - **Root Level**: Quick validation scripts (`test_admin_api.py`, `test_enhanced_offline_analyzer.py`, `test_psutil_integration.py`, `test_realtime_analyzer_sync.py`, `test_resource_upload.py`)
-- **Utilities/5. Test Files/**: Comprehensive test suite with specific analyzer tests
+- **Utilities/5. Test Files/**: Comprehensive test suite with 100+ specific analyzer tests
 - **sample_logs/**: Test data organized by log type (ds_agent, amsp, conflict, etc.)
 
 ### Backend Testing Pattern

@@ -14,6 +14,109 @@ from datetime import datetime
 from flask import request, jsonify, send_file
 from werkzeug.utils import secure_filename
 
+def detect_analysis_type_from_files(uploaded_files, current_analysis_type):
+    """
+    Intelligently detect analysis type based on file names and content
+    """
+    try:
+        ds_agent_patterns = [
+            r'ds_agent.*\.log',
+            r'ds.*agent.*\.log', 
+            r'.*ds_agent.*',
+            r'.*dsagent.*',
+        ]
+        
+        amsp_patterns = [
+            r'AMSP.*\.log',
+            r'.*AMSP.*\.log',
+            r'.*anti.*malware.*',
+            r'.*scan.*performance.*'
+        ]
+        
+        resource_patterns = [
+            r'RunningProcesses\.xml',
+            r'TopNBusyProcess.*\.txt',
+            r'.*process.*\.xml',
+            r'.*performance.*\.txt'
+        ]
+        
+        ds_agent_score = 0
+        amsp_score = 0
+        resource_score = 0
+        
+        for file_info in uploaded_files:
+            filename = file_info.get('name', '').lower()
+            
+            # Check file name patterns
+            for pattern in ds_agent_patterns:
+                if re.search(pattern, filename, re.IGNORECASE):
+                    ds_agent_score += 2
+                    break
+                    
+            for pattern in amsp_patterns:
+                if re.search(pattern, filename, re.IGNORECASE):
+                    amsp_score += 2
+                    break
+                    
+            for pattern in resource_patterns:
+                if re.search(pattern, filename, re.IGNORECASE):
+                    resource_score += 2
+                    break
+            
+            # Check file content for additional clues (read first few lines)
+            try:
+                if 'temp_path' in file_info:
+                    with open(file_info['temp_path'], 'r', encoding='utf-8', errors='ignore') as f:
+                        content_sample = f.read(2000)  # Read first 2KB
+                        
+                        # DS Agent indicators
+                        if any(indicator in content_sample.lower() for indicator in [
+                            'ds_agent', 'dsagent', 'deep security agent', 
+                            'trend micro deep security', 'dsa_query', 'dsa.',
+                            'connectionhandler.lua', 'dsa.scheduler', 'dsa.heartbeat',
+                            'dsacore::', 'cmd/5', 'dsa/connectionhandler'
+                        ]):
+                            ds_agent_score += 3
+                        
+                        # AMSP indicators  
+                        if any(indicator in content_sample.lower() for indicator in [
+                            'amsp', 'anti-malware', 'scan performance',
+                            'malware detected', 'virus scan'
+                        ]):
+                            amsp_score += 3
+                        
+                        # Resource analyzer indicators
+                        if any(indicator in content_sample for indicator in [
+                            '<Process>', '<ProcessList>', 'CPU Usage',
+                            'Memory Usage', 'Process ID'
+                        ]):
+                            resource_score += 3
+                            
+            except Exception as e:
+                print(f"⚠️ Could not analyze file content: {e}")
+                continue
+        
+        # Determine best match
+        scores = {
+            'ds_agent_offline': ds_agent_score,
+            'amsp_logs': amsp_score,
+            'resource_analysis': resource_score
+        }
+        
+        best_match = max(scores, key=scores.get)
+        best_score = scores[best_match]
+        
+        # Only change if we have strong confidence (score > 2)
+        if best_score > 2 and best_match != current_analysis_type:
+            print(f"🎯 Detection scores: DS Agent={ds_agent_score}, AMSP={amsp_score}, Resource={resource_score}")
+            return best_match
+        
+        return current_analysis_type
+        
+    except Exception as e:
+        print(f"❌ Analysis type detection failed: {e}")
+        return current_analysis_type
+
 # Safe JSON encoder for NumPy types
 class SafeJSONEncoder(json.JSONEncoder):
     """JSON encoder that handles NumPy data types"""
@@ -81,8 +184,8 @@ def safe_jsonify(data, **kwargs):
 from analyzers import DSAgentLogAnalyzer, AMSPAnalyzer, ConflictAnalyzer, ResourceAnalyzer, DSAgentOfflineAnalyzer, DiagnosticPackageAnalyzer
 from security import SecurityError, validate_file, create_secure_temp_file, cleanup_temp_file
 
-# Import session manager for admin interface synchronization
-from simple_session_manager import simple_session_manager as session_manager
+# Import session manager for admin interface synchronization  
+from ui_components import session_manager, wizard, guidance
 
 # Import formatting functions from routes.py
 from routes import (
@@ -343,16 +446,6 @@ def register_api_routes(app, config):
     def api_analyze_extracted(session_id):
         """Start analysis using pre-extracted and filtered files"""
         
-        # Define SimpleSessionManager class for this function
-        class SimpleSessionManager:
-            def __init__(self, sessions_dict, session_id):
-                self.sessions = sessions_dict
-                self.session_id = session_id
-            
-            def update_session(self, session_id, progress_data):
-                if session_id in self.sessions:
-                    self.sessions[session_id].update(progress_data)
-        
         try:
             print(f"🚀 Starting analysis for extracted session: {session_id}")
             
@@ -385,8 +478,13 @@ def register_api_routes(app, config):
                 
                 if analysis_type == "ds_agent" or analysis_type == "ds_logs":
                     # DS Agent analysis with standardized output handling
-                    session_manager = SimpleSessionManager(api_sessions, session_id)
-                    analyzer = DSAgentLogAnalyzer(session_manager=session_manager, session_id=session_id)
+                    # Create session in ui_components session manager
+                    ui_session_id = session_manager.create_session()
+                    session_manager.update_session(ui_session_id, {
+                        'analysis_type': analysis_type,
+                        'uploaded_files': matched_files
+                    })
+                    analyzer = DSAgentLogAnalyzer(session_manager=session_manager, session_id=ui_session_id)
                     analysis_results = analyzer.analyze(temp_paths)
                     
                     # Handle standardized analyzer output
@@ -490,10 +588,21 @@ Details ({len(analysis_results.get('details', []))} items):
                         
                         # CRITICAL FIX: Store standardized results for proper frontend display
                         session_data['standardized_results'] = analysis_results
+                    
+                    # Mark analysis as complete and store results in UI session manager
+                    session_manager.store_results(ui_session_id, analysis_results)
+                    session_data['analysis_complete'] = True
+                    session_data['status'] = 'completed'
+                    session_data['completed_at'] = datetime.now().isoformat()
                 
                 elif analysis_type == "amsp" or analysis_type == "amsp_logs":
-                    session_manager = SimpleSessionManager(api_sessions, session_id)
-                    analyzer = AMSPAnalyzer(session_manager=session_manager, session_id=session_id)
+                    # Create session in ui_components session manager
+                    ui_session_id = session_manager.create_session()
+                    session_manager.update_session(ui_session_id, {
+                        'analysis_type': analysis_type,
+                        'uploaded_files': matched_files
+                    })
+                    analyzer = AMSPAnalyzer(session_manager=session_manager, session_id=ui_session_id)
                     analysis_results = analyzer.analyze(temp_paths)
                     
                     # Handle standardized analyzer output
@@ -527,15 +636,30 @@ Details ({len(analysis_results.get('details', []))} items):
                         
                         # CRITICAL FIX: Store standardized results for proper frontend display
                         session_data['standardized_results'] = analysis_results
+                    
+                    # Mark analysis as complete and store results in UI session manager
+                    session_manager.store_results(ui_session_id, analysis_results)
+                    session_data['analysis_complete'] = True
+                    session_data['status'] = 'completed'
+                    session_data['completed_at'] = datetime.now().isoformat()
                 
                 elif analysis_type == "resource" or analysis_type == "resource_analysis":
-                    session_manager = SimpleSessionManager(api_sessions, session_id)
+                    # CRITICAL FIX: Use the main session_id instead of creating a new one
+                    # This ensures UI session data can be found by the results endpoint
+                    session_manager.update_session(session_id, {
+                        'analysis_type': analysis_type,
+                        'uploaded_files': matched_files
+                    })
                     analyzer = ResourceAnalyzer(session_manager=session_manager, session_id=session_id)
                     analysis_results = analyzer.analyze(temp_paths)
+                    
+                    # Store results in ui_components session manager using main session_id
+                    session_manager.store_results(session_id, analysis_results)
                     
                     # Handle standardized analyzer output
                     if analysis_results.get('status') == 'error' or analysis_results.get('error', False):
                         session_data['status'] = 'error'
+                        session_data['error_message'] = analysis_results.get('summary', 'Analysis failed')
                         result = f"<div class='alert alert-danger'><strong>Error:</strong> {analysis_results.get('summary', 'Analysis failed')}</div>"
                         raw_result = f"Resource Analysis - ERROR: {analysis_results.get('summary', 'Analysis failed')}"
                     else:
@@ -568,9 +692,18 @@ Details ({len(analysis_results.get('details', []))} items):
                         
                         # CRITICAL FIX: Store standardized results for proper frontend display
                         session_data['standardized_results'] = analysis_results
+                    
+                    # Mark analysis as complete (regardless of success/error)
+                    session_data['analysis_complete'] = True
+                    session_data['status'] = 'completed'
+                    session_data['completed_at'] = datetime.now().isoformat()
                 
                 elif analysis_type == "conflict" or analysis_type == "av_conflicts":
-                    session_manager = SimpleSessionManager(api_sessions, session_id)
+                    # CRITICAL FIX: Use the main session_id instead of creating a new one
+                    session_manager.update_session(session_id, {
+                        'analysis_type': analysis_type,
+                        'uploaded_files': matched_files
+                    })
                     analyzer = ConflictAnalyzer(session_manager=session_manager, session_id=session_id)
                     
                     # Create file mapping for original names (needed for RunningProcesses.xml detection)
@@ -611,9 +744,20 @@ Details ({len(analysis_results.get('details', []))} items):
                         
                         # CRITICAL FIX: Store standardized results for proper frontend display
                         session_data['standardized_results'] = analysis_results
+                    
+                    # Mark analysis as complete and store results in UI session manager using main session_id
+                    session_manager.store_results(session_id, analysis_results)
+                    session_data['analysis_complete'] = True
+                    session_data['status'] = 'completed'
+                    session_data['completed_at'] = datetime.now().isoformat()
                 
                 elif analysis_type == "ds_agent_offline":
-                    session_manager = SimpleSessionManager(api_sessions, session_id)
+                    # CRITICAL FIX: Use the main session_id instead of creating a new one
+                    # This ensures UI session data can be found by the results endpoint
+                    session_manager.update_session(session_id, {
+                        'analysis_type': analysis_type,
+                        'uploaded_files': matched_files
+                    })
                     analyzer = DSAgentOfflineAnalyzer(session_manager=session_manager, session_id=session_id)
                     analysis_results = analyzer.analyze(temp_paths)
                     
@@ -648,10 +792,21 @@ Details ({len(analysis_results.get('details', []))} items):
                         
                         # CRITICAL FIX: Store standardized results for proper frontend display
                         session_data['standardized_results'] = analysis_results
+                    
+                    # Mark analysis as complete and store results in UI session manager using main session_id
+                    session_manager.store_results(session_id, analysis_results)
+                    session_data['analysis_complete'] = True
+                    session_data['status'] = 'completed'
+                    session_data['completed_at'] = datetime.now().isoformat()
                 
                 elif analysis_type == "diagnostic_package":
-                    session_manager = SimpleSessionManager(api_sessions, session_id)
-                    analyzer = DiagnosticPackageAnalyzer(session_manager=session_manager, session_id=session_id)
+                    # Create session in ui_components session manager
+                    ui_session_id = session_manager.create_session()
+                    session_manager.update_session(ui_session_id, {
+                        'analysis_type': analysis_type,
+                        'uploaded_files': matched_files
+                    })
+                    analyzer = DiagnosticPackageAnalyzer(session_manager=session_manager, session_id=ui_session_id)
                     # For diagnostic package, use the original ZIP path
                     zip_path = session_data.get('temp_files', [None])[0]  # This should be updated to point to ZIP
                     analysis_results = analyzer.analyze(zip_path if zip_path else temp_paths[0])
@@ -687,6 +842,12 @@ Details ({len(analysis_results.get('details', []))} items):
                         
                         # CRITICAL FIX: Store standardized results for proper frontend display
                         session_data['standardized_results'] = analysis_results
+                    
+                    # Mark analysis as complete and store results in UI session manager
+                    session_manager.store_results(ui_session_id, analysis_results)
+                    session_data['analysis_complete'] = True
+                    session_data['status'] = 'completed'
+                    session_data['completed_at'] = datetime.now().isoformat()
                 
                 else:
                     raise ValueError(f"Unknown analysis type: {analysis_type}")
@@ -703,14 +864,21 @@ Details ({len(analysis_results.get('details', []))} items):
                 # SYNC COMPLETION WITH ADMIN SESSION MANAGER
                 try:
                     if session_id in session_manager.sessions:
-                        session_manager.update_session(session_id, {
+                        # CRITICAL FIX: Don't overwrite results that might contain full analysis data
+                        existing_session = session_manager.get_session(session_id)
+                        update_data = {  
                             'status': 'completed',  # Explicitly set to completed for admin interface
-                            'results': result,
-                            'raw_results': raw_result,
                             'completed_at': session_data['completed_at'],
                             'analysis_complete': True,
                             'progress': 100
-                        })
+                        }
+                        
+                        # Only update results if no full analysis results exist
+                        if not existing_session or not existing_session.get('results') or isinstance(existing_session.get('results'), str):
+                            update_data['results'] = result
+                            update_data['raw_results'] = raw_result
+                        
+                        session_manager.update_session(session_id, update_data)
                         print(f"✅ Analysis completion synced with admin interface (status: completed)")
                 except Exception as sync_error:
                     print(f"⚠️ Failed to sync completion with admin: {sync_error}")
@@ -845,6 +1013,16 @@ Details ({len(analysis_results.get('details', []))} items):
             if not uploaded_files:
                 raise APIError("No valid files uploaded")
             
+            # Add intelligent analysis type detection based on file content
+            print(f"🔍 Starting intelligent detection for {len(uploaded_files)} files...")
+            detected_analysis_type = detect_analysis_type_from_files(uploaded_files, analysis_type)
+            print(f"🎯 Detection result: {analysis_type} → {detected_analysis_type}")
+            if detected_analysis_type != analysis_type:
+                print(f"🎯 File analysis suggests different type: {analysis_type} → {detected_analysis_type}")
+                analysis_type = detected_analysis_type
+            else:
+                print(f"✅ Analysis type confirmed as: {analysis_type}")
+            
             # Store session data in CSDAIv2 format
             api_sessions[session_id] = {
                 'session_id': session_id,
@@ -969,20 +1147,15 @@ Details ({len(analysis_results.get('details', []))} items):
                     # Route to appropriate analyzer using standardized methods
                     raw_result = None
                     if analysis_type == "ds_logs" or analysis_type == "ds_agent":
-                        # Create session manager for progress tracking
-                        class SimpleSessionManager:
-                            def __init__(self, sessions_dict, session_id):
-                                self.sessions = sessions_dict
-                                self.session_id = session_id
-                            
-                            def update_session(self, session_id, progress_data):
-                                if session_id in self.sessions:
-                                    self.sessions[session_id].update(progress_data)
-                        
-                        session_manager = SimpleSessionManager(api_sessions, session_id)
+                        # Create session in ui_components session manager
+                        ui_session_id = session_manager.create_session()
+                        session_manager.update_session(ui_session_id, {
+                            'analysis_type': analysis_type,
+                            'uploaded_files': uploaded_files
+                        })
                         analyzer = DSAgentLogAnalyzer(
                             session_manager=session_manager,
-                            session_id=session_id
+                            session_id=ui_session_id
                         )
                         
                         # Use standardized analyze method
@@ -1045,20 +1218,15 @@ Debug Info:
 """
                             
                     elif analysis_type == "ds_agent_offline":
-                        # Create session manager for progress tracking
-                        class SimpleSessionManager:
-                            def __init__(self, sessions_dict, session_id):
-                                self.sessions = sessions_dict
-                                self.session_id = session_id
-                            
-                            def update_session(self, session_id, progress_data):
-                                if session_id in self.sessions:
-                                    self.sessions[session_id].update(progress_data)
-                        
-                        session_manager = SimpleSessionManager(api_sessions, session_id)
+                        # Create session in ui_components session manager
+                        ui_session_id = session_manager.create_session()
+                        session_manager.update_session(ui_session_id, {
+                            'analysis_type': analysis_type,
+                            'uploaded_files': uploaded_files
+                        })
                         analyzer = DSAgentOfflineAnalyzer(
                             session_manager=session_manager,
-                            session_id=session_id
+                            session_id=ui_session_id
                         )
                         
                         # Use standardized analyze method
@@ -1106,20 +1274,15 @@ Status: {analysis_results.get('summary', 'Analysis completed')}
                         session_data['standardized_results'] = analysis_results
                         
                     elif analysis_type == "amsp_logs" or analysis_type == "amsp":
-                        # Create session manager for progress tracking
-                        class SimpleSessionManager:
-                            def __init__(self, sessions_dict, session_id):
-                                self.sessions = sessions_dict
-                                self.session_id = session_id
-                            
-                            def update_session(self, session_id, progress_data):
-                                if session_id in self.sessions:
-                                    self.sessions[session_id].update(progress_data)
-                        
-                        session_manager = SimpleSessionManager(api_sessions, session_id)
+                        # Create session in ui_components session manager
+                        ui_session_id = session_manager.create_session()
+                        session_manager.update_session(ui_session_id, {
+                            'analysis_type': analysis_type,
+                            'uploaded_files': uploaded_files
+                        })
                         analyzer = AMSPAnalyzer(
                             session_manager=session_manager,
-                            session_id=session_id
+                            session_id=ui_session_id
                         )
                         
                         # Use standardized analyze method
@@ -1148,20 +1311,15 @@ Status: {analysis_results.get('summary', 'Analysis completed')}
                         session_data['standardized_results'] = analysis_results
                         
                     elif analysis_type == "av_conflicts" or analysis_type == "conflict":
-                        # Create session manager for progress tracking
-                        class SimpleSessionManager:
-                            def __init__(self, sessions_dict, session_id):
-                                self.sessions = sessions_dict
-                                self.session_id = session_id
-                            
-                            def update_session(self, session_id, progress_data):
-                                if session_id in self.sessions:
-                                    self.sessions[session_id].update(progress_data)
-                        
-                        session_manager = SimpleSessionManager(api_sessions, session_id)
+                        # Create session in ui_components session manager
+                        ui_session_id = session_manager.create_session()
+                        session_manager.update_session(ui_session_id, {
+                            'analysis_type': analysis_type,
+                            'uploaded_files': uploaded_files
+                        })
                         analyzer = ConflictAnalyzer(
                             session_manager=session_manager,
-                            session_id=session_id
+                            session_id=ui_session_id
                         )
                         
                         # Create file mapping for original names (needed for RunningProcesses.xml detection)
@@ -1194,20 +1352,15 @@ Status: {analysis_results.get('summary', 'Analysis completed')}
                         session_data['standardized_results'] = analysis_results
                         
                     elif analysis_type == "resource_analysis" or analysis_type == "resource":
-                        # Create a simple session manager for progress tracking
-                        class SimpleSessionManager:
-                            def __init__(self, sessions_dict, session_id):
-                                self.sessions = sessions_dict
-                                self.session_id = session_id
-                            
-                            def update_session(self, session_id, progress_data):
-                                if session_id in self.sessions:
-                                    self.sessions[session_id].update(progress_data)
-                        
-                        session_manager = SimpleSessionManager(api_sessions, session_id)
+                        # Create session in ui_components session manager
+                        ui_session_id = session_manager.create_session()
+                        session_manager.update_session(ui_session_id, {
+                            'analysis_type': analysis_type,
+                            'uploaded_files': uploaded_files
+                        })
                         analyzer = ResourceAnalyzer(
                             session_manager=session_manager,
-                            session_id=session_id,
+                            session_id=ui_session_id,
                             rag_system=None,  # Can be added later
                             ml_analyzer=None  # Can be added later
                         )
@@ -1312,15 +1465,85 @@ Recommendations:
         """Get analysis results for a session"""
         try:
             print(f"📋 Results request for session: {session_id}")
-            print(f"📋 Available sessions: {list(api_sessions.keys())}")
+            print(f"📋 Available API sessions: {list(api_sessions.keys())}")
+            print(f"📋 Available UI sessions: {list(session_manager.get_all_sessions().keys())}")
             
+            # First check if this is in API sessions
             if session_id not in api_sessions:
-                print(f"� � Session {session_id} not found for results")
+                print(f"❌ Session {session_id} not found in API sessions")
                 return safe_jsonify({'success': False, 'error': 'Session not found'}), 404
             
             session_data = api_sessions[session_id]
-            print(f"📊 Session status: {session_data['status']}, Complete: {session_data.get('analysis_complete', False)}")
+            print(f"📊 API Session status: {session_data['status']}, Complete: {session_data.get('analysis_complete', False)}")
             
+            # Check for results in ui_components session manager (newer approach)
+            ui_sessions = session_manager.get_all_sessions()
+            ui_session_data = None
+            ui_session_id = None
+            
+            # FIXED: Improved session matching logic - find latest session with results
+            # Look for any completed session with results from the same analysis type
+            latest_time = None
+            for uid, usession in ui_sessions.items():
+                if (usession.get('analysis_type') == session_data.get('analysis_type') and
+                    'results' in usession and usession.get('results') is not None):
+                    # Get the session creation/update time for comparison
+                    session_time_str = usession.get('updated_at') or usession.get('created_at')
+                    if session_time_str:
+                        try:
+                            # CRITICAL FIX: Remove duplicate datetime import that was shadowing global import
+                            session_time = datetime.fromisoformat(session_time_str.replace('Z', '+00:00'))
+                            if latest_time is None or session_time > latest_time:
+                                latest_time = session_time
+                                ui_session_data = usession
+                                ui_session_id = uid
+                                print(f"✅ Found UI session candidate: {ui_session_id}")
+                        except Exception as e:
+                            print(f"⚠️ Error parsing session time: {e}")
+                            # Fallback: use any session with results
+                            if ui_session_data is None:
+                                ui_session_data = usession
+                                ui_session_id = uid
+                                print(f"✅ Using fallback UI session: {ui_session_id}")
+            
+            # Prioritize UI session results if available
+            if ui_session_data and ui_session_data.get('results'):
+                print(f"📊 Using UI session results from session: {ui_session_id}")
+                results = ui_session_data['results']
+                
+                # CRITICAL FIX: Ensure we return the full analysis object, not just summary
+                if isinstance(results, dict) and 'analysis_type' in results:
+                    # This is the full standardized analyzer output
+                    analysis_result = results
+                elif isinstance(results, str):
+                    # Fallback: Try to get standardized results from API session
+                    standardized_results = session_data.get('standardized_results')
+                    if standardized_results:
+                        analysis_result = standardized_results
+                    else:
+                        # Last resort: create minimal structure from string
+                        analysis_result = {
+                            'analysis_type': session_data['analysis_type'],
+                            'summary': results,
+                            'details': [results],
+                            'status': 'completed'
+                        }
+                else:
+                    analysis_result = results
+                
+                # Return standardized format
+                return safe_jsonify({
+                    'success': True,  
+                    'session_id': session_id,
+                    'analysis_type': session_data['analysis_type'],
+                    'analysis_result': analysis_result,  # Full standardized analyzer output
+                    'completed_at': ui_session_data.get('updated_at'),
+                    'format_version': 'ui_components_v3',  # Updated version
+                    'results': analysis_result,  # Also populate legacy field with full data
+                    'raw_results': analysis_result  # Also populate with full data  
+                }), 200
+            
+            # Fallback to API session results
             if not session_data['analysis_complete']:
                 return safe_jsonify({
                     'success': False, 
@@ -1332,47 +1555,48 @@ Recommendations:
                 error_message = session_data.get('error', 'Analysis failed')
                 return safe_jsonify({
                     'success': False,
-                    'error': error_message,
+                    'error': error_message,  
                     'session_id': session_id,
                     'analysis_type': session_data['analysis_type']
                 }), 500
             
-            results = session_data['results']
-            if not results:
-                return safe_jsonify({
-                    'success': False, 
-                    'error': 'No results available'
-                }), 404
-            
-            # FIXED: Return standardized analyzer output instead of just HTML
-            # Check if we have standardized analysis results stored
+            # CRITICAL FIX: Prioritize standardized results over HTML results
+            # Check if we have standardized analysis results stored (full analyzer output)
             standardized_results = session_data.get('standardized_results')
+            results = session_data['results']
             
             if standardized_results:
+                print(f"📊 API Session - Using standardized results for {session_id}")
                 # Return standardized format for proper frontend display
                 return safe_jsonify({
                     'success': True,
                     'session_id': session_id,
                     'analysis_type': session_data['analysis_type'],
                     # CRITICAL FIX: Return standardized structure instead of HTML
-                    'analysis_result': standardized_results,  # Standardized analyzer output
-                    'results': results,  # Keep HTML for backward compatibility
-                    'raw_results': session_data.get('raw_results', results),
+                    'analysis_result': standardized_results,  # Full standardized analyzer output
+                    'results': standardized_results,  # Also populate legacy field with full data
+                    'raw_results': standardized_results,  # Also populate with full data
                     'completed_at': session_data.get('completed_at', datetime.now().isoformat()),
-                    'format_version': 'standardized_v2'  # Version indicator
+                    'format_version': 'standardized_v3'  # Updated version indicator
                 })
-            else:
-                # Fallback: Legacy HTML format with improvement flag
+            elif results:
+                print(f"📊 API Session - Using legacy results for {session_id}")
+                # Fallback: Legacy HTML format
                 return safe_jsonify({
                     'success': True,
                     'session_id': session_id,
                     'analysis_type': session_data['analysis_type'],
+                    'analysis_result': results,
                     'results': results,  # Legacy HTML format
                     'raw_results': session_data.get('raw_results', results),
                     'completed_at': session_data.get('completed_at', datetime.now().isoformat()),
-                    'format_version': 'legacy_html',  # Version indicator
-                    'note': 'Consider upgrading to standardized format for better frontend display'
+                    'format_version': 'legacy_html'  # Version indicator
                 })
+            else:
+                return safe_jsonify({
+                    'success': False, 
+                    'error': 'No results available'
+                }), 404
             
         except Exception as e:
             print(f"� � Results error: {str(e)}")
@@ -1549,6 +1773,46 @@ Trend Micro Deep Security Analysis Tool
     
     def format_amsp_results(analysis):
         """Import from routes.py - AMSP formatting function"""
+        
+    @app.route('/debug-sessions', methods=['GET'])
+    def debug_sessions():
+        """Debug endpoint to inspect session data"""
+        try:
+            ui_sessions = session_manager.get_all_sessions()
+            
+            # Sanitize session data for debugging
+            sanitized_api_sessions = {}
+            for session_id, session_data in api_sessions.items():
+                sanitized_api_sessions[session_id] = {
+                    'analysis_type': session_data.get('analysis_type'),
+                    'status': session_data.get('status'), 
+                    'analysis_complete': session_data.get('analysis_complete'),
+                    'has_results': 'results' in session_data and session_data.get('results') is not None,
+                    'has_standardized_results': 'standardized_results' in session_data,
+                    'created_at': session_data.get('created_at'),
+                    'completed_at': session_data.get('completed_at')
+                }
+            
+            sanitized_ui_sessions = {}
+            for session_id, session_data in ui_sessions.items():
+                sanitized_ui_sessions[session_id] = {
+                    'analysis_type': session_data.get('analysis_type'),
+                    'status': session_data.get('status'),
+                    'has_results': 'results' in session_data and session_data.get('results') is not None,
+                    'created_at': session_data.get('created_at'),
+                    'updated_at': session_data.get('updated_at'),
+                    'current_step': session_data.get('current_step')
+                }
+            
+            return safe_jsonify({
+                'success': True,
+                'api_sessions': sanitized_api_sessions,
+                'ui_sessions': sanitized_ui_sessions,
+                'total_api_sessions': len(sanitized_api_sessions),
+                'total_ui_sessions': len(sanitized_ui_sessions)
+            })
+        except Exception as e:
+            return safe_jsonify({'success': False, 'error': str(e)}), 500
         from routes import format_amsp_results as format_func
         return format_func(analysis)
     

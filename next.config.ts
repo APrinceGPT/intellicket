@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Exclude admin interface from build
+  experimental: {
+    externalDir: true,
+  },
+  
   // Turbopack configuration
   turbopack: {
     rules: {

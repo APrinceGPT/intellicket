@@ -27,7 +27,7 @@ from flask import Flask, session
 # Import modular components
 from config import get_config
 from security import validate_host_access
-from simple_session_manager import simple_session_manager as session_manager
+from ui_components import session_manager
 from routes import register_routes
 
 # Note: Removed Rich Data API v2 imports for simplified architecture

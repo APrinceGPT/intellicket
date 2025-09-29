@@ -7,6 +7,8 @@ Ensures consistent dependency handling across modular analyzer system
 import os
 import re
 import xml.etree.ElementTree as ET
+import zipfile
+import tempfile
 from datetime import datetime
 from typing import List, Dict, Any, Union
 from security import SecurityError, validate_xml_content, sanitize_process_name
@@ -38,7 +40,7 @@ except ImportError as e:
 
 # Export all shared dependencies
 __all__ = [
-    'os', 're', 'ET', 'datetime', 'List', 'Dict', 'Any', 'Union',
+    'os', 're', 'ET', 'datetime', 'List', 'Dict', 'Any', 'Union', 'zipfile', 'tempfile',
     'SecurityError', 'validate_xml_content', 'sanitize_process_name',
     'OpenAI', 'OPENAI_AVAILABLE', 'enhance_analysis_with_ml', 'ML_AVAILABLE',
     'DynamicRAGSystem', 'apply_dynamic_rag_to_analysis', 'DYNAMIC_RAG_AVAILABLE'

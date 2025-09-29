@@ -20,7 +20,7 @@ import requests
 # Import from main CSDAIv2 modules
 try:
     from config import get_config
-    from simple_session_manager import simple_session_manager as session_manager
+    from ui_components import session_manager
     from analyzers import DSAgentLogAnalyzer, AMSPAnalyzer, ConflictAnalyzer, ResourceAnalyzer
 except ImportError:
     # Create a minimal config fallback
@@ -34,7 +34,7 @@ except ImportError:
     print("⚠️ Using fallback config")
 
 try:
-    from simple_session_manager import simple_session_manager as session_manager
+    from ui_components import session_manager
 except ImportError:
     session_manager = None
     print("⚠️ session_manager not available")
@@ -1605,6 +1605,36 @@ def register_admin_routes(app, config):
                 'message': f'Failed to acknowledge alert: {str(e)}',
                 'action': 'acknowledge_alert',
                 'alert_id': alert_id,
+                'timestamp': datetime.now().isoformat()
+            }), 500
+
+    @admin_bp.route('/stats', methods=['GET'])
+    def get_combined_stats():
+        """Get combined statistics for the admin dashboard"""
+        try:
+            # Get upload stats
+            upload_stats = admin_service.get_upload_stats()
+            
+            # Get analyzer stats  
+            analyzer_stats = admin_service.get_analyzer_usage_stats()
+            
+            # Combine the stats
+            combined_stats = {
+                'success': True,
+                'data': {
+                    'uploads': upload_stats.get('data', {}),
+                    'analyzers': analyzer_stats.get('data', {}),
+                    'timestamp': datetime.now().isoformat()
+                },
+                'timestamp': datetime.now().isoformat()
+            }
+            
+            return jsonify(combined_stats), 200
+            
+        except Exception as e:
+            return jsonify({
+                'success': False,
+                'message': f'Failed to get combined stats: {str(e)}',
                 'timestamp': datetime.now().isoformat()
             }), 500
     

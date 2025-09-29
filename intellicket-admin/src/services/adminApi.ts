@@ -1,7 +1,7 @@
-// Admin API service for connecting to the main frontend admin proxy endpoints
-// Data flow: Admin Dashboard (3001) → Main Frontend (3000) → Backend (5003)
+// Admin API service for connecting directly to the backend admin endpoints
+// Data flow: Admin Dashboard (3001) → Backend (5003)
 
-const API_BASE_URL = 'http://localhost:3000/api/admin';
+const API_BASE_URL = 'http://localhost:5003/admin';
 
 class AdminApiService {
   private async request(endpoint: string, options: RequestInit = {}) {
@@ -10,19 +10,28 @@ class AdminApiService {
     const config: RequestInit = {
       headers: {
         'Content-Type': 'application/json',
+        'Accept': 'application/json',
         ...options.headers,
       },
+      mode: 'cors', // Enable CORS for cross-origin requests
       ...options,
     };
 
-    const response = await fetch(url, config);
-    
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => null);
-      throw new Error(errorData?.error || `HTTP ${response.status}: ${response.statusText}`);
-    }
+    try {
+      const response = await fetch(url, config);
+      
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
+        throw new Error(errorData?.error || `HTTP ${response.status}: ${response.statusText}`);
+      }
 
-    return response.json();
+      return response.json();
+    } catch (error) {
+      if (error instanceof TypeError && error.message.includes('fetch')) {
+        throw new Error(`Failed to connect to backend at ${url}. Please ensure the backend server is running on port 5003.`);
+      }
+      throw error;
+    }
   }
 
   // System Overview

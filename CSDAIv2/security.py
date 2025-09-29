@@ -79,9 +79,18 @@ def create_secure_temp_file(file, temp_dir: str = "temp") -> str:
         # Ensure temp directory exists
         os.makedirs(temp_dir, exist_ok=True)
         
-        # Generate unique filename
+        # Generate unique filename while preserving original extension
         unique_id = str(uuid.uuid4())
-        temp_filename = f"upload_{unique_id}.xml"
+        
+        # Get original file extension
+        original_filename = file.filename or 'upload'
+        file_ext = os.path.splitext(original_filename)[1].lower()
+        
+        # If no extension, default to .xml for backward compatibility
+        if not file_ext:
+            file_ext = '.xml'
+        
+        temp_filename = f"upload_{unique_id}{file_ext}"
         temp_path = os.path.join(temp_dir, temp_filename)
         
         # Save file securely

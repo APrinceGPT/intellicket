@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
+import { useRouter } from 'next/navigation';
 import { useBackend } from '@/contexts/BackendContext';
 import AnalysisDataParser from './AnalysisDataParser';
 
@@ -65,6 +66,7 @@ interface CSDAIv2IntegrationProps {
 }
 
 export default function CSDAIv2Integration({ initialAnalyzer, caseContext }: CSDAIv2IntegrationProps = {}) {
+  const router = useRouter();
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [analysisType, setAnalysisType] = useState(initialAnalyzer || 'amsp_logs');
@@ -106,7 +108,6 @@ export default function CSDAIv2Integration({ initialAnalyzer, caseContext }: CSD
   
   // Analyzer availability state
   const [analyzerAvailability, setAnalyzerAvailability] = useState<Record<string, { status: string; health: string }>>({});
-  const [previousAnalyzerAvailability, setPreviousAnalyzerAvailability] = useState<Record<string, { status: string; health: string }>>({});
   
   // Use ref to track if component is mounted to prevent memory leaks
   const isComponentMountedRef = useRef(true);
@@ -292,15 +293,16 @@ export default function CSDAIv2Integration({ initialAnalyzer, caseContext }: CSD
       }
       
       .csdaiv2-results .card {
-        background-color: #fff;
-        border: 1px solid #dee2e6;
+        background-color: #334155;
+        border: 1px solid #475569;
         border-radius: 0.375rem;
         margin-bottom: 1rem;
+        color: #e2e8f0;
       }
       
       .csdaiv2-results .card-header {
-        background-color: #f8f9fa;
-        border-bottom: 1px solid #dee2e6;
+        background-color: #475569;
+        border-bottom: 1px solid #64748b;
         padding: 0.75rem 1rem;
         font-weight: bold;
       }
@@ -323,12 +325,13 @@ export default function CSDAIv2Integration({ initialAnalyzer, caseContext }: CSD
       }
       
       .csdaiv2-results .table th {
-        background-color: #f8f9fa;
+        background-color: #475569;
         font-weight: bold;
+        color: #e2e8f0;
       }
       
       .csdaiv2-results .table-striped tbody tr:nth-of-type(odd) {
-        background-color: rgba(0, 0, 0, 0.05);
+        background-color: rgba(255, 255, 255, 0.05);
       }
       
       .csdaiv2-results .badge {
@@ -446,8 +449,9 @@ export default function CSDAIv2Integration({ initialAnalyzer, caseContext }: CSD
         display: block;
         padding: 0.75rem 1.25rem;
         margin-bottom: -1px;
-        background-color: #fff;
-        border: 1px solid rgba(0, 0, 0, 0.125);
+        background-color: #334155;
+        border: 1px solid rgba(255, 255, 255, 0.125);
+        color: #e2e8f0;
       }
       
       .csdaiv2-results .border-primary { border-color: #007bff !important; }
@@ -707,13 +711,16 @@ export default function CSDAIv2Integration({ initialAnalyzer, caseContext }: CSD
     }
   };
 
-  const uploadFilesToBackend = useCallback(async (files: File[]): Promise<string | null> => {
+  const uploadFilesToBackend = useCallback(async (files: File[]): Promise<{
+    sessionId: string | null;
+    detectedAnalysisType?: string;
+  }> => {
     // Check if these are mock files from auto-upload (they would have size but no actual content)
     const isAutoUploaded = caseContext?.autoUploaded && sessionId;
     if (isAutoUploaded) {
       // Don't try to upload mock files, just return the existing session ID
       console.log('📄 Skipping upload for auto-uploaded files, using existing session:', sessionId);
-      return sessionId;
+      return { sessionId: sessionId };
     }
 
     const formData = new FormData();
@@ -730,7 +737,17 @@ export default function CSDAIv2Integration({ initialAnalyzer, caseContext }: CSD
       
       if (response.ok) {
         const data: BackendResponse = await response.json();
-        return data.session_id || null;
+        
+        // Check if backend returned a different analysis type than what we sent
+        const backendAnalysisType = (data as BackendResponse & { analysis_type?: string }).analysis_type;
+        if (backendAnalysisType && backendAnalysisType !== analysisType) {
+          console.log(`🔄 Backend detected different analysis type: ${analysisType} → ${backendAnalysisType}`);
+        }
+        
+        return {
+          sessionId: data.session_id || null,
+          detectedAnalysisType: backendAnalysisType
+        };
       } else {
         const errorData = await response.text();
         console.error('❌ Upload failed with status:', response.status, errorData);
@@ -738,7 +755,7 @@ export default function CSDAIv2Integration({ initialAnalyzer, caseContext }: CSD
     } catch (error) {
       console.error('❌ Upload failed:', error);
     }
-    return null;
+    return { sessionId: null };
   }, [analysisType, caseContext?.autoUploaded, sessionId]);
 
   const pollAnalysisStatus = useCallback(async (sessionId: string): Promise<BackendResponse | null> => {
@@ -1361,6 +1378,20 @@ Please upload at least one of these files to proceed with Resource Analysis.`);
         if (!analysisStartResult.success) {
           throw new Error(`Analysis start failed: ${analysisStartResult.error}`);
         }
+
+        // Check if backend detected a different analysis type during extraction
+        if (analysisStartResult.analysisType && analysisStartResult.analysisType !== analysisType) {
+          console.log(`🎯 Extraction detected analysis type: ${analysisType} → ${analysisStartResult.analysisType}`);
+          setAnalysisType(analysisStartResult.analysisType);
+          
+          // Update URL to reflect the correct analyzer
+          const currentUrl = new URL(window.location.href);
+          currentUrl.searchParams.set('analyzer', analysisStartResult.analysisType);
+          currentUrl.searchParams.set('autoUploaded', 'true');
+          window.history.pushState({}, '', currentUrl.toString());
+          
+          addLogEntry(`Analysis type updated to: ${analysisStartResult.analysisType}`, 'info');
+        }
         
         currentSessionId = extractionInfo.sessionId;
         if (isComponentMountedRef.current) {
@@ -1446,9 +1477,25 @@ Please upload at least one of these files to proceed with Resource Analysis.`);
       } else {
         // Regular file upload process
         addLogEntry('Preparing analysis...', 'info');
-        currentSessionId = await uploadFilesToBackend(uploadedFiles);
-        if (!currentSessionId) {
+        const uploadResult = await uploadFilesToBackend(uploadedFiles);
+        if (!uploadResult.sessionId) {
           throw new Error('File upload failed or session not available');
+        }
+
+        currentSessionId = uploadResult.sessionId;
+
+        // Check if backend detected a different analysis type and update accordingly
+        if (uploadResult.detectedAnalysisType && uploadResult.detectedAnalysisType !== analysisType) {
+          console.log(`🎯 Updating analysis type: ${analysisType} → ${uploadResult.detectedAnalysisType}`);
+          setAnalysisType(uploadResult.detectedAnalysisType);
+          
+          // Update URL to reflect the correct analyzer
+          const currentUrl = new URL(window.location.href);
+          currentUrl.searchParams.set('analyzer', uploadResult.detectedAnalysisType);
+          currentUrl.searchParams.set('autoUploaded', 'true');
+          window.history.pushState({}, '', currentUrl.toString());
+          
+          addLogEntry(`Analysis type updated to: ${uploadResult.detectedAnalysisType}`, 'info');
         }
 
         if (isComponentMountedRef.current) {
@@ -1824,7 +1871,7 @@ Please upload at least one of these files to proceed with Resource Analysis.`);
   };
 
   return (
-    <div className="bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-sm rounded-3xl shadow-2xl p-8 border border-red-500/30">
+    <div className="bg-gradient-to-br from-slate-950/95 to-gray-950/95 backdrop-blur-sm rounded-3xl shadow-2xl p-8 border border-red-500/30">
       {/* Case Context Display */}
       {caseInfo && (
         <div className="mb-8 bg-gradient-to-r from-purple-900/20 to-blue-900/20 border border-purple-500/30 rounded-2xl p-6">
@@ -1917,14 +1964,27 @@ Please upload at least one of these files to proceed with Resource Analysis.`);
                 return (
                   <button
                     key={type.id}
-                    onClick={() => isAvailable ? setAnalysisType(type.id) : null}
+                    onClick={() => {
+                      if (isDisabled) return;
+                      
+                      // Special handling for DS Agent Offline - redirect to dedicated page
+                      if (type.id === 'ds_agent_offline') {
+                        router.push('/products/deep-security/analyzer-dsoffline');
+                        return;
+                      }
+                      
+                      // Default behavior for other analyzers
+                      if (isAvailable) {
+                        setAnalysisType(type.id);
+                      }
+                    }}
                     disabled={isDisabled}
                     className={`relative p-6 rounded-2xl border transition-all duration-300 text-left group ${
                       isDisabled 
                         ? 'opacity-50 cursor-not-allowed bg-gray-500/10 border-gray-500/30' 
                         : 'hover:scale-105'
                     } ${
-                      analysisType === type.id && isAvailable
+                      analysisType === type.id && isAvailable && type.id !== 'ds_agent_offline'
                         ? 'bg-red-500/20 border-red-500/50 shadow-2xl shadow-red-500/20'
                         : 'bg-white/5 border-white/20 hover:border-red-500/30 hover:bg-red-500/10'
                     }`}
@@ -1998,11 +2058,18 @@ Please upload at least one of these files to proceed with Resource Analysis.`);
                     {/* Action Button */}
                     <div className="mt-6 pt-4 border-t border-white/10">
                       <div className={`w-full py-3 px-4 rounded-xl text-center font-medium transition-all duration-300 ${
-                        analysisType === type.id
+                        analysisType === type.id && type.id !== 'ds_agent_offline'
                           ? 'bg-red-500 text-white shadow-lg'
+                          : type.id === 'ds_agent_offline'
+                          ? 'bg-gradient-to-r from-red-600 to-red-700 text-white group-hover:from-red-700 group-hover:to-red-800 shadow-lg'
                           : 'bg-red-500/20 text-red-300 group-hover:bg-red-500/30'
                       }`}>
-                        {analysisType === type.id ? '✓ Selected' : 'Create Support Ticket'}
+                        {type.id === 'ds_agent_offline' 
+                          ? '🚀 Go to Analyzer' 
+                          : analysisType === type.id 
+                          ? '✓ Selected' 
+                          : 'Create Support Ticket'
+                        }
                       </div>
                     </div>
                   </button>
@@ -2485,8 +2552,8 @@ Please upload at least one of these files to proceed with Resource Analysis.`);
                       __html: (results.analysisData?.results as string) || '' 
                     }}
                     style={{
-                      backgroundColor: '#f8f9fa',
-                      color: '#333',
+                      backgroundColor: '#1e293b',
+                      color: '#e2e8f0',
                       borderRadius: '8px',
                       padding: '16px',
                       maxHeight: '80vh',

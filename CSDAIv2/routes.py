@@ -41,9 +41,9 @@ from security import (
 
 from config import get_config
 
-# UI components functionality moved to frontend
-# from ui_components import session_manager, wizard, guidance
-from simple_session_manager import simple_session_manager as session_manager
+# UI components functionality restored
+from ui_components import session_manager, wizard, guidance
+# from simple_session_manager import simple_session_manager as session_manager
 
 # Minimal wizard and guidance fallbacks for server-side routes (not used by Next.js frontend)
 class MinimalWizard:

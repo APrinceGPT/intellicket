@@ -227,9 +227,16 @@ export default function EnhancedNewCaseForm() {
           console.log('💾 Storing case context with extracted files:', caseContext);
           sessionStorage.setItem('caseContext', JSON.stringify(caseContext));
 
-          // Navigate to the analyzer page
-          const analyzerParam = `?analyzer=${aiRecommendation.analyzerId}&autoUploaded=true`;
-          const targetUrl = `/products/deep-security${analyzerParam}`;
+          // Navigate to the analyzer page - Check for dedicated analyzer pages
+          let targetUrl;
+          if (aiRecommendation.analyzerId === 'ds_agent_offline_analyzer') {
+            // Redirect to dedicated DS Agent Offline page
+            targetUrl = '/products/deep-security/analyzer-dsoffline';
+          } else {
+            // Use standard analyzer parameter format
+            const analyzerParam = `?analyzer=${aiRecommendation.analyzerId}&autoUploaded=true`;
+            targetUrl = `/products/deep-security${analyzerParam}`;
+          }
           
           console.log('🚀 Navigating to analyzer with auto-uploaded files:', targetUrl);
           router.push(targetUrl);
@@ -249,8 +256,16 @@ export default function EnhancedNewCaseForm() {
           
           sessionStorage.setItem('caseContext', JSON.stringify(caseContext));
           
-          const analyzerParam = `?analyzer=${aiRecommendation.analyzerId}`;
-          const targetUrl = `/products/deep-security${analyzerParam}`;
+          // Check for dedicated analyzer pages
+          let targetUrl;
+          if (aiRecommendation.analyzerId === 'ds_agent_offline_analyzer') {
+            // Redirect to dedicated DS Agent Offline page
+            targetUrl = '/products/deep-security/analyzer-dsoffline';
+          } else {
+            // Use standard analyzer parameter format
+            const analyzerParam = `?analyzer=${aiRecommendation.analyzerId}`;
+            targetUrl = `/products/deep-security${analyzerParam}`;
+          }
           
           console.log('🚀 Navigating to analyzer (manual upload required):', targetUrl);
           router.push(targetUrl);
@@ -270,8 +285,16 @@ export default function EnhancedNewCaseForm() {
         
         sessionStorage.setItem('caseContext', JSON.stringify(caseContext));
         
-        const analyzerParam = `?analyzer=${aiRecommendation.analyzerId}`;
-        const targetUrl = `/products/deep-security${analyzerParam}`;
+        // Check for dedicated analyzer pages
+        let targetUrl;
+        if (aiRecommendation.analyzerId === 'ds_agent_offline_analyzer') {
+          // Redirect to dedicated DS Agent Offline page
+          targetUrl = '/products/deep-security/analyzer-dsoffline';
+        } else {
+          // Use standard analyzer parameter format
+          const analyzerParam = `?analyzer=${aiRecommendation.analyzerId}`;
+          targetUrl = `/products/deep-security${analyzerParam}`;
+        }
         
         console.log('🚀 Navigating to analyzer (extraction failed):', targetUrl);
         router.push(targetUrl);
@@ -291,9 +314,16 @@ export default function EnhancedNewCaseForm() {
       console.log('💾 Storing case context (no attachments):', caseContext);
       sessionStorage.setItem('caseContext', JSON.stringify(caseContext));
 
-      // Navigate to the deep-security page with the recommended analyzer
-      const analyzerParam = `?analyzer=${aiRecommendation.analyzerId}`;
-      const targetUrl = `/products/deep-security${analyzerParam}`;
+      // Navigate to the deep-security page with the recommended analyzer - Check for dedicated pages
+      let targetUrl;
+      if (aiRecommendation.analyzerId === 'ds_agent_offline_analyzer') {
+        // Redirect to dedicated DS Agent Offline page
+        targetUrl = '/products/deep-security/analyzer-dsoffline';
+      } else {
+        // Use standard analyzer parameter format
+        const analyzerParam = `?analyzer=${aiRecommendation.analyzerId}`;
+        targetUrl = `/products/deep-security${analyzerParam}`;
+      }
       
       console.log('🚀 Navigating to:', targetUrl);
       router.push(targetUrl);
