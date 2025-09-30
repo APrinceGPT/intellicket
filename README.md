@@ -1,8 +1,11 @@
-# 🛡️ Intellicket - Advanced Cybersecurity Log Analysis Platform
+# 🎫 Intellicket - Intelligent Case Quality Submission & Cybersecurity Analysis Platform
 
-**Intellicket** is a comprehensive, AI-powered cybersecurity log analysis platform designed specifically for **Trend Micro Deep Security** environments. It provides intelligent analysis of security logs, performance diagnostics, and actionable insights through a modern web interface.
+**Intellicket** is a comprehensive, AI-powered platform designed to **streamline case quality submission processes** for **Trend Micro support environments**. The platform features an intelligent **Intellicket Portal** for enhanced case submissions, complemented by advanced cybersecurity log analysis capabilities for **Deep Security** environments.
 
-![System Architecture](https://img.shields.io/badge/Architecture-Triple--Stack-blue) ![AI Powered](https://img.shields.io/badge/AI-Enhanced%20Analysis-green) ![Status](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)
+🎯 **Primary Focus**: **Case Quality Submission & Management** through the Intellicket Portal  
+🔧 **Supporting Module**: Advanced log analysis for performance diagnostics and actionable insights
+
+![System Architecture](https://img.shields.io/badge/Architecture-Triple--Stack-blue) ![AI Powered](https://img.shields.io/badge/AI-Enhanced%20Submission-green) ![Case Management](https://img.shields.io/badge/Case-Quality%20Focus-orange) ![Status](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)
 
 ---
 
@@ -48,43 +51,58 @@ Set-Location intellicket-admin; npm run dev
 ```
 
 ### **Access URLs**
-- 🌐 **Main Application**: http://localhost:3000
-- 🎛️ **Admin Dashboard**: http://localhost:3001
-- 🔧 **Backend API**: http://localhost:5003
+- � **Intellicket Portal** (Case Submission): http://localhost:3000
+- 🎛️ **Admin Dashboard** (Case & System Management): http://localhost:3001
+- 🔧 **Backend API** (Analysis & Case Processing): http://localhost:5003
 
 ---
 
 ## 📋 **System Overview**
 
-Intellicket is built on a **three-tier architecture** that provides scalable, intelligent cybersecurity analysis:
+Intellicket is built on a **three-tier architecture** that provides comprehensive case quality submission management with intelligent cybersecurity analysis support:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                          INTELLICKET ECOSYSTEM                             │
+│                     INTELLICKET ECOSYSTEM - CASE-FOCUSED                   │
 └─────────────────────────────────────────────────────────────────────────────┘
 
 ┌─────────────────────┐    ┌─────────────────────┐    ┌─────────────────────┐
-│  Admin Dashboard    │◄──►│  Main Frontend      │◄──►│  Backend Engine     │
+│  Admin Dashboard    │◄──►│  Intellicket Portal │◄──►│  Analysis Engine    │
 │  (Port 3001)        │    │  (Port 3000)        │    │  (Port 5003)        │
 │                     │    │                     │    │                     │
-│  • System Health    │    │  • Analysis UI      │    │  • 7 Analyzers      │
-│  • Statistics       │    │  • File Upload      │    │  • AI/ML Engine     │
-│  • Session Mgmt     │    │  • Results Display  │    │  • RAG System       │
-│  • Maintenance      │    │  • API Proxy        │    │  • Session Mgmt     │
+│  • System Health    │    │  🎫 Case Submission │    │  • 7 Log Analyzers  │
+│  • Case Statistics  │    │  • Quality Control  │    │  • AI/ML Engine     │
+│  • User Management  │    │  • Log Analysis UI  │    │  • RAG System       │
+│  • Maintenance      │    │  • API Integration  │    │  • Session Mgmt     │
 └─────────────────────┘    └─────────────────────┘    └─────────────────────┘
 ```
+
+### **🔗 Case-Analysis Integration**
+The Intellicket Portal seamlessly integrates case submission with intelligent log analysis:
+- **Contextual Evidence**: Log analysis results can be automatically attached to case submissions
+- **Smart Case Enhancement**: AI analyzes uploaded logs to suggest case details, severity, and classification
+- **Quality Assurance**: Log analysis validates technical evidence before case submission
+- **Automated Workflows**: Analysis results trigger appropriate case routing and priority assignment
 
 ---
 
 ## 🎯 **Core Features**
 
-### **🔍 Advanced Log Analysis**
+### **🎫 Primary: Case Quality Submission Management**
+- **Intelligent Case Portal** with enhanced submission workflows
+- **Quality Control System** for case validation and routing
+- **AI-Powered Case Enhancement** with context-aware suggestions
+- **Integration Hub** for seamless Trend Micro ecosystem connectivity
+- **User Experience Optimization** with intuitive case creation interface
+- **Automated Case Classification** and priority assignment
+
+### **🔍 Supporting: Advanced Log Analysis**
 - **7 Specialized Analyzers** for different log types
 - **AI-Enhanced Analysis** with Claude 4 Sonnet integration
 - **Machine Learning** pattern recognition and anomaly detection
 - **Dynamic RAG** (Retrieval-Augmented Generation) for expert knowledge
 
-### **📊 Analysis Types**
+### **📊 Log Analysis Types** *(Supporting Module)*
 | Analyzer | File Type | Description | Frontend Access |
 |----------|-----------|-------------|-----------------|
 | **AMSP Anti-Malware** | `AMSP-Inst_LocalDebugLog.txt` | Performance & scan analysis | ✅ Yes |
@@ -96,7 +114,9 @@ Intellicket is built on a **three-tier architecture** that provides scalable, in
 | **Dual Path Analysis** | Multiple formats | Multi-path routing analysis | 🔧 API Only |
 
 ### **🤖 AI & ML Features**
-- **Smart Recommendations** based on log patterns
+- **Smart Case Recommendations** based on submission patterns
+- **Intelligent Case Enhancement** with context-aware suggestions  
+- **Log Pattern Analysis** for supporting technical evidence
 - **Severity Classification** (Critical/High/Medium/Low)
 - **Component Health Scoring** (0-100 scale)
 - **Knowledge Base Integration** with PDF documentation
@@ -385,23 +405,43 @@ URL: GET http://localhost:3000/api/csdai/cleanup/cache
 
 ## 🎯 **Use Cases**
 
-### **For Security Analysts**
-- Upload Deep Security logs for automated analysis
-- Get AI-powered recommendations and insights
-- Export detailed reports for documentation
-- Monitor system resource performance
+### **🎫 Primary: Case Quality Management**
+#### **For Support Engineers**
+- Create high-quality case submissions through intelligent portal
+- Get AI-powered case enhancement suggestions
+- Access pre-filled templates and contextual guidance
+- Track case submission history and quality metrics
 
-### **For System Administrators** 
-- Diagnose antivirus conflicts and performance issues
-- Analyze resource utilization patterns
-- Get actionable remediation steps
+#### **For Support Managers**
+- Monitor case quality trends and submission patterns
+- Access comprehensive case analytics and reporting
+- Manage team performance through quality insights
+- Configure case routing and validation rules
+
+#### **For Customer Success Teams**
+- Streamline customer case creation processes
+- Provide enhanced case submission experience
+- Access integrated case management workflows
+- Generate customer satisfaction insights
+
+### **🔍 Supporting: Log Analysis**
+#### **For Security Analysts**
+- Upload Deep Security logs for automated analysis (supporting case evidence)
+- Get AI-powered recommendations and insights for case context
+- Export detailed reports for case documentation
+- Monitor system resource performance for case background
+
+#### **For System Administrators** 
+- Diagnose antivirus conflicts and performance issues for case details
+- Analyze resource utilization patterns as case supporting data
+- Get actionable remediation steps for case resolution
 - Track analysis history via admin dashboard
 
-### **For DevOps Teams**
-- Integrate via REST API for automated analysis
+#### **For DevOps Teams**
+- Integrate via REST API for automated analysis supporting case workflows
 - Monitor backend health and performance
 - Manage system resources and cleanup
-- Access detailed logs and statistics
+- Access detailed logs and statistics for case metrics
 
 ---
 
