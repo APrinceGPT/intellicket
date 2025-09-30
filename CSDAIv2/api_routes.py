@@ -182,6 +182,7 @@ def safe_jsonify(data, **kwargs):
 
 # Import existing analyzer components and security
 from analyzers import DSAgentLogAnalyzer, AMSPAnalyzer, ConflictAnalyzer, ResourceAnalyzer, DSAgentOfflineAnalyzer, DiagnosticPackageAnalyzer
+from analyzers.modern_api_format import ModernAMSPAnalysisResponse
 from security import SecurityError, validate_file, create_secure_temp_file, cleanup_temp_file
 
 # Import session manager for admin interface synchronization  
@@ -190,7 +191,7 @@ from ui_components import session_manager, wizard, guidance
 # Import formatting functions from routes.py
 from routes import (
     format_ds_log_results, format_ds_log_results_v2, should_use_enhanced_formatter,
-    format_amsp_results, format_conflict_results, 
+    format_conflict_results, 
     format_resource_results, format_ds_agent_offline_results, format_diagnostic_package_results
 )
 
@@ -602,40 +603,109 @@ Details ({len(analysis_results.get('details', []))} items):
                         'analysis_type': analysis_type,
                         'uploaded_files': matched_files
                     })
-                    analyzer = AMSPAnalyzer(session_manager=session_manager, session_id=ui_session_id)
-                    analysis_results = analyzer.analyze(temp_paths)
                     
-                    # Handle standardized analyzer output
-                    if analysis_results.get('status') == 'error' or analysis_results.get('error', False):
+                    # MODERN API: Initialize AMSP analyzer with AI/ML/RAG capabilities
+                    analyzer = AMSPAnalyzer(
+                        session_manager=session_manager, 
+                        session_id=ui_session_id,
+                        rag_system=rag_system if 'rag_system' in globals() else None,
+                        ml_analyzer=ml_analyzer if 'ml_analyzer' in globals() else None
+                    )
+                    
+                    # Use modern analysis method - returns ModernAMSPAnalysisResponse
+                    modern_analysis_result = analyzer.analyze_modern(temp_paths)
+                    
+                    # Convert modern result to dict for JSON serialization and legacy compatibility
+                    analysis_results = modern_analysis_result.to_dict()
+                    
+                    # MODERN API: Handle modern AMSP analysis results
+                    if not analysis_results.get('success', True):
                         session_data['status'] = 'error'
-                        result = f"<div class='alert alert-danger'><strong>Error:</strong> {analysis_results.get('summary', 'Analysis failed')}</div>"
-                        raw_result = f"AMSP Analysis - ERROR: {analysis_results.get('summary', 'Analysis failed')}"
+                        health_data = analysis_results.get('health', {})
+                        error_message = health_data.get('status_message', 'Analysis failed')
+                        result = f"<div class='alert alert-danger'><strong>Error:</strong> {error_message}</div>"
+                        raw_result = f"AMSP Analysis - ERROR: {error_message}"
                     else:
-                        # Get formatted output or create from standardized data
+                        # MODERN API: Extract modern format data
+                        health_data = analysis_results.get('health', {})
+                        processing_data = analysis_results.get('processing', {})
+                        ai_analysis_data = analysis_results.get('ai_analysis', {})
+                        issues_data = analysis_results.get('issues', {})
+                        
+                        # Use modern formatted output directly
                         if 'formatted_output' in analysis_results:
                             result = analysis_results['formatted_output']
-                        elif 'raw_data' in analysis_results:
-                            # Generate formatted output from raw data using the formatter
-                            result = format_amsp_results(analysis_results['raw_data'])
                         else:
-                            # Generate basic formatted output from standardized data
+                            # Generate modern formatted output
+                            health_score = health_data.get('system_score', 0)
+                            health_status = health_data.get('status_icon', '🔍') + " " + health_data.get('status', 'Unknown').title()
+                            
+                            # Count issues
+                            critical_count = len(issues_data.get('critical', []))
+                            error_count = len(issues_data.get('errors', []))
+                            warning_count = len(issues_data.get('warnings', []))
+                            important_count = len(issues_data.get('important_events', []))
+                            
+                            # Build AI recommendations HTML
+                            recommendations = ai_analysis_data.get('recommendations', [])
+                            recommendations_html = ''.join([
+                                f'<li>{rec.get("description", str(rec))}</li>' 
+                                for rec in (recommendations if isinstance(recommendations, list) else [])
+                            ])
+                            
                             result = f"""
                             <div class="analysis-container">
-                                <h2>🛡️ AMSP Analysis Results</h2>
+                                <h2>🧠 Modern AMSP Analysis Results</h2>
+                                <div class="health-section">
+                                    <h3>🏥 System Health: {health_score}/100 {health_status}</h3>
+                                    <p>{health_data.get('status_message', 'System analysis completed')}</p>
+                                </div>
                                 <div class="summary-section">
-                                    <h3>📊 Summary</h3>
-                                    <p>{analysis_results.get('summary', 'Analysis completed')}</p>
+                                    <h3>📊 Processing Summary</h3>
+                                    <ul>
+                                        <li>📄 Total Lines: {processing_data.get('total_lines', 0):,}</li>
+                                        <li>✅ Processed Lines: {processing_data.get('processed_lines', 0):,}</li>
+                                        <li>📈 Success Rate: {processing_data.get('success_rate', 0):.1f}%</li>
+                                        <li>� Processing Mode: {ai_analysis_data.get('processing_mode', 'Unknown').title()}</li>
+                                        <li>⏱️ Processing Time: {processing_data.get('processing_time_seconds', 0):.2f}s</li>
+                                    </ul>
+                                </div>
+                                <div class="issues-section">
+                                    <h3>🔍 Issues Detected</h3>
+                                    <ul>
+                                        <li>🔴 Critical Issues: {critical_count}</li>
+                                        <li>🔶 Errors: {error_count}</li>
+                                        <li>🟡 Warnings: {warning_count}</li>
+                                        <li>⭐ Important Events: {important_count}</li>
+                                    </ul>
+                                </div>
+                                <div class="ai-section">
+                                    <h3>🧠 AI Enhancement Status</h3>
+                                    <ul>
+                                        <li>🧠 AI Analysis: {'✅ Applied' if ai_analysis_data.get('applied') else '❌ Not Available'}</li>
+                                        <li>🤖 ML Enhancement: {'✅ Applied' if ai_analysis_data.get('ml_enhanced') else '❌ Not Available'}</li>
+                                        <li>📚 RAG Enhancement: {'✅ Applied' if ai_analysis_data.get('rag_enhanced') else '❌ Not Available'}</li>
+                                        <li>🎯 Confidence Score: {ai_analysis_data.get('confidence_score', 0):.1%}</li>
+                                    </ul>
                                 </div>
                                 <div class="details-section">
-                                    <h3>📋 Details</h3>
+                                    <h3>� AI Insights & Recommendations</h3>
                                     <ul>{''.join(f'<li>{detail}</li>' for detail in analysis_results.get('details', []))}</ul>
                                 </div>
                             </div>
                             """
-                        raw_result = f"AMSP Analysis Results:\nFiles Analyzed: {len(temp_paths)}\nStatus: {analysis_results.get('summary', 'Completed')}"
                         
-                        # CRITICAL FIX: Store standardized results for proper frontend display
-                        session_data['standardized_results'] = analysis_results
+                        raw_result = f"""Modern AMSP Analysis Results:
+Files Analyzed: {len(temp_paths)}
+System Health Score: {health_score}/100 {health_data.get('status', 'Unknown')}
+Processing: {processing_data.get('processed_lines', 0):,} / {processing_data.get('total_lines', 0):,} lines ({processing_data.get('success_rate', 0):.1f}%)
+Issues: {critical_count} critical, {error_count} errors, {warning_count} warnings, {important_count} important events
+AI Enhancement: {'✅' if ai_analysis_data.get('applied') else '❌'} Applied, {ai_analysis_data.get('processing_mode', 'Unknown')} Mode
+Status: Analysis completed successfully"""
+                        
+                        # Store modern results for frontend consumption
+                        session_data['modern_results'] = analysis_results
+                        session_data['standardized_results'] = analysis_results  # For backward compatibility
                     
                     # Mark analysis as complete and store results in UI session manager
                     session_manager.store_results(ui_session_id, analysis_results)
@@ -1308,35 +1378,127 @@ Status: {analysis_results.get('summary', 'Analysis completed')}
                             'analysis_type': analysis_type,
                             'uploaded_files': uploaded_files
                         })
+                        # Initialize AMSP analyzer with enhanced AI/ML/RAG capabilities
                         analyzer = AMSPAnalyzer(
                             session_manager=session_manager,
-                            session_id=ui_session_id
+                            session_id=ui_session_id,
+                            rag_system=globals().get('rag_system'),
+                            ml_analyzer=globals().get('ml_analyzer')
                         )
                         
-                        # Use standardized analyze method
-                        analysis_results = analyzer.analyze(temp_paths)
+                        # Use modern analysis method - returns ModernAMSPAnalysisResponse
+                        try:
+                            modern_analysis_result = analyzer.analyze_modern(temp_paths)
+                            # Convert modern result to dict for JSON serialization and legacy compatibility
+                            analysis_results = modern_analysis_result.to_dict()
+                        except Exception as e:
+                            print(f"❌ AMSP modern analysis failed: {e}")
+                            # Fall back to error response
+                            analysis_results = {
+                                'success': False,
+                                'error': True,
+                                'health': {'status_message': f'Modern analysis failed: {str(e)}'},
+                                'processing': {},
+                                'ai_analysis': {},
+                                'issues': {}
+                            }
                         
-                        # Check if analysis resulted in an error
-                        if analysis_results.get('error', False):
+                        # MODERN API: Handle modern AMSP analysis results
+                        if not analysis_results.get('success', True):
                             session_data['status'] = 'error'
-                            session_data['error_message'] = analysis_results.get('summary', 'Analysis failed')
-                            result = f"<div class='alert alert-danger'><strong>Error:</strong> {analysis_results.get('summary', 'Analysis failed')}</div>"
-                            raw_result = f"AMSP Analysis - ERROR: {analysis_results.get('summary', 'Analysis failed')}"
+                            health_data = analysis_results.get('health', {})
+                            error_message = health_data.get('status_message', 'Analysis failed')
+                            result = f"<div class='alert alert-danger'><strong>Error:</strong> {error_message}</div>"
+                            raw_result = f"AMSP Analysis - ERROR: {error_message}"
                         else:
-                            result = analysis_results.get('formatted_output', 'AMSP analysis completed')
-                            metadata = analysis_results.get('metadata', {})
-                            raw_result = f"""AMSP Anti-Malware Log Analysis Results:
-
-Files Analyzed: {metadata.get('files_processed', len(temp_paths))}
-Errors Found: {metadata.get('errors_found', 0)}
-Pattern Failures: {metadata.get('pattern_failures', 0)}
-BPF Failures: {metadata.get('bpf_failures', 0)}
-
-Status: {analysis_results.get('summary', 'Analysis completed')}
-"""
+                            # MODERN API: Extract modern format data
+                            health_data = analysis_results.get('health', {})
+                            processing_data = analysis_results.get('processing', {})
+                            ai_analysis_data = analysis_results.get('ai_analysis', {})
+                            issues_data = analysis_results.get('issues', {})
+                            
+                            # Extract common variables for use in both result and raw_result
+                            health_score = health_data.get('system_score', 0)
+                            health_status = health_data.get('status_icon', '🔍') + " " + health_data.get('status', 'Unknown').title()
+                            
+                            # Count issues
+                            critical_count = len(issues_data.get('critical', []))
+                            error_count = len(issues_data.get('errors', []))
+                            warning_count = len(issues_data.get('warnings', []))
+                            important_count = len(issues_data.get('important_events', []))
+                            
+                            # Use modern formatted output directly
+                            if 'formatted_output' in analysis_results:
+                                result = analysis_results['formatted_output']
+                            else:
+                                # Generate modern formatted output
+                                
+                                # Build AI recommendations HTML
+                                recommendations = ai_analysis_data.get('recommendations', [])
+                                recommendations_html = ''.join([
+                                    f'<li>{rec.get("description", str(rec))}</li>' 
+                                    for rec in (recommendations if isinstance(recommendations, list) else [])
+                                ])
+                                
+                                result = f"""
+                                <div class="analysis-container">
+                                    <h2>🧠 Modern AMSP Analysis Results</h2>
+                                    <div class="health-section">
+                                        <h3>🏥 System Health: {health_score}/100 {health_status}</h3>
+                                        <p>{health_data.get('status_message', 'System analysis completed')}</p>
+                                    </div>
+                                    <div class="summary-section">
+                                        <h3>📊 Processing Summary</h3>
+                                        <ul>
+                                            <li>📄 Total Lines: {processing_data.get('total_lines', 0):,}</li>
+                                            <li>✅ Processed Lines: {processing_data.get('processed_lines', 0):,}</li>
+                                            <li>📈 Success Rate: {processing_data.get('success_rate', 0):.1f}%</li>
+                                            <li>🧠 Processing Mode: {ai_analysis_data.get('processing_mode', 'Unknown').title()}</li>
+                                            <li>⏱️ Processing Time: {processing_data.get('processing_time_seconds', 0):.2f}s</li>
+                                        </ul>
+                                    </div>
+                                    <div class="issues-section">
+                                        <h3>🔍 Issues Detected</h3>
+                                        <ul>
+                                            <li>🔴 Critical Issues: {critical_count}</li>
+                                            <li>🔶 Errors: {error_count}</li>
+                                            <li>🟡 Warnings: {warning_count}</li>
+                                            <li>⭐ Important Events: {important_count}</li>
+                                        </ul>
+                                    </div>
+                                    <div class="ai-section">
+                                        <h3>🧠 AI Enhancement Status</h3>
+                                        <ul>
+                                            <li>🧠 AI Analysis: {'✅ Applied' if ai_analysis_data.get('applied') else '❌ Not Available'}</li>
+                                            <li>🤖 ML Enhancement: {'✅ Applied' if ai_analysis_data.get('ml_enhanced') else '❌ Not Available'}</li>
+                                            <li>📚 RAG Enhancement: {'✅ Applied' if ai_analysis_data.get('rag_enhanced') else '❌ Not Available'}</li>
+                                            <li>🎯 Confidence Score: {ai_analysis_data.get('confidence_score', 0):.1%}</li>
+                                        </ul>
+                                    </div>
+                                    <div class="recommendations-section">
+                                        <h3>💡 AI Insights & Recommendations</h3>
+                                        <ul>{recommendations_html}</ul>
+                                    </div>
+                                </div>
+                                """
+                            
+                            raw_result = f"""Modern AMSP Analysis Results:
+Files Analyzed: {len(temp_paths)}
+System Health Score: {health_score}/100 {health_data.get('status', 'Unknown')}
+Processing: {processing_data.get('processed_lines', 0):,} / {processing_data.get('total_lines', 0):,} lines ({processing_data.get('success_rate', 0):.1f}%)
+Issues: {critical_count} critical, {error_count} errors, {warning_count} warnings, {important_count} important events
+AI Enhancement: {'✅' if ai_analysis_data.get('applied') else '❌'} Applied, {ai_analysis_data.get('processing_mode', 'Unknown')} Mode
+Status: Analysis completed successfully"""
+                            
+                            # Store modern results for frontend consumption
+                            session_data['modern_results'] = analysis_results
+                            session_data['standardized_results'] = analysis_results  # For backward compatibility
                         
-                        # CRITICAL FIX: Store standardized results for proper frontend display
-                        session_data['standardized_results'] = analysis_results
+                        # Mark analysis as complete and store results in UI session manager
+                        session_manager.store_results(ui_session_id, analysis_results)
+                        session_data['analysis_complete'] = True
+                        session_data['status'] = 'completed'
+                        session_data['completed_at'] = datetime.now().isoformat()
                         
                     elif analysis_type == "av_conflicts" or analysis_type == "conflict":
                         # Create session in ui_components session manager
@@ -1799,9 +1961,6 @@ Trend Micro Deep Security Analysis Tool
         else:
             return format_func(analysis, is_multiple)
     
-    def format_amsp_results(analysis):
-        """Import from routes.py - AMSP formatting function"""
-        
     @app.route('/debug-sessions', methods=['GET'])
     def debug_sessions():
         """Debug endpoint to inspect session data"""
@@ -1841,8 +2000,6 @@ Trend Micro Deep Security Analysis Tool
             })
         except Exception as e:
             return safe_jsonify({'success': False, 'error': str(e)}), 500
-        from routes import format_amsp_results as format_func
-        return format_func(analysis)
     
     def format_conflict_results(analysis, process_count):
         """Import from routes.py - Conflict formatting function"""

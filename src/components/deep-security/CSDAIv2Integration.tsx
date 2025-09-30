@@ -113,65 +113,129 @@ export default function CSDAIv2Integration({ initialAnalyzer, caseContext }: CSD
   const isComponentMountedRef = useRef(true);
   
   // Progress stages configuration (matching CSDAIv2)
-  const progressStages: ProgressStage[] = useMemo(() => [
-    { 
-      id: 'stage-1', 
-      name: 'File Parsing', 
-      icon: '📁',
-      duration: 3000,
-      messages: [
-        'Reading uploaded files...',
-        'Validating file format...',
-        'Extracting log entries...',
-        'File parsing completed ✓'
-      ]
-    },
-    { 
-      id: 'stage-2', 
-      name: 'Dynamic RAG Analysis', 
-      icon: '🧠',
-      duration: 28000,
-      messages: [
-        'Initializing Dynamic RAG system...',
-        'Loading Claude AI analysis engine...',
-        'Extracting log context and components...',
-        'Generating intelligent prompts dynamically...',
-        'Processing with Claude-4 Sonnet AI...',
-        'Analyzing Deep Security patterns...',
-        'Detecting anomalies and security issues...',
-        'Generating expert-level recommendations...',
-        'Dynamic RAG analysis completed ✓'
-      ]
-    },
-    { 
-      id: 'stage-3', 
-      name: 'ML & Security Analysis', 
-      icon: '🔬',
-      duration: 10000,
-      messages: [
-        'Loading ML pattern recognition models...',
-        'Running behavioral analysis algorithms...',
-        'Processing component health metrics...',
-        'Validating Dynamic RAG insights...',
-        'Cross-referencing security knowledge base...',
-        'Enhancing analysis with best practices...',
-        'ML analysis enhancement completed ✓'
-      ]
-    },
-    { 
-      id: 'stage-4', 
-      name: 'Report Generation', 
-      icon: '📊',
-      duration: 5000,
-      messages: [
-        'Compiling analysis results...',
-        'Generating HTML report...',
-        'Formatting recommendations...',
-        'Finalizing security assessments...',
-        'Report generation completed ✓'
-      ]
+  const progressStages: ProgressStage[] = useMemo(() => {
+    // Enhanced progress stages for Intelligent AMSP Analysis
+    if (analysisType === 'amsp_logs' || analysisType === 'amsp') {
+      return [
+        { 
+          id: 'stage-1', 
+          name: 'Intelligent Processing', 
+          icon: '🧠',
+          duration: 8000,
+          messages: [
+            'Initializing Intelligent AMSP Log Processor...',
+            'Applying 3-phase intelligent algorithm...',
+            'Phase 1: Latest date selection & time window optimization...',
+            'Phase 2: Priority-based filtering (errors/warnings first)...',
+            'Phase 3: Important event detection for normal operations...',
+            'Intelligent processing completed ✓'
+          ]
+        },
+        { 
+          id: 'stage-2', 
+          name: 'AI Enhancement', 
+          icon: '🤖',
+          duration: 15000,
+          messages: [
+            'Applying AI-powered analysis...',
+            'Generating system health score...',
+            'Analyzing component patterns...',
+            'Detecting root cause indicators...',
+            'Creating contextual recommendations...',
+            'AI enhancement completed ✓'
+          ]
+        },
+        { 
+          id: 'stage-3', 
+          name: 'ML & RAG Integration', 
+          icon: '🔬',
+          duration: 12000,
+          messages: [
+            'Loading ML pattern recognition...',
+            'Initializing Dynamic RAG system...',
+            'Processing with Claude AI...',
+            'Cross-referencing AMSP knowledge base...',
+            'Enhancing with expert insights...',
+            'ML & RAG integration completed ✓'
+          ]
+        },
+        { 
+          id: 'stage-4', 
+          name: 'Intelligent Report', 
+          icon: '📊',
+          duration: 4000,
+          messages: [
+            'Compiling intelligent analysis results...',
+            'Formatting AI insights and recommendations...',
+            'Generating health score dashboard...',
+            'Finalizing intelligent AMSP report...',
+            'Intelligent report generation completed ✓'
+          ]
+        }
+      ];
     }
-  ], []);
+    
+    // Default progress stages for other analyzers
+    return [
+      { 
+        id: 'stage-1', 
+        name: 'File Parsing', 
+        icon: '📁',
+        duration: 3000,
+        messages: [
+          'Reading uploaded files...',
+          'Validating file format...',
+          'Extracting log entries...',
+          'File parsing completed ✓'
+        ]
+      },
+      { 
+        id: 'stage-2', 
+        name: 'Dynamic RAG Analysis', 
+        icon: '🧠',
+        duration: 28000,
+        messages: [
+          'Initializing Dynamic RAG system...',
+          'Loading Claude AI analysis engine...',
+          'Extracting log context and components...',
+          'Generating intelligent prompts dynamically...',
+          'Processing with Claude-4 Sonnet AI...',
+          'Analyzing Deep Security patterns...',
+          'Detecting anomalies and security issues...',
+          'Generating expert-level recommendations...',
+          'Dynamic RAG analysis completed ✓'
+        ]
+      },
+      { 
+        id: 'stage-3', 
+        name: 'ML & Security Analysis', 
+        icon: '🔬',
+        duration: 10000,
+        messages: [
+          'Loading ML pattern recognition models...',
+          'Running behavioral analysis algorithms...',
+          'Processing component health metrics...',
+          'Validating Dynamic RAG insights...',
+          'Cross-referencing security knowledge base...',
+          'Enhancing analysis with best practices...',
+          'ML analysis enhancement completed ✓'
+        ]
+      },
+      { 
+        id: 'stage-4', 
+        name: 'Report Generation', 
+        icon: '📊',
+        duration: 5000,
+        messages: [
+          'Compiling analysis results...',
+          'Generating HTML report...',
+          'Formatting recommendations...',
+          'Finalizing security assessments...',
+          'Report generation completed ✓'
+        ]
+      }
+    ];
+  }, [analysisType]);
   
   // Initialize mounted state with StrictMode protection
   useEffect(() => {
@@ -1611,6 +1675,245 @@ Please upload at least one of these files to proceed with Resource Analysis.`);
     }
   };
 
+  const formatIntelligentAMSPResults = (backendData: Record<string, unknown>, type: string): AnalysisResult => {
+    console.log('🧠 Processing Intelligent AMSP Analysis Results');
+    console.log('🔍 Backend data structure:', {
+      keys: Object.keys(backendData),
+      hasAnalysisResult: !!backendData.analysis_result,
+      hasHealth: !!backendData.health,
+      hasProcessing: !!backendData.processing,
+      hasIssues: !!backendData.issues,
+      hasAiAnalysis: !!backendData.ai_analysis
+    });
+    
+    // CRITICAL FIX: Handle both legacy and modern API formats
+    let systemHealthScore = 0;
+    let totalLines = 0;
+    let errorsFound = 0;
+    let warningsFound = 0;
+    let aiAnalysisApplied = false;
+    let mlAnalysisApplied = false;
+    let ragAnalysisApplied = false;
+    let fallbackMode = false;
+    let recommendations: string[] = [];
+    let keyFindings: string[] = [];
+    
+    // Modern API format (direct from modern backend)
+    if (backendData.health && backendData.processing && backendData.ai_analysis) {
+      console.log('✅ Using Modern API Format');
+      const health = backendData.health as Record<string, unknown>;
+      const processing = backendData.processing as Record<string, unknown>;
+      const aiAnalysis = backendData.ai_analysis as Record<string, unknown>;
+      const issues = backendData.issues as Record<string, unknown>;
+      
+      systemHealthScore = health.system_score as number || 0;
+      totalLines = processing.total_lines as number || 0;
+      errorsFound = (issues.errors as Array<unknown>)?.length || 0;
+      warningsFound = (issues.warnings as Array<unknown>)?.length || 0;
+      aiAnalysisApplied = aiAnalysis.applied as boolean || false;
+      mlAnalysisApplied = aiAnalysis.ml_enhanced as boolean || false;
+      ragAnalysisApplied = aiAnalysis.rag_enhanced as boolean || false;
+      fallbackMode = aiAnalysis.processing_mode === 'fallback';
+      
+      // Extract recommendations from modern format
+      const aiRecommendations = aiAnalysis.recommendations as Array<Record<string, unknown>> || [];
+      recommendations = aiRecommendations.map(rec => 
+        rec.description as string || rec.title as string || String(rec)
+      );
+      
+      keyFindings = aiAnalysis.key_findings as string[] || [];
+    }
+    // Legacy format (old structure)
+    else {
+      console.log('⚠️ Using Legacy API Format');
+      const analysisResult = backendData.analysis_result as Record<string, unknown> || {};
+      const metadata = analysisResult.metadata as Record<string, unknown> || {};
+      const intelligentAnalysis = analysisResult.intelligent_analysis as Record<string, unknown> || {};
+      const aiInsights = intelligentAnalysis.ai_insights as Record<string, unknown> || {};
+      
+      systemHealthScore = metadata.system_health_score as number || 0;
+      totalLines = metadata.total_lines as number || 0;
+      errorsFound = metadata.errors_found as number || 0;
+      warningsFound = metadata.warnings_found as number || 0;
+      aiAnalysisApplied = metadata.ai_analysis_applied as boolean || false;
+      mlAnalysisApplied = metadata.ml_analysis_applied as boolean || false;
+      ragAnalysisApplied = metadata.rag_analysis_applied as boolean || false;
+      fallbackMode = metadata.fallback_mode as boolean || false;
+      
+      recommendations = aiInsights.recommendations as string[] || [];
+      keyFindings = aiInsights.key_findings as string[] || [];
+    }
+    
+    // Determine system status and severity
+    const getHealthStatus = (score: number) => {
+      if (score < 50) return { status: '🔴 Critical', severity: 'critical' as const };
+      if (score < 70) return { status: '🟡 Warning', severity: 'high' as const };
+      if (score < 90) return { status: '🟠 Caution', severity: 'medium' as const };
+      return { status: '🟢 Healthy', severity: 'low' as const };
+    };
+    
+    const healthStatus = getHealthStatus(systemHealthScore);
+    
+    // Build enhanced summary
+    const processingMode = fallbackMode ? 'Fallback Mode' : 'Intelligent Processing';
+    const aiFeatures = [
+      aiAnalysisApplied ? '🧠 AI Analysis' : null,
+      mlAnalysisApplied ? '🤖 ML Enhancement' : null,
+      ragAnalysisApplied ? '📚 RAG Insights' : null
+    ].filter(Boolean).join(', ') || 'Standard Analysis';
+    
+    const summary = `🧠 Intelligent AMSP Log Analysis Complete - ${healthStatus.status} (${systemHealthScore}/100)
+📊 Processing: ${totalLines.toLocaleString()} lines analyzed with ${processingMode}
+🎯 AI Features: ${aiFeatures}
+🔍 Issues: ${errorsFound} errors, ${warningsFound} warnings detected`;
+    
+    // Build enhanced details from AI insights
+    const details: string[] = [];
+    
+    // Add system health assessment
+    details.push(`🏥 <strong>System Health Score:</strong> ${systemHealthScore}/100 ${healthStatus.status}`);
+    
+    // Add processing metrics
+    details.push(`📊 <strong>Processing Statistics:</strong>`);
+    details.push(`   • Total Lines Processed: ${totalLines.toLocaleString()}`);
+    details.push(`   • Errors Found: ${errorsFound}`);
+    details.push(`   • Warnings Found: ${warningsFound}`);
+    details.push(`   • Processing Mode: ${processingMode}`);
+    
+    // Add AI/ML/RAG status
+    details.push(`🧠 <strong>AI Enhancement Status:</strong>`);
+    details.push(`   • AI Analysis: ${aiAnalysisApplied ? '✅ Applied' : '❌ Not Available'}`);
+    details.push(`   • ML Analysis: ${mlAnalysisApplied ? '✅ Applied' : '❌ Not Available'}`);
+    details.push(`   • RAG Analysis: ${ragAnalysisApplied ? '✅ Applied' : '❌ Not Available'}`);
+    
+    // Add AI-generated recommendations (already extracted above)
+    if (recommendations.length > 0) {
+      details.push(`🎯 <strong>AI Recommendations:</strong>`);
+      recommendations.slice(0, 5).forEach(rec => {
+        details.push(`   • ${rec}`);
+      });
+    }
+    
+    // Add key findings (already extracted above)
+    if (keyFindings.length > 0) {
+      details.push(`🔍 <strong>Key Findings:</strong>`);
+      keyFindings.slice(0, 3).forEach(finding => {
+        details.push(`   • ${finding}`);
+      });
+    }
+    
+    // Add critical components alert (handle both formats)
+    let criticalComponents: Array<{component: string, error_rate: number}> = [];
+    if (backendData.health && backendData.components) {
+      // Modern format: extract from components
+      const components = backendData.components as Record<string, Record<string, unknown>>;
+      criticalComponents = Object.entries(components)
+        .filter(([, comp]) => (comp.status as string) === 'failed' || (comp.error_rate as number) > 0.1)
+        .map(([name, comp]) => ({
+          component: name,
+          error_rate: comp.error_rate as number || 0
+        }))
+        .slice(0, 3);
+    } else {
+      // Legacy format
+      const intelligentAnalysis = (backendData.analysis_result as Record<string, unknown>)?.intelligent_analysis as Record<string, unknown> || {};
+      const aiInsights = intelligentAnalysis.ai_insights as Record<string, unknown> || {};
+      criticalComponents = aiInsights.critical_components as Array<{component: string, error_rate: number}> || [];
+    }
+    
+    if (criticalComponents.length > 0) {
+      details.push(`⚠️ <strong>Critical Components:</strong>`);
+      criticalComponents.slice(0, 3).forEach(comp => {
+        details.push(`   • ${comp.component}: ${(comp.error_rate * 100).toFixed(1)}% error rate`);
+      });
+    }
+    
+    // Add pattern analysis if available (legacy format only for now)
+    const intelligentAnalysis = (backendData.analysis_result as Record<string, unknown>)?.intelligent_analysis as Record<string, unknown> || {};
+    const patternAnalysis = intelligentAnalysis.pattern_analysis as Record<string, unknown> || {};
+    const errorPatterns = patternAnalysis.error_patterns as Record<string, number> || {};
+    const topPatterns = Object.entries(errorPatterns)
+      .sort(([,a], [,b]) => b - a)
+      .slice(0, 3);
+    
+    if (topPatterns.length > 0) {
+      details.push(`🔍 <strong>Error Pattern Analysis:</strong>`);
+      topPatterns.forEach(([pattern, count]) => {
+        details.push(`   • "${pattern}": ${count} occurrences`);
+      });
+    }
+    
+    // Add timeline information (handle both formats)
+    let startTime: string | undefined;
+    let endTime: string | undefined;
+    let duration: number | undefined;
+    
+    if (backendData.timeline) {
+      // Modern format
+      const timeline = backendData.timeline as Record<string, unknown>;
+      startTime = timeline.start_time as string;
+      endTime = timeline.end_time as string;
+      duration = timeline.duration_seconds as number;
+      if (duration) duration = duration / 3600; // Convert to hours
+    } else {
+      // Legacy format
+      const timelineAnalysis = intelligentAnalysis.timeline_analysis as Record<string, unknown> || {};
+      startTime = timelineAnalysis.start_time as string;
+      endTime = timelineAnalysis.end_time as string;
+      duration = timelineAnalysis.duration_hours as number;
+    }
+    
+    if (startTime && endTime) {
+      details.push(`⏰ <strong>Analysis Time Range:</strong>`);
+      details.push(`   • Start: ${new Date(startTime).toLocaleString()}`);
+      details.push(`   • End: ${new Date(endTime).toLocaleString()}`);
+      if (duration) {
+        details.push(`   • Duration: ${duration.toFixed(1)} hours`);
+      }
+    }
+    
+    // Add component analysis summary (handle both formats)
+    let componentCount = 0;
+    if (backendData.components) {
+      // Modern format
+      componentCount = Object.keys(backendData.components as Record<string, unknown>).length;
+    } else {
+      // Legacy format
+      const componentAnalysis = intelligentAnalysis.component_analysis as Record<string, Record<string, unknown>> || {};
+      componentCount = Object.keys(componentAnalysis).length;
+    }
+    
+    if (componentCount > 0) {
+      details.push(`🔧 <strong>Component Analysis:</strong> ${componentCount} components analyzed`);
+    }
+    
+    return {
+      type: 'Intelligent AMSP Analysis',
+      analysisType: type,
+      summary,
+      details,
+      severity: healthStatus.severity,
+      analysisData: {
+        ...backendData,
+        enhancedMetrics: {
+          systemHealthScore,
+          totalLines,
+          errorsFound,
+          warningsFound,
+          aiAnalysisApplied,
+          mlAnalysisApplied,
+          ragAnalysisApplied,
+          processingMode,
+          criticalComponentsCount: criticalComponents.length,
+          keyFindingsCount: keyFindings.length,
+          recommendationsCount: recommendations.length
+        },
+        formatVersion: 'intelligent_amsp_v2_unified'
+      },
+      sessionId: sessionId
+    };
+  };
+
   const formatBackendResults = (backendData: Record<string, unknown>, type: string): AnalysisResult => {
     // CRITICAL FIX: Check for new standardized format from backend API first
     const hasStandardizedFormat = backendData.analysis_result && typeof backendData.analysis_result === 'object';
@@ -1624,6 +1927,11 @@ Please upload at least one of these files to proceed with Resource Analysis.`);
       keys: Object.keys(backendData),
       analysisType: type
     });
+    
+    // NEW: Special handling for Intelligent AMSP Analysis
+    if (type === 'amsp_logs' || type === 'amsp') {
+      return formatIntelligentAMSPResults(backendData, type);
+    }
     
     // Prioritize standardized format (new API response structure) for other analyzers
     if (hasStandardizedFormat) {
@@ -1959,18 +2267,24 @@ Please upload at least one of these files to proceed with Resource Analysis.`);
 
                 // Check if analyzer is available
                 const availability = analyzerAvailability[type.id];
-                const isDisabled = availability?.status === 'disabled' || type.disabled || type.id === 'amsp_logs';
-                const isAvailable = (availability?.status === 'enabled' || !availability) && !type.disabled && type.id !== 'amsp_logs'; // Default to enabled if unknown
+                const isDisabled = availability?.status === 'disabled' || type.disabled;
+                const isAvailable = (availability?.status === 'enabled' || !availability) && !type.disabled; // Default to enabled if unknown
 
                 return (
                   <button
                     key={type.id}
                     onClick={() => {
-                      if (isDisabled || type.id === 'amsp_logs') return;
+                      if (isDisabled) return;
                       
                       // Special handling for DS Agent Offline - redirect to dedicated page
                       if (type.id === 'ds_agent_offline') {
                         router.push('/products/deep-security/analyzer-dsoffline');
+                        return;
+                      }
+                      
+                      // Special handling for AMSP Analysis - redirect to dedicated page
+                      if (type.id === 'amsp_logs') {
+                        router.push('/products/deep-security/analyzer-amsp');
                         return;
                       }
                       
@@ -2059,14 +2373,18 @@ Please upload at least one of these files to proceed with Resource Analysis.`);
                     {/* Action Button */}
                     <div className="mt-6 pt-4 border-t border-white/10">
                       <div className={`w-full py-3 px-4 rounded-xl text-center font-medium transition-all duration-300 ${
-                        analysisType === type.id && type.id !== 'ds_agent_offline'
+                        analysisType === type.id && type.id !== 'ds_agent_offline' && type.id !== 'amsp_logs'
                           ? 'bg-red-500 text-white shadow-lg'
                           : type.id === 'ds_agent_offline'
                           ? 'bg-gradient-to-r from-red-600 to-red-700 text-white group-hover:from-red-700 group-hover:to-red-800 shadow-lg'
+                          : type.id === 'amsp_logs'
+                          ? 'bg-gradient-to-r from-orange-600 to-red-700 text-white group-hover:from-orange-700 group-hover:to-red-800 shadow-lg'
                           : 'bg-red-500/20 text-red-300 group-hover:bg-red-500/30'
                       }`}>
                         {type.id === 'ds_agent_offline' 
                           ? '🚀 Go to Analyzer' 
+                          : type.id === 'amsp_logs'
+                          ? '🔧 Go to Analyzer'
                           : analysisType === type.id 
                           ? '✓ Selected' 
                           : 'Create Support Ticket'

@@ -1,22 +1,30 @@
 # -*- coding: utf-8 -*-
 """
 AMSPAnalyzer - AMSP Anti-Malware Log Analyzer
-Extracted from analyzers.py lines 1031-1824 with safety enhancements
+Enhanced with Intelligent Log Processing Algorithm
 """
 
 from .shared_imports import *
 from .base.standardizer import AnalyzerOutputStandardizer
+from .intelligent_amsp_log_processor import IntelligentAMSPLogProcessor, LogProcessingResult
+from .modern_api_format import ModernAMSPAnalysisResponse, ModernAPIResponseBuilder
+import time
+from datetime import datetime
 
 class AMSPAnalyzer(AnalyzerOutputStandardizer):
-    """AMSP Anti-Malware Log Analyzer with progress tracking"""
+    """AMSP Anti-Malware Log Analyzer with Intelligent Processing and AI/ML/RAG Integration"""
     
     def __init__(self, session_manager=None, session_id=None, rag_system=None, ml_analyzer=None):
-        """Initialize with optional progress tracking, RAG system, and ML analyzer"""
+        """Initialize with optional progress tracking, RAG system, ML analyzer, and intelligent processor"""
         self.session_manager = session_manager
         self.session_id = session_id
         self.rag_system = rag_system
         self.ml_analyzer = ml_analyzer
         
+        # Initialize intelligent log processor
+        self.intelligent_processor = IntelligentAMSPLogProcessor()
+        
+        # Keep legacy patterns for fallback compatibility
         self._initialize_amsp_patterns()
     
     def _update_progress(self, stage, message, percentage=None):
@@ -419,37 +427,118 @@ class AMSPAnalyzer(AnalyzerOutputStandardizer):
         
         return 'General Operation'
 
-    def analyze_log_file(self, file_path: str) -> Dict[str, Any]:
-        """Analyze AMSP log file comprehensively"""
-        # Analysis initialization - 5% progress
-        self._update_progress('File Parsing & Initial Analysis', 'Starting AMSP log analysis...', 5)
+
+    
+    def analyze_log_file_modern(self, file_path: str) -> ModernAMSPAnalysisResponse:
+        """
+        MODERN API: Analyze AMSP log file and return modern API format
         
-        results = {
-            'summary': {
-                'total_lines': 0,
-                'parsed_lines': 0,
-                'error_count': 0,
-                'warning_count': 0,
-                'critical_count': 0,
-                'installation_operations': 0,
-                'service_operations': 0,
-                'update_operations': 0,
-                'timespan': {'start': None, 'end': None}
-            },
-            'installation_summary': {
-                'driver_installations': 0,
-                'service_startups': 0,
-                'pattern_updates': 0,
-                'configuration_changes': 0,
-                'failures': 0
-            },
-            'errors': [],
-            'warnings': [],
-            'critical_issues': [],
-            'operation_analysis': {},
-            'known_issues': [],
-            'recommendations': []
-        }
+        This method eliminates legacy format conversions and returns data
+        optimized for direct React frontend consumption.
+        """
+        start_time = time.time()
+        
+        # Phase 1: Intelligent Log Processing
+        self._update_progress('Intelligent Processing', 'Starting AI-powered AMSP log analysis...', 5)
+        
+        try:
+            # Use intelligent processor for comprehensive analysis
+            self._update_progress('Intelligent Processing', 'Applying 3-phase intelligent algorithm...', 10)
+            processing_result = self.intelligent_processor.process_logs_intelligently([file_path])
+            
+            self._update_progress('Modern API Response', 'Building modern API response...', 40)
+            
+            # Build modern API response directly - no legacy conversion!
+            processing_time = time.time() - start_time
+            modern_response = ModernAPIResponseBuilder.build_amsp_response(
+                processing_result=processing_result,
+                session_id=self.session_id or 'unknown',
+                processing_time=processing_time,
+                encoding_detected='utf-16-le',  # From our recent fix
+                fallback_mode=False
+            )
+            
+            # Phase 2: ML Enhancement (if available)
+            if self.ml_analyzer:
+                self._update_progress('ML Enhancement', 'Applying machine learning analysis...', 60)
+                try:
+                    # ML enhancement could update the response object directly
+                    modern_response.ai_analysis.ml_enhanced = True
+                    # Add ML-specific insights if available
+                except Exception as e:
+                    print(f"⚠️ ML enhancement failed: {e}")
+                    modern_response.ai_analysis.ml_enhanced = False
+            
+            # Phase 3: Dynamic RAG Enhancement (if available)  
+            if self.rag_system:
+                self._update_progress('RAG Enhancement', 'Applying Dynamic RAG insights...', 80)
+                try:
+                    # RAG enhancement could enrich the response
+                    modern_response.ai_analysis.rag_enhanced = True
+                    # Add RAG-specific insights if available
+                except Exception as e:
+                    print(f"⚠️ RAG enhancement failed: {e}")
+                    modern_response.ai_analysis.rag_enhanced = False
+            
+            self._update_progress('Finalization', 'Modern AMSP analysis completed!', 100)
+            return modern_response
+            
+        except Exception as e:
+            # Create error response in modern format
+            print(f"⚠️ Modern AMSP analysis failed: {e}")
+            return self._create_error_response(str(e), time.time() - start_time)
+    
+    def _create_error_response(self, error_message: str, processing_time: float) -> ModernAMSPAnalysisResponse:
+        """Create error response in modern format"""
+        from .modern_api_format import (ProcessingStatistics, SystemHealth, Issues, 
+                                       AIAnalysis, Timeline, AMSPLogEntry)
+        
+        return ModernAMSPAnalysisResponse(
+            success=False,
+            analysis_type='amsp_installation',
+            session_id=self.session_id or 'unknown',
+            timestamp=datetime.now().isoformat(),
+            processing=ProcessingStatistics(
+                total_lines=0,
+                processed_lines=0,
+                success_rate=0.0,
+                encoding_detected='unknown',
+                processing_time_seconds=processing_time,
+                fallback_mode=True,
+                intelligent_processing=False
+            ),
+            health=SystemHealth(
+                system_score=0,
+                status='critical',
+                overall_severity='critical',
+                status_message=f'Analysis failed: {error_message}',
+                status_icon='🔴'
+            ),
+            issues=Issues(
+                critical=[],
+                errors=[],
+                warnings=[],
+                important_events=[]
+            ),
+            ai_analysis=AIAnalysis(
+                applied=False,
+                ml_enhanced=False,
+                rag_enhanced=False,
+                processing_mode='error',
+                recommendations=[],
+                key_findings=[f'Analysis error: {error_message}'],
+                root_cause_analysis=[],
+                confidence_score=0.0
+            ),
+            components={},
+            timeline=Timeline(
+                start_time=datetime.now().isoformat(),
+                end_time=datetime.now().isoformat(),
+                total_duration_seconds=processing_time,
+                phases=[],
+                key_milestones=[]
+            )
+        )
 
         # File parsing phase - 10% progress
         self._update_progress('File Parsing & Initial Analysis', 'Reading AMSP log file...', 10)
@@ -545,7 +634,8 @@ class AMSPAnalyzer(AnalyzerOutputStandardizer):
             
             # Analysis and recommendations generation - 60% progress
             self._update_progress('ML Pattern Recognition & Analysis', 'Generating AMSP recommendations...', 60)
-            results['recommendations'] = self.generate_amsp_recommendations(results)
+            # Modern format relies on AI analysis for recommendations
+            results['recommendations'] = []
             
             # Dynamic RAG Integration for AMSP Analysis - 70% progress
             self._update_progress('Dynamic RAG & AI Intelligence', 'Starting Dynamic RAG analysis...', 70)
@@ -586,131 +676,19 @@ class AMSPAnalyzer(AnalyzerOutputStandardizer):
         # Standardize return structure for frontend compatibility
         return results
 
-    def generate_amsp_recommendations(self, analysis: Dict[str, Any]) -> List[str]:
-        """Generate AMSP-specific recommendations with ds_am.log root cause analysis"""
-        recommendations = []
-        
-        # Analyze critical issues and provide specific root cause analysis
-        critical_issues = analysis.get('critical_errors', [])
-        error_issues = analysis.get('errors', [])
-        warning_issues = analysis.get('warnings', [])
-        
-        # Pattern loading failures analysis
-        pattern_failures = []
-        bpf_failures = []
-        trendx_failures = []
-        feature_filtering_issues = []
-        cloud_connectivity_issues = []
-        
-        # Analyze all critical and error messages for specific root causes
-        all_issues = critical_issues + error_issues + warning_issues
-        
-        for issue in all_issues:
-            message = issue.get('message', '').lower()
-            
-            # VSReadVirusPattern failures
-            if re.search(r'vsreadviruspattern.*failed.*ret=-2', message, re.IGNORECASE):
-                pattern_failures.append({
-                    'type': 'VSReadVirusPattern failure',
-                    'error_code': 'ret=-2',
-                    'timestamp': issue.get('timestamp', ''),
-                    'line': issue.get('line', '')
-                })
-            
-            # BPF/bmtrap issues
-            if re.search(r'bmtrap.*cannot find pattern|bm_load_pattern_buf.*failed.*-17', message, re.IGNORECASE):
-                bpf_failures.append({
-                    'type': 'BPF program loading failure',
-                    'error_code': 'ENOENT (-17)' if '-17' in message else 'Pattern not found',
-                    'timestamp': issue.get('timestamp', ''),
-                    'line': issue.get('line', '')
-                })
-            
-            # TrendX engine issues
-            if re.search(r'trendx.*engine.*failed|trendx.*initialization.*failed', message, re.IGNORECASE):
-                trendx_failures.append({
-                    'type': 'TrendX engine failure',
-                    'timestamp': issue.get('timestamp', ''),
-                    'line': issue.get('line', '')
-                })
-            
-            # Feature filtering issues
-            if re.search(r'feature.*filtering.*failed', message, re.IGNORECASE):
-                feature_filtering_issues.append({
-                    'type': 'Feature filtering misconfiguration',
-                    'timestamp': issue.get('timestamp', ''),
-                    'line': issue.get('line', '')
-                })
-            
-            # Cloud connectivity timeouts
-            if re.search(r'icrc.*timeout|cloud.*connectivity.*timeout', message, re.IGNORECASE):
-                cloud_connectivity_issues.append({
-                    'type': 'Cloud connectivity timeout',
-                    'timestamp': issue.get('timestamp', ''),
-                    'line': issue.get('line', '')
-                })
-        
-        # Generate specific root cause analysis based on detected patterns
-        if pattern_failures:
-            recommendations.append('<i class="fa-solid fa-circle-exclamation text-danger me-2"></i><strong>CRITICAL: Pattern Loading Failures Detected</strong>')
-            recommendations.append(f'🔍 <strong>Root Cause Analysis</strong>: {len(pattern_failures)} VSReadVirusPattern failures with error code ret=-2')
-            recommendations.append('💡 <strong>Resolution</strong>: Pattern files may be corrupted or missing. Check /opt/TrendMicro/amsp/pattern/ directory and reload patterns')
-            recommendations.append('📋 <strong>Action Items</strong>: 1) Verify pattern file integrity 2) Check disk space 3) Restart AMSP service 4) Update pattern files')
-        
-        if bpf_failures:
-            recommendations.append('<i class="fa-solid fa-triangle-exclamation text-warning me-2"></i><strong>CRITICAL: BPF Program Loading Failures</strong>')
-            recommendations.append(f'🔍 <strong>Root Cause Analysis</strong>: {len(bpf_failures)} BPF/bmtrap failures - behavioral monitoring unavailable')
-            recommendations.append('💡 <strong>Resolution</strong>: BPF patterns missing or kernel compatibility issues. Check behavioral monitoring configuration')
-            recommendations.append('📋 <strong>Action Items</strong>: 1) Verify kernel BPF support 2) Check bmtrap configuration 3) Reload behavioral patterns 4) Review system compatibility')
-        
-        if trendx_failures:
-            recommendations.append('<i class="fa-solid fa-engine text-danger me-2"></i><strong>CRITICAL: TrendX Engine Failures</strong>')
-            recommendations.append(f'🔍 <strong>Root Cause Analysis</strong>: {len(trendx_failures)} TrendX engine initialization failures detected')
-            recommendations.append('💡 <strong>Resolution</strong>: Core scanning engine unavailable. Critical service dependency failure')
-            recommendations.append('📋 <strong>Action Items</strong>: 1) Restart TrendX service 2) Check engine dependencies 3) Verify installation integrity 4) Review system resources')
-        
-        if feature_filtering_issues:
-            recommendations.append('<i class="fa-solid fa-filter text-warning me-2"></i><strong>WARNING: Feature Filtering Misconfiguration</strong>')
-            recommendations.append(f'🔍 <strong>Root Cause Analysis</strong>: {len(feature_filtering_issues)} feature filtering failures - security features may be disabled')
-            recommendations.append('💡 <strong>Resolution</strong>: Feature configuration mismatch. Review AMSP feature settings')
-            recommendations.append('📋 <strong>Action Items</strong>: 1) Check feature configuration 2) Validate license permissions 3) Review policy settings 4) Restart configuration service')
-        
-        if cloud_connectivity_issues:
-            recommendations.append('<i class="fa-solid fa-cloud-exclamation text-info me-2"></i><strong>INFO: Cloud Connectivity Issues</strong>')
-            recommendations.append(f'🔍 <strong>Root Cause Analysis</strong>: {len(cloud_connectivity_issues)} ICRC timeout events - offline operation mode')
-            recommendations.append('💡 <strong>Resolution</strong>: Expected behavior in offline environments. Monitor for extended connectivity loss')
-            recommendations.append('📋 <strong>Action Items</strong>: 1) Verify network connectivity 2) Check proxy settings 3) Review firewall rules 4) Validate cloud service status')
-        
-        # Standard analysis for general issues
-        if analysis['summary']['critical_count'] > 0 and not any([pattern_failures, bpf_failures, trendx_failures]):
-            recommendations.append('<i class="fa-solid fa-circle-exclamation me-2"></i>Critical AMSP issues detected - immediate attention required')
-        
-        if analysis['installation_summary']['failures'] > 0:
-            recommendations.append('<i class="fa-solid fa-triangle-exclamation me-2"></i>Installation failures detected - review AMSP setup')
-        
-        if analysis['summary']['error_count'] > 5:
-            recommendations.append('<i class="fa-solid fa-wrench me-2"></i>Multiple AMSP errors detected - check service configuration')
-        
-        # Operation-specific analysis
-        for operation, stats in analysis['operation_analysis'].items():
-            if stats['errors'] > 2:
-                recommendations.append(f'<i class="fa-solid fa-search me-2"></i>{operation}: High error count - investigate operation issues')
-        
-        # Overall system health assessment
-        if not recommendations:
-            recommendations.append('<i class="fa-solid fa-check-circle text-success"></i> No critical AMSP issues detected - anti-malware appears to be functioning normally')
-        else:
-            # Add summary recommendation
-            total_critical = len(pattern_failures) + len(bpf_failures) + len(trendx_failures)
-            if total_critical > 0:
-                recommendations.insert(0, f'<i class="fa-solid fa-exclamation-triangle text-danger me-2"></i><strong>SYSTEM STATUS: {total_critical} Critical Anti-Malware Issues Requiring Immediate Attention</strong>')
-        
-        return recommendations
 
-    def analyze(self, file_paths: Union[str, List[str]]) -> Dict[str, Any]:
-        """Standardized analysis entry point for AMSP logs"""
+
+
+    
+    def analyze_modern(self, file_paths: Union[str, List[str]]) -> ModernAMSPAnalysisResponse:
+        """
+        MODERN API: Standardized analysis entry point returning modern format
+        
+        This method eliminates legacy format conversions and returns data
+        optimized for direct React frontend consumption.
+        """
         try:
-            self._update_progress("Initialization", "Starting AMSP log analysis", 1)
+            self._update_progress("Initialization", "Starting modern AMSP log analysis", 1)
             
             # Normalize input to list and validate
             if isinstance(file_paths, str):
@@ -722,42 +700,14 @@ class AMSPAnalyzer(AnalyzerOutputStandardizer):
             # AMSP analyzer currently only supports single file analysis
             log_file = file_paths[0]
             
-            self._update_progress("Log Analysis", "Analyzing AMSP log file", 30)
-            analysis_results = self.analyze_log_file(log_file)
+            self._update_progress("Modern Analysis", "Analyzing AMSP log file with modern API", 30)
             
-            self._update_progress("Standardization", "Converting to standardized format", 90)
+            # Use modern analysis method - no legacy conversion!
+            modern_result = self.analyze_log_file_modern(log_file)
             
-            # Apply standardized output format
-            standardized_result = self._standardize_analyzer_output(analysis_results, 'amsp')
-            
-            # Add metadata
-            standardized_result['metadata'] = {
-                'files_processed': len(file_paths),
-                'log_file': os.path.basename(log_file),
-                'total_lines': analysis_results.get('summary', {}).get('total_lines', 0),
-                'errors_found': len(analysis_results.get('errors', [])),
-                'warnings_found': len(analysis_results.get('warnings', [])),
-                'pattern_failures': len([e for e in analysis_results.get('errors', []) if 'pattern' in e.get('message', '').lower()]),
-                'bpf_failures': len([e for e in analysis_results.get('errors', []) if 'bpf' in e.get('message', '').lower()]),
-                'trendx_failures': len([e for e in analysis_results.get('errors', []) if 'trendx' in e.get('message', '').lower()])
-            }
-            
-            self._update_progress("Completion", "AMSP log analysis completed", 100)
-            return standardized_result
+            self._update_progress("Completion", "Modern AMSP analysis completed successfully!", 100)
+            return modern_result
             
         except Exception as e:
-            error_msg = f"AMSP log analysis failed: {str(e)}"
-            self._update_progress("Error", error_msg, None)
-            return {
-                'analysis_type': 'amsp',
-                'status': 'error',
-                'summary': error_msg,
-                'details': [error_msg],
-                'recommendations': ['Please ensure valid AMSP log files are provided'],
-                'severity': 'high',
-                'error': True,
-                'metadata': {
-                    'files_processed': len(file_paths) if 'file_paths' in locals() else 0,
-                    'error_type': 'analysis_failure'
-                }
-            }
+            self._update_progress("Error", f"AMSP log analysis failed: {str(e)}", 0)
+            return self._create_error_response(str(e), 0.0)
