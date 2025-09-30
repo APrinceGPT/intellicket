@@ -13,8 +13,8 @@ from datetime import datetime
 
 class JiraDeepSecurityResearcher:
     def __init__(self):
-        self.username = "adrian_principio@trendmicro.com"
-        self.api_token = "ATATT3xFfGF0rWXAFzb8HPpEhhWlAHUF51paD1hbJ07M4UZFt2_gPyJ4D2wQ5kAPERsmaKppYwQtTnY5fcI1gbJiJcA4YW-EXxHP5SwQa-cvl3Cq-Gm3j9qGgWYQLWtixh1cSepnSz8sJPLR-IjUcCxJ6fReLztWBhuj_vvW7RUmOkm8G9kZWcg=E4B7001D"
+        self.username = "your_email@trendmicro.com"
+        self.api_token = "YOUR_ATLASSIAN_API_TOKEN_HERE"
         self.base_url = "https://connectone-stg.trendmicro.com:8443/api/eurekasearch/EurekaSearch"
         
         # Create headers
