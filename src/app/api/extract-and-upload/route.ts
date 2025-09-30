@@ -5,8 +5,8 @@ const BACKEND_URL = 'http://localhost:5003';
 
 // File mapping for different analyzers - EXACT REQUIREMENTS MATCH
 const ANALYZER_FILE_MAPPING = {
-  'amsp': ['AMSPInstallDebuglog.log', 'ds_am.log', 'ds_agent.log'],  // Only required AMSP files
-  'amsp_logs': ['AMSPInstallDebuglog.log', 'ds_am.log', 'ds_agent.log'],  // Only required AMSP files
+  // 'amsp': ['AMSPInstallDebuglog.log', 'ds_am.log', 'ds_agent.log'],  // AMSP processing disabled
+  // 'amsp_logs': ['AMSPInstallDebuglog.log', 'ds_am.log', 'ds_agent.log'],  // AMSP processing disabled
   'resource': ['TopNBusyProcess.txt', 'RunningProcess.xml', 'RunningProcesses.xml'],  // Resource files with both XML variants
   'resource_analysis': ['TopNBusyProcess.txt', 'RunningProcess.xml', 'RunningProcesses.xml'],  // Resource files with both XML variants
   'ds_agent_offline': ['ds_connect.log', 'ds_agent.log', 'ds_agent-err.log'],  // Only core files for offline analysis

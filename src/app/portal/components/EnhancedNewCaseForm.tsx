@@ -44,11 +44,16 @@ export default function EnhancedNewCaseForm() {
   const [expandedSections, setExpandedSections] = useState({
     product: true,
     issueCategory: true,
-    requestDetail: true
+    requestDetail: true,
+    attachments: true
   });
 
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [aiRecommendation, setAiRecommendation] = useState<AnalyzerRecommendation | null>(null);
+
+  const [showLogCollectionModal, setShowLogCollectionModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [ticketNumber, setTicketNumber] = useState('');
 
   const toggleSection = (section: keyof typeof expandedSections) => {
     setExpandedSections(prev => ({
@@ -65,12 +70,31 @@ export default function EnhancedNewCaseForm() {
   };
 
   const handleFileUpload = async (files: FileList | null) => {
+    console.log('🔄 Portal handleFileUpload called with files:', files);
+    
     if (files) {
       const fileArray = Array.from(files);
-      setFormData(prev => ({
-        ...prev,
-        attachments: [...prev.attachments, ...fileArray]
-      }));
+      console.log('📁 Processing files:', fileArray.map(f => ({ name: f.name, size: f.size, type: f.type })));
+      
+      // Filter out files that are too large (1GB limit)
+      const validFiles = fileArray.filter(file => {
+        const maxSize = 1024 * 1024 * 1024; // 1GB
+        if (file.size > maxSize) {
+          alert(`File "${file.name}" is too large. Maximum file size is 1GB.`);
+          return false;
+        }
+        return true;
+      });
+      
+      if (validFiles.length > 0) {
+        setFormData(prev => ({
+          ...prev,
+          attachments: [...prev.attachments, ...validFiles]
+        }));
+        console.log('✅ Files added to attachments:', validFiles.length);
+      }
+    } else {
+      console.log('❌ No files provided to handleFileUpload');
     }
   };
 
@@ -166,6 +190,7 @@ export default function EnhancedNewCaseForm() {
       formData
     });
 
+    // Security Validation 1: Basic required fields
     if (!formData.description.trim()) {
       alert('Please provide a description for AI analysis');
       return;
@@ -174,6 +199,64 @@ export default function EnhancedNewCaseForm() {
     if (!formData.severity) {
       alert('Please select a severity level');
       return;
+    }
+
+    // Security Validation 2: ZIP file attachment requirement
+    const hasValidZipFiles = formData.attachments.some(file => 
+      file.name.toLowerCase().endsWith('.zip') && file.size > 0
+    );
+
+    if (!hasValidZipFiles) {
+      // Enhanced error modal with proper UX
+      const userWantsToAddFiles = window.confirm(
+        '🔒 ZIP File Required for Intellicket Analysis\n\n' +
+        'Intellicket requires diagnostic ZIP files (like Diagnostic Package.zip) to perform accurate analysis.\n\n' +
+        'Without ZIP files, the analyzer cannot access the necessary log files for:\n' +
+        '• Deep Security Agent logs\n' +
+        '• Anti-malware scan data\n' +
+        '• System resource information\n' +
+        '• Performance diagnostics\n\n' +
+        'Would you like to attach ZIP files now?\n\n' +
+        'Click OK to add files, or Cancel to submit a traditional case instead.'
+      );
+
+      if (userWantsToAddFiles) {
+        // Scroll to attachment section to help user
+        const attachmentSection = document.querySelector('[data-section="attachments"]');
+        if (attachmentSection) {
+          attachmentSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          // Expand attachments section if collapsed
+          if (!expandedSections.attachments) {
+            toggleSection('attachments');
+          }
+        }
+        return;
+      } else {
+        // User wants to proceed without ZIP - show warning about limitations
+        const confirmWithoutZip = window.confirm(
+          '⚠️ Proceeding Without ZIP Files\n\n' +
+          'Without diagnostic ZIP files, Intellicket analysis will be limited:\n' +
+          '• No automated log parsing\n' +
+          '• No intelligent file extraction\n' +
+          '• Manual file upload required in analyzer\n' +
+          '• Reduced analysis accuracy\n\n' +
+          'Are you sure you want to continue?\n\n' +
+          'Recommendation: Attach Diagnostic Package.zip for best results.'
+        );
+
+        if (!confirmWithoutZip) {
+          return; // User cancelled
+        }
+        
+        // Log security event for audit trail
+        console.warn('🔐 SECURITY: User proceeding to Intellicket without ZIP files', {
+          caseTitle: formData.caseTitle,
+          description: formData.description.substring(0, 100) + '...',
+          attachmentCount: formData.attachments.length,
+          attachmentTypes: formData.attachments.map(f => f.type),
+          timestamp: new Date().toISOString()
+        });
+      }
     }
 
     console.log('🤖 Starting AI analysis...');
@@ -327,6 +410,45 @@ export default function EnhancedNewCaseForm() {
       
       console.log('🚀 Navigating to:', targetUrl);
       router.push(targetUrl);
+    }
+  };
+
+  const generateTicketNumber = () => {
+    // Generate 8-digit random number
+    const randomNumber = Math.floor(10000000 + Math.random() * 90000000);
+    return `TM-${randomNumber}`;
+  };
+
+  const handleSubmitTraditionalCase = async () => {
+    console.log('📝 Submitting traditional case...');
+    
+    // Validate required fields
+    if (!formData.description.trim() || !formData.severity) {
+      alert('Please complete: Description and Severity Level');
+      return;
+    }
+
+    try {
+      // Generate ticket number
+      const newTicketNumber = generateTicketNumber();
+      setTicketNumber(newTicketNumber);
+
+      // Simulate case submission (you can add actual API call here)
+      console.log('✅ Traditional case submitted:', {
+        ticketNumber: newTicketNumber,
+        caseTitle: formData.caseTitle,
+        description: formData.description,
+        product: formData.product,
+        severity: formData.severity,
+        attachments: formData.attachments.length
+      });
+
+      // Show success modal
+      setShowSuccessModal(true);
+      
+    } catch (error) {
+      console.error('❌ Error submitting traditional case:', error);
+      alert('Error submitting case. Please try again.');
     }
   };
 
@@ -624,14 +746,48 @@ export default function EnhancedNewCaseForm() {
                 onDescriptionChange={(description) => handleInputChange('description', description)}
               />
 
-              <div>
-                <h4 className="text-sm font-medium text-black mb-3">Attachment</h4>
-                <p className="text-sm text-gray-800 mb-4">
-                  For faster processing, please capture logs for your product by following{' '}
-                  <a href="#" className="text-blue-600 underline">these steps</a> Or, directly access the{' '}
-                  <a href="#" className="text-blue-600 underline">Case Diagnostic Tool</a>
-                </p>
-                <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+              <div data-section="attachments">
+                <div className="flex items-center justify-between mb-3">
+                  <h4 className="text-sm font-medium text-black">Attachment</h4>
+                  <div className="flex items-center space-x-2">
+                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                      <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                      </svg>
+                      ZIP Required for Intellicket
+                    </span>
+                  </div>
+                </div>
+                
+                <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                  <div className="flex items-start space-x-2">
+                    <svg className="w-5 h-5 text-blue-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <div className="text-sm">
+                      <p className="text-blue-800 font-medium mb-1">📦 Intellicket Analysis Requirements:</p>
+                      <ul className="text-blue-700 space-y-1 text-xs">
+                        <li>• <strong>ZIP files required</strong> for automated log extraction</li>
+                        <li>• Diagnostic Package.zip recommended for best results</li>
+                        <li>• Individual .log/.xml files supported but limited analysis</li>
+                      </ul>
+                      <p className="text-blue-600 text-xs mt-2">
+                        💡 <button 
+                          onClick={() => setShowLogCollectionModal(true)}
+                          className="underline hover:text-blue-800 bg-transparent border-none cursor-pointer"
+                        >
+                          Log Collection Guide
+                        </button>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
+                  formData.attachments.some(f => f.name.toLowerCase().endsWith('.zip')) 
+                    ? 'border-green-300 bg-green-50' 
+                    : 'border-gray-300 hover:border-blue-400'
+                }`}>
                   <input
                     type="file"
                     multiple
@@ -641,11 +797,28 @@ export default function EnhancedNewCaseForm() {
                     accept=".log,.txt,.xml,.csv,.zip,.pdf"
                   />
                   <label htmlFor="file-upload" className="cursor-pointer">
-                    <svg className="w-12 h-12 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                    </svg>
-                    <p className="text-black mb-2">Add file or drag files here</p>
-                    <p className="text-sm text-gray-800">File Size Limit: 1GB</p>
+                    {formData.attachments.some(f => f.name.toLowerCase().endsWith('.zip')) ? (
+                      <svg className="w-12 h-12 text-green-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    ) : (
+                      <svg className="w-12 h-12 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                      </svg>
+                    )}
+                    <p className="text-black mb-2">
+                      {formData.attachments.some(f => f.name.toLowerCase().endsWith('.zip')) 
+                        ? '✅ ZIP files detected - Ready for Intellicket!'
+                        : 'Add files or drag files here'
+                      }
+                    </p>
+                    <p className="text-sm text-gray-600">
+                      {formData.attachments.some(f => f.name.toLowerCase().endsWith('.zip'))
+                        ? 'You can add more files if needed'
+                        : 'Recommended: Diagnostic Package.zip for best analysis'
+                      }
+                    </p>
+                    <p className="text-xs text-gray-500 mt-1">File Size Limit: 1GB per file</p>
                   </label>
                 </div>
 
@@ -704,6 +877,30 @@ export default function EnhancedNewCaseForm() {
                 </div>
               )}
 
+              {/* ZIP File Status Indicator */}
+              {formData.description.trim() && formData.severity && (
+                <div className="mb-4">
+                  {formData.attachments.some(f => f.name.toLowerCase().endsWith('.zip')) ? (
+                    <div className="flex items-center space-x-2 text-green-700 bg-green-50 border border-green-200 rounded-lg p-3">
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span className="text-sm font-medium">✅ ZIP files detected - Ready for optimal Intellicket analysis!</span>
+                    </div>
+                  ) : (
+                    <div className="flex items-center space-x-2 text-amber-700 bg-amber-50 border border-amber-200 rounded-lg p-3">
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                      </svg>
+                      <div className="text-sm">
+                        <span className="font-medium">⚠️ No ZIP files attached</span>
+                        <span className="text-amber-600 ml-1">- Analysis will be limited without diagnostic files</span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+
               <div className="flex space-x-4 pt-6">
                 <button 
                   onClick={() => router.push('/')}
@@ -711,7 +908,11 @@ export default function EnhancedNewCaseForm() {
                 >
                   Cancel
                 </button>
-                <button className="px-8 py-3 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors">
+                <button 
+                  onClick={handleSubmitTraditionalCase}
+                  disabled={!formData.description.trim() || !formData.severity}
+                  className="px-8 py-3 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
                   Submit Traditional Case
                 </button>
                 <button 
@@ -744,6 +945,272 @@ export default function EnhancedNewCaseForm() {
           )}
         </div>
       </div>
+
+      {/* Log Collection Guide Modal */}
+      {showLogCollectionModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-2xl font-bold text-gray-900 flex items-center">
+                  📦 Deep Security Diagnostic Package Collection Guide
+                </h2>
+                <button
+                  onClick={() => setShowLogCollectionModal(false)}
+                  className="text-gray-500 hover:text-gray-700 text-2xl font-bold"
+                >
+                  ×
+                </button>
+              </div>
+
+              <div className="space-y-6">
+                {/* Overview */}
+                <div className="bg-blue-50 border-l-4 border-blue-400 p-4">
+                  <div className="flex">
+                    <div className="flex-shrink-0">
+                      <svg className="h-5 w-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <div className="ml-3">
+                      <p className="text-sm text-blue-700">
+                        <strong>Important:</strong> Diagnostic packages contain comprehensive system logs required for effective analysis. 
+                        ZIP files ensure all related logs are collected together with proper file structure.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Deep Security Manager */}
+                <div className="border border-gray-200 rounded-lg p-4">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+                    🖥️ Deep Security Manager (DSM)
+                  </h3>
+                  <div className="space-y-3">
+                    <div>
+                      <h4 className="font-medium text-gray-800 mb-2">Via Web Console:</h4>
+                      <ol className="list-decimal list-inside space-y-1 text-sm text-gray-600 ml-4">
+                        <li>Log in to the Deep Security Manager console</li>
+                        <li>Navigate to <strong>Administration → System Information</strong></li>
+                        <li>Click <strong>&quot;Create Diagnostic Package&quot;</strong></li>
+                        <li>Select components to include (Manager, Database, etc.)</li>
+                        <li>Click <strong>&quot;Generate&quot;</strong> and wait for completion</li>
+                        <li>Download the generated ZIP file</li>
+                      </ol>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-800 mb-2">Via Command Line:</h4>
+                      <div className="bg-black text-green-400 rounded p-3 font-mono text-sm">
+                        <p className="mb-2 text-white"><strong>Windows:</strong></p>
+                        <div className="text-green-400">
+                          <div>C:\&gt; cd &quot;C:\Program Files\Trend Micro\Deep Security Manager&quot;</div>
+                          <div>C:\Program Files\Trend Micro\Deep Security Manager&gt; dsm_c.cmd -action creatediagnosticpackage -filename diagnostic.zip</div>
+                        </div>
+                        <p className="mt-3 mb-2 text-white"><strong>Linux:</strong></p>
+                        <div className="text-green-400">
+                          <div>$ cd /opt/dsm</div>
+                          <div>$ ./dsm_c -action creatediagnosticpackage -filename diagnostic.zip</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Deep Security Agent */}
+                <div className="border border-gray-200 rounded-lg p-4">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+                    🛡️ Deep Security Agent (DSA)
+                  </h3>
+                  <div className="space-y-3">
+                    <div>
+                      <h4 className="font-medium text-gray-800 mb-2">Windows Command Line:</h4>
+                      <ol className="list-decimal list-inside space-y-1 text-sm text-gray-600 ml-4 mb-3">
+                        <li>Open Command Prompt as Administrator</li>
+                        <li>Navigate to Deep Security Agent installation directory</li>
+                        <li>Run the diagnostic command</li>
+                        <li>Wait for package creation to complete</li>
+                      </ol>
+                      <div className="bg-black text-green-400 rounded p-3 font-mono text-sm">
+                        <div className="text-green-400">
+                          <div>C:\&gt; cd &quot;C:\Program Files\Trend Micro\Deep Security Agent&quot;</div>
+                          <div>C:\Program Files\Trend Micro\Deep Security Agent&gt; dsa_control.exe -d</div>
+                          <div className="text-yellow-400 mt-1"># Diagnostic package will be created in the current directory</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-800 mb-2">Linux Command Line:</h4>
+                      <ol className="list-decimal list-inside space-y-1 text-sm text-gray-600 ml-4 mb-3">
+                        <li>Open terminal with sudo privileges</li>
+                        <li>Navigate to Deep Security Agent directory</li>
+                        <li>Execute the diagnostic command</li>
+                        <li>Package will be saved to current directory</li>
+                      </ol>
+                      <div className="bg-black text-green-400 rounded p-3 font-mono text-sm">
+                        <div className="text-green-400">
+                          <div>$ cd /opt/ds_agent</div>
+                          <div>$ sudo ./dsa_control -d</div>
+                          <div className="text-yellow-400 mt-1"># Diagnostic package created successfully</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Deep Security Virtual Appliance */}
+                <div className="border border-gray-200 rounded-lg p-4">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+                    💿 Deep Security Virtual Appliance (DSVA)
+                  </h3>
+                  <ol className="list-decimal list-inside space-y-1 text-sm text-gray-600 ml-4">
+                    <li>Access the DSVA management interface</li>
+                    <li>Navigate to <strong>System → Diagnostic Package</strong></li>
+                    <li>Click <strong>&quot;Generate Diagnostic Package&quot;</strong></li>
+                    <li>Select log types and time range</li>
+                    <li>Download the generated ZIP file</li>
+                  </ol>
+                </div>
+
+                {/* What's Included */}
+                <div className="border border-gray-200 rounded-lg p-4">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+                    📋 What&apos;s Included in Diagnostic Packages
+                  </h3>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <h4 className="font-medium text-gray-800 mb-2">System Information:</h4>
+                      <ul className="list-disc list-inside space-y-1 text-sm text-gray-600 ml-4">
+                        <li>Configuration files</li>
+                        <li>System specifications</li>
+                        <li>Network settings</li>
+                        <li>Service status</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-800 mb-2">Log Files:</h4>
+                      <ul className="list-disc list-inside space-y-1 text-sm text-gray-600 ml-4">
+                        <li>Application logs</li>
+                        <li>Security event logs</li>
+                        <li>Anti-malware scan logs</li>
+                        <li>Performance data</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Best Practices */}
+                <div className="bg-green-50 border-l-4 border-green-400 p-4">
+                  <div className="flex">
+                    <div className="flex-shrink-0">
+                      <svg className="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <div className="ml-3">
+                      <h4 className="text-sm font-medium text-green-700 mb-2">Best Practices:</h4>
+                      <ul className="list-disc list-inside space-y-1 text-sm text-green-600 ml-4">
+                        <li>Generate diagnostic packages during or immediately after issues occur</li>
+                        <li>Include time range covering the problem period</li>
+                        <li>Collect from all affected components (Manager, Agent, etc.)</li>
+                        <li>Verify ZIP file integrity before submitting</li>
+                        <li>Keep diagnostic packages secure - they contain system information</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-6 flex justify-end">
+                <button
+                  onClick={() => setShowLogCollectionModal(false)}
+                  className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  Got it, thanks!
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Success Modal for Traditional Case Submission */}
+      {showSuccessModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-md w-full">
+            <div className="p-6 text-center">
+              <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-4">
+                <svg className="h-8 w-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              
+              <h3 className="text-lg font-medium text-gray-900 mb-2">
+                Case Submitted Successfully! 🎉
+              </h3>
+              
+              <div className="bg-gray-50 rounded-lg p-4 mb-4">
+                <p className="text-sm text-gray-600 mb-2">Your ticket number is:</p>
+                <div className="text-2xl font-bold text-blue-600 font-mono bg-white rounded border-2 border-blue-200 p-3">
+                  {ticketNumber}
+                </div>
+              </div>
+              
+              <div className="text-sm text-gray-600 mb-6 space-y-2">
+                <p>📧 A confirmation email will be sent shortly</p>
+                <p>⏱️ Expected response time: 1-2 business days</p>
+                <p>🔍 You can track your case using the ticket number above</p>
+              </div>
+              
+              <div className="space-y-3">
+                <button
+                  onClick={() => {
+                    setShowSuccessModal(false);
+                    // Reset all form states
+                    setFormData({
+                      product: 'Deep Security',
+                      productVersion: '20.0',
+                      operatingSystem: 'CentOS 5 32-bit',
+                      issueCategory: 'Product Issue',
+                      caseTitle: '',
+                      severity: '',
+                      description: '',
+                      ccEmail: '',
+                      attachments: []
+                    });
+                    setTicketNumber('');
+                    setAiRecommendation(null);
+                    setIsAnalyzing(false);
+                    
+                    // CRITICAL FIX: Clear file input value to prevent upload issues
+                    const fileInput = document.getElementById('file-upload') as HTMLInputElement;
+                    if (fileInput) {
+                      fileInput.value = '';
+                      console.log('🔄 File input cleared after form reset');
+                    }
+                    
+                    // Clear any stored case context from previous submissions
+                    sessionStorage.removeItem('caseContext');
+                    console.log('✅ Form completely reset for new case creation');
+                  }}
+                  className="w-full px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
+                >
+                  Create Another Case
+                </button>
+                
+                <button
+                  onClick={() => {
+                    setShowSuccessModal(false);
+                    router.push('/');
+                  }}
+                  className="w-full px-6 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+                >
+                  Return to Home
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -13,101 +13,44 @@ try:
     from .conflict_analyzer import ConflictAnalyzer
     print("✅ Using modular ConflictAnalyzer")
 except ImportError as e:
-    print(f"⚠️ Modular ConflictAnalyzer not available: {e}")
-    # Fallback to original during transition
-    try:
-        from ..analyzers import ConflictAnalyzer
-        print("✅ Using original ConflictAnalyzer")
-    except ImportError:
-        print("❌ ConflictAnalyzer not available")
-        ConflictAnalyzer = None
+    print(f"❌ ConflictAnalyzer not available: {e}")
+    ConflictAnalyzer = None
 
-# Phase 2: Fallback imports for not-yet-extracted analyzers
+# Phase 2: Import all modular analyzers
 try:
     from .ds_agent_log_analyzer import DSAgentLogAnalyzer
     print("✅ Using modular DSAgentLogAnalyzer (backend-only)")
-except ImportError:
-    # Fallback to original during transition
-    try:
-        import sys
-        import os
-        # Add parent directory to path to import from original analyzers.py
-        parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        if parent_dir not in sys.path:
-            sys.path.insert(0, parent_dir)
-        from analyzers import DSAgentLogAnalyzer
-        print("✅ Using original DSAgentLogAnalyzer (backend-only)")
-    except ImportError as e:
-        print(f"❌ DSAgentLogAnalyzer not available: {e}")
-        DSAgentLogAnalyzer = None
+except ImportError as e:
+    print(f"❌ DSAgentLogAnalyzer not available: {e}")
+    DSAgentLogAnalyzer = None
 
 try:
     from .amsp_analyzer import AMSPAnalyzer
     print("✅ Using modular AMSPAnalyzer")
-except ImportError:
-    # Fallback to original during transition
-    try:
-        import sys
-        import os
-        parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        if parent_dir not in sys.path:
-            sys.path.insert(0, parent_dir)
-        from analyzers import AMSPAnalyzer
-        print("✅ Using original AMSPAnalyzer")
-    except ImportError as e:
-        print(f"❌ AMSPAnalyzer not available: {e}")
-        AMSPAnalyzer = None
+except ImportError as e:
+    print(f"❌ AMSPAnalyzer not available: {e}")
+    AMSPAnalyzer = None
 
 try:
     from .resource_analyzer import ResourceAnalyzer
     print("✅ Using modular ResourceAnalyzer")
-except ImportError:
-    # Fallback to original during transition
-    try:
-        import sys
-        import os
-        parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        if parent_dir not in sys.path:
-            sys.path.insert(0, parent_dir)
-        from analyzers import ResourceAnalyzer
-        print("✅ Using original ResourceAnalyzer")
-    except ImportError as e:
-        print(f"❌ ResourceAnalyzer not available: {e}")
-        ResourceAnalyzer = None
+except ImportError as e:
+    print(f"❌ ResourceAnalyzer not available: {e}")
+    ResourceAnalyzer = None
 
 try:
     from .ds_agent_offline_analyzer import DSAgentOfflineAnalyzer
     print("✅ Using modular DSAgentOfflineAnalyzer (backend-only)")
-except ImportError:
-    # Fallback to original during transition
-    try:
-        import sys
-        import os
-        parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        if parent_dir not in sys.path:
-            sys.path.insert(0, parent_dir)
-        from analyzers import DSAgentOfflineAnalyzer
-        print("✅ Using original DSAgentOfflineAnalyzer (backend-only)")
-    except ImportError as e:
-        print(f"❌ DSAgentOfflineAnalyzer not available: {e}")
-        DSAgentOfflineAnalyzer = None
+except ImportError as e:
+    print(f"❌ DSAgentOfflineAnalyzer not available: {e}")
+    DSAgentOfflineAnalyzer = None
 
 try:
     from .ds_agent_log_analyzer import DSAgentLogAnalyzer
     print("✅ Using modular DSAgentLogAnalyzer (backend-only)")
-except ImportError:
-    # Fallback to original during transition
-    try:
-        import sys
-        import os
-        parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        if parent_dir not in sys.path:
-            sys.path.insert(0, parent_dir)
-        from analyzers import DSAgentLogAnalyzer
-        print("✅ Using original DSAgentLogAnalyzer (backend-only)")
-    except ImportError as e:
-        print(f"❌ DSAgentLogAnalyzer not available: {e}")
-        DSAgentLogAnalyzer = None
+except ImportError as e:
+    print(f"❌ DSAgentLogAnalyzer not available: {e}")
+    DSAgentLogAnalyzer = None
 
 try:
     from .diagnostic_package_analyzer import DiagnosticPackageAnalyzer

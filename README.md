@@ -6,10 +6,24 @@
 
 ---
 
-## 🚀 **Quick Start**
+## � **New User Setup**
+
+**🆕 First time setting up Intellicket?** Follow our comprehensive guides:
+
+1. **📋 [PROJECT_REQUIREMENTS.md](PROJECT_REQUIREMENTS.md)** - Complete system requirements and dependencies
+2. **🔧 [SETUP_GUIDE.md](SETUP_GUIDE.md)** - Step-by-step installation instructions
+3. **✅ Validation Script** - Run `python validate_setup.py` to verify your setup
+
+### **Quick Validation**
+```powershell
+# Validate your setup before starting
+python validate_setup.py
+```
+
+## �🚀 **Quick Start**
 
 ### **Prerequisites**
-- **Python 3.11+** (with pip)
+- **Python 3.8+** (3.9+ recommended)
 - **Node.js 18+** (with npm)
 - **Windows PowerShell** (for startup scripts)
 
@@ -419,7 +433,7 @@ URL: GET http://localhost:3000/api/csdai/cleanup/cache
 ## 📞 **Support**
 
 For technical support or questions about Intellicket:
-- **Repository**: git@adc.github.trendmicro.com:adrianp/intellicket.git
+- **Repository**: [git@adc.github.trendmicro.com:adrianp/intellicket.git](https://adc.github.trendmicro.com/adrianp/intellicket)
 - **Issues**: Use the repository issue tracker
 - **Documentation**: Check comprehensive reports in root directory
 

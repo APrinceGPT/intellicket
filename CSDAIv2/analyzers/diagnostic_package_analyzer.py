@@ -26,61 +26,39 @@ class DiagnosticPackageAnalyzer(AnalyzerOutputStandardizer):
     def _initialize_sub_analyzers(self):
         """Initialize sub-analyzers with safe imports to prevent circular dependencies"""
         try:
-            # Import from modular system first, fallback to legacy if needed
             from .ds_agent_log_analyzer import DSAgentLogAnalyzer
             self.ds_analyzer = DSAgentLogAnalyzer(self.session_manager, self.session_id, self.rag_system, self.ml_analyzer)
         except ImportError:
-            # Fallback during transition period
-            try:
-                from analyzers_original import DSAgentLogAnalyzer
-                self.ds_analyzer = DSAgentLogAnalyzer(self.session_manager, self.session_id, self.rag_system, self.ml_analyzer)
-            except ImportError:
-                print("⚠️ DSAgentLogAnalyzer not available for DiagnosticPackageAnalyzer")
-                self.ds_analyzer = None
+            print("⚠️ DSAgentLogAnalyzer not available for DiagnosticPackageAnalyzer")
+            self.ds_analyzer = None
         
         try:
             from .amsp_analyzer import AMSPAnalyzer
             self.amsp_analyzer = AMSPAnalyzer(self.session_manager, self.session_id)
         except ImportError:
-            try:
-                from analyzers_original import AMSPAnalyzer
-                self.amsp_analyzer = AMSPAnalyzer(self.session_manager, self.session_id)
-            except ImportError:
-                print("⚠️ AMSPAnalyzer not available for DiagnosticPackageAnalyzer")
-                self.amsp_analyzer = None
+            print("⚠️ AMSPAnalyzer not available for DiagnosticPackageAnalyzer")
+            self.amsp_analyzer = None
         
         try:
             from .conflict_analyzer import ConflictAnalyzer
             self.conflict_analyzer = ConflictAnalyzer()
         except ImportError:
-            try:
-                from analyzers_original import ConflictAnalyzer
-                self.conflict_analyzer = ConflictAnalyzer()
-            except ImportError:
-                print("⚠️ ConflictAnalyzer not available for DiagnosticPackageAnalyzer")
-                self.conflict_analyzer = None
+            print("⚠️ ConflictAnalyzer not available for DiagnosticPackageAnalyzer")
+            self.conflict_analyzer = None
         
         try:
             from .resource_analyzer import ResourceAnalyzer
             self.resource_analyzer = ResourceAnalyzer(self.session_manager, self.session_id, self.rag_system, self.ml_analyzer)
         except ImportError:
-            try:
-                from analyzers_original import ResourceAnalyzer
-                self.resource_analyzer = ResourceAnalyzer(self.session_manager, self.session_id, self.rag_system, self.ml_analyzer)
-            except ImportError:
-                print("⚠️ ResourceAnalyzer not available for DiagnosticPackageAnalyzer")
-                self.resource_analyzer = None
+            print("⚠️ ResourceAnalyzer not available for DiagnosticPackageAnalyzer")
+            self.resource_analyzer = None
         
         try:
             from .ds_agent_offline_analyzer import DSAgentOfflineAnalyzer
             self.offline_analyzer = DSAgentOfflineAnalyzer(self.rag_system, self.ml_analyzer, self.session_manager, self.session_id)
         except ImportError:
-            try:
-                from analyzers_original import DSAgentOfflineAnalyzer
-                self.offline_analyzer = DSAgentOfflineAnalyzer(self.rag_system, self.ml_analyzer, self.session_manager, self.session_id)
-            except ImportError:
-                print("⚠️ DSAgentOfflineAnalyzer not available for DiagnosticPackageAnalyzer")
-                self.offline_analyzer = None
+            print("⚠️ DSAgentOfflineAnalyzer not available for DiagnosticPackageAnalyzer")
+            self.offline_analyzer = None
 
     def _update_progress(self, stage, message, percentage=None):
         """Update analysis progress if session manager is available"""

@@ -80,21 +80,21 @@ const KNOWLEDGE_BASE_ITEMS: KnowledgeItem[] = [
       scenarios: ['agent_offline', 'communication_failure', 'heartbeat_lost']
     }
   },
-  {
-    id: 'kb_002',
-    title: 'AMSP High CPU Usage Resolution',
-    content: 'Step-by-step solution for resolving Anti-Malware Scan Performance issues causing high CPU utilization...',
-    relevanceScore: 0,
-    source: 'knowledge_base',
-    type: 'solution',
-    tags: ['amsp', 'performance', 'cpu', 'scan'],
-    lastUpdated: '2024-09-10',
-    applicability: {
-      products: ['Deep Security'],
-      versions: ['19.0', '20.0'],
-      scenarios: ['high_cpu', 'performance_degradation', 'scan_issues']
-    }
-  },
+  // {
+  //   id: 'kb_002',
+  //   title: 'AMSP High CPU Usage Resolution',
+  //   content: 'Step-by-step solution for resolving Anti-Malware Scan Performance issues causing high CPU utilization...',
+  //   relevanceScore: 0,
+  //   source: 'knowledge_base',
+  //   type: 'solution',
+  //   tags: ['amsp', 'performance', 'cpu', 'scan'],
+  //   lastUpdated: '2024-09-10',
+  //   applicability: {
+  //     products: ['Deep Security'],
+  //     versions: ['19.0', '20.0'],
+  //     scenarios: ['high_cpu', 'performance_degradation', 'scan_issues']
+  //   }
+  // },
   {
     id: 'kb_003',
     title: 'Policy Deployment Best Practices',
@@ -161,24 +161,24 @@ const CASE_HISTORY: RelatedCase[] = [
       'Update agent if necessary'
     ]
   },
-  {
-    caseId: 'CASE-2024-005678',
-    title: 'AMSP Service High CPU During Scans',
-    description: 'Anti-malware scan performance causing 90% CPU usage, resolved with exclusion configuration',
-    similarity: 0,
-    resolution: 'Configured scan exclusions and adjusted scan schedule',
-    resolutionTime: '2 hours',
-    product: 'Deep Security',
-    category: 'Product Issue', 
-    severity: 'High',
-    keywords: ['amsp', 'cpu', 'performance', 'scan'],
-    applicableSteps: [
-      'Review scan exclusions',
-      'Adjust scan schedule',
-      'Monitor resource usage',
-      'Optimize scan configuration'
-    ]
-  },
+  // {
+  //   caseId: 'CASE-2024-005678',
+  //   title: 'AMSP Service High CPU During Scans',
+  //   description: 'Anti-malware scan performance causing 90% CPU usage, resolved with exclusion configuration',
+  //   similarity: 0,
+  //   resolution: 'Configured scan exclusions and adjusted scan schedule',
+  //   resolutionTime: '2 hours',
+  //   product: 'Deep Security',
+  //   category: 'Product Issue', 
+  //   severity: 'High',
+  //   keywords: ['amsp', 'cpu', 'performance', 'scan'],
+  //   applicableSteps: [
+  //     'Review scan exclusions',
+  //     'Adjust scan schedule',
+  //     'Monitor resource usage',
+  //     'Optimize scan configuration'
+  //   ]
+  // },
   {
     caseId: 'CASE-2024-009012',
     title: 'Vision One API Timeout Errors',
@@ -497,7 +497,7 @@ function generateSearchSuggestions(product: string, queryWords?: string[]): stri
   const productSuggestions: Record<string, string[]> = {
     'Deep Security': [
       'agent communication issues',
-      'AMSP high CPU usage',
+      // 'AMSP high CPU usage', // AMSP suggestions disabled
       'policy deployment failure',
       'SSL certificate problems',
       'database performance optimization',
@@ -662,7 +662,7 @@ export async function GET() {
       'Community Knowledge - User-contributed solutions and workarounds'
     ],
     supportedProducts: [
-      'Deep Security - Agent, Manager, AMSP, Policy management',
+      'Deep Security - Agent, Manager, Policy management',
       'Vision One - Endpoint Sensor, Connector, Workbench integration',
       'Apex One - Security Agent, Web Console, Policy deployment'
     ]

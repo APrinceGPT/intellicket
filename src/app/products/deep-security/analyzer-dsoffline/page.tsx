@@ -1,1672 +1,1088 @@
-'use client';
+'use client'
 
-import { useState, useCallback, useRef } from 'react';
-import { useRouter } from 'next/navigation';
-import Image from 'next/image';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
+import React, { useState, useCallback } from 'react'
+import Link from 'next/link'
+import Image from 'next/image'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import { 
-  Upload, 
   FileText, 
-  Brain, 
-  Database, 
-  Zap, 
+  Upload, 
+  AlertTriangle, 
   CheckCircle, 
-  Info as InfoIcon, 
+  Clock, 
+  Network, 
+  Shield, 
+  Settings,
+  Brain,
+  Target,
+  Wrench,
+  Info,
   AlertCircle,
-  BookOpen,
-  AlertTriangle,
-  BarChart3,
-  Code
-} from 'lucide-react';
+  XCircle,
+  X,
+  ArrowLeft
+} from 'lucide-react'
 
-const products = [
-  { 
-    id: 'deep-security', 
-    name: 'Deep Security',
-    description: 'Server & Cloud Protection',
-    fullDescription: 'Comprehensive security for physical, virtual, and cloud servers with advanced threat protection.',
-    icon: '🛡️',
-    gradient: 'from-red-600 to-red-800',
-    hoverGradient: 'hover:from-red-700 hover:to-red-900',
-    features: ['Multi-layered server security', 'Virtual patching and IPS', 'Anti-malware and web reputation', 'Application control and integrity monitoring']
-  },
-  { 
-    id: 'apex-one', 
-    name: 'Apex One',
-    description: 'Endpoint Security',
-    fullDescription: 'Advanced threat detection and response for endpoints with AI-powered protection.',
-    icon: '🔒',
-    gradient: 'from-blue-600 to-blue-800',
-    hoverGradient: 'hover:from-blue-700 hover:to-blue-900',
-    features: ['Next-gen antivirus', 'Behavioral analysis', 'Advanced threat detection', 'Endpoint detection and response']
-  },
-  { 
-    id: 'vision-one', 
-    name: 'Vision One',
-    description: 'XDR Platform',
-    fullDescription: 'Extended Detection and Response (XDR) for comprehensive security visibility and response.',
-    icon: '👁️',
-    gradient: 'from-purple-600 to-purple-800',
-    hoverGradient: 'hover:from-purple-700 hover:to-purple-900',
-    features: ['Cross-layer visibility', 'Advanced threat hunting', 'Automated response', 'Risk assessment and prioritization']
-  },
-  { 
-    id: 'service-gateway', 
-    name: 'Service Gateway',
-    description: 'Secure Connectivity',
-    fullDescription: 'Secure service delivery platform with enterprise-grade performance and reliability.',
-    icon: '🌐',
-    gradient: 'from-green-600 to-green-800',
-    hoverGradient: 'hover:from-green-700 hover:to-green-900',
-    features: ['Secure service delivery', 'Advanced access control', 'Performance monitoring', 'Centralized configuration management']
-  },
-];
-
-interface AnalysisResults {
-  status: string;
-  summary: string;
-  data: {
-    // Core analysis data (direct level)
-    summary?: string;
-    statistics?: Record<string, unknown>;
-    metadata?: {
-      analysis_type?: string;
-      files_processed?: number;
-      zip_files_extracted?: number;
-      extracted_files?: number;
-      log_entries_processed?: number;
-      offline_issues?: number;
-      critical_issues?: number;
-      errors_found?: number;
-      warnings_found?: number;
-    };
-    
-    // Backend wrapper structure
-    analysis_result?: {
-      // Enhanced AI analysis
-      ai_analysis?: {
-        confidence_score?: number;
-        classification?: string;
-        intelligent_insights?: string[];
-        anomaly_detection?: {
-          anomalies_found?: number;
-          pattern_analysis?: string;
-          severity_distribution?: string;
-        };
-        communication_issues?: CommunicationIssue[];
-      };
-      
-      // Dynamic RAG insights
-      rag_insights?: {
-        ai_response?: string;
-        analysis_metadata?: {
-          components_analyzed?: number;
-          error_types_found?: number;
-          knowledge_sources_used?: number;
-          ai_available?: boolean;
-        };
-      };
-      
-      // Raw data with communication analysis
-      raw_data?: {
-        ai_communication_analysis?: {
-          communication_health_score?: number;
-          ai_detected_issues?: CommunicationIssue[];
-        };
-      };
-    };
-    
-    // Legacy direct structure (for backwards compatibility)
-    ai_analysis?: {
-      confidence_score?: number;
-      classification?: string;
-      intelligent_insights?: string[];
-      anomaly_detection?: {
-        anomalies_found?: number;
-        pattern_analysis?: string;
-        severity_distribution?: string;
-      };
-      communication_issues?: CommunicationIssue[];
-    };
-    
-    rag_insights?: {
-      ai_response?: string;
-      analysis_metadata?: {
-        components_analyzed?: number;
-        error_types_found?: number;
-        knowledge_sources_used?: number;
-        ai_available?: boolean;
-      };
-    };
-    
-    raw_data?: {
-      ai_communication_analysis?: {
-        communication_health_score?: number;
-        ai_detected_issues?: CommunicationIssue[];
-      };
-    };
-  };
-  metadata?: {
-    analysis_type?: string;
-    files_processed?: number;
-    zip_files_extracted?: number;
-    extracted_files?: number;
-    log_entries_processed?: number;
-    offline_issues?: number;
-    critical_issues?: number;
-  };
-  extractedFiles?: Array<{
-    name: string;
-    size: number;
-    type: string;
-  }>;
-  // AI Communication Analysis Results
-  ai_communication_analysis?: {
-    communication_health_score: number;
-    ai_detected_issues: Array<{
-      category: string;
-      severity: string;
-      ports_affected: number[];
-      communication_direction: string;
-      ai_context: string;
-      confidence_score: number;
-      issue_count: number;
-      matches: Array<{
-        line_number: number;
-        content: string;
-        pattern_matched: string;
-      }>;
-    }>;
-    network_architecture_analysis: {
-      affected_communication_flows: string[];
-      port_health_analysis: Record<string, {
-        port: number;
-        health_status: string;
-        services: string[];
-        ai_recommendations: string[];
-      }>;
-      ai_network_recommendations: Array<{
-        priority: string;
-        category: string;
-        recommendation: string;
-        actions: string[];
-      }>;
-    };
-    intelligent_diagnostics: {
-      priority_issues: Array<{
-        category: string;
-        severity: string;
-        confidence_score: number;
-      }>;
-      ai_troubleshooting_steps: Array<{
-        step: string;
-        category: string;
-        priority: number;
-        actions: string[];
-        expected_resolution_time: string;
-        automation_available: boolean;
-      }>;
-      automated_commands: {
-        windows: string[];
-        linux: string[];
-      };
-      confidence_analysis: {
-        overall_confidence: number;
-        high_confidence_issues: number;
-        ai_recommendation_reliability: string;
-      };
-    };
-  };
-  // AI Enhanced Root Cause Analysis
-  ai_enhanced_root_cause?: {
-    ai_primary_causes: Array<{
-      cause: string;
-      confidence: number;
-      description: string;
-      impact_level: string;
-      affected_communications: string;
-    }>;
-    resolution_confidence: number;
-    correlation_analysis: Record<string, unknown>;
-  };
-  // Dynamic RAG Analysis
-  dynamic_rag_analysis?: {
-    ai_response: string;
-    analysis_metadata: {
-      knowledge_sources_used: number;
-      confidence_score: number;
-    };
-  };
-  // ML Analysis
-  ml_insights?: {
-    confidence_score: number;
-    pattern_analysis: Record<string, unknown>;
-  };
+interface KeyFindingsCard {
+  last_successful_heartbeat: {
+    timestamp: string | null
+    time_ago: string | null
+    status: string
+  }
+  communication_method: {
+    primary_method: string
+    detected_method: string
+    ports_detected: Array<{port: string, description: string}>
+    protocols_found: string[]
+  }
+  proxy_server_analysis: {
+    proxy_detected: boolean
+    proxy_details: Array<{host: string, port: string, line: string}>
+    proxy_issues: string[]
+  }
+  handshake_failures: {
+    failures_detected: boolean
+    failure_count: number
+    failure_details: string[]
+  }
+  certificate_issues: {
+    cert_problems_found: boolean
+    cert_issues_count: number
+    cert_problem_details: string[]
+  }
+  network_communication_failures: {
+    network_failures_found: boolean
+    failure_count: number
+    network_failure_details: string[]
+  }
+  port_failures: {
+    port_issues_found: boolean
+    failed_ports: string[]
+    listening_failures: string[]
+    receiving_failures: string[]
+  }
 }
 
-interface CommunicationIssueMatch {
-  ai_context: string;
-  content: string;
-  line_number: number;
-  ml_indicators: string[];
-  pattern_matched: string;
+interface RootCauseAnalysisCard {
+  primary_root_cause: string
+  contributing_factors: string[]
+  severity_assessment: string
+  offline_duration_impact: string
+  correlation_analysis: string[]
+  ai_confidence_score: number
 }
 
-interface CommunicationIssue {
-  ai_context: string;
-  category: string;
-  communication_direction: string;
-  confidence_score: number;
-  issue_count: number;
-  matches: CommunicationIssueMatch[];
-  ml_indicators: string[];
-  ports_affected: number[];
-  severity: string;
+interface TroubleshootingRecommendationsCard {
+  troubleshooting_steps: string[]
 }
 
-export default function DSAgentOfflineAnalyzer() {
-  const router = useRouter();
-  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [results, setResults] = useState<AnalysisResults | null>(null);
-  const [dragActive, setDragActive] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+interface DSAgentOfflineAnalysisResult {
+  key_findings_card: KeyFindingsCard
+  root_cause_analysis_card: RootCauseAnalysisCard
+  troubleshooting_recommendations_card: TroubleshootingRecommendationsCard
+}
 
-  const handleProductSelection = (productId: string) => {
-    router.push(`/products/${productId}`);
-  };
+export default function DSAgentOfflineAnalyzerPage() {
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([])
+  const [isAnalyzing, setIsAnalyzing] = useState(false)
+  const [analysisResult, setAnalysisResult] = useState<DSAgentOfflineAnalysisResult | null>(null)
+  const [, setSessionId] = useState<string | null>(null)
+  const [error, setError] = useState<string | null>(null)
 
-  const handleDrag = useCallback((e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (e.type === "dragenter" || e.type === "dragover") {
-      setDragActive(true);
-    } else if (e.type === "dragleave") {
-      setDragActive(false);
+  const handleFileSelect = useCallback((files: FileList | null) => {
+    if (files) {
+      const fileArray = Array.from(files)
+      setSelectedFiles(prev => [...prev, ...fileArray])
     }
-  }, []);
-
-  const handleDrop = useCallback((e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setDragActive(false);
-
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      const files = Array.from(e.dataTransfer.files);
-      setUploadedFiles(prev => [...prev, ...files]);
-    }
-  }, []);
-
-  const handleFileSelect = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const files = Array.from(e.target.files);
-      setUploadedFiles(prev => [...prev, ...files]);
-    }
-  }, []);
+  }, [])
 
   const removeFile = useCallback((index: number) => {
-    setUploadedFiles(prev => prev.filter((_, i) => i !== index));
-  }, []);
+    setSelectedFiles(prev => prev.filter((_, i) => i !== index))
+  }, [])
 
-  const startAnalysis = async () => {
-    if (uploadedFiles.length === 0) return;
-    
-    setIsAnalyzing(true);
-    setResults(null);
-    
+  const handleAnalysis = async () => {
+    if (selectedFiles.length === 0) {
+      setError('Please select at least one DS Agent log file')
+      return
+    }
+
+    setIsAnalyzing(true)
+    setError(null)
+
     try {
-      // Step 1: Upload files to dedicated DS Agent Offline endpoint
-      const formData = new FormData();
-      uploadedFiles.forEach((file, index) => {
-        formData.append(`file_${index}`, file);
-      });
-      
-      console.log('🎯 DS Agent Offline: Starting upload...');
+      // Upload files
+      const formData = new FormData()
+      selectedFiles.forEach(file => {
+        formData.append('files', file)
+      })
+
       const uploadResponse = await fetch('/api/csdai/ds-agent-offline/upload', {
         method: 'POST',
-        body: formData,
-      });
-      
+        body: formData
+      })
+
       if (!uploadResponse.ok) {
-        throw new Error('Upload failed');
+        throw new Error('Failed to upload files')
       }
-      
-      const uploadData = await uploadResponse.json();
-      const sessionId = uploadData.session_id;
-      
-      if (!sessionId) {
-        throw new Error('No session ID received');
-      }
-      
-      console.log(`✅ DS Agent Offline: Upload successful, session: ${sessionId}`);
-      
-      // Step 2: Poll for analysis completion
-      let analysisComplete = false;
-      let attempts = 0;
-      const maxAttempts = 60; // 2 minutes max
-      
-      while (!analysisComplete && attempts < maxAttempts) {
-        await new Promise(resolve => setTimeout(resolve, 2000)); // Wait 2 seconds
-        attempts++;
-        
-        const statusResponse = await fetch(`/api/csdai/ds-agent-offline/status/${sessionId}`);
-        if (statusResponse.ok) {
-          const statusData = await statusResponse.json();
-          
-          if (statusData.analysis_complete) {
-            analysisComplete = true;
-            console.log('✅ DS Agent Offline: Analysis completed');
-            break;
+
+      const uploadResult = await uploadResponse.json()
+      const newSessionId = uploadResult.session_id
+      setSessionId(newSessionId)
+
+      // Poll for results
+      let attempts = 0
+      const maxAttempts = 60 // 2 minutes with 2-second intervals
+
+      const pollResults = async () => {
+        try {
+          const statusResponse = await fetch(`/api/csdai/ds-agent-offline/status/${newSessionId}`)
+          const statusResult = await statusResponse.json()
+
+          if (statusResult.status === 'completed') {
+            const resultsResponse = await fetch(`/api/csdai/ds-agent-offline/results/${newSessionId}`)
+            const results = await resultsResponse.json()
+            
+            // Ensure the results have the expected structure
+            const processedResults = {
+              key_findings_card: results.key_findings_card || {
+                last_successful_heartbeat: { status: 'Not found in logs', timestamp: null, time_ago: null },
+                communication_method: { primary_method: 'Unknown', detected_method: 'Unknown', ports_detected: [], protocols_found: [] },
+                proxy_server_analysis: { proxy_detected: false, proxy_details: [], proxy_issues: [] },
+                handshake_failures: { failures_detected: false, failure_count: 0, failure_details: [] },
+                certificate_issues: { cert_problems_found: false, cert_issues_count: 0, cert_problem_details: [] },
+                network_communication_failures: { network_failures_found: false, failure_count: 0, network_failure_details: [] },
+                port_failures: { port_issues_found: false, failed_ports: [], listening_failures: [], receiving_failures: [] }
+              },
+              root_cause_analysis_card: results.root_cause_analysis_card || {
+                primary_root_cause: 'Analysis completed - please review the key findings above',
+                contributing_factors: [],
+                severity_assessment: 'Unknown',
+                offline_duration_impact: 'Cannot determine from available logs',
+                correlation_analysis: [],
+                ai_confidence_score: 0
+              },
+              troubleshooting_recommendations_card: results.troubleshooting_recommendations_card || {
+                troubleshooting_steps: ['No troubleshooting steps available']
+              }
+            }
+            
+            setAnalysisResult(processedResults)
+            setIsAnalyzing(false)
+          } else if (statusResult.status === 'error') {
+            throw new Error(statusResult.error || 'Analysis failed')
+          } else if (attempts < maxAttempts) {
+            attempts++
+            setTimeout(pollResults, 2000)
+          } else {
+            throw new Error('Analysis timeout')
           }
+        } catch (err) {
+          setError(err instanceof Error ? err.message : 'Unknown error occurred')
+          setIsAnalyzing(false)
         }
       }
-      
-      // Step 3: Fetch results
-      if (analysisComplete) {
-        const resultsResponse = await fetch(`/api/csdai/ds-agent-offline/results/${sessionId}`);
-        if (resultsResponse.ok) {
-          const resultsData = await resultsResponse.json();
-          
-          // Extract metadata and analysis results
-          const analysisResult = resultsData.analysis_result || resultsData;
-          const metadata = analysisResult.metadata || {};
-          const offlineAnalysis = analysisResult.offline_analysis || {};
-          
-          console.log('📊 DS Agent Offline Results:', {
-            metadata,
-            hasOfflineAnalysis: !!offlineAnalysis,
-            keys: Object.keys(analysisResult)
-          });
-          
-          // Determine if ZIP extraction occurred
-          const zipExtracted = metadata.zip_files_extracted > 0;
-          const extractedFilesCount = metadata.extracted_files || 0;
-          
-          let summary = 'DS Agent Offline analysis completed successfully!';
-          if (zipExtracted) {
-            summary = `ZIP extraction successful! Analyzed ${extractedFilesCount} DS Agent log files from ${metadata.zip_files_extracted} ZIP archive(s).`;
-          }
-          
-          setResults({
-            status: 'completed',
-            summary,
-            data: resultsData,
-            metadata,
-            extractedFiles: zipExtracted ? Array(extractedFilesCount).fill(null).map((_, i) => ({
-              name: `ds_agent_log_${i + 1}.log`,
-              size: 0,
-              type: 'DS Agent Log'
-            })) : undefined
-          });
-        } else {
-          throw new Error('Failed to fetch results');
-        }
-      } else {
-        throw new Error('Analysis timed out');
-      }
-      
-    } catch (error) {
-      console.error('❌ DS Agent Offline analysis failed:', error);
-      setResults({
-        status: 'error',
-        summary: error instanceof Error ? error.message : 'Analysis failed',
-        data: {}
-      });
-    } finally {
-      setIsAnalyzing(false);
+
+      pollResults()
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Analysis failed')
+      setIsAnalyzing(false)
     }
-  };
+  }
+
+  const getSeverityColor = (severity: string) => {
+    switch (severity.toLowerCase()) {
+      case 'critical':
+      case 'critical - agent completely offline':
+      case 'critical - agent status unknown':
+        return 'bg-red-500/20 text-red-300 border-red-500/30'
+      case 'high':
+      case 'high - authentication system compromised':
+      case 'high - network infrastructure problems':
+        return 'bg-orange-500/20 text-orange-300 border-orange-500/30'
+      case 'medium':
+      case 'medium - configuration issues':
+        return 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30'
+      case 'low':
+      case 'low - monitoring recommended':
+        return 'bg-green-500/20 text-green-300 border-green-500/30'
+      default:
+        return 'bg-gray-500/20 text-gray-300 border-gray-500/30'
+    }
+  }
+
+  const getConfidenceColor = (score: number) => {
+    if (score >= 90) return 'text-green-400'
+    if (score >= 75) return 'text-yellow-400'
+    return 'text-red-400'
+  }
+
+  // Define products array for footer
+  const products = [
+    { id: 'deep-security', name: 'Deep Security', icon: '🛡️' },
+    { id: 'apex-one', name: 'Apex One', icon: '🔒' },
+    { id: 'vision-one', name: 'Vision One', icon: '👁️' },
+    { id: 'service-gateway', name: 'Service Gateway', icon: '🌐' },
+  ];
 
   return (
-    <div className="min-h-screen flex flex-col" style={{
-      background: 'radial-gradient(ellipse at center, rgba(80, 0, 0, 0.4) 0%, rgba(40, 0, 0, 0.8) 25%, rgba(20, 0, 0, 0.95) 50%, rgba(0, 0, 0, 1) 100%)'
-    }}>
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-red-950/10 to-gray-950 relative overflow-hidden">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 opacity-15">
+        <div className="absolute top-20 left-20 w-96 h-96 bg-red-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-20 w-96 h-96 bg-orange-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse animation-delay-2000"></div>
+      </div>
+
       {/* Header */}
-      <header className="relative z-50 border-b border-white/10 backdrop-blur-sm bg-black/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
-            <button 
-              onClick={() => router.push('/')}
-              className="flex items-center space-x-4 hover:opacity-80 transition-opacity cursor-pointer"
-            >
-              <Image 
-                src="/trendlogo.png" 
-                alt="Trend Micro Logo" 
-                width={40}
-                height={40}
-                className="h-10 w-auto"
-              />
-              <div className="border-l border-white/30 pl-4">
-                <h1 className="text-2xl font-bold text-white">Intellicket</h1>
-                <p className="text-xs text-red-400 font-medium">AI Support Platform</p>
-              </div>
-            </button>
+      <header className="relative z-10 bg-black/40 backdrop-blur-sm border-b border-red-500/30">
+        <div className="max-w-7xl mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <Button
-                onClick={() => router.push('/products/deep-security')}
-                variant="ghost"
-                className="text-white hover:bg-white/10"
+              <Link 
+                href="/"
+                className="flex items-center space-x-3 hover:opacity-80 transition-opacity"
               >
-                Back to Deep Security
-              </Button>
+                <Image 
+                  src="/trendlogo.png" 
+                  alt="Trend Micro Logo" 
+                  width={40}
+                  height={40}
+                  className="h-10 w-auto"
+                />
+                <div className="border-l border-white/30 pl-3">
+                  <div className="text-xl font-bold text-red-400">Intellicket</div>
+                  <div className="text-xs text-gray-400">AI Support Platform</div>
+                </div>
+              </Link>
+              <span className="text-gray-500">→</span>
+              <div className="flex items-center space-x-2">
+                <span className="text-2xl">🛡️</span>
+                <span className="text-white font-semibold">Deep Security</span>
+              </div>
+              <span className="text-gray-500">→</span>
+              <div className="flex items-center space-x-2">
+                <Brain className="h-5 w-5 text-purple-400" />
+                <span className="text-gray-300 font-medium">DS Agent Offline Analyzer</span>
+              </div>
             </div>
+            <Link
+              href="/products/deep-security"
+              className="bg-red-500/20 text-red-300 px-6 py-2 rounded-xl hover:bg-red-500/30 transition-all duration-300 border border-red-500/30 flex items-center gap-2"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              Back to Analyzers
+            </Link>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 relative overflow-hidden py-8">
-        {/* Dark Red Bokeh Effects - Multiple layers for depth */}
-        <div className="absolute inset-0">
-          {/* Large dark red bokeh effects */}
-          <div className="absolute top-10 left-10 w-80 h-80 bg-red-900/25 rounded-full filter blur-3xl"></div>
-          <div className="absolute top-32 right-20 w-96 h-96 bg-red-800/20 rounded-full filter blur-3xl"></div>
-          <div className="absolute bottom-20 left-32 w-72 h-72 bg-red-900/30 rounded-full filter blur-3xl"></div>
-          <div className="absolute bottom-40 right-40 w-64 h-64 bg-red-800/25 rounded-full filter blur-3xl"></div>
+      <main className="relative z-10 max-w-7xl mx-auto px-4 py-12">
+        {/* Enhanced Header with AI Capabilities Showcase */}
+        <div className="text-center mb-16">
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <Link href="/products/deep-security" className="transition-transform hover:scale-105">
+              <Image
+                src="/trendlogo.png"
+                alt="Trend Micro"
+                width={60}
+                height={60}
+                className="drop-shadow-2xl"
+              />
+            </Link>
+            <div className="h-12 w-px bg-gradient-to-b from-transparent via-red-500/50 to-transparent" />
+            <div className="relative">
+              <Shield className="h-12 w-12 text-red-500 drop-shadow-lg" />
+              <div className="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center animate-pulse">
+                <Brain className="h-3 w-3 text-white" />
+              </div>
+            </div>
+          </div>
           
-          {/* Medium dark red bokeh effects */}
-          <div className="absolute top-1/3 left-1/4 w-48 h-48 bg-red-900/35 rounded-full filter blur-2xl"></div>
-          <div className="absolute top-2/3 right-1/3 w-56 h-56 bg-red-800/30 rounded-full filter blur-2xl"></div>
-          <div className="absolute top-1/2 left-2/3 w-40 h-40 bg-red-900/40 rounded-full filter blur-2xl"></div>
+          <div className="mb-6">
+            <h1 className="text-6xl font-bold bg-gradient-to-r from-white via-gray-200 to-red-300 bg-clip-text text-transparent mb-2">
+              DS Agent Offline Analyzer
+            </h1>
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <Badge className="bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-blue-300 border-blue-500/30 px-3 py-1">
+                <Brain className="h-3 w-3 mr-1" />
+                AI-Powered
+              </Badge>
+              <Badge className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-purple-300 border-purple-500/30 px-3 py-1">
+                <Target className="h-3 w-3 mr-1" />
+                ML-Enhanced
+              </Badge>
+              <Badge className="bg-gradient-to-r from-green-500/20 to-teal-500/20 text-green-300 border-green-500/30 px-3 py-1">
+                <Shield className="h-3 w-3 mr-1" />
+                Enterprise-Grade
+              </Badge>
+            </div>
+          </div>
           
-          {/* Small dark red accent bokeh */}
-          <div className="absolute top-20 right-1/2 w-32 h-32 bg-red-800/45 rounded-full filter blur-xl"></div>
-          <div className="absolute bottom-32 left-1/2 w-36 h-36 bg-red-900/35 rounded-full filter blur-xl"></div>
-          
-          {/* Animated dark red bokeh elements */}
-          <div className="absolute top-1/4 right-1/4 w-44 h-44 bg-red-800/25 rounded-full filter blur-2xl animate-pulse"></div>
-          <div className="absolute bottom-1/3 left-1/3 w-52 h-52 bg-red-900/20 rounded-full filter blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
-        </div>
-        
-        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Header Section */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-white mb-4">
-            DS Agent Offline Analyzer
-          </h1>
-          <p className="text-xl text-gray-300 mb-6">
-            AI-Powered Deep Security Agent Offline Diagnosis & Recovery Solution
+          <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed mb-8">
+            Advanced AI-powered diagnostic analysis for Deep Security Agent offline scenarios. 
+            Leveraging Machine Learning, RAG (Retrieval-Augmented Generation), and intelligent pattern recognition 
+            to provide comprehensive troubleshooting for communication failures, connectivity issues, and agent health assessment.
           </p>
-          <div className="flex justify-center space-x-2">
-            <Badge variant="secondary" className="bg-red-900/30 text-red-300 border border-red-700/40">
-              <Brain className="w-4 h-4 mr-1" />
-              AI-Enhanced
-            </Badge>
-            <Badge variant="secondary" className="bg-red-800/30 text-red-400 border border-red-600/40">
-              <Zap className="w-4 h-4 mr-1" />
-              Real-time Analysis
-            </Badge>
-            <Badge variant="secondary" className="bg-black/60 text-red-300 border border-red-800/40">
-              <Database className="w-4 h-4 mr-1" />
-              RAG-Powered
-            </Badge>
+
+          {/* AI Confidence Score Preview */}
+          <div className="flex items-center justify-center gap-4 text-sm text-gray-400 mb-2">
+            <div className="flex items-center gap-1">
+              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+              <span>90%+ AI Confidence</span>
+            </div>
+            <div className="h-4 w-px bg-gray-600"></div>
+            <div className="flex items-center gap-1">
+              <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse delay-100"></div>
+              <span>Real-time Analysis</span>
+            </div>
+            <div className="h-4 w-px bg-gray-600"></div>
+            <div className="flex items-center gap-1">
+              <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse delay-200"></div>
+              <span>Expert Recommendations</span>
+            </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Enhanced AI Capabilities Showcase */}
+        <div className="mb-16">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-white mb-3">Powered by Advanced AI Technologies</h2>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              Our analyzer combines cutting-edge AI technologies to deliver unparalleled diagnostic accuracy and actionable insights
+            </p>
+          </div>
           
-          {/* Left Column - Information */}
-          <div className="lg:col-span-1 space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl shadow-2xl p-8 border border-white/20 hover:border-blue-500/40 transition-all duration-500 group transform hover:scale-105">
+              <div className="relative mb-6">
+                <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-700 rounded-3xl mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-500 mx-auto">
+                  <Brain className="h-10 w-10 text-white" />
+                </div>
+                <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full flex items-center justify-center animate-bounce">
+                  <span className="text-xs font-bold text-white">RAG</span>
+                </div>
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-blue-300 transition-colors text-center">RAG System</h3>
+              <p className="text-gray-300 text-center leading-relaxed">
+                Retrieval-Augmented Generation with dynamic knowledge base integration. 
+                Accesses comprehensive Deep Security documentation and expert knowledge for context-aware analysis.
+              </p>
+              <div className="mt-4 flex items-center justify-center">
+                <Badge variant="outline" className="border-blue-500/30 text-blue-300 bg-blue-500/10">
+                  Knowledge-Driven
+                </Badge>
+              </div>
+            </div>
             
-            {/* AI Capabilities */}
-            <Card className="border-red-800/30 hover:border-red-600/50 transition-all duration-300" style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)', backdropFilter: 'blur(4px)' }}>
-              <CardHeader>
-                <CardTitle className="flex items-center text-white">
-                  <Brain className="w-5 h-5 mr-2 text-red-400" />
-                  AI Analysis Engines
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-start space-x-3">
-                  <Database className="w-5 h-5 text-red-400 mt-1" />
-                  <div>
-                    <h4 className="font-semibold text-white">RAG System</h4>
-                    <p className="text-sm text-gray-300">Retrieval-Augmented Generation for contextual analysis</p>
-                  </div>
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl shadow-2xl p-8 border border-white/20 hover:border-purple-500/40 transition-all duration-500 group transform hover:scale-105">
+              <div className="relative mb-6">
+                <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-700 rounded-3xl mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-500 mx-auto">
+                  <Target className="h-10 w-10 text-white" />
                 </div>
-                <div className="flex items-start space-x-3">
-                  <Brain className="w-5 h-5 text-red-300 mt-1" />
-                  <div>
-                    <h4 className="font-semibold text-white">ML Engine</h4>
-                    <p className="text-sm text-gray-300">Machine Learning pattern recognition and anomaly detection</p>
-                  </div>
+                <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-r from-pink-400 to-purple-500 rounded-full flex items-center justify-center animate-bounce delay-100">
+                  <span className="text-xs font-bold text-white">ML</span>
                 </div>
-                <div className="flex items-start space-x-3">
-                  <Zap className="w-5 h-5 text-red-500 mt-1" />
-                  <div>
-                    <h4 className="font-semibold text-white">AI Insights</h4>
-                    <p className="text-sm text-gray-300">Intelligent recommendations and root cause analysis</p>
-                  </div>
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-purple-300 transition-colors text-center">ML Engine</h3>
+              <p className="text-gray-300 text-center leading-relaxed">
+                Advanced Machine Learning algorithms for pattern recognition, anomaly detection, and predictive analysis. 
+                Learns from historical data to identify communication failures and network issues.
+              </p>
+              <div className="mt-4 flex items-center justify-center">
+                <Badge variant="outline" className="border-purple-500/30 text-purple-300 bg-purple-500/10">
+                  Pattern Recognition
+                </Badge>
+              </div>
+            </div>
+            
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl shadow-2xl p-8 border border-white/20 hover:border-green-500/40 transition-all duration-500 group transform hover:scale-105">
+              <div className="relative mb-6">
+                <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-green-700 rounded-3xl mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-500 mx-auto">
+                  <Shield className="h-10 w-10 text-white" />
                 </div>
-              </CardContent>
-            </Card>
-
-            {/* Required Files */}
-            <Card className="border-red-800/30 hover:border-red-600/50 transition-all duration-300" style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)', backdropFilter: 'blur(4px)' }}>
-              <CardHeader>
-                <CardTitle className="flex items-center text-white">
-                  <FileText className="w-5 h-5 mr-2 text-red-400" />
-                  Required Files
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="flex items-center space-x-2">
-                  <CheckCircle className="w-4 h-4 text-red-400" />
-                  <span className="font-medium text-white">ds_agent.log</span>
-                  <Badge variant="destructive" className="text-xs bg-red-800 text-white border-red-600">Required</Badge>
+                <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-r from-emerald-400 to-green-500 rounded-full flex items-center justify-center animate-bounce delay-200">
+                  <span className="text-xs font-bold text-white">AI</span>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <InfoIcon className="w-4 h-4 text-red-300" />
-                  <span className="font-medium text-white">ds_agent-err.log</span>
-                  <Badge variant="secondary" className="text-xs bg-black/60 text-gray-300 border-red-800/50">Optional</Badge>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <InfoIcon className="w-4 h-4 text-red-300" />
-                  <span className="font-medium text-white">ds_agent-connect.log</span>
-                  <Badge variant="secondary" className="text-xs bg-black/60 text-gray-300 border-red-800/50">Optional</Badge>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Instructions */}
-            <Card className="border-red-800/30 hover:border-red-600/50 transition-all duration-300" style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)', backdropFilter: 'blur(4px)' }}>
-              <CardHeader>
-                <CardTitle className="flex items-center text-white">
-                  <AlertCircle className="w-5 h-5 mr-2 text-red-400" />
-                  How to Use
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3 text-sm">
-                <div className="flex items-start space-x-2">
-                  <span className="bg-red-800/30 text-red-300 rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold border border-red-600/40">1</span>
-                  <p className="text-gray-300">Upload your DS Agent log files using the upload area</p>
-                </div>
-                <div className="flex items-start space-x-2">
-                  <span className="bg-red-800/30 text-red-300 rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold border border-red-600/40">2</span>
-                  <p className="text-gray-300">Ensure ds_agent.log is included (required for analysis)</p>
-                </div>
-                <div className="flex items-start space-x-2">
-                  <span className="bg-red-800/30 text-red-300 rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold border border-red-600/40">3</span>
-                  <p className="text-gray-300">Click &quot;Start Analysis&quot; to begin AI-powered diagnosis</p>
-                </div>
-                <div className="flex items-start space-x-2">
-                  <span className="bg-red-800/30 text-red-300 rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold border border-red-600/40">4</span>
-                  <p className="text-gray-300">Review detailed offline analysis and recommendations</p>
-                </div>
-              </CardContent>
-            </Card>
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-green-300 transition-colors text-center">AI Insights</h3>
+              <p className="text-gray-300 text-center leading-relaxed">
+                Intelligent diagnostic insights with confidence scoring and automated root cause analysis. 
+                Provides expert-level troubleshooting recommendations with step-by-step guidance.
+              </p>
+              <div className="mt-4 flex items-center justify-center">
+                <Badge variant="outline" className="border-green-500/30 text-green-300 bg-green-500/10">
+                  Expert Analysis
+                </Badge>
+              </div>
+            </div>
           </div>
 
-          {/* Right Column - Upload Interface */}
-          <div className="lg:col-span-2">
-            <Card className="h-fit border-red-800/30" style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)', backdropFilter: 'blur(4px)' }}>
-              <CardHeader>
-                <CardTitle className="text-white">Upload Log Files</CardTitle>
-              </CardHeader>
-              <CardContent>
-                
-                {/* Upload Area - Matching the provided image */}
-                <div 
-                  className={`border-2 border-dashed rounded-lg p-12 text-center transition-colors ${
-                    dragActive 
-                      ? 'border-red-400 bg-red-900/30' 
-                      : 'border-red-800/40 bg-black/30'
-                  }`}
-                  onDragEnter={handleDrag}
-                  onDragLeave={handleDrag}
-                  onDragOver={handleDrag}
-                  onDrop={handleDrop}
-                >
-                  <div className="flex flex-col items-center space-y-4">
-                    <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-red-700 rounded-2xl text-white flex items-center justify-center shadow-2xl">
-                      <Upload className="w-8 h-8" />
+          {/* Core Technology Stats */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+            <div className="text-center p-4 bg-white/5 rounded-xl border border-white/10">
+              <div className="text-2xl font-bold text-blue-400 mb-1">90%+</div>
+              <div className="text-xs text-gray-400">AI Confidence</div>
+            </div>
+            <div className="text-center p-4 bg-white/5 rounded-xl border border-white/10">
+              <div className="text-2xl font-bold text-purple-400 mb-1">&lt;30s</div>
+              <div className="text-xs text-gray-400">Analysis Time</div>
+            </div>
+            <div className="text-center p-4 bg-white/5 rounded-xl border border-white/10">
+              <div className="text-2xl font-bold text-green-400 mb-1">50+</div>
+              <div className="text-xs text-gray-400">Error Patterns</div>
+            </div>
+            <div className="text-center p-4 bg-white/5 rounded-xl border border-white/10">
+              <div className="text-2xl font-bold text-red-400 mb-1">24/7</div>
+              <div className="text-xs text-gray-400">Availability</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Usage Instructions */}
+        <div className="mb-16">
+          <div className="bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-green-500/10 backdrop-blur-sm rounded-2xl shadow-2xl p-8 border border-white/20">
+            <div className="text-center mb-8">
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                <Info className="h-8 w-8 text-white" />
+              </div>
+              <h2 className="text-3xl font-bold text-white mb-3">How to Use DS Agent Offline Analyzer</h2>
+              <p className="text-gray-300 max-w-2xl mx-auto">
+                Follow these simple steps to perform comprehensive diagnostic analysis of your Deep Security Agent
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="text-center group">
+                <div className="relative mb-6">
+                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl mx-auto flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <Upload className="h-8 w-8 text-white" />
+                  </div>
+                  <div className="absolute -top-2 -right-6 w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                    1
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3">Upload Log Files</h3>
+                <p className="text-gray-300 text-sm leading-relaxed">
+                  Select and upload your DS Agent log files. The analyzer accepts ds_agent.log (required), 
+                  ds_agent-err.log (optional), and ds_agent-connect.log (optional) files.
+                </p>
+              </div>
+
+              <div className="text-center group">
+                <div className="relative mb-6">
+                  <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-700 rounded-2xl mx-auto flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <Brain className="h-8 w-8 text-white" />
+                  </div>
+                  <div className="absolute -top-2 -right-6 w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                    2
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3">AI Analysis</h3>
+                <p className="text-gray-300 text-sm leading-relaxed">
+                  Our AI engines automatically analyze your logs using RAG system, ML pattern recognition, 
+                  and expert knowledge base to identify issues and root causes.
+                </p>
+              </div>
+
+              <div className="text-center group">
+                <div className="relative mb-6">
+                  <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-700 rounded-2xl mx-auto flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <Target className="h-8 w-8 text-white" />
+                  </div>
+                  <div className="absolute -top-2 -right-6 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                    3
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3">Get Results</h3>
+                <p className="text-gray-300 text-sm leading-relaxed">
+                  Receive comprehensive analysis results with key findings, root cause analysis, 
+                  confidence scores, and step-by-step troubleshooting recommendations.
+                </p>
+              </div>
+            </div>
+
+            {/* What You'll Get */}
+            <div className="mt-8 pt-8 border-t border-white/10">
+              <h3 className="text-xl font-bold text-white mb-4 text-center">What You&apos;ll Get</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="flex items-center gap-2 p-3 bg-white/5 rounded-lg">
+                  <CheckCircle className="h-4 w-4 text-green-400 flex-shrink-0" />
+                  <span className="text-sm text-gray-300">Root Cause Analysis</span>
+                </div>
+                <div className="flex items-center gap-2 p-3 bg-white/5 rounded-lg">
+                  <CheckCircle className="h-4 w-4 text-green-400 flex-shrink-0" />
+                  <span className="text-sm text-gray-300">AI Confidence Score</span>
+                </div>
+                <div className="flex items-center gap-2 p-3 bg-white/5 rounded-lg">
+                  <CheckCircle className="h-4 w-4 text-green-400 flex-shrink-0" />
+                  <span className="text-sm text-gray-300">Step-by-step Fixes</span>
+                </div>
+                <div className="flex items-center gap-2 p-3 bg-white/5 rounded-lg">
+                  <CheckCircle className="h-4 w-4 text-green-400 flex-shrink-0" />
+                  <span className="text-sm text-gray-300">Expert Recommendations</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Streamlined File Upload Section */}
+        {!analysisResult && (
+          <div className="space-y-12">
+            {/* Simple File Requirements */}
+            <div className="max-w-4xl mx-auto">
+              <div className="text-center mb-8">
+                <h2 className="text-2xl font-bold text-white mb-4">Select Your Log Files</h2>
+                <p className="text-gray-400 text-sm">Choose the DS Agent log files you want to analyze</p>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                <div className="text-center p-4 bg-white/5 rounded-xl border border-green-500/20 hover:border-green-500/40 transition-colors">
+                  <FileText className="h-8 w-8 text-green-400 mx-auto mb-2" />
+                  <div className="font-semibold text-white text-sm">ds_agent.log</div>
+                  <Badge className="bg-green-500/20 text-green-300 border-green-500/30 text-xs mt-1">Required</Badge>
+                </div>
+                <div className="text-center p-4 bg-white/5 rounded-xl border border-blue-500/20 hover:border-blue-500/40 transition-colors">
+                  <AlertTriangle className="h-8 w-8 text-blue-400 mx-auto mb-2" />
+                  <div className="font-semibold text-white text-sm">ds_agent-err.log</div>
+                  <Badge variant="outline" className="border-gray-500/30 text-gray-400 text-xs mt-1">Optional</Badge>
+                </div>
+                <div className="text-center p-4 bg-white/5 rounded-xl border border-purple-500/20 hover:border-purple-500/40 transition-colors">
+                  <Network className="h-8 w-8 text-purple-400 mx-auto mb-2" />
+                  <div className="font-semibold text-white text-sm">ds_agent-connect.log</div>
+                  <Badge variant="outline" className="border-gray-500/30 text-gray-400 text-xs mt-1">Optional</Badge>
+                </div>
+              </div>
+            </div>
+
+            {/* Clean Upload Area */}
+            <div className="max-w-2xl mx-auto">
+              <div className="relative">
+                <label className="block w-full cursor-pointer group">
+                  <div className="relative bg-white/5 backdrop-blur-sm border-2 border-dashed border-gray-600 rounded-3xl p-12 hover:border-red-500/50 hover:bg-red-500/5 transition-all duration-500 group">
+                    {/* Background Animation */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-red-500/0 to-red-500/0 group-hover:from-red-500/5 group-hover:to-red-500/10 rounded-3xl transition-all duration-500"></div>
+                    
+                    {/* Content */}
+                    <div className="relative text-center">
+                      <div className="w-20 h-20 bg-gradient-to-br from-gray-600 to-gray-700 group-hover:from-red-500 group-hover:to-red-600 rounded-2xl mx-auto mb-6 flex items-center justify-center transition-all duration-500 group-hover:scale-110">
+                        <Upload className="h-10 w-10 text-white" />
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <h3 className="text-2xl font-bold text-white group-hover:text-red-200 transition-colors">
+                          <span className="text-red-400 group-hover:text-red-300">Drag & Drop</span> or <span className="text-red-400 group-hover:text-red-300">Click to Select</span>
+                        </h3>
+                        <p className="text-gray-400 group-hover:text-gray-300 transition-colors">
+                          DS Agent log files for AI-powered analysis
+                        </p>
+                      </div>
+                      
+                      <div className="mt-6 flex items-center justify-center gap-6 text-sm text-gray-500">
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                          <span>.log</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                          <span>.txt</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                          <span>.zip</span>
+                        </div>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-white mb-2">
-                        Drop log files here or click to browse
-                      </h3>
-                      <p className="text-sm text-gray-300">
-                        Supports .log, .txt, .xml, .csv, .zip files up to 100MB
-                      </p>
-                    </div>
-                    <Button 
-                      onClick={() => fileInputRef.current?.click()}
-                      className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white transform hover:scale-105 transition-all duration-300"
-                    >
-                      Choose Files
-                    </Button>
                   </div>
                   
                   <input
-                    ref={fileInputRef}
                     type="file"
-                    multiple
-                    accept=".log,.txt,.xml,.csv,.zip"
-                    onChange={handleFileSelect}
                     className="hidden"
+                    multiple
+                    accept=".log,.txt,.zip"
+                    onChange={(e) => handleFileSelect(e.target.files)}
+                    id="file-upload"
                   />
-                </div>
+                </label>
+              </div>
 
-                {/* Uploaded Files List */}
-                {uploadedFiles.length > 0 && (
-                  <div className="mt-6 space-y-2">
-                    <h4 className="font-semibold text-white">Uploaded Files ({uploadedFiles.length})</h4>
-                    {uploadedFiles.map((file, index) => (
-                      <div key={index} className="flex items-center justify-between bg-black/60 backdrop-blur-sm p-3 rounded border border-red-800/30">
-                        <div className="flex items-center space-x-3">
-                          <FileText className="w-5 h-5 text-red-400" />
-                          <div>
-                            <p className="font-medium text-white">{file.name}</p>
-                            <p className="text-sm text-gray-300">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
-                          </div>
-                        </div>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => removeFile(index)}
-                          className="text-red-400 hover:text-red-300 hover:bg-red-800/30"
-                        >
-                          Remove
-                        </Button>
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {/* Start Analysis Button */}
-                <div className="mt-8 flex justify-center">
-                  <Button
-                    onClick={startAnalysis}
-                    disabled={uploadedFiles.length === 0 || isAnalyzing}
-                    className="bg-gradient-to-r from-red-700 to-red-800 hover:from-red-800 hover:to-red-900 text-white px-8 py-3 text-lg transform hover:scale-105 transition-all duration-300 shadow-lg"
-                    size="lg"
-                  >
-                    {isAnalyzing ? (
-                      <>
-                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                        Analyzing...
-                      </>
-                    ) : (
-                      <>
-                        <Brain className="w-5 h-5 mr-2" />
-                        Start AI Analysis
-                      </>
-                    )}
-                  </Button>
-                </div>
-
-                {/* Results Section */}
-                {results && (
-                  <div className="mt-8 space-y-6">
+              {/* Selected Files Display */}
+              {selectedFiles.length > 0 && (
+                <div className="mt-8 max-w-2xl mx-auto">
+                  <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="text-lg font-semibold text-white">Selected Files</h3>
+                      <Badge className="bg-green-500/20 text-green-300 border-green-500/30">
+                        {selectedFiles.length} file{selectedFiles.length !== 1 ? 's' : ''}
+                      </Badge>
+                    </div>
                     
-                    {/* Analysis Summary */}
-                    <Card className="bg-black/60 backdrop-blur-sm border border-red-600/40">
-                      <CardHeader>
-                        <CardTitle className="flex items-center space-x-2 text-red-400">
-                          <CheckCircle className="w-5 h-5" />
-                          <span>Analysis Complete</span>
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-red-300 mb-4">{results.summary}</p>
-                        
-                        {/* Metadata Display */}
-                        {results.metadata && (
-                          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
-                            <div className="bg-red-900/20 p-3 rounded border border-red-800/30">
-                              <div className="text-red-400 text-sm font-medium">Files Processed</div>
-                              <div className="text-white text-lg font-bold">{results.metadata.files_processed || 0}</div>
+                    <div className="space-y-3">
+                      {Array.from(selectedFiles).map((file, index) => (
+                        <div key={index} className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/10 hover:border-white/20 transition-colors">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
+                              <FileText className="h-5 w-5 text-white" />
                             </div>
-                            
-                            {results.metadata.zip_files_extracted && results.metadata.zip_files_extracted > 0 && (
-                              <>
-                                <div className="bg-red-900/20 p-3 rounded border border-red-800/30">
-                                  <div className="text-red-400 text-sm font-medium">ZIP Files Extracted</div>
-                                  <div className="text-white text-lg font-bold">{results.metadata.zip_files_extracted}</div>
-                                </div>
-                                <div className="bg-red-900/20 p-3 rounded border border-red-800/30">
-                                  <div className="text-red-400 text-sm font-medium">Extracted Files</div>
-                                  <div className="text-white text-lg font-bold">{results.metadata.extracted_files}</div>
-                                </div>
-                              </>
-                            )}
-                            
-                            <div className="bg-red-900/20 p-3 rounded border border-red-800/30">
-                              <div className="text-red-400 text-sm font-medium">Log Entries</div>
-                              <div className="text-white text-lg font-bold">{results.metadata.log_entries_processed || 0}</div>
-                            </div>
-                            
-                            <div className="bg-red-900/20 p-3 rounded border border-red-800/30">
-                              <div className="text-red-400 text-sm font-medium">Offline Issues</div>
-                              <div className="text-white text-lg font-bold">{results.metadata.offline_issues || 0}</div>
-                            </div>
-                            
-                            <div className="bg-red-900/20 p-3 rounded border border-red-800/30">
-                              <div className="text-red-400 text-sm font-medium">Critical Issues</div>
-                              <div className="text-white text-lg font-bold">{results.metadata.critical_issues || 0}</div>
-                            </div>
-                          </div>
-                        )}
-                      </CardContent>
-                    </Card>
-
-                    {/* AI Communication Analysis Results */}
-                    {results.ai_communication_analysis && (
-                      <Card className="bg-gradient-to-br from-blue-950/30 to-purple-950/30 backdrop-blur-sm border border-blue-600/40">
-                        <CardHeader>
-                          <CardTitle className="flex items-center space-x-2 text-blue-300">
-                            <Brain className="w-5 h-5" />
-                            <span>AI Communication Analysis</span>
-                            <Badge variant="secondary" className="bg-blue-900/30 text-blue-300 border border-blue-700/40 ml-2">
-                              AI-Powered
-                            </Badge>
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent className="space-y-6">
-                          {/* Communication Health Score */}
-                          <div className="bg-blue-950/30 p-4 rounded border border-blue-800/30">
-                            <div className="flex items-center justify-between mb-3">
-                              <h3 className="text-lg font-semibold text-blue-300">Communication Health Score</h3>
-                              <div className="flex items-center space-x-2">
-                                <div className={`w-3 h-3 rounded-full ${
-                                  results.ai_communication_analysis.communication_health_score > 0.7 ? 'bg-green-500' :
-                                  results.ai_communication_analysis.communication_health_score > 0.4 ? 'bg-yellow-500' : 'bg-red-500'
-                                }`}></div>
-                                <span className="text-white font-bold text-xl">
-                                  {(results.ai_communication_analysis.communication_health_score * 100).toFixed(1)}%
-                                </span>
-                              </div>
-                            </div>
-                            <div className="w-full bg-gray-700 rounded-full h-3">
-                              <div 
-                                className={`h-3 rounded-full transition-all duration-500 ${
-                                  results.ai_communication_analysis.communication_health_score > 0.7 ? 'bg-green-500' :
-                                  results.ai_communication_analysis.communication_health_score > 0.4 ? 'bg-yellow-500' : 'bg-red-500'
-                                }`}
-                                style={{ width: `${results.ai_communication_analysis.communication_health_score * 100}%` }}
-                              ></div>
-                            </div>
-                          </div>
-
-                          {/* AI Detected Issues */}
-                          {results.ai_communication_analysis.ai_detected_issues && results.ai_communication_analysis.ai_detected_issues.length > 0 && (
-                            <div className="space-y-4">
-                              <h3 className="text-lg font-semibold text-blue-300 flex items-center">
-                                <AlertCircle className="w-5 h-5 mr-2" />
-                                AI-Detected Communication Issues ({results.ai_communication_analysis.ai_detected_issues.length})
-                              </h3>
-                              <div className="grid gap-4">
-                                {results.ai_communication_analysis.ai_detected_issues.map((issue, index) => (
-                                  <Card key={index} className="bg-gray-900/50 border-gray-700/50">
-                                    <CardContent className="p-4">
-                                      <div className="flex items-start justify-between mb-3">
-                                        <div className="flex items-center space-x-2">
-                                          <Badge 
-                                            variant="secondary" 
-                                            className={`${
-                                              issue.severity === 'critical' ? 'bg-red-900/30 text-red-300 border-red-700/40' :
-                                              issue.severity === 'high' ? 'bg-orange-900/30 text-orange-300 border-orange-700/40' :
-                                              'bg-yellow-900/30 text-yellow-300 border-yellow-700/40'
-                                            }`}
-                                          >
-                                            {issue.severity.toUpperCase()}
-                                          </Badge>
-                                          <span className="text-white font-medium">{issue.category.replace(/_/g, ' ').toUpperCase()}</span>
-                                        </div>
-                                        <div className="flex items-center space-x-2">
-                                          <span className="text-sm text-gray-400">Confidence:</span>
-                                          <span className="text-blue-300 font-bold">{(issue.confidence_score * 100).toFixed(0)}%</span>
-                                        </div>
-                                      </div>
-                                      
-                                      <p className="text-gray-300 text-sm mb-3">{issue.ai_context}</p>
-                                      
-                                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
-                                        <div>
-                                          <span className="text-gray-400 text-sm">Affected Ports:</span>
-                                          <div className="flex flex-wrap gap-1 mt-1">
-                                            {issue.ports_affected.map((port, portIndex) => (
-                                              <Badge key={portIndex} variant="outline" className="text-xs text-blue-300 border-blue-600/40">
-                                                {port}
-                                              </Badge>
-                                            ))}
-                                          </div>
-                                        </div>
-                                        <div>
-                                          <span className="text-gray-400 text-sm">Communication Direction:</span>
-                                          <p className="text-white text-sm mt-1">{issue.communication_direction.replace(/_/g, ' ')}</p>
-                                        </div>
-                                      </div>
-                                      
-                                      {issue.matches && issue.matches.length > 0 && (
-                                        <div className="mt-3">
-                                          <span className="text-gray-400 text-sm">Sample Matches ({issue.issue_count} total):</span>
-                                          <div className="mt-1 space-y-1 max-h-20 overflow-y-auto">
-                                            {issue.matches.slice(0, 2).map((match, matchIndex) => (
-                                              <div key={matchIndex} className="text-xs text-gray-300 bg-gray-800/50 p-2 rounded">
-                                                Line {match.line_number}: {match.content}
-                                              </div>
-                                            ))}
-                                          </div>
-                                        </div>
-                                      )}
-                                    </CardContent>
-                                  </Card>
-                                ))}
-                              </div>
-                            </div>
-                          )}
-
-                          {/* Network Architecture Analysis */}
-                          {results.ai_communication_analysis.network_architecture_analysis && (
-                            <div className="space-y-4">
-                              <h3 className="text-lg font-semibold text-blue-300 flex items-center">
-                                <Database className="w-5 h-5 mr-2" />
-                                Network Architecture Analysis
-                              </h3>
-                              
-                              {/* Port Health Analysis */}
-                              {Object.keys(results.ai_communication_analysis.network_architecture_analysis.port_health_analysis || {}).length > 0 && (
-                                <Card className="bg-gray-900/50 border-gray-700/50">
-                                  <CardHeader>
-                                    <CardTitle className="text-blue-300 text-base">Port Health Status</CardTitle>
-                                  </CardHeader>
-                                  <CardContent>
-                                    <div className="grid gap-3">
-                                      {Object.values(results.ai_communication_analysis.network_architecture_analysis.port_health_analysis).map((portInfo, index) => (
-                                        <div key={index} className="flex items-center justify-between p-3 bg-gray-800/50 rounded">
-                                          <div className="flex items-center space-x-3">
-                                            <Badge variant="outline" className="text-blue-300 border-blue-600/40">
-                                              Port {(portInfo as Record<string, unknown>).port as number}
-                                            </Badge>
-                                            <div>
-                                              <div className="flex items-center space-x-2">
-                                                <div className={`w-2 h-2 rounded-full ${
-                                                  (portInfo as Record<string, unknown>).health_status === 'critical' ? 'bg-red-500' :
-                                                  (portInfo as Record<string, unknown>).health_status === 'degraded' ? 'bg-yellow-500' : 'bg-green-500'
-                                                }`}></div>
-                                                <span className="text-white text-sm font-medium">{(portInfo as Record<string, unknown>).health_status as string}</span>
-                                              </div>
-                                              <div className="text-xs text-gray-400 mt-1">
-                                                Services: {Array.isArray((portInfo as Record<string, unknown>).services) ? 
-                                                  ((portInfo as Record<string, unknown>).services as string[]).join(', ') : 'N/A'}
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      ))}
-                                    </div>
-                                  </CardContent>
-                                </Card>
-                              )}
-
-                              {/* AI Network Recommendations */}
-                              {results.ai_communication_analysis.network_architecture_analysis.ai_network_recommendations && 
-                               results.ai_communication_analysis.network_architecture_analysis.ai_network_recommendations.length > 0 && (
-                                <Card className="bg-gray-900/50 border-gray-700/50">
-                                  <CardHeader>
-                                    <CardTitle className="text-blue-300 text-base">AI Network Recommendations</CardTitle>
-                                  </CardHeader>
-                                  <CardContent>
-                                    <div className="space-y-3">
-                                      {results.ai_communication_analysis.network_architecture_analysis.ai_network_recommendations.map((rec, index) => (
-                                        <div key={index} className="p-3 rounded bg-gray-800/50 border border-gray-700/50">
-                                          <div className="flex items-start justify-between mb-2">
-                                            <Badge 
-                                              variant="secondary" 
-                                              className={`${
-                                                rec.priority === 'critical' ? 'bg-red-900/30 text-red-300 border-red-700/40' :
-                                                rec.priority === 'high' ? 'bg-orange-900/30 text-orange-300 border-orange-700/40' :
-                                                'bg-blue-900/30 text-blue-300 border-blue-700/40'
-                                              }`}
-                                            >
-                                              {rec.priority.toUpperCase()}
-                                            </Badge>
-                                            <span className="text-xs text-gray-400">{rec.category}</span>
-                                          </div>
-                                          <p className="text-white text-sm mb-2">{rec.recommendation}</p>
-                                          <div className="text-xs text-gray-300">
-                                            <span className="font-medium">Actions:</span>
-                                            <ul className="list-disc list-inside mt-1 space-y-1">
-                                              {rec.actions.map((action, actionIndex) => (
-                                                <li key={actionIndex}>{action}</li>
-                                              ))}
-                                            </ul>
-                                          </div>
-                                        </div>
-                                      ))}
-                                    </div>
-                                  </CardContent>
-                                </Card>
-                              )}
-                            </div>
-                          )}
-
-                          {/* Intelligent Diagnostics */}
-                          {results.ai_communication_analysis.intelligent_diagnostics && (
-                            <div className="space-y-4">
-                              <h3 className="text-lg font-semibold text-blue-300 flex items-center">
-                                <Zap className="w-5 h-5 mr-2" />
-                                AI Intelligent Diagnostics
-                              </h3>
-
-                              {/* AI Troubleshooting Steps */}
-                              {results.ai_communication_analysis.intelligent_diagnostics.ai_troubleshooting_steps && 
-                               results.ai_communication_analysis.intelligent_diagnostics.ai_troubleshooting_steps.length > 0 && (
-                                <Card className="bg-gray-900/50 border-gray-700/50">
-                                  <CardHeader>
-                                    <CardTitle className="text-blue-300 text-base">AI-Powered Troubleshooting Steps</CardTitle>
-                                  </CardHeader>
-                                  <CardContent>
-                                    <div className="space-y-4">
-                                      {results.ai_communication_analysis.intelligent_diagnostics.ai_troubleshooting_steps.map((step, index) => (
-                                        <div key={index} className="p-4 rounded bg-gray-800/50 border border-gray-700/50">
-                                          <div className="flex items-start justify-between mb-3">
-                                            <div className="flex items-center space-x-2">
-                                              <Badge variant="outline" className="text-blue-300 border-blue-600/40">
-                                                Step {step.priority}
-                                              </Badge>
-                                              <span className="text-white font-medium">{step.step}</span>
-                                            </div>
-                                            <div className="text-right">
-                                              <div className="text-xs text-gray-400">ETA: {step.expected_resolution_time}</div>
-                                              {step.automation_available && (
-                                                <Badge variant="secondary" className="bg-green-900/30 text-green-300 border-green-700/40 text-xs mt-1">
-                                                  Automatable
-                                                </Badge>
-                                              )}
-                                            </div>
-                                          </div>
-                                          <div className="space-y-2">
-                                            {step.actions.map((action, actionIndex) => (
-                                              <div key={actionIndex} className="flex items-start space-x-2">
-                                                <CheckCircle className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
-                                                <span className="text-gray-300 text-sm">{action}</span>
-                                              </div>
-                                            ))}
-                                          </div>
-                                        </div>
-                                      ))}
-                                    </div>
-                                  </CardContent>
-                                </Card>
-                              )}
-
-                              {/* Automated Commands */}
-                              {results.ai_communication_analysis.intelligent_diagnostics.automated_commands && (
-                                <Card className="bg-gray-900/50 border-gray-700/50">
-                                  <CardHeader>
-                                    <CardTitle className="text-blue-300 text-base">Platform-Specific Automated Commands</CardTitle>
-                                  </CardHeader>
-                                  <CardContent>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                      {/* Windows Commands */}
-                                      {results.ai_communication_analysis.intelligent_diagnostics.automated_commands.windows && (
-                                        <div>
-                                          <h4 className="text-white font-medium mb-2 flex items-center">
-                                            <span className="w-4 h-4 mr-2">🪟</span>
-                                            Windows Commands
-                                          </h4>
-                                          <div className="space-y-2">
-                                            {results.ai_communication_analysis.intelligent_diagnostics.automated_commands.windows.map((cmd, index) => (
-                                              <div key={index} className="p-2 bg-gray-800/50 rounded border border-gray-700/50 font-mono text-xs text-gray-300">
-                                                {cmd}
-                                              </div>
-                                            ))}
-                                          </div>
-                                        </div>
-                                      )}
-                                      
-                                      {/* Linux Commands */}
-                                      {results.ai_communication_analysis.intelligent_diagnostics.automated_commands.linux && (
-                                        <div>
-                                          <h4 className="text-white font-medium mb-2 flex items-center">
-                                            <span className="w-4 h-4 mr-2">🐧</span>
-                                            Linux Commands
-                                          </h4>
-                                          <div className="space-y-2">
-                                            {results.ai_communication_analysis.intelligent_diagnostics.automated_commands.linux.map((cmd, index) => (
-                                              <div key={index} className="p-2 bg-gray-800/50 rounded border border-gray-700/50 font-mono text-xs text-gray-300">
-                                                {cmd}
-                                              </div>
-                                            ))}
-                                          </div>
-                                        </div>
-                                      )}
-                                    </div>
-                                  </CardContent>
-                                </Card>
-                              )}
-
-                              {/* Confidence Analysis */}
-                              {results.ai_communication_analysis.intelligent_diagnostics.confidence_analysis && (
-                                <Card className="bg-gray-900/50 border-gray-700/50">
-                                  <CardHeader>
-                                    <CardTitle className="text-blue-300 text-base">AI Confidence Analysis</CardTitle>
-                                  </CardHeader>
-                                  <CardContent>
-                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                      <div className="text-center p-3 bg-gray-800/50 rounded">
-                                        <div className="text-2xl font-bold text-blue-300">
-                                          {(results.ai_communication_analysis.intelligent_diagnostics.confidence_analysis.overall_confidence * 100).toFixed(0)}%
-                                        </div>
-                                        <div className="text-xs text-gray-400 mt-1">Overall Confidence</div>
-                                      </div>
-                                      <div className="text-center p-3 bg-gray-800/50 rounded">
-                                        <div className="text-2xl font-bold text-green-300">
-                                          {results.ai_communication_analysis.intelligent_diagnostics.confidence_analysis.high_confidence_issues}
-                                        </div>
-                                        <div className="text-xs text-gray-400 mt-1">High Confidence Issues</div>
-                                      </div>
-                                      <div className="text-center p-3 bg-gray-800/50 rounded">
-                                        <div className={`text-2xl font-bold ${
-                                          results.ai_communication_analysis.intelligent_diagnostics.confidence_analysis.ai_recommendation_reliability === 'high' ? 'text-green-300' :
-                                          results.ai_communication_analysis.intelligent_diagnostics.confidence_analysis.ai_recommendation_reliability === 'medium' ? 'text-yellow-300' : 'text-red-300'
-                                        }`}>
-                                          {results.ai_communication_analysis.intelligent_diagnostics.confidence_analysis.ai_recommendation_reliability.toUpperCase()}
-                                        </div>
-                                        <div className="text-xs text-gray-400 mt-1">Recommendation Reliability</div>
-                                      </div>
-                                    </div>
-                                  </CardContent>
-                                </Card>
-                              )}
-                            </div>
-                          )}
-                        </CardContent>
-                      </Card>
-                    )}
-
-                    {/* AI Enhanced Root Cause Analysis */}
-                    {results.ai_enhanced_root_cause && (
-                      <Card className="bg-gradient-to-br from-purple-950/30 to-pink-950/30 backdrop-blur-sm border border-purple-600/40">
-                        <CardHeader>
-                          <CardTitle className="flex items-center space-x-2 text-purple-300">
-                            <Brain className="w-5 h-5" />
-                            <span>AI Enhanced Root Cause Analysis</span>
-                            <Badge variant="secondary" className="bg-purple-900/30 text-purple-300 border border-purple-700/40 ml-2">
-                              Advanced AI
-                            </Badge>
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent className="space-y-4">
-                          {/* Resolution Confidence */}
-                          <div className="bg-purple-950/30 p-4 rounded border border-purple-800/30">
-                            <div className="flex items-center justify-between">
-                              <h3 className="text-lg font-semibold text-purple-300">Resolution Confidence</h3>
-                              <div className="text-right">
-                                <div className="text-2xl font-bold text-white">
-                                  {(results.ai_enhanced_root_cause.resolution_confidence * 100).toFixed(0)}%
-                                </div>
-                                <div className="text-xs text-gray-400">AI Prediction</div>
-                              </div>
-                            </div>
-                            <div className="w-full bg-gray-700 rounded-full h-2 mt-3">
-                              <div 
-                                className="h-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-500"
-                                style={{ width: `${results.ai_enhanced_root_cause.resolution_confidence * 100}%` }}
-                              ></div>
-                            </div>
-                          </div>
-
-                          {/* Primary Causes */}
-                          {results.ai_enhanced_root_cause.ai_primary_causes && results.ai_enhanced_root_cause.ai_primary_causes.length > 0 && (
                             <div>
-                              <h3 className="text-lg font-semibold text-purple-300 mb-3">AI-Identified Primary Causes</h3>
-                              <div className="space-y-3">
-                                {results.ai_enhanced_root_cause.ai_primary_causes.map((cause, index) => (
-                                  <Card key={index} className="bg-gray-900/50 border-gray-700/50">
-                                    <CardContent className="p-4">
-                                      <div className="flex items-start justify-between mb-3">
-                                        <div className="flex items-center space-x-2">
-                                          <Badge 
-                                            variant="secondary" 
-                                            className={`${
-                                              cause.impact_level === 'critical' ? 'bg-red-900/30 text-red-300 border-red-700/40' :
-                                              cause.impact_level === 'high' ? 'bg-orange-900/30 text-orange-300 border-orange-700/40' :
-                                              'bg-yellow-900/30 text-yellow-300 border-yellow-700/40'
-                                            }`}
-                                          >
-                                            {cause.impact_level.toUpperCase()}
-                                          </Badge>
-                                          <span className="font-medium text-white">{cause.cause.replace(/_/g, ' ').toUpperCase()}</span>
-                                        </div>
-                                        <div className="text-right">
-                                          <div className="text-purple-300 font-bold">{(cause.confidence * 100).toFixed(0)}%</div>
-                                          <div className="text-xs text-gray-400">Confidence</div>
-                                        </div>
-                                      </div>
-                                      <p className="text-gray-300 text-sm mb-2">{cause.description}</p>
-                                      <div className="text-xs text-gray-400">
-                                        <span className="font-medium">Affected Communications:</span> {cause.affected_communications}
-                                      </div>
-                                    </CardContent>
-                                  </Card>
-                                ))}
-                              </div>
-                            </div>
-                          )}
-                        </CardContent>
-                      </Card>
-                    )}
-
-                    {/* Dynamic RAG Analysis */}
-                    {results.dynamic_rag_analysis && results.dynamic_rag_analysis.ai_response && (
-                      <Card className="bg-gradient-to-br from-green-950/30 to-teal-950/30 backdrop-blur-sm border border-green-600/40">
-                        <CardHeader>
-                          <CardTitle className="flex items-center space-x-2 text-green-300">
-                            <Database className="w-5 h-5" />
-                            <span>Dynamic RAG Intelligence</span>
-                            <Badge variant="secondary" className="bg-green-900/30 text-green-300 border border-green-700/40 ml-2">
-                              Knowledge-Powered
-                            </Badge>
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="space-y-4">
-                            {/* Knowledge Sources Metadata */}
-                            {results.dynamic_rag_analysis.analysis_metadata && (
-                              <div className="flex items-center justify-between p-3 bg-green-950/30 rounded border border-green-800/30">
-                                <div className="flex items-center space-x-4">
-                                  <div className="text-center">
-                                    <div className="text-2xl font-bold text-green-300">
-                                      {results.dynamic_rag_analysis.analysis_metadata.knowledge_sources_used}
-                                    </div>
-                                    <div className="text-xs text-gray-400">Knowledge Sources</div>
-                                  </div>
-                                  <div className="text-center">
-                                    <div className="text-2xl font-bold text-green-300">
-                                      {(results.dynamic_rag_analysis.analysis_metadata.confidence_score * 100).toFixed(0)}%
-                                    </div>
-                                    <div className="text-xs text-gray-400">RAG Confidence</div>
-                                  </div>
-                                </div>
-                                <Badge variant="outline" className="text-green-300 border-green-600/40">
-                                  Deep Security Expert Knowledge
-                                </Badge>
-                              </div>
-                            )}
-
-                            {/* AI Response */}
-                            <div className="bg-gray-900/50 p-4 rounded border border-green-700/30">
-                              <h3 className="text-green-300 font-medium mb-3 flex items-center">
-                                <Brain className="w-4 h-4 mr-2" />
-                                AI Expert Analysis
-                              </h3>
-                              <div className="text-gray-300 whitespace-pre-wrap text-sm leading-relaxed">
-                                {results.dynamic_rag_analysis.ai_response}
+                              <div className="font-medium text-white">{file.name}</div>
+                              <div className="text-sm text-gray-400">
+                                {(file.size / 1024 / 1024).toFixed(2)} MB
                               </div>
                             </div>
                           </div>
-                        </CardContent>
-                      </Card>
-                    )}
-
-                    {/* ML Insights */}
-                    {results.ml_insights && results.ml_insights.confidence_score && (
-                      <Card className="bg-gradient-to-br from-yellow-950/30 to-orange-950/30 backdrop-blur-sm border border-yellow-600/40">
-                        <CardHeader>
-                          <CardTitle className="flex items-center space-x-2 text-yellow-300">
-                            <Zap className="w-5 h-5" />
-                            <span>Machine Learning Insights</span>
-                            <Badge variant="secondary" className="bg-yellow-900/30 text-yellow-300 border border-yellow-700/40 ml-2">
-                              ML-Powered
-                            </Badge>
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="space-y-4">
-                            {/* ML Confidence Score */}
-                            <div className="bg-yellow-950/30 p-4 rounded border border-yellow-800/30">
-                              <div className="flex items-center justify-between">
-                                <h3 className="text-lg font-semibold text-yellow-300">Pattern Recognition Confidence</h3>
-                                <div className="text-right">
-                                  <div className="text-2xl font-bold text-white">
-                                    {(results.ml_insights.confidence_score * 100).toFixed(0)}%
-                                  </div>
-                                  <div className="text-xs text-gray-400">ML Analysis</div>
-                                </div>
-                              </div>
-                              <div className="w-full bg-gray-700 rounded-full h-2 mt-3">
-                                <div 
-                                  className="h-2 rounded-full bg-gradient-to-r from-yellow-500 to-orange-500 transition-all duration-500"
-                                  style={{ width: `${results.ml_insights.confidence_score * 100}%` }}
-                                ></div>
-                              </div>
-                            </div>
-
-                            {/* Pattern Analysis Details */}
-                            {results.ml_insights.pattern_analysis && Object.keys(results.ml_insights.pattern_analysis).length > 0 && (
-                              <div className="bg-gray-900/50 p-4 rounded border border-yellow-700/30">
-                                <h3 className="text-yellow-300 font-medium mb-3">Pattern Analysis Details</h3>
-                                <div className="text-gray-300 text-sm">
-                                  <pre className="whitespace-pre-wrap">
-                                    {JSON.stringify(results.ml_insights.pattern_analysis, null, 2)}
-                                  </pre>
-                                </div>
-                              </div>
-                            )}
-                          </div>
-                        </CardContent>
-                      </Card>
-                    )}
-
-                    {/* Extracted Files Display */}
-                    {results.extractedFiles && results.extractedFiles.length > 0 && (
-                      <Card className="bg-black/60 backdrop-blur-sm border border-red-600/40">
-                        <CardHeader>
-                          <CardTitle className="flex items-center space-x-2 text-red-400">
-                            <FileText className="w-5 h-5" />
-                            <span>Extracted Files ({results.extractedFiles.length})</span>
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="space-y-2">
-                            {results.extractedFiles.map((file, index) => (
-                              <div key={index} className="flex items-center justify-between bg-red-900/20 p-3 rounded border border-red-800/30">
-                                <div className="flex items-center space-x-3">
-                                  <FileText className="w-5 h-5 text-red-400" />
-                                  <div>
-                                    <p className="font-medium text-white">{file.name}</p>
-                                    <p className="text-sm text-red-300">{file.type}</p>
-                                  </div>
-                                </div>
-                                <Badge variant="secondary" className="bg-green-900/30 text-green-300 border border-green-700/40">
-                                  <CheckCircle className="w-3 h-3 mr-1" />
-                                  Analyzed
-                                </Badge>
-                              </div>
-                            ))}
-                          </div>
-                        </CardContent>
-                      </Card>
-                    )}
-
-                    {/* AI-Enhanced Analysis Results */}
-                    {results.data && (
-                      <div className="space-y-6">
-                        {/* Debug Information */}
-                        <Card className="bg-yellow-950/50 backdrop-blur-sm border border-yellow-500/40">
-                          <CardHeader>
-                            <CardTitle className="text-yellow-300 text-sm">
-                              🔍 Debug: Data Structure Available
-                            </CardTitle>
-                          </CardHeader>
-                          <CardContent>
-                            <div className="text-yellow-200 text-xs">
-                              <div>AI Analysis: {results.data.analysis_result?.ai_analysis ? '✅ Available' : '❌ Missing'}</div>
-                              <div>RAG Insights: {results.data.analysis_result?.rag_insights ? '✅ Available' : '❌ Missing'}</div>
-                              <div>Raw Data: {results.data.analysis_result?.raw_data ? '✅ Available' : '❌ Missing'}</div>
-                              <div>Communication Analysis: {results.data.analysis_result?.raw_data?.ai_communication_analysis ? '✅ Available' : '❌ Missing'}</div>
-                              <div>AI Issues: {results.data.analysis_result?.raw_data?.ai_communication_analysis?.ai_detected_issues ? `✅ ${Array.isArray(results.data.analysis_result.raw_data.ai_communication_analysis.ai_detected_issues) ? results.data.analysis_result.raw_data.ai_communication_analysis.ai_detected_issues.length : 'Not Array'} issues` : '❌ Missing'}</div>
-                            </div>
-                          </CardContent>
-                        </Card>
-                        
-                        {/* AI Communication Analysis */}
-                        {(results.data.analysis_result?.ai_analysis || results.data.summary || results.data.metadata) && (
-                          <Card className="bg-gradient-to-br from-blue-950/80 to-purple-950/80 backdrop-blur-sm border border-blue-500/40">
-                            <CardHeader>
-                              <CardTitle className="flex items-center space-x-2 text-blue-300">
-                                <Brain className="w-5 h-5" />
-                                <span>AI Communication Analysis</span>
-                                {results.data.analysis_result?.ai_analysis?.confidence_score && (
-                                  <Badge variant="secondary" className="bg-blue-600/20 text-blue-300 border-blue-500/30">
-                                    {results.data.analysis_result.ai_analysis.confidence_score}% Confidence
-                                  </Badge>
-                                )}
-                              </CardTitle>
-                            </CardHeader>
-                            <CardContent className="space-y-4">
-                              {results.data.analysis_result?.ai_analysis?.classification && (
-                                <div className="bg-blue-950/50 p-4 rounded border border-blue-800/30">
-                                  <h4 className="text-blue-200 font-medium mb-2">Analysis Classification</h4>
-                                  <p className="text-blue-300">{results.data.analysis_result.ai_analysis.classification}</p>
-                                </div>
-                              )}
-                              
-                              {results.data.analysis_result?.ai_analysis?.intelligent_insights && (
-                                <div className="bg-blue-950/50 p-4 rounded border border-blue-800/30">
-                                  <h4 className="text-blue-200 font-medium mb-2">AI Insights</h4>
-                                  <ul className="space-y-2">
-                                    {results.data.analysis_result.ai_analysis.intelligent_insights.map((insight: string, idx: number) => (
-                                      <li key={idx} className="flex items-start space-x-2 text-blue-300">
-                                        <CheckCircle className="w-4 h-4 mt-0.5 text-blue-400" />
-                                        <span>{insight}</span>
-                                      </li>
-                                    ))}
-                                  </ul>
-                                </div>
-                              )}
-
-                              {results.data.analysis_result?.ai_analysis?.anomaly_detection && (
-                                <div className="bg-blue-950/50 p-4 rounded border border-blue-800/30">
-                                  <h4 className="text-blue-200 font-medium mb-2">Anomaly Detection</h4>
-                                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                    <div className="text-center">
-                                      <div className="text-2xl font-bold text-blue-300">
-                                        {results.data.analysis_result.ai_analysis.anomaly_detection.anomalies_found || 0}
-                                      </div>
-                                      <div className="text-blue-400 text-sm">Anomalies Found</div>
-                                    </div>
-                                    <div className="text-center">
-                                      <div className="text-lg text-blue-300">
-                                        {results.data.analysis_result.ai_analysis.anomaly_detection.pattern_analysis || 'N/A'}
-                                      </div>
-                                      <div className="text-blue-400 text-sm">Pattern Analysis</div>
-                                    </div>
-                                    <div className="text-center">
-                                      <div className="text-lg text-blue-300">
-                                        {results.data.analysis_result.ai_analysis.anomaly_detection.severity_distribution || 'Normal'}
-                                      </div>
-                                      <div className="text-blue-400 text-sm">Severity Distribution</div>
-                                    </div>
-                                  </div>
-                                </div>
-                              )}
-
-                              {/* Communication Health Score from raw_data */}
-                              {results.data.analysis_result?.raw_data?.ai_communication_analysis?.communication_health_score !== undefined && (
-                                <div className="bg-blue-950/50 p-4 rounded border border-blue-800/30">
-                                  <h4 className="text-blue-200 font-medium mb-2">Communication Health Score</h4>
-                                  <div className="flex items-center space-x-4">
-                                    <div className="text-3xl font-bold text-blue-300">
-                                      {Math.round(results.data.analysis_result.raw_data.ai_communication_analysis.communication_health_score * 100)}%
-                                    </div>
-                                    <div className="flex-1">
-                                      <div className="w-full bg-gray-700 rounded-full h-3">
-                                        <div 
-                                          className={`h-3 rounded-full ${
-                                            results.data.analysis_result.raw_data.ai_communication_analysis.communication_health_score > 0.7 ? 'bg-green-500' :
-                                            results.data.analysis_result.raw_data.ai_communication_analysis.communication_health_score > 0.4 ? 'bg-yellow-500' : 'bg-red-500'
-                                          }`}
-                                          style={{ width: `${results.data.analysis_result.raw_data.ai_communication_analysis.communication_health_score * 100}%` }}
-                                        />
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              )}
-                            </CardContent>
-                          </Card>
-                        )}
-
-                        {/* Dynamic RAG Analysis */}
-                        {(results.data.analysis_result?.rag_insights || results.data.summary) && (
-                          <Card className="bg-gradient-to-br from-emerald-950/80 to-teal-950/80 backdrop-blur-sm border border-emerald-500/40">
-                            <CardHeader>
-                              <CardTitle className="flex items-center space-x-2 text-emerald-300">
-                                <BookOpen className="w-5 h-5" />
-                                <span>Expert Knowledge & Recommendations</span>
-                                <Badge variant="secondary" className="bg-emerald-600/20 text-emerald-300 border-emerald-500/30">
-                                  Dynamic RAG
-                                </Badge>
-                              </CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                              {results.data.analysis_result?.rag_insights?.ai_response && (
-                                <div className="bg-emerald-950/50 p-4 rounded border border-emerald-800/30">
-                                  <div className="prose prose-invert prose-emerald max-w-none">
-                                    <div 
-                                      className="text-emerald-200 leading-relaxed"
-                                      dangerouslySetInnerHTML={{
-                                        __html: results.data.analysis_result?.rag_insights?.ai_response || ''
-                                          .replace(/\n/g, '<br/>')
-                                          .replace(/### (.*?)(?=\n|$)/g, '<h3 class="text-emerald-300 font-bold text-lg mt-4 mb-2">$1</h3>')
-                                          .replace(/## (.*?)(?=\n|$)/g, '<h2 class="text-emerald-200 font-bold text-xl mt-6 mb-3">$1</h2>')
-                                          .replace(/# (.*?)(?=\n|$)/g, '<h1 class="text-emerald-100 font-bold text-2xl mt-8 mb-4">$1</h1>')
-                                          .replace(/\*\*(.*?)\*\*/g, '<strong class="text-emerald-100">$1</strong>')
-                                          .replace(/```bash([\s\S]*?)```/g, '<pre class="bg-black/50 p-3 rounded border border-emerald-700/30 text-green-300 text-sm overflow-x-auto"><code>$1</code></pre>')
-                                          .replace(/```([\s\S]*?)```/g, '<pre class="bg-black/50 p-3 rounded border border-emerald-700/30 text-emerald-300 text-sm overflow-x-auto"><code>$1</code></pre>')
-                                          .replace(/• (.*?)(?=<br|$)/g, '<div class="flex items-start space-x-2 my-1"><span class="text-emerald-400 mt-0.5">•</span><span>$1</span></div>')
-                                      }}
-                                    />
-                                  </div>
-                                </div>
-                              )}
-                              
-                              {results.data.analysis_result?.rag_insights?.analysis_metadata && (
-                                <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
-                                  <div className="text-center">
-                                    <div className="text-lg font-bold text-emerald-300">
-                                      {results.data.analysis_result?.rag_insights?.analysis_metadata?.components_analyzed || 0}
-                                    </div>
-                                    <div className="text-emerald-400 text-sm">Components Analyzed</div>
-                                  </div>
-                                  <div className="text-center">
-                                    <div className="text-lg font-bold text-emerald-300">
-                                      {results.data.analysis_result?.rag_insights?.analysis_metadata?.error_types_found || 0}
-                                    </div>
-                                    <div className="text-emerald-400 text-sm">Error Types Found</div>
-                                  </div>
-                                  <div className="text-center">
-                                    <div className="text-lg font-bold text-emerald-300">
-                                      {results.data.analysis_result?.rag_insights?.analysis_metadata?.knowledge_sources_used || 0}
-                                    </div>
-                                    <div className="text-emerald-400 text-sm">Knowledge Sources</div>
-                                  </div>
-                                  <div className="text-center">
-                                    <div className="text-lg font-bold text-emerald-300">
-                                      {results.data.analysis_result?.rag_insights?.analysis_metadata?.ai_available ? '✅' : '❌'}
-                                    </div>
-                                    <div className="text-emerald-400 text-sm">AI Available</div>
-                                  </div>
-                                </div>
-                              )}
-                            </CardContent>
-                          </Card>
-                        )}
-
-                        {/* Communication Issues Analysis */}
-                        {(results.data.analysis_result?.raw_data?.ai_communication_analysis?.ai_detected_issues || 
-                          (results.data.metadata?.errors_found || 0) > 0 ||
-                          (results.data.metadata?.critical_issues || 0) > 0) && (
-                          <Card className="bg-gradient-to-br from-red-950/80 to-orange-950/80 backdrop-blur-sm border border-red-500/40">
-                            <CardHeader>
-                              <CardTitle className="flex items-center space-x-2 text-red-300">
-                                <AlertTriangle className="w-5 h-5" />
-                                <span>Communication Issues Detected</span>
-                                <Badge variant="destructive" className="bg-red-600/20 text-red-300 border-red-500/30">
-                                  {results.data.analysis_result?.raw_data?.ai_communication_analysis?.ai_detected_issues?.length || 0} Issues
-                                </Badge>
-                              </CardTitle>
-                            </CardHeader>
-                            <CardContent className="space-y-4">
-                              {results.data.analysis_result?.raw_data?.ai_communication_analysis?.ai_detected_issues && 
-                               Array.isArray(results.data.analysis_result.raw_data.ai_communication_analysis.ai_detected_issues) ? 
-                               results.data.analysis_result.raw_data.ai_communication_analysis.ai_detected_issues.map((issue: CommunicationIssue, idx: number) => (
-                                <div key={idx} className="bg-red-950/50 p-4 rounded border border-red-800/30">
-                                  <div className="flex items-start justify-between mb-3">
-                                    <h4 className="text-red-200 font-medium capitalize">
-                                      {issue.category?.replace(/_/g, ' ') || 'Communication Issue'}
-                                    </h4>
-                                    <div className="flex items-center space-x-2">
-                                      <Badge 
-                                        variant={issue.severity === 'critical' ? 'destructive' : 'secondary'}
-                                        className={`${
-                                          issue.severity === 'critical' ? 'bg-red-600/20 text-red-300 border-red-500/30' :
-                                          issue.severity === 'high' ? 'bg-orange-600/20 text-orange-300 border-orange-500/30' :
-                                          'bg-yellow-600/20 text-yellow-300 border-yellow-500/30'
-                                        }`}
-                                      >
-                                        {issue.severity?.toUpperCase() || 'MEDIUM'}
-                                      </Badge>
-                                      {issue.confidence_score && (
-                                        <Badge variant="outline" className="text-red-400 border-red-500/30">
-                                          {Math.round(issue.confidence_score * 100)}% Confidence
-                                        </Badge>
-                                      )}
-                                    </div>
-                                  </div>
-                                  
-                                  {issue.ai_context && (
-                                    <p className="text-red-300 text-sm mb-3 italic">{issue.ai_context}</p>
-                                  )}
-                                  
-                                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div>
-                                      <h5 className="text-red-200 font-medium mb-2">Issue Count & Direction</h5>
-                                      <div className="space-y-1">
-                                        <div className="text-red-300 text-sm">
-                                          Issues Found: <span className="font-bold">{issue.issue_count || 0}</span>
-                                        </div>
-                                        <div className="text-red-300 text-sm">
-                                          Direction: <span className="font-bold capitalize">{issue.communication_direction?.replace(/_/g, ' ') || 'Unknown'}</span>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    
-                                    {issue.ports_affected && issue.ports_affected.length > 0 && (
-                                      <div>
-                                        <h5 className="text-red-200 font-medium mb-2">Affected Ports</h5>
-                                        <div className="flex flex-wrap gap-2">
-                                          {issue.ports_affected.map((port: number, portIdx: number) => (
-                                            <Badge key={portIdx} variant="outline" className="text-red-400 border-red-500/30">
-                                              Port {port}
-                                            </Badge>
-                                          ))}
-                                        </div>
-                                      </div>
-                                    )}
-                                  </div>
-                                  
-                                  {issue.matches && issue.matches.length > 0 && (
-                                    <div className="mt-4">
-                                      <h5 className="text-red-200 font-medium mb-2">Log Entries ({issue.matches.length})</h5>
-                                      <div className="space-y-2 max-h-40 overflow-y-auto">
-                                        {issue.matches.slice(0, 3).map((match: CommunicationIssueMatch, matchIdx: number) => (
-                                          <div key={matchIdx} className="bg-black/30 p-2 rounded text-xs">
-                                            <div className="text-red-400 font-mono">Line {match.line_number}:</div>
-                                            <div className="text-red-300 mt-1">{match.content}</div>
-                                          </div>
-                                        ))}
-                                        {issue.matches.length > 3 && (
-                                          <div className="text-red-400 text-xs text-center">
-                                            ... and {issue.matches.length - 3} more entries
-                                          </div>
-                                        )}
-                                      </div>
-                                    </div>
-                                  )}
-                                </div>
-                              )) : null}
-                            </CardContent>
-                          </Card>
-                        )}
-
-                        {/* Analysis Summary & Statistics */}
-                        {(results.data.summary || results.data.statistics) && (
-                          <Card className="bg-gradient-to-br from-gray-950/80 to-slate-950/80 backdrop-blur-sm border border-gray-500/40">
-                            <CardHeader>
-                              <CardTitle className="flex items-center space-x-2 text-gray-300">
-                                <BarChart3 className="w-5 h-5" />
-                                <span>Analysis Summary & Statistics</span>
-                              </CardTitle>
-                            </CardHeader>
-                            <CardContent className="space-y-4">
-                              {results.data.summary && (
-                                <div className="bg-gray-950/50 p-4 rounded border border-gray-800/30">
-                                  <h4 className="text-gray-200 font-medium mb-2">Summary</h4>
-                                  <p className="text-gray-300">{results.data.summary}</p>
-                                </div>
-                              )}
-                              
-                              {results.data.statistics && (
-                                <div className="bg-gray-950/50 p-4 rounded border border-gray-800/30">
-                                  <h4 className="text-gray-200 font-medium mb-3">Analysis Statistics</h4>
-                                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                    {Object.entries(results.data.statistics).map(([key, value]) => (
-                                      <div key={key} className="text-center">
-                                        <div className="text-lg font-bold text-gray-300">
-                                          {typeof value === 'number' ? value : (value as string)?.toString() || 'N/A'}
-                                        </div>
-                                        <div className="text-gray-400 text-sm capitalize">
-                                          {key.replace(/_/g, ' ')}
-                                        </div>
-                                      </div>
-                                    ))}
-                                  </div>
-                                </div>
-                              )}
-
-                              {results.data.metadata && (
-                                <div className="bg-gray-950/50 p-4 rounded border border-gray-800/30">
-                                  <h4 className="text-gray-200 font-medium mb-3">Analysis Metadata</h4>
-                                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                    <div className="text-center">
-                                      <div className="text-lg font-bold text-gray-300">
-                                        {results.data.metadata.files_processed || 0}
-                                      </div>
-                                      <div className="text-gray-400 text-sm">Files Processed</div>
-                                    </div>
-                                    <div className="text-center">
-                                      <div className="text-lg font-bold text-gray-300">
-                                        {results.data.metadata.log_entries_processed || 0}
-                                      </div>
-                                      <div className="text-gray-400 text-sm">Log Entries</div>
-                                    </div>
-                                    <div className="text-center">
-                                      <div className="text-lg font-bold text-gray-300">
-                                        {results.data.metadata.errors_found || 0}
-                                      </div>
-                                      <div className="text-gray-400 text-sm">Errors Found</div>
-                                    </div>
-                                    <div className="text-center">
-                                      <div className="text-lg font-bold text-gray-300">
-                                        {results.data.metadata.warnings_found || 0}
-                                      </div>
-                                      <div className="text-gray-400 text-sm">Warnings Found</div>
-                                    </div>
-                                  </div>
-                                </div>
-                              )}
-                            </CardContent>
-                          </Card>
-                        )}
-
-                        {/* Raw Data Expandable Section (for debugging) */}
-                        <Card className="bg-black/40 backdrop-blur-sm border border-gray-600/30">
-                          <CardHeader>
-                            <CardTitle className="flex items-center space-x-2 text-gray-400">
-                              <Code className="w-5 h-5" />
-                              <span>Technical Details</span>
-                              <Badge variant="outline" className="text-gray-500 border-gray-600/30">
-                                Advanced
-                              </Badge>
-                            </CardTitle>
-                          </CardHeader>
-                          <CardContent>
-                            <details className="group">
-                              <summary className="cursor-pointer text-gray-400 hover:text-gray-300 transition-colors">
-                                <span className="group-open:hidden">Show raw analysis data</span>
-                                <span className="hidden group-open:inline">Hide raw analysis data</span>
-                              </summary>
-                              <div className="mt-4 bg-gray-950/50 p-4 rounded border border-gray-800/30 overflow-auto max-h-96">
-                                <pre className="text-gray-400 text-xs whitespace-pre-wrap">
-                                  {JSON.stringify(results.data, null, 2)}
-                                </pre>
-                              </div>
-                            </details>
-                          </CardContent>
-                        </Card>
-                      </div>
-                    )}
-
+                          <button
+                            onClick={() => removeFile(index)}
+                            className="p-2 hover:bg-red-500/20 rounded-lg transition-colors group"
+                            title="Remove file"
+                          >
+                            <X className="h-4 w-4 text-gray-400 group-hover:text-red-400" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                )}
+                </div>
+              )}
 
+              {/* Analysis Button */}
+              {selectedFiles.length > 0 && (
+                <div className="text-center mt-8">
+                  <button
+                    onClick={handleAnalysis}
+                    disabled={isAnalyzing}
+                    className="group relative inline-flex items-center justify-center px-12 py-4 text-lg font-semibold text-white bg-gradient-to-r from-red-600 to-red-700 rounded-2xl hover:from-red-500 hover:to-red-600 focus:outline-none focus:ring-4 focus:ring-red-500/50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-red-500/25"
+                  >
+                    <div className="relative flex items-center gap-3">
+                      {isAnalyzing ? (
+                        <>
+                          <div className="animate-spin h-6 w-6 border-2 border-white border-t-transparent rounded-full"></div>
+                          <span>Analyzing with AI...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Brain className="h-6 w-6" />
+                          <span>Start AI Analysis</span>
+                        </>
+                      )}
+                    </div>
+                  </button>
+                </div>
+              )}
+
+              {/* Error Display */}
+              {error && (
+                <div className="mt-4 p-4 bg-red-500/20 border border-red-500/30 rounded-xl">
+                  <div className="flex items-center gap-2">
+                    <AlertCircle className="h-5 w-5 text-red-400" />
+                    <span className="text-red-300 font-medium">Analysis Error</span>
+                  </div>
+                  <p className="text-red-200 mt-1">{error}</p>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Enhanced Analysis Results */}
+        {analysisResult && (
+          <div className="space-y-8">
+            <div className="text-center mb-8">
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-700 rounded-2xl flex items-center justify-center">
+                  <CheckCircle className="h-8 w-8 text-white" />
+                </div>
+                <div className="h-12 w-px bg-gradient-to-b from-transparent via-green-500/50 to-transparent" />
+                <div className="flex flex-col items-start">
+                  <div className="flex items-center gap-2">
+                    <Brain className="h-5 w-5 text-blue-400" />
+                    <Target className="h-4 w-4 text-purple-400" />
+                    <Shield className="h-4 w-4 text-green-400" />
+                  </div>
+                  <span className="text-sm text-gray-400">AI Analysis Complete</span>
+                </div>
+              </div>
+              
+              <h2 className="text-4xl font-bold bg-gradient-to-r from-white via-green-200 to-green-400 bg-clip-text text-transparent mb-3">
+                Analysis Results
+              </h2>
+              
+              <div className="flex items-center justify-center gap-4 mb-4">
+                <Badge className="bg-green-500/20 text-green-300 border-green-500/30 px-4 py-2">
+                  <CheckCircle className="h-4 w-4 mr-2" />
+                  Analysis Complete
+                </Badge>
+                {analysisResult.root_cause_analysis_card?.ai_confidence_score && (
+                  <Badge className={`px-4 py-2 ${getConfidenceColor(analysisResult.root_cause_analysis_card.ai_confidence_score)} bg-opacity-20 border-opacity-30`}>
+                    <Brain className="h-4 w-4 mr-2" />
+                    {analysisResult.root_cause_analysis_card.ai_confidence_score}% AI Confidence
+                  </Badge>
+                )}
+              </div>
+              
+              <p className="text-gray-300 max-w-3xl mx-auto">
+                Comprehensive DS Agent offline diagnostic analysis powered by AI, ML, and RAG technologies. 
+                Results include root cause identification, expert recommendations, and confidence scoring.
+              </p>
+            </div>
+
+            {/* Card 1: Key Findings */}
+            <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:border-blue-500/40 transition-all duration-300">
+              <CardHeader className="pb-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center">
+                    <Info className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-white text-xl">Key Findings</CardTitle>
+                    <CardDescription className="text-gray-300">Critical status overview</CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {/* Heartbeat Status */}
+                  <div className="space-y-3">
+                    <h4 className="font-semibold flex items-center gap-2 text-white">
+                      <Clock className="h-4 w-4 text-blue-400" />
+                      Last Successful Heartbeat
+                    </h4>
+                    <div className="bg-white/5 backdrop-blur-sm p-4 rounded-lg border border-white/10">
+                      <div className="flex items-center gap-2 mb-2">
+                        {analysisResult.key_findings_card?.last_successful_heartbeat?.status === 'Found in logs' ? (
+                          <CheckCircle className="h-4 w-4 text-green-400" />
+                        ) : (
+                          <XCircle className="h-4 w-4 text-red-400" />
+                        )}
+                        <span className="font-medium text-white">
+                          {analysisResult.key_findings_card?.last_successful_heartbeat?.status || 'Status unknown'}
+                        </span>
+                      </div>
+                      {analysisResult.key_findings_card?.last_successful_heartbeat?.timestamp && (
+                        <div className="text-sm text-gray-300">
+                          <p><strong>Timestamp:</strong> {analysisResult.key_findings_card.last_successful_heartbeat.timestamp}</p>
+                          <p><strong>Time Ago:</strong> {analysisResult.key_findings_card.last_successful_heartbeat.time_ago}</p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Communication Method */}
+                  <div className="space-y-3">
+                    <h4 className="font-semibold flex items-center gap-2 text-white">
+                      <Network className="h-4 w-4 text-purple-400" />
+                      Communication Method
+                    </h4>
+                    <div className="bg-white/5 backdrop-blur-sm p-4 rounded-lg border border-white/10">
+                      <div className="space-y-2 text-gray-300">
+                        <p><strong className="text-white">Method:</strong> {analysisResult.key_findings_card?.communication_method?.detected_method || 'Unknown'}</p>
+                        <p><strong className="text-white">Primary:</strong> {analysisResult.key_findings_card?.communication_method?.primary_method || 'Unknown'}</p>
+                        {analysisResult.key_findings_card?.communication_method?.ports_detected?.length > 0 && (
+                          <div>
+                            <strong className="text-white">Ports Detected:</strong>
+                            <div className="flex flex-wrap gap-1 mt-1">
+                              {analysisResult.key_findings_card.communication_method.ports_detected.map((port, idx) => (
+                                <Badge key={idx} variant="outline" className="text-xs border-purple-500/30 text-purple-300">
+                                  {port.port}
+                                </Badge>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Proxy Server Analysis */}
+                  <div className="space-y-3">
+                    <h4 className="font-semibold flex items-center gap-2 text-white">
+                      <Settings className="h-4 w-4 text-green-400" />
+                      Proxy Server Analysis
+                    </h4>
+                    <div className="bg-white/5 backdrop-blur-sm p-4 rounded-lg border border-white/10">
+                      <div className="flex items-center gap-2 mb-2">
+                        {analysisResult.key_findings_card?.proxy_server_analysis?.proxy_detected ? (
+                          <AlertTriangle className="h-4 w-4 text-yellow-400" />
+                        ) : (
+                          <CheckCircle className="h-4 w-4 text-green-400" />
+                        )}
+                        <span className="font-medium text-white">
+                          {analysisResult.key_findings_card?.proxy_server_analysis?.proxy_detected ? 'Proxy Detected' : 'No Proxy Detected'}
+                        </span>
+                      </div>
+                      {analysisResult.key_findings_card?.proxy_server_analysis?.proxy_issues?.length > 0 && (
+                        <div className="mt-2">
+                          <strong className="text-white">Issues:</strong>
+                          <ul className="list-disc list-inside text-sm text-gray-300 mt-1">
+                            {analysisResult.key_findings_card.proxy_server_analysis.proxy_issues.slice(0, 3).map((issue, idx) => (
+                              <li key={idx}>{issue}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Network Failures */}
+                  <div className="space-y-3">
+                    <h4 className="font-semibold flex items-center gap-2 text-white">
+                      <AlertTriangle className="h-4 w-4 text-yellow-400" />
+                      Network Communication Failures
+                    </h4>
+                    <div className="bg-white/5 backdrop-blur-sm p-4 rounded-lg border border-white/10">
+                      <div className="flex items-center gap-2 mb-2">
+                        {analysisResult.key_findings_card?.network_communication_failures?.network_failures_found ? (
+                          <XCircle className="h-4 w-4 text-red-400" />
+                        ) : (
+                          <CheckCircle className="h-4 w-4 text-green-400" />
+                        )}
+                        <span className="font-medium text-white">
+                          {analysisResult.key_findings_card?.network_communication_failures?.network_failures_found 
+                            ? `${analysisResult.key_findings_card.network_communication_failures.failure_count || 0} failures detected`
+                            : 'No network failures detected'
+                          }
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Certificate Issues */}
+                  <div className="space-y-3">
+                    <h4 className="font-semibold flex items-center gap-2 text-white">
+                      <Shield className="h-4 w-4 text-red-400" />
+                      Certificate Issues
+                    </h4>
+                    <div className="bg-white/5 backdrop-blur-sm p-4 rounded-lg border border-white/10">
+                      <div className="flex items-center gap-2 mb-2">
+                        {analysisResult.key_findings_card?.certificate_issues?.cert_problems_found ? (
+                          <XCircle className="h-4 w-4 text-red-400" />
+                        ) : (
+                          <CheckCircle className="h-4 w-4 text-green-400" />
+                        )}
+                        <span className="font-medium text-white">
+                          {analysisResult.key_findings_card?.certificate_issues?.cert_problems_found 
+                            ? `${analysisResult.key_findings_card.certificate_issues.cert_issues_count || 0} certificate issues found`
+                            : 'No certificate issues detected'
+                          }
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Port Failures */}
+                  <div className="space-y-3">
+                    <h4 className="font-semibold flex items-center gap-2 text-white">
+                      <Settings className="h-4 w-4 text-orange-400" />
+                      Port Failures
+                    </h4>
+                    <div className="bg-white/5 backdrop-blur-sm p-4 rounded-lg border border-white/10">
+                      <div className="flex items-center gap-2 mb-2">
+                        {analysisResult.key_findings_card?.port_failures?.port_issues_found ? (
+                          <XCircle className="h-4 w-4 text-red-400" />
+                        ) : (
+                          <CheckCircle className="h-4 w-4 text-green-400" />
+                        )}
+                        <span className="font-medium text-white">
+                          {analysisResult.key_findings_card?.port_failures?.port_issues_found 
+                            ? `Port issues on: ${analysisResult.key_findings_card.port_failures.failed_ports?.join(', ') || 'unknown ports'}`
+                            : 'No port issues detected'
+                          }
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </CardContent>
             </Card>
+
+            {/* Card 2: Root Cause Analysis */}
+            <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:border-yellow-500/40 transition-all duration-300">
+              <CardHeader className="pb-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-xl flex items-center justify-center">
+                    <Brain className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-white text-xl">Root Cause Analysis</CardTitle>
+                    <CardDescription className="text-gray-300">AI-powered diagnosis of DS Agent offline issues</CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-6">
+                  {/* Primary Root Cause */}
+                  <div>
+                    <h4 className="font-semibold mb-3 text-white">Primary Root Cause</h4>
+                    <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4">
+                      <p className="text-gray-300 font-medium">{analysisResult.root_cause_analysis_card?.primary_root_cause || 'Root cause analysis in progress...'}</p>
+                    </div>
+                  </div>
+
+                  {/* Severity and Confidence */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <h4 className="font-semibold mb-3 text-white">Severity Assessment</h4>
+                      <Badge className={`${getSeverityColor(analysisResult.root_cause_analysis_card?.severity_assessment || 'unknown')} bg-white/10 border-white/20`}>
+                        {analysisResult.root_cause_analysis_card?.severity_assessment || 'Unknown'}
+                      </Badge>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-3 text-white">AI Confidence Score</h4>
+                      <span className={`text-2xl font-bold ${getConfidenceColor(analysisResult.root_cause_analysis_card?.ai_confidence_score || 0)}`}>
+                        {analysisResult.root_cause_analysis_card?.ai_confidence_score || 0}%
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Contributing Factors */}
+                  <div>
+                    <h4 className="font-semibold mb-3 text-white">Contributing Factors</h4>
+                    <div className="space-y-2">
+                      {analysisResult.root_cause_analysis_card?.contributing_factors?.length > 0 ? (
+                        analysisResult.root_cause_analysis_card.contributing_factors.map((factor, idx) => (
+                          <div key={idx} className="flex items-center gap-2 text-sm text-gray-300">
+                            <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                            {factor}
+                          </div>
+                        ))
+                      ) : (
+                        <p className="text-gray-400 text-sm">No contributing factors identified</p>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Offline Duration Impact */}
+                  <div>
+                    <h4 className="font-semibold mb-3 text-white">Offline Duration Impact</h4>
+                    <div className="bg-yellow-500/20 border border-yellow-500/30 rounded-lg p-4">
+                      <p className="text-yellow-200">{analysisResult.root_cause_analysis_card?.offline_duration_impact || 'Cannot determine offline duration from available logs'}</p>
+                    </div>
+                  </div>
+
+                  {/* Correlation Analysis */}
+                  <div>
+                    <h4 className="font-semibold mb-3 text-white">Correlation Analysis</h4>
+                    <div className="bg-white/5 backdrop-blur-sm p-4 rounded-lg border border-white/10">
+                      <ul className="space-y-1 text-sm">
+                        {analysisResult.root_cause_analysis_card?.correlation_analysis?.length > 0 ? (
+                          analysisResult.root_cause_analysis_card.correlation_analysis.map((item, idx) => (
+                            <li key={idx} className="flex items-start gap-2 text-gray-300">
+                              <div className="w-1.5 h-1.5 bg-gray-400 rounded-full mt-2 flex-shrink-0"></div>
+                              {item}
+                            </li>
+                          ))
+                        ) : (
+                          <li className="text-gray-400">No correlation data available</li>
+                        )}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Card 3: Troubleshooting Recommendations */}
+            <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:border-green-500/40 transition-all duration-300">
+              <CardHeader className="pb-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-700 rounded-xl flex items-center justify-center">
+                    <Wrench className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-white text-xl">Troubleshooting Recommendations</CardTitle>
+                    <CardDescription className="text-gray-300">Direct technical support instructions from Trend Micro Deep Security experts</CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="bg-gradient-to-br from-green-500/20 to-blue-500/20 border border-green-500/30 rounded-lg p-6">
+                  <div className="space-y-3">
+                    {analysisResult.troubleshooting_recommendations_card?.troubleshooting_steps?.length > 0 ? (
+                      analysisResult.troubleshooting_recommendations_card.troubleshooting_steps.map((step: string, idx: number) => (
+                        <div key={idx} className="text-gray-300 leading-relaxed">
+                          {step.trim() === '' ? (
+                            <div className="h-2"></div>
+                          ) : step.startsWith('🚨') || step.startsWith('⚠️') || step.startsWith('📋') ? (
+                            <div className="font-semibold text-white bg-red-500/30 px-4 py-2 rounded-lg border border-red-500/40">
+                              {step}
+                            </div>
+                          ) : step.startsWith('Root Cause:') ? (
+                            <div className="font-medium text-orange-300 bg-orange-500/20 px-4 py-2 rounded-lg border border-orange-500/30">
+                              {step}
+                            </div>
+                          ) : step.startsWith('AI Confidence:') ? (
+                            <div className="font-medium text-blue-300 bg-blue-500/20 px-4 py-2 rounded-lg border border-blue-500/30">
+                              {step}
+                            </div>
+                          ) : step.startsWith('TREND MICRO TECHNICAL SUPPORT') ? (
+                            <div className="font-bold text-white bg-gradient-to-r from-red-600 to-red-700 px-4 py-3 rounded-lg border border-red-500/40 text-center">
+                              {step}
+                            </div>
+                          ) : step.startsWith('🔧') || step.startsWith('🌐') || step.startsWith('🔐') || step.startsWith('🤝') || step.startsWith('🚪') || step.startsWith('🔄') ? (
+                            <div className="font-semibold text-yellow-300 bg-yellow-500/20 px-4 py-2 rounded-lg border border-yellow-500/30 mt-4">
+                              {step}
+                            </div>
+                          ) : step.startsWith('📋 VERIFICATION STEPS:') ? (
+                            <div className="font-semibold text-green-300 bg-green-500/20 px-4 py-2 rounded-lg border border-green-500/30 mt-4">
+                              {step}
+                            </div>
+                          ) : step.startsWith('📞') ? (
+                            <div className="font-medium text-purple-300 bg-purple-500/20 px-4 py-2 rounded-lg border border-purple-500/30">
+                              {step}
+                            </div>
+                          ) : step.match(/^\d+\./) ? (
+                            <div className="ml-6 flex items-start gap-3">
+                              <span className="bg-green-600 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 mt-0.5 font-medium">
+                                {step.match(/^(\d+)\./)?.[1]}
+                              </span>
+                              <span className="text-gray-200">{step.replace(/^\d+\.\s*/, '')}</span>
+                            </div>
+                          ) : step.startsWith('•') ? (
+                            <div className="ml-4 flex items-start gap-2">
+                              <span className="text-green-400 mt-1">•</span>
+                              <span className="text-gray-200">{step.replace(/^•\s*/, '')}</span>
+                            </div>
+                          ) : (
+                            <div className={step.startsWith('✅') ? 'text-green-300 font-medium' : 'text-gray-300'}>
+                              {step}
+                            </div>
+                          )}
+                        </div>
+                      ))
+                    ) : (
+                      <div className="text-center text-gray-400 py-8">
+                        <Wrench className="h-12 w-12 mx-auto mb-3 opacity-50" />
+                        <p>No troubleshooting recommendations available</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Reset Button */}
+            <div className="text-center">
+              <Button 
+                onClick={() => {
+                  setAnalysisResult(null)
+                  setSelectedFiles([])
+                  setSessionId(null)
+                  setError(null)
+                }}
+                variant="outline"
+                className="bg-white/10 border-white/20 text-white hover:bg-white/20 hover:border-white/30 transition-all duration-300"
+              >
+                Analyze New Files
+              </Button>
+            </div>
           </div>
-        </div>
-        </div>
+        )}
       </main>
 
       {/* Footer */}
-      <footer className="relative z-50 bg-black/70 border-t border-white/10 text-white py-16">
+      <footer className="relative z-10 bg-black/40 backdrop-blur-sm border-t border-white/10 text-white py-12">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="md:col-span-2">
@@ -1715,13 +1131,13 @@ export default function DSAgentOfflineAnalyzer() {
               <ul className="space-y-3 text-gray-300">
                 {products.map((product) => (
                   <li key={product.id}>
-                    <button 
-                      onClick={() => handleProductSelection(product.id)}
+                    <Link 
+                      href={`/products/${product.id}`}
                       className="hover:text-white transition-colors duration-300 text-left flex items-center"
                     >
                       <span className="text-lg mr-2">{product.icon}</span>
                       {product.name}
-                    </button>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -1742,5 +1158,5 @@ export default function DSAgentOfflineAnalyzer() {
         </div>
       </footer>
     </div>
-  );
+  )
 }

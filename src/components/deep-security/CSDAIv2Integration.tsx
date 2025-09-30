@@ -69,7 +69,7 @@ export default function CSDAIv2Integration({ initialAnalyzer, caseContext }: CSD
   const router = useRouter();
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
-  const [analysisType, setAnalysisType] = useState(initialAnalyzer || 'amsp_logs');
+  const [analysisType, setAnalysisType] = useState(initialAnalyzer || 'ds_agent_offline');
   const [results, setResults] = useState<AnalysisResult | null>(null);
   const [isDragOver, setIsDragOver] = useState(false);
   const [sessionId, setSessionId] = useState<string>('');
@@ -681,13 +681,13 @@ export default function CSDAIv2Integration({ initialAnalyzer, caseContext }: CSD
       icon: '🔴',
       estimatedTime: '1-3 minutes'
     },
-    'amsp_logs': {
-      title: 'AMSP (Anti-Malware Scan Performance)',
-      description: 'Advanced analysis of anti-malware scanning performance and efficiency. Provides insights into scan patterns, false positives, and performance optimization recommendations.',
-      features: ['Scan Performance Metrics', 'False Positive Analysis', 'Pattern Recognition', 'Optimization Insights'],
-      icon: '🛡️',
-      estimatedTime: '2-4 minutes'
-    },
+    // 'amsp_logs': {
+    //   title: 'AMSP (Anti-Malware Scan Performance)',
+    //   description: 'Advanced analysis of anti-malware scanning performance and efficiency. Provides insights into scan patterns, false positives, and performance optimization recommendations.',
+    //   features: ['Scan Performance Metrics', 'False Positive Analysis', 'Pattern Recognition', 'Optimization Insights'],
+    //   icon: '🛡️',
+    //   estimatedTime: '2-4 minutes'
+    // },
     'av_conflicts': {
       title: 'Anti-Virus Conflict Analyzer', 
       description: 'Detects conflicts between Deep Security and other anti-virus solutions. Identifies performance impacts, compatibility issues, and provides recommendations for optimal configuration.',
@@ -915,7 +915,7 @@ export default function CSDAIv2Integration({ initialAnalyzer, caseContext }: CSD
       // Reset all state variables to initial values
       setIsAnalyzing(false);
       setUploadedFiles([]);
-      setAnalysisType(initialAnalyzer || 'amsp_logs');
+      setAnalysisType(initialAnalyzer || 'ds_agent_offline');
       setResults(null);
       setIsDragOver(false);
       setSessionId('');
@@ -934,7 +934,7 @@ export default function CSDAIv2Integration({ initialAnalyzer, caseContext }: CSD
       // Reset state anyway
       setIsAnalyzing(false);
       setUploadedFiles([]);
-      setAnalysisType(initialAnalyzer || 'amsp_logs');
+      setAnalysisType(initialAnalyzer || 'ds_agent_offline');
       setResults(null);
       setIsDragOver(false);
       setSessionId('');
@@ -955,7 +955,7 @@ export default function CSDAIv2Integration({ initialAnalyzer, caseContext }: CSD
         
         // Map analyzer IDs to analysis type IDs
         const analyzerMapping = {
-          'amsp_analyzer': 'amsp_logs',
+          // 'amsp_analyzer': 'amsp_logs', // AMSP processing disabled
           'conflict_analyzer': 'av_conflicts', 
           'ds_agent_offline_analyzer': 'ds_agent_offline',
           'resource_analyzer': 'resource_analysis',
@@ -1042,7 +1042,8 @@ export default function CSDAIv2Integration({ initialAnalyzer, caseContext }: CSD
         'Component corruption',
         'Memory issues',
         'Configuration errors'
-      ]
+      ],
+      disabled: false
     },
     { 
       id: 'av_conflicts', 
@@ -1958,14 +1959,14 @@ Please upload at least one of these files to proceed with Resource Analysis.`);
 
                 // Check if analyzer is available
                 const availability = analyzerAvailability[type.id];
-                const isDisabled = availability?.status === 'disabled';
-                const isAvailable = availability?.status === 'enabled' || !availability; // Default to enabled if unknown
+                const isDisabled = availability?.status === 'disabled' || type.disabled || type.id === 'amsp_logs';
+                const isAvailable = (availability?.status === 'enabled' || !availability) && !type.disabled && type.id !== 'amsp_logs'; // Default to enabled if unknown
 
                 return (
                   <button
                     key={type.id}
                     onClick={() => {
-                      if (isDisabled) return;
+                      if (isDisabled || type.id === 'amsp_logs') return;
                       
                       // Special handling for DS Agent Offline - redirect to dedicated page
                       if (type.id === 'ds_agent_offline') {
@@ -2172,7 +2173,7 @@ Please upload at least one of these files to proceed with Resource Analysis.`);
               <input
                 type="file"
                 multiple
-                accept=".log,.txt,.xml,.csv"
+                accept=".log,.txt,.xml,.csv,.zip"
                 onChange={(e) => handleFileUpload(e.target.files)}
                 className="hidden"
                 id="file-upload"

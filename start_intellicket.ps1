@@ -152,8 +152,11 @@ function Start-Backend {
     }
     
     try {
-        # Start backend in new window
-        $backendProcess = Start-Process -FilePath "python" -ArgumentList "CSDAIv2\app.py" -WindowStyle Normal -PassThru
+        # Get current directory for the new terminal
+        $currentDir = Get-Location
+        
+        # Start backend in new PowerShell terminal window
+        $backendProcess = Start-Process -FilePath "powershell" -ArgumentList "-NoExit", "-Command", "Set-Location '$currentDir'; Write-Host '🔥 CSDAIv2 Backend Server - Port 5003' -ForegroundColor Green; Write-Host 'Press Ctrl+C to stop this service' -ForegroundColor Yellow; Write-Host ''; python CSDAIv2\app.py" -WindowStyle Normal -PassThru
         
         Write-Host "⏳ Waiting for backend to initialize..." -ForegroundColor Yellow
         Start-Sleep -Seconds 5
@@ -189,8 +192,11 @@ function Start-Frontend {
     }
     
     try {
-        # Start frontend in new window
-        $frontendProcess = Start-Process -FilePath "cmd" -ArgumentList "/c", "npm run dev" -WindowStyle Normal -PassThru
+        # Get current directory for the new terminal
+        $currentDir = Get-Location
+        
+        # Start frontend in new PowerShell terminal window
+        $frontendProcess = Start-Process -FilePath "powershell" -ArgumentList "-NoExit", "-Command", "Set-Location '$currentDir'; Write-Host '🌐 Intellicket Frontend - Port 3000' -ForegroundColor Green; Write-Host 'Press Ctrl+C to stop this service' -ForegroundColor Yellow; Write-Host ''; npm run dev" -WindowStyle Normal -PassThru
         
         Write-Host "⏳ Waiting for frontend to initialize..." -ForegroundColor Yellow
         Start-Sleep -Seconds 8
@@ -231,8 +237,11 @@ function Start-AdminInterface {
     }
     
     try {
-        # Start admin interface in new window
-        $adminProcess = Start-Process -FilePath "cmd" -ArgumentList "/c", "cd intellicket-admin && npm run dev" -WindowStyle Normal -PassThru
+        # Get current directory for the new terminal
+        $currentDir = Get-Location
+        
+        # Start admin interface in new PowerShell terminal window
+        $adminProcess = Start-Process -FilePath "powershell" -ArgumentList "-NoExit", "-Command", "Set-Location '$currentDir'; Write-Host '🎛️ Admin Interface - Port 3001' -ForegroundColor Green; Write-Host 'Press Ctrl+C to stop this service' -ForegroundColor Yellow; Write-Host ''; Set-Location intellicket-admin; npm run dev" -WindowStyle Normal -PassThru
         
         Write-Host "⏳ Waiting for admin interface to initialize..." -ForegroundColor Yellow
         Start-Sleep -Seconds 6
@@ -345,16 +354,29 @@ try {
     
     if ($processes.Count -gt 0) {
         Write-Host ""
-        Write-Host "🚀 $($processes.Count) services started successfully!" -ForegroundColor Green
-        Write-Host "Press Ctrl+C to stop all services..." -ForegroundColor Yellow
+        Write-Host "🚀 $($processes.Count) services started successfully in separate terminal windows!" -ForegroundColor Green
+        Write-Host ""
+        Write-Host "📋 TERMINAL WINDOWS OPENED:" -ForegroundColor Cyan
+        Write-Host "  • Backend Terminal:    python CSDAIv2\app.py (Port 5003)" -ForegroundColor White
+        Write-Host "  • Frontend Terminal:   npm run dev (Port 3000)" -ForegroundColor White
+        Write-Host "  • Admin Terminal:      npm run dev (Port 3001)" -ForegroundColor White
+        Write-Host ""
+        Write-Host "🔧 To stop individual services:" -ForegroundColor Yellow
+        Write-Host "  • Go to each terminal window and press Ctrl+C" -ForegroundColor White
+        Write-Host ""
+        Write-Host "🔧 To stop all services at once:" -ForegroundColor Yellow
+        Write-Host "  • Press Ctrl+C in this window" -ForegroundColor White
+        Write-Host ""
+        Write-Host "⏳ Monitoring services... Press Ctrl+C to stop all" -ForegroundColor Yellow
         
-        # Keep script running
+        # Keep script running for monitoring and cleanup
         try {
             while ($true) {
                 Start-Sleep -Seconds 30
                 # Optional: Add periodic health checks here
             }
         } catch {
+            Write-Host ""
             Write-Host "🛑 Shutting down Intellicket services..." -ForegroundColor Yellow
             
             # Stop all processes
@@ -369,7 +391,9 @@ try {
                 }
             }
             
+            Write-Host ""
             Write-Host "👋 Intellicket system shutdown complete!" -ForegroundColor Green
+            Write-Host "💡 Note: You may need to manually close the terminal windows if they're still open." -ForegroundColor Cyan
         }
     } else {
         Write-Host ""

@@ -151,7 +151,7 @@ function calculateRelevanceScore(fileName: string, content: string = '', product
   
   // Product-specific relevance
   if (productLower.includes('deep security')) {
-    const dsTerms = ['deep security', 'ds', 'agent', 'manager', 'amsp', 'dsa', 'dsm'];
+    const dsTerms = ['deep security', 'ds', 'agent', 'manager', /*'amsp',*/ 'dsa', 'dsm'];
     dsTerms.forEach(term => {
       if (fileNameLower.includes(term) || contentLower.includes(term)) {
         score += 15;
@@ -324,11 +324,11 @@ function recommendAnalyzers(fileName: string, fileType: FileAnalysisResult['file
   
   // Product-specific analyzer recommendations
   if (productLower.includes('deep security')) {
-    // AMSP Analyzer
-    if (fileNameLower.includes('amsp') || fileNameLower.includes('scan') || 
-        issueLower.includes('malware') || issueLower.includes('performance')) {
-      analyzers.push('AMSP Performance Analyzer');
-    }
+    // // AMSP Analyzer - DISABLED
+    // if (fileNameLower.includes('amsp') || fileNameLower.includes('scan') || 
+    //     issueLower.includes('malware') || issueLower.includes('performance')) {
+    //   analyzers.push('AMSP Performance Analyzer');
+    // }
     
     // Agent Log Analyzer - REMOVED FROM FRONTEND  
     // DS Agent Log analysis is handled backend-only

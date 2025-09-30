@@ -1,16 +1,26 @@
 'use client';
 
 import { useState, useEffect, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import CSDAIv2Integration from '../../../components/deep-security/CSDAIv2Integration';
 import ErrorBoundary from '../../../components/common/ErrorBoundary';
+import StandardFooter from '../../../components/common/StandardFooter';
 import Image from 'next/image';
+import { 
+  Shield, 
+  Zap, 
+  Ticket, 
+  BookOpen,
+  ArrowLeft,
+  Brain
+} from 'lucide-react';
 
 // Create a separate component for the search params logic
 function DeepSecurityContent() {
   const [isIntegrationReady, setIsIntegrationReady] = useState(true); // Set to true to show the integration by default
   const searchParams = useSearchParams();
+  const router = useRouter();
   
   // Get analyzer from URL params
   const analyzerParam = searchParams?.get('analyzer');
@@ -38,12 +48,7 @@ function DeepSecurityContent() {
     }
   }, [autoUploadedParam]);
 
-  const products = [
-    { id: 'deep-security', name: 'Deep Security', icon: '🛡️' },
-    { id: 'apex-one', name: 'Apex One', icon: '🔒' },
-    { id: 'vision-one', name: 'Vision One', icon: '👁️' },
-    { id: 'service-gateway', name: 'Service Gateway', icon: '🌐' },
-  ];
+
 
   // This component now contains the integrated CSDAIv2 system
   const IntegrationPlaceholder = () => {
@@ -61,7 +66,7 @@ function DeepSecurityContent() {
     return (
       <div className="bg-gradient-to-br from-red-900/20 to-red-800/20 border-2 border-red-500/30 rounded-2xl p-8 text-center backdrop-blur-sm">
         <div className="w-20 h-20 bg-gradient-to-br from-red-500 to-red-700 rounded-2xl mx-auto mb-6 flex items-center justify-center shadow-2xl">
-          <span className="text-white font-bold text-3xl">⚡</span>
+          <Zap className="h-10 w-10 text-white" />
         </div>
         <h3 className="text-2xl font-bold text-white mb-4">
           Integration Ready
@@ -83,9 +88,18 @@ function DeepSecurityContent() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-red-950/10 to-gray-950 relative overflow-hidden">
       {/* Animated Background Elements */}
-      <div className="absolute inset-0 opacity-15">
-        <div className="absolute top-20 left-20 w-96 h-96 bg-red-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-orange-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse animation-delay-2000"></div>
+      <div className="absolute inset-0 opacity-20 overflow-hidden">
+        {/* Primary floating orbs */}
+        <div className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-r from-red-500 to-red-600 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-r from-orange-500 to-red-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
+        
+        {/* Secondary floating elements */}
+        <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mix-blend-multiply filter blur-2xl animate-pulse" style={{animationDelay: '1s'}}></div>
+        <div className="absolute bottom-1/3 right-1/3 w-48 h-48 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full mix-blend-multiply filter blur-2xl animate-pulse" style={{animationDelay: '3s'}}></div>
+        
+        {/* Moving particles */}
+        <div className="absolute top-1/4 right-1/4 w-32 h-32 bg-red-400 rounded-full mix-blend-multiply filter blur-xl animate-bounce opacity-30" style={{animationDuration: '4s'}}></div>
+        <div className="absolute bottom-1/4 left-1/3 w-24 h-24 bg-orange-400 rounded-full mix-blend-multiply filter blur-xl animate-bounce opacity-30" style={{animationDuration: '3s', animationDelay: '0.5s'}}></div>
       </div>
 
       {/* Header */}
@@ -111,37 +125,69 @@ function DeepSecurityContent() {
               </Link>
               <span className="text-gray-500">→</span>
               <div className="flex items-center space-x-2">
-                <span className="text-2xl">🛡️</span>
+                <Shield className="h-5 w-5 text-red-400" />
                 <span className="text-white font-semibold">Deep Security</span>
               </div>
             </div>
             <Link
               href="/"
-              className="bg-red-500/20 text-red-300 px-6 py-2 rounded-xl hover:bg-red-500/30 transition-all duration-300 border border-red-500/30"
+              className="bg-red-500/20 text-red-300 px-6 py-2 rounded-xl hover:bg-red-500/30 transition-all duration-300 border border-red-500/30 flex items-center gap-2"
             >
-              ← Back to Products
+              <ArrowLeft className="h-4 w-4" />
+              Back to Products
             </Link>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="relative z-10 max-w-7xl mx-auto px-4 py-12">
+      <main className="relative z-10 max-w-7xl mx-auto px-4 py-8">
+        {/* Clean Hero Section */}
         <div className="text-center mb-16">
-          <div className="w-32 h-32 bg-gradient-to-br from-red-500 to-red-700 rounded-3xl mx-auto mb-8 flex items-center justify-center shadow-2xl">
-            <span className="text-white font-bold text-5xl">🛡️</span>
+          {/* Simple Hero Title */}
+          <div className="mb-8">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+              <span className="bg-gradient-to-r from-white via-gray-100 to-red-200 bg-clip-text text-transparent">
+                Deep Security
+              </span>
+              <span className="bg-gradient-to-r from-red-400 via-red-500 to-red-600 bg-clip-text text-transparent"> AI Support</span>
+            </h1>
+            
+            {/* Simplified AI Badge */}
+            <div className="inline-flex items-center gap-2 bg-blue-950/30 px-4 py-2 rounded-full border border-blue-500/30 backdrop-blur-sm">
+              <Brain className="h-4 w-4 text-blue-400" />
+              <span className="text-blue-300 font-medium text-sm">Powered by Advanced AI</span>
+            </div>
           </div>
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-            Deep Security <span className="text-red-400">Support</span>
-          </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Experience next-generation Deep Security troubleshooting with our 
-            <span className="text-red-400"> AI-Enhanced Unified Analyzer Suite</span>. Featuring intelligent 
-            analyzers for AMSP performance monitoring, conflict resolution, agent diagnostics, and resource optimization - 
-            each powered by <span className="text-blue-400 font-semibold">machine learning algorithms</span> and 
-            <span className="text-green-400 font-semibold">dynamic knowledge retrieval</span> to deliver 
-            precise insights and automated recommendations for faster issue resolution.
-          </p>
+
+          {/* Streamlined Description */}
+          <div className="max-w-2xl mx-auto mb-8">
+            <p className="text-lg text-gray-300 leading-relaxed mb-3">
+              Experience next-generation Deep Security troubleshooting with our 
+              <span className="text-red-400 font-semibold"> AI-Enhanced Unified Analyzer Suite</span>
+            </p>
+            <p className="text-sm text-gray-400">
+              Intelligent analyzers powered by{' '}
+              <span className="text-blue-400 font-semibold">machine learning</span>{' '}and{' '}
+              <span className="text-green-400 font-semibold">dynamic knowledge retrieval</span>
+            </p>
+          </div>
+
+          {/* Feature Pills */}
+          <div className="flex flex-wrap justify-center gap-3 mb-8">
+            <div className="bg-red-950/30 border border-red-500/30 px-4 py-2 rounded-full">
+              <span className="text-red-300 text-sm font-medium">AMSP Analysis</span>
+            </div>
+            <div className="bg-blue-950/30 border border-blue-500/30 px-4 py-2 rounded-full">
+              <span className="text-blue-300 text-sm font-medium">Conflict Resolution</span>
+            </div>
+            <div className="bg-green-950/30 border border-green-500/30 px-4 py-2 rounded-full">
+              <span className="text-green-300 text-sm font-medium">Agent Diagnostics</span>
+            </div>
+            <div className="bg-purple-950/30 border border-purple-500/30 px-4 py-2 rounded-full">
+              <span className="text-purple-300 text-sm font-medium">Resource Optimization</span>
+            </div>
+          </div>
         </div>
 
         {/* Integration Area - CSDAIv2 Deep Security Unified Analyzer */}
@@ -150,115 +196,80 @@ function DeepSecurityContent() {
         </div>
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl shadow-2xl p-8 border border-white/20 hover:border-red-500/40 transition-all duration-300 group">
-            <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-red-700 rounded-2xl mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-              <span className="text-white text-2xl">🎫</span>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
+          {/* Support Ticket Card */}
+          <div className="group relative">
+            <div className="absolute -inset-1 bg-gradient-to-r from-red-500/50 via-orange-500/50 to-red-500/50 rounded-2xl blur opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+            <div className="relative bg-gradient-to-br from-slate-900/90 to-red-950/30 backdrop-blur-xl rounded-2xl shadow-2xl p-8 border border-red-500/30 hover:border-red-400/60 transition-all duration-300">
+              <div className="flex items-start justify-between mb-6">
+                <div className="relative">
+                  <div className="w-18 h-18 bg-gradient-to-br from-red-500 to-red-700 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-red-500/30">
+                    <Ticket className="h-9 w-9 text-white" />
+                  </div>
+                  <div className="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-r from-orange-500 to-yellow-500 rounded-full flex items-center justify-center animate-pulse">
+                    <span className="text-white text-xs font-bold">!</span>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="text-red-400 text-sm font-medium">SUPPORT</div>
+                  <div className="text-gray-500 text-xs">24/7 Available</div>
+                </div>
+              </div>
+              
+              <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-red-300 transition-colors">
+                Create Support Ticket
+              </h3>
+              <p className="text-gray-300 mb-8 leading-relaxed">
+                Submit a new support request for Deep Security issues with our intelligent ticket routing system.
+              </p>
+              
+              <button 
+                onClick={() => router.push('/portal')}
+                className="w-full bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white py-4 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-red-500/30 font-semibold flex items-center justify-center gap-2"
+              >
+                <Ticket className="h-5 w-5" />
+                New Ticket
+              </button>
             </div>
-            <h3 className="text-xl font-bold text-white mb-4 group-hover:text-red-300 transition-colors">
-              Create Support Ticket
-            </h3>
-            <p className="text-gray-300 mb-6">
-              Submit a new support request for Deep Security issues.
-            </p>
-            <button className="w-full bg-gradient-to-r from-red-500 to-red-600 text-white py-3 rounded-xl hover:from-red-600 hover:to-red-700 transition-all duration-300 transform hover:scale-105">
-              New Ticket
-            </button>
           </div>
 
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl shadow-2xl p-8 border border-white/20 hover:border-green-500/40 transition-all duration-300 group">
-            <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-700 rounded-2xl mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-              <span className="text-white text-2xl">📚</span>
+          {/* Knowledge Base Card */}
+          <div className="group relative">
+            <div className="absolute -inset-1 bg-gradient-to-r from-green-500/50 via-emerald-500/50 to-green-500/50 rounded-2xl blur opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+            <div className="relative bg-gradient-to-br from-slate-900/90 to-green-950/30 backdrop-blur-xl rounded-2xl shadow-2xl p-8 border border-green-500/30 hover:border-green-400/60 transition-all duration-300">
+              <div className="flex items-start justify-between mb-6">
+                <div className="relative">
+                  <div className="w-18 h-18 bg-gradient-to-br from-green-500 to-green-700 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-green-500/30">
+                    <BookOpen className="h-9 w-9 text-white" />
+                  </div>
+                  <div className="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center animate-pulse">
+                    <Brain className="h-3 w-3 text-white" />
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="text-green-400 text-sm font-medium">KNOWLEDGE</div>
+                  <div className="text-gray-500 text-xs">AI-Enhanced</div>
+                </div>
+              </div>
+              
+              <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-green-300 transition-colors">
+                Knowledge Base
+              </h3>
+              <p className="text-gray-300 mb-8 leading-relaxed">
+                Search our comprehensive Deep Security documentation with AI-powered intelligent search capabilities.
+              </p>
+              
+              <button className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white py-4 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-green-500/30 font-semibold flex items-center justify-center gap-2">
+                <BookOpen className="h-5 w-5" />
+                Browse Docs
+              </button>
             </div>
-            <h3 className="text-xl font-bold text-white mb-4 group-hover:text-green-300 transition-colors">
-              Knowledge Base
-            </h3>
-            <p className="text-gray-300 mb-6">
-              Search our comprehensive Deep Security documentation.
-            </p>
-            <button className="w-full bg-gradient-to-r from-green-500 to-green-600 text-white py-3 rounded-xl hover:from-green-600 hover:to-green-700 transition-all duration-300 transform hover:scale-105">
-              Browse Docs
-            </button>
           </div>
         </div>
       </main>
 
       {/* Footer */}
-      <footer className="relative z-10 bg-black/40 backdrop-blur-sm border-t border-white/10 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="md:col-span-2">
-              <div className="flex items-center space-x-4 mb-4">
-                <Image 
-                  src="/trendlogo.png" 
-                  alt="Trend Micro Logo" 
-                  width={32}
-                  height={32}
-                  className="h-8 w-auto"
-                />
-                <div className="border-l border-white/30 pl-4">
-                  <h3 className="text-xl font-bold text-white">Intellicket</h3>
-                  <p className="text-xs text-red-400 font-medium">AI Support Platform</p>
-                </div>
-              </div>
-              <p className="text-gray-300 mb-4 max-w-md">
-                Intelligent support system for Trend Micro products. Secure your digital world with AI-powered cybersecurity solutions.
-              </p>
-              <div className="flex space-x-4">
-                <a href="#" className="text-gray-400 hover:text-red-400 transition-colors">
-                  <span className="sr-only">Twitter</span>
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M6.29 18.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0020 3.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.073 4.073 0 01.8 7.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 010 16.407a11.616 11.616 0 006.29 1.84" />
-                  </svg>
-                </a>
-                <a href="#" className="text-gray-400 hover:text-red-400 transition-colors">
-                  <span className="sr-only">LinkedIn</span>
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z" clipRule="evenodd" />
-                  </svg>
-                </a>
-              </div>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold mb-4 text-red-400">Quick Links</h3>
-              <ul className="space-y-3 text-gray-300">
-                <li><a href="#" className="hover:text-white transition-colors duration-300 flex items-center"><span className="w-1 h-1 bg-red-500 rounded-full mr-2"></span>Support Center</a></li>
-                <li><a href="#" className="hover:text-white transition-colors duration-300 flex items-center"><span className="w-1 h-1 bg-red-500 rounded-full mr-2"></span>Documentation</a></li>
-                <li><a href="#" className="hover:text-white transition-colors duration-300 flex items-center"><span className="w-1 h-1 bg-red-500 rounded-full mr-2"></span>Contact Us</a></li>
-                <li><a href="#" className="hover:text-white transition-colors duration-300 flex items-center"><span className="w-1 h-1 bg-red-500 rounded-full mr-2"></span>Security Blog</a></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold mb-4 text-red-400">Products</h3>
-              <ul className="space-y-3 text-gray-300">
-                {products.map((product) => (
-                  <li key={product.id}>
-                    <Link 
-                      href={`/products/${product.id}`}
-                      className="hover:text-white transition-colors duration-300 text-left flex items-center"
-                    >
-                      <span className="text-lg mr-2">{product.icon}</span>
-                      {product.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-white/20 mt-12 pt-8">
-            <div className="flex flex-col md:flex-row justify-between items-center">
-              <p className="text-gray-400 text-sm">
-                &copy; 2025 Intellicket - AI-Powered Cybersecurity Platform. All rights reserved. | Securing your digital transformation.
-              </p>
-              <div className="flex space-x-6 mt-4 md:mt-0">
-                <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</a>
-                <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">Terms of Service</a>
-                <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">Security</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <StandardFooter showProductsAsLinks={true} />
     </div>
   );
 }
@@ -269,7 +280,7 @@ function DeepSecurityLoading() {
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-red-900/20 to-black relative overflow-hidden flex items-center justify-center">
       <div className="text-center">
         <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-red-700 rounded-2xl mx-auto mb-4 flex items-center justify-center shadow-2xl animate-pulse">
-          <span className="text-white font-bold text-2xl">🛡️</span>
+          <Shield className="h-8 w-8 text-white" />
         </div>
         <p className="text-white text-lg">Loading Deep Security Support...</p>
       </div>

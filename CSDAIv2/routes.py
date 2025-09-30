@@ -1024,12 +1024,6 @@ Candidates Summary:
             result = format_ds_agent_offline_results(analysis_results)
             raw_result = f"DS Agent Offline Analysis Results:\n\n{analysis_results.get('summary', 'No summary available')}"
 
-        elif analysis_type == "ds_agent_offline":
-            analyzer = DSAgentOfflineAnalyzer(session_manager=session_manager, session_id=analysis_session_id)
-            analysis_results = analyzer.analyze_log_file(temp_paths[0])
-            result = format_ds_agent_offline_results(analysis_results)
-            raw_result = f"DS Agent Offline Analysis Results:\n\n{analysis_results.get('summary', 'No summary available')}"
-
         
 
         # Stage 4: Report Generation

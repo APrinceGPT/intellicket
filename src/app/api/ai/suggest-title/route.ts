@@ -137,7 +137,7 @@ function generateSmartTitle(request: TitleSuggestionRequest): TitleSuggestionRes
 function extractTechnicalTerms(description: string): string[] {
   const patterns = [
     /(?:ds\s*agent|deep\s*security\s*agent)/gi,
-    /(?:amsp|anti-malware)/gi,
+    // /(?:amsp|anti-malware)/gi, // AMSP patterns disabled
     /(?:dsm|deep\s*security\s*manager)/gi,
     /(?:notifier|notification)/gi,
     /(?:web\s*reputation|trendx)/gi,
@@ -208,7 +208,7 @@ function extractSymptoms(description: string): string[] {
 function extractComponents(description: string, product: string): string[] {
   const componentMap: { [key: string]: string[] } = {
     'Deep Security': [
-      'DS Agent', 'AMSP', 'DSM', 'Notifier', 'Web Reputation', 
+      'DS Agent', /*'AMSP',*/ 'DSM', 'Notifier', 'Web Reputation', 
       'IPS', 'File Integrity', 'Real-time Scan', 'Scheduled Scan'
     ],
     'Apex One': [
@@ -345,8 +345,8 @@ function normalizeComponent(component: string): string {
   const normalizations: { [key: string]: string } = {
     'ds agent': 'DS Agent',
     'deep security agent': 'DS Agent',
-    'amsp': 'AMSP',
-    'anti-malware': 'AMSP',
+    // 'amsp': 'AMSP', // AMSP normalization disabled
+    // 'anti-malware': 'AMSP', // AMSP normalization disabled
     'dsm': 'DSM',
     'deep security manager': 'DSM',
     'notifier': 'Notifier',

@@ -792,6 +792,34 @@ Details ({len(analysis_results.get('details', []))} items):
                         
                         # CRITICAL FIX: Store standardized results for proper frontend display
                         session_data['standardized_results'] = analysis_results
+                        
+                        # CRITICAL FIX: Ensure all data structures are explicitly stored in API session
+                        # Extract and store key analysis components that frontend expects
+                        # The standardizer transforms the data, so check both raw_data and standardized fields
+                        
+                        # Check raw_data for original structure (before standardization)
+                        if 'raw_data' in analysis_results:
+                            raw_data = analysis_results['raw_data']
+                            if 'ai_communication_analysis' in raw_data:
+                                session_data['ai_communication_analysis'] = raw_data['ai_communication_analysis']
+                            if 'dynamic_rag_analysis' in raw_data:
+                                session_data['dynamic_rag_analysis'] = raw_data['dynamic_rag_analysis']
+                            if 'ai_enhanced_root_cause' in raw_data:
+                                session_data['ai_enhanced_root_cause'] = raw_data['ai_enhanced_root_cause']
+                        
+                        # Also check standardized fields (after standardization)
+                        if 'ai_analysis' in analysis_results:
+                            # The standardizer may have moved communication analysis here
+                            session_data['ai_communication_analysis'] = analysis_results['ai_analysis']
+                        if 'rag_insights' in analysis_results:
+                            # The standardizer may have moved RAG analysis here  
+                            session_data['dynamic_rag_analysis'] = analysis_results['rag_insights']
+                        if 'ml_insights' in analysis_results:
+                            session_data['ml_insights'] = analysis_results['ml_insights']
+                    
+                    # Store results data for legacy HTML output
+                    session_data['results'] = result
+                    session_data['raw_results'] = raw_result
                     
                     # Mark analysis as complete and store results in UI session manager using main session_id
                     session_manager.store_results(session_id, analysis_results)

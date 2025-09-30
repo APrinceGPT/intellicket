@@ -54,51 +54,160 @@ class DSAgentOfflineAnalyzer(AnalyzerOutputStandardizer):
 
     
     def _initialize_event_ids(self):
-        """Initialize Deep Security Event IDs for offline analysis (from JSON research)"""
-        self.critical_offline_events = {
-            730: {'description': 'Offline - Manager cannot communicate with Computer', 'severity': 'critical'},
-            731: {'description': 'Back Online - Communication restored', 'severity': 'info'},
-            120: {'description': 'Heartbeat Server Failed - Manager heartbeat service issue', 'severity': 'critical'},
-            742: {'description': 'Communications Problem - Network congestion or issues', 'severity': 'high'},
-            743: {'description': 'Communications Problem Resolved - Communication restored', 'severity': 'info'},
-            770: {'description': 'Agent/Appliance Heartbeat Rejected', 'severity': 'high'},
-            771: {'description': 'Contact by Unrecognized Client', 'severity': 'high'}
+        """Initialize Enhanced Deep Security Event IDs (based on Deep Security 20.0 JSON research)"""
+        
+        # Communication Events - Core DS Agent Network Communication (JSON reference)
+        self.communication_events = {
+            730: {
+                'description': 'Agent offline - Manager cannot communicate with computer',
+                'severity': 'critical',
+                'root_cause_indicators': ['network_connectivity_failure', 'firewall_blocking', 'service_down'],
+                'troubleshooting_ports': [4119, 4120],
+                'protocols': ['HTTPS', 'TLS_1.2', 'TLS_1.3'],
+                'correlation_events': [742, 4011, 4012]
+            },
+            731: {
+                'description': 'Agent back online - Communication restored with manager',
+                'severity': 'resolved',
+                'indicates': 'successful_network_restoration',
+                'correlation_events': [743, 5000]
+            },
+            742: {
+                'description': 'Communication problem detected - Network issues',
+                'severity': 'high',
+                'root_cause_indicators': ['network_latency', 'packet_loss', 'dns_resolution_failure'],
+                'analysis_focus': 'network_path_diagnostics'
+            },
+            743: {
+                'description': 'Communication problem resolved - Network connectivity restored',
+                'severity': 'resolved',
+                'indicates': 'network_issue_resolution'
+            },
+            770: {
+                'description': 'Agent heartbeat rejected by manager',
+                'severity': 'high',
+                'root_cause_indicators': ['certificate_mismatch', 'time_synchronization_drift', 'policy_version_mismatch'],
+                'analysis_focus': 'pki_authentication_validation'
+            },
+            771: {
+                'description': 'Contact by unrecognized Deep Security client',
+                'severity': 'high',
+                'security_implications': 'potential_unauthorized_access_attempt',
+                'analysis_focus': 'certificate_chain_validation'
+            }
         }
         
-        self.authentication_certificate_events = {
-            930: {'description': 'Certificate Accepted', 'severity': 'info'},
-            931: {'description': 'Certificate Deleted', 'severity': 'warning'},
-            734: {'description': 'Time Synchronization Issue - Clock drift affecting certificate validation', 'severity': 'high'}
+        # Authentication Events - PKI and Certificate Management (JSON reference)
+        self.authentication_events = {
+            930: {
+                'description': 'Certificate accepted by Deep Security Manager',
+                'severity': 'info',
+                'indicates': 'successful_pki_authentication',
+                'certificate_validation': 'passed'
+            },
+            931: {
+                'description': 'Certificate deleted from Deep Security Manager',
+                'severity': 'warning',
+                'indicates': 'certificate_removal_or_expiration',
+                'follow_up_required': 'certificate_renewal_process'
+            },
+            734: {
+                'description': 'Time synchronization issue - Certificate validation affected',
+                'severity': 'high',
+                'root_cause_indicators': ['ntp_server_failure', 'system_clock_drift', 'timezone_mismatch'],
+                'impact': 'certificate_validation_failures',
+                'resolution': 'time_synchronization_procedures'
+            }
         }
         
-        self.service_driver_events = {
-            1008: {'description': 'Kernel Unsupported', 'severity': 'critical'},
-            1112: {'description': 'Kernel Unsupported (Driver cannot be installed)', 'severity': 'critical'},
-            5000: {'description': 'Agent/Appliance Started', 'severity': 'info'},
-            5003: {'description': 'Agent/Appliance Stopped', 'severity': 'high'},
-            1000: {'description': 'Unable To Open Engine', 'severity': 'high'},
-            1001: {'description': 'Engine Command Failed', 'severity': 'high'},
-            5008: {'description': 'Filter Driver Connection Failed', 'severity': 'high'},
-            5009: {'description': 'Filter Driver Connection Success', 'severity': 'info'}
+        # Service Events - DS Agent and AMSP Platform (JSON reference)  
+        self.service_events = {
+            5000: {
+                'description': 'Deep Security Agent started successfully',
+                'severity': 'info',
+                'indicates': 'service_initialization_success',
+                'dependencies': ['amsp_platform', 'network_services', 'certificate_store']
+            },
+            5003: {
+                'description': 'Deep Security Agent stopped',
+                'severity': 'high',
+                'root_cause_indicators': ['service_crash', 'insufficient_resources', 'dependency_failure'],
+                'impact': 'protection_module_offline',
+                'analysis_focus': 'service_dependency_chain'
+            },
+            1008: {
+                'description': 'Kernel version unsupported by Deep Security Agent',
+                'severity': 'critical',
+                'platform_compatibility': 'kernel_driver_incompatibility',
+                'resolution': 'agent_version_upgrade_or_kernel_downgrade'
+            },
+            1112: {
+                'description': 'Deep Security drivers cannot be installed - kernel incompatibility',
+                'severity': 'critical',
+                'impact': 'complete_protection_failure',
+                'analysis_focus': 'platform_compatibility_validation'
+            }
         }
         
-        self.communication_agent_events = {
-            4011: {'description': 'Failure to Contact Manager', 'severity': 'critical'},
-            4012: {'description': 'Heartbeat Failed', 'severity': 'critical'},
-            4002: {'description': 'Command Session Initiated', 'severity': 'info'},
-            4003: {'description': 'Configuration Session Initiated', 'severity': 'info'},
-            4004: {'description': 'Command Received', 'severity': 'info'},
-            6012: {'description': 'Insufficient Disk Space', 'severity': 'high'},
-            724:  {'description': 'Insufficient Disk Space - Event logging affected', 'severity': 'high'}
+        # Communication Specific Events - Heartbeat and Manager Contact (JSON reference)
+        self.communication_specific_events = {
+            4011: {
+                'description': 'Deep Security Agent failure to contact manager',
+                'severity': 'critical',
+                'root_cause_indicators': ['dns_resolution_failure', 'firewall_blocking_4119', 'manager_service_down'],
+                'diagnostic_ports': [4119, 4120, 4122, 443],
+                'troubleshooting_focus': 'network_connectivity_validation'
+            },
+            4012: {
+                'description': 'Deep Security Agent heartbeat failed',
+                'severity': 'critical',
+                'heartbeat_protocol': 'https_port_4119_4120',
+                'frequency_default': '600_seconds_10_minutes',
+                'root_cause_indicators': ['network_timeout', 'certificate_expiration', 'manager_overload'],
+                'correlation_analysis': 'heartbeat_pattern_timing'
+            },
+            4002: {
+                'description': 'Deep Security command session initiated',
+                'severity': 'info',
+                'indicates': 'successful_manager_agent_communication',
+                'protocol': 'https_encrypted_session'
+            },
+            4003: {
+                'description': 'Deep Security configuration session initiated',
+                'severity': 'info',
+                'indicates': 'policy_synchronization_start',
+                'data_transmitted': 'security_policy_updates'
+            }
         }
         
-        self.configuration_policy_events = {
-            2085: {'description': 'Policy Corruption', 'severity': 'high'},
-            2090: {'description': 'Policy Corruption', 'severity': 'high'},
-            2091: {'description': 'Policy Corruption', 'severity': 'high'},
-            762:  {'description': 'Incompatible Agent-Manager Versions', 'severity': 'high'},
-            763:  {'description': 'Incompatible Agent-Manager Versions', 'severity': 'high'},
-            764:  {'description': 'Incompatible Agent-Manager Versions', 'severity': 'high'}
+        # Network and Protocol Specific Mappings (JSON reference)
+        self.network_protocol_mapping = {
+            'port_4119': {
+                'protocol': 'HTTPS',
+                'purpose': 'Primary agent to manager communication',
+                'direction': 'Outbound from DS Agent',
+                'authentication': 'SSL/TLS mutual authentication with PKI certificates',
+                'related_events': [4011, 4012, 730]
+            },
+            'port_4120': {
+                'protocol': 'HTTPS',
+                'purpose': 'Manager to agent heartbeat and policy distribution',
+                'direction': 'Inbound to DS Agent', 
+                'authentication': 'SSL/TLS mutual authentication',
+                'related_events': [770, 4003, 742]
+            },
+            'port_4122': {
+                'protocol': 'HTTPS',
+                'purpose': 'Deep Security Relay server communication',
+                'direction': 'Bidirectional',
+                'benefits': 'Reduces bandwidth to external Trend Micro servers'
+            },
+            'port_443': {
+                'protocol': 'HTTPS',
+                'purpose': 'Smart Protection Network and Cloud Services',
+                'endpoints': ['*.icrc.trendmicro.com', 'ds20*.icrc.trendmicro.com'],
+                'services': ['file_reputation', 'threat_intelligence', 'smart_scan']
+            }
         }
     
     def _initialize_diagnostic_commands(self):
@@ -2023,139 +2132,81 @@ class DSAgentOfflineAnalyzer(AnalyzerOutputStandardizer):
         return correlation
 
     def analyze_log_file(self, file_path: str) -> Dict[str, Any]:
-        """Analyze DS Agent log file for offline issues"""
-        self._update_progress("File Analysis", f"Starting analysis of {os.path.basename(file_path)}", 40)
+        """Focused DS Agent Offline Analyzer - Heartbeat & Network Communication Analysis Only"""
+        self._update_progress("Heartbeat Analysis", f"Starting heartbeat and network analysis of {os.path.basename(file_path)}", 20)
         
         results = {
             'summary': {
                 'file_path': file_path,
+                'analysis_type': 'heartbeat_network_communication',
                 'total_lines': 0,
-                'parsed_lines': 0,
-                'offline_issues': 0,
-                'critical_issues': 0,
-                'timespan': {'start': None, 'end': None}
+                'parsed_lines': 0
             },
-            'offline_analysis': {},
-            'recommendations': [],
-            'ml_insights': None,
-            'rag_insights': None
+            'communication_analysis': {},
+            'ai_root_cause_analysis': {},
+            'troubleshooting_recommendations': []
         }
         
         try:
-            self._update_progress("File Reading", "Reading and parsing DS Agent log file", 20)
+            self._update_progress("Log Processing", "Reading DS Agent log for heartbeat analysis", 30)
             
-            log_entries = []
+            # Read log content for focused analysis
             with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
-                for line_num, line in enumerate(f, 1):
-                    if line_num > 15000:  # Limit for performance
-                        break
-                    
-                    results['summary']['total_lines'] += 1
-                    line = line.strip()
-                    
-                    if not line:
-                        continue
-                    
-                    log_entry = self.parse_ds_agent_log_entry(line)
-                    log_entry['line_number'] = line_num
-                    
-                    if log_entry['parsed']:
-                        results['summary']['parsed_lines'] += 1
-                        
-                        if not results['summary']['timespan']['start']:
-                            results['summary']['timespan']['start'] = log_entry.get('timestamp', '')
-                        results['summary']['timespan']['end'] = log_entry.get('timestamp', '')
-                        
-                        log_entries.append(log_entry)
+                log_content = f.read()
+                log_lines = log_content.split('\n')
+                results['summary']['total_lines'] = len(log_lines)
+                results['summary']['parsed_lines'] = len([line for line in log_lines if line.strip()])
             
-            self._update_progress("Issue Detection", "Detecting offline causes and issues", 50)
+            self._update_progress("Communication Analysis", "Analyzing heartbeat and network patterns", 50)
             
-            # Detect offline causes
-            results['offline_analysis'] = self.detect_offline_causes(log_entries)
+            # FOCUSED ANALYSIS: Three-card structure (Key Findings, Root Cause, Troubleshooting)
+            focused_analysis = self._analyze_focused_communication(log_content)
             
-            # Calculate summary statistics
-            total_issues = (len(results['offline_analysis']['communication_issues']) +
-                          len(results['offline_analysis']['service_issues']))
+            # Update results with the three-card structure
+            results.update(focused_analysis)
             
-            results['summary']['offline_issues'] = total_issues
-            results['summary']['critical_issues'] = results['offline_analysis']['severity_summary']['critical']
+            # Legacy compatibility - map to old structure names
+            results['communication_analysis'] = focused_analysis.get('key_findings_card', {})
+            results['ai_root_cause_analysis'] = focused_analysis.get('root_cause_analysis_card', {})
+            results['troubleshooting_recommendations'] = focused_analysis.get('troubleshooting_recommendations_card', {})
             
-            self._update_progress("Recommendations", "Generating recommendations", 70)
-            
-            # Generate enhanced recommendations with AI insights
-            base_recommendations = self._generate_offline_recommendations(results['offline_analysis'])
-            
-            # Add AI-enhanced recommendations if available
-            ai_recommendations = []
-            if 'ai_communication_analysis' in results and not results['ai_communication_analysis'].get('error'):
-                ai_recommendations = self._generate_ai_enhanced_recommendations(results['ai_communication_analysis'])
-            
-            # Combine traditional and AI recommendations
-            results['recommendations'] = base_recommendations + ai_recommendations
-            
-            # AI-Enhanced Communication Analysis - 75% progress
-            self._update_progress("AI Communication Analysis", "Performing AI-powered communication pattern analysis...", 75)
-            try:
-                # Read log content for AI analysis
-                with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
-                    log_content = f.read()
-                
-                # Perform AI-enhanced communication analysis
-                ai_communication_analysis = self._ai_analyze_communication_patterns(log_content)
-                results['ai_communication_analysis'] = ai_communication_analysis
-                
-                # Enhanced root cause analysis combining AI with traditional analysis
-                ai_enhanced_root_cause = self._ai_enhanced_root_cause_analysis(ai_communication_analysis, results['offline_analysis'])
-                results['ai_enhanced_root_cause'] = ai_enhanced_root_cause
-                
-                print(f"✅ AI Communication Analysis: Health Score {ai_communication_analysis['communication_health_score']:.2f}, {len(ai_communication_analysis['ai_detected_issues'])} AI-detected issues")
-                
-            except Exception as e:
-                print(f"⚠️ AI Communication analysis failed: {e}")
-                results['ai_communication_analysis'] = {'error': str(e)}
-
-            # Dynamic RAG Integration for DS Agent Offline Analysis - 80% progress
-            self._update_progress("Dynamic RAG & AI Intelligence", "Starting Dynamic RAG analysis...", 80)
+            # Dynamic RAG Integration for Enhanced Troubleshooting (Optional)
+            print(f"🔍 Debug: DYNAMIC_RAG_AVAILABLE = {DYNAMIC_RAG_AVAILABLE}")
             if DYNAMIC_RAG_AVAILABLE:
                 try:
-                    # Read log content for dynamic analysis (reuse if already read)
-                    if 'log_content' not in locals():
-                        with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
-                            log_content = f.read()
-                    
                     from dynamic_rag_system import apply_dynamic_rag_to_analysis
-                    self._update_progress("Dynamic RAG & AI Intelligence", "Processing with Claude AI...", 85)
+                    self._update_progress("AI Knowledge Enhancement", "Enhancing with Deep Security knowledge base...", 90)
                     results = apply_dynamic_rag_to_analysis(results, log_content)
                     
                     dynamic_rag = results.get('dynamic_rag_analysis', {})
                     if dynamic_rag and 'error' not in dynamic_rag:
-                        print(f"✅ Dynamic RAG Analysis (DS Agent Offline): {dynamic_rag.get('analysis_metadata', {}).get('knowledge_sources_used', 0)} sources")
+                        print(f"✅ Dynamic RAG Enhancement: {dynamic_rag.get('analysis_metadata', {}).get('knowledge_sources_used', 0)} knowledge sources")
                         
-                        # Add dynamic insights to recommendations
-                        if dynamic_rag.get('ai_response'):
-                            ai_summary = dynamic_rag['ai_response'][:200] + "..." if len(dynamic_rag['ai_response']) > 200 else dynamic_rag['ai_response']
-                            results['recommendations'].append(f'🧠 <strong>AI Offline Analysis</strong>: {ai_summary}')
-                            
                 except Exception as e:
-                    print(f"⚠️ RAG analysis failed: {e}")
+                    print(f"⚠️ RAG enhancement failed: {e}")
 
-            # ML Analysis Integration - 90% progress  
-            self._update_progress("ML Pattern Analysis", "Applying machine learning insights...", 90)
+            # ML Analysis for Pattern Recognition (Optional)
             if self.ml_analyzer:
                 try:
-                    ml_insights = self.ml_analyzer.analyze_ds_agent_patterns(results)
-                    results['ml_insights'] = ml_insights
-                    print(f"✅ ML Analysis: Pattern confidence {ml_insights.get('confidence_score', 0):.2f}")
+                    ml_insights = self.ml_analyzer.analyze_heartbeat_patterns(results)
+                    results['ai_root_cause_analysis']['ml_confidence'] = ml_insights.get('confidence_score', 0)
+                    print(f"✅ ML Pattern Analysis: Confidence {ml_insights.get('confidence_score', 0):.2f}")
                 except Exception as e:
                     print(f"⚠️ ML analysis failed: {e}")
-                    results['ml_insights'] = {'error': str(e)}
             
-            self._update_progress("Complete", "DS Agent offline analysis completed", 100)
+            self._update_progress("Complete", "Focused heartbeat and network analysis completed", 100)
             
         except Exception as e:
             error_msg = f"Failed to analyze DS Agent log: {str(e)}"
             print(f"❌ {error_msg}")
             results['error'] = error_msg
+        
+        # Debug: Print focused analysis results
+        print("🔍 Debug: Focused DS Agent Offline Analysis Complete")
+        print(f"Communication Analysis: {'✅ Available' if 'communication_analysis' in results else '❌ Missing'}")
+        print(f"AI Root Cause: {'✅ Available' if 'ai_root_cause_analysis' in results and 'error' not in results['ai_root_cause_analysis'] else '❌ Missing'}")
+        print(f"Troubleshooting Guide: {'✅ Available' if 'troubleshooting_recommendations' in results and len(results['troubleshooting_recommendations']) > 0 else '❌ Missing'}")
+        print(f"RAG Enhancement: {'✅ Available' if 'dynamic_rag_analysis' in results and 'error' not in results['dynamic_rag_analysis'] else '❌ Optional'}")
         
         return results
 
@@ -2291,3 +2342,1968 @@ class DSAgentOfflineAnalyzer(AnalyzerOutputStandardizer):
                 ai_recommendations.append(f"  └─ {action}")
         
         return ai_recommendations
+
+    def _analyze_focused_communication(self, log_content: str) -> Dict[str, Any]:
+        """
+        FOCUSED ANALYSIS: DS Agent Offline Root Cause Analysis
+        
+        Provides three structured cards:
+        1. Key Findings Card - Critical diagnostic information
+        2. Root Cause Analysis Card - AI-powered correlation and diagnosis
+        3. Troubleshooting Recommendations Card - Step-by-step resolution guide
+        """
+        from datetime import datetime, timedelta
+        import re
+        
+        # Initialize the three-card structure
+        analysis = {
+            'key_findings_card': {
+                'last_successful_heartbeat': {
+                    'timestamp': None,
+                    'time_ago': None,
+                    'status': 'Not found in logs'
+                },
+                'communication_method': {
+                    'primary_method': 'Unknown',
+                    'detected_method': 'Not determined',
+                    'ports_detected': [],
+                    'protocols_found': []
+                },
+                'proxy_server_analysis': {
+                    'proxy_detected': False,
+                    'proxy_details': [],
+                    'proxy_issues': []
+                },
+                'handshake_failures': {
+                    'failures_detected': False,
+                    'failure_count': 0,
+                    'failure_details': []
+                },
+                'certificate_issues': {
+                    'cert_problems_found': False,
+                    'cert_issues_count': 0,
+                    'cert_problem_details': []
+                },
+                'network_communication_failures': {
+                    'network_failures_found': False,
+                    'failure_count': 0,
+                    'network_failure_details': []
+                },
+                'port_failures': {
+                    'port_issues_found': False,
+                    'failed_ports': [],
+                    'listening_failures': [],
+                    'receiving_failures': []
+                }
+            },
+            'root_cause_analysis_card': {
+                'primary_root_cause': 'Analysis in progress...',
+                'contributing_factors': [],
+                'severity_assessment': 'Unknown',
+                'offline_duration_impact': 'Unknown',
+                'correlation_analysis': [],
+                'ai_confidence_score': 0
+            },
+            'troubleshooting_recommendations_card': {
+                'immediate_actions': [],
+                'diagnostic_steps': [],
+                'long_term_solutions': [],
+                'monitoring_recommendations': [],
+                'escalation_criteria': []
+            }
+        }
+        
+        lines = log_content.split('\n')
+        current_time = datetime.now()
+        
+        # CARD 1: ENHANCED KEY FINDINGS ANALYSIS (Deep Security 20.0 Architecture)
+        
+        # Enhanced Deep Security Event Detection
+        ds_events_detected = self._detect_deep_security_events(log_content)
+        
+        # 1. Find last successful heartbeat (Enhanced with DS 20.0 specifications)
+        heartbeat_patterns = [
+            r'heartbeat.*success|heartbeat.*sent|heartbeat.*ok',
+            r'communication.*restored|back.*online|event.*id.*731',
+            r'agent.*online|connection.*established',
+            r'event.*id.*731.*back.*online.*communication.*restored',
+            r'heartbeat.*manager.*successful|manager.*heartbeat.*ok',
+            r'port.*4120.*heartbeat.*success|4120.*communication.*ok',
+            r'manager.*reachable|manager.*contact.*successful',
+            # Enhanced DS 20.0 heartbeat patterns
+            r'agent.*heartbeat.*response.*received|manager.*heartbeat.*response',
+            r'port.*4119.*4120.*communication.*success',
+            r'ssl.*tls.*handshake.*completed.*successfully',
+            r'pki.*certificate.*authentication.*success'
+        ]
+        
+        for line in reversed(lines):  # Start from the end
+            for pattern in heartbeat_patterns:
+                if re.search(pattern, line, re.IGNORECASE):
+                    # Extract timestamp from log line
+                    timestamp_patterns = [
+                        r'(\d{4}-\d{2}-\d{2}[T\s]\d{2}:\d{2}:\d{2})',
+                        r'(\d{2}/\d{2}/\d{4}\s\d{2}:\d{2}:\d{2})',
+                        r'(\w{3}\s\d{1,2}\s\d{2}:\d{2}:\d{2})'
+                    ]
+                    
+                    for ts_pattern in timestamp_patterns:
+                        timestamp_match = re.search(ts_pattern, line)
+                        if timestamp_match:
+                            try:
+                                ts_str = timestamp_match.group(1).replace('T', ' ')
+                                # Try different timestamp formats
+                                for fmt in ['%Y-%m-%d %H:%M:%S', '%m/%d/%Y %H:%M:%S', '%b %d %H:%M:%S']:
+                                    try:
+                                        heartbeat_time = datetime.strptime(ts_str, fmt)
+                                        if fmt == '%b %d %H:%M:%S':
+                                            heartbeat_time = heartbeat_time.replace(year=current_time.year)
+                                        
+                                        time_diff = current_time - heartbeat_time
+                                        analysis['key_findings_card']['last_successful_heartbeat'] = {
+                                            'timestamp': ts_str,
+                                            'time_ago': f"{time_diff.days} days, {time_diff.seconds//3600} hours, {(time_diff.seconds//60)%60} minutes ago",
+                                            'status': 'Found in logs'
+                                        }
+                                        break
+                                    except:
+                                        continue
+                                break
+                            except:
+                                continue
+            if analysis['key_findings_card']['last_successful_heartbeat']['status'] == 'Found in logs':
+                break
+        
+        # 2. Enhanced Deep Security Network Protocol Analysis (DS 20.0 Architecture)
+        ds_network_analysis = self._analyze_ds_network_protocols(log_content)
+        analysis['key_findings_card']['communication_method'].update(ds_network_analysis)
+        
+        # 3. Detect proxy server (Enhanced with DS 20.0 proxy support)
+        proxy_patterns = [
+            r'proxy.*server|proxy.*host|proxy.*authentication',
+            r'http.*proxy|https.*proxy|socks.*proxy|proxy.*config',
+            r'proxy.*connect|proxy.*failed|proxy.*error',
+            r'proxy.*user|proxy.*password|proxy.*ntlm',
+            r'kerberos.*proxy|basic.*authentication.*proxy',
+            r'http.*407.*proxy.*authentication.*required',
+            r'automatic.*proxy.*detection|per.*agent.*proxy.*settings',
+            r'policy.*based.*proxy.*configuration'
+        ]
+        
+        for line in lines:
+            for pattern in proxy_patterns:
+                if re.search(pattern, line, re.IGNORECASE):
+                    analysis['key_findings_card']['proxy_server_analysis']['proxy_detected'] = True
+                    
+                    # Extract proxy details
+                    proxy_match = re.search(r'proxy[:\s]*([\w\.-]+)[:\s]*(\d+)?', line, re.IGNORECASE)
+                    if proxy_match:
+                        proxy_detail = {
+                            'host': proxy_match.group(1),
+                            'port': proxy_match.group(2) if proxy_match.group(2) else 'unknown',
+                            'line': line.strip()[:100] + '...' if len(line.strip()) > 100 else line.strip()
+                        }
+                        if proxy_detail not in analysis['key_findings_card']['proxy_server_analysis']['proxy_details']:
+                            analysis['key_findings_card']['proxy_server_analysis']['proxy_details'].append(proxy_detail)
+                    
+                    # Check for proxy issues
+                    if any(issue in line.lower() for issue in ['failed', 'error', 'timeout', 'denied', 'blocked']):
+                        issue_desc = f"Proxy issue detected: {line.strip()[:100]}{'...' if len(line.strip()) > 100 else ''}"
+                        if issue_desc not in analysis['key_findings_card']['proxy_server_analysis']['proxy_issues']:
+                            analysis['key_findings_card']['proxy_server_analysis']['proxy_issues'].append(issue_desc)
+        
+        # 4. Detect handshake failures (Enhanced with DS 20.0 TLS/SSL specifications)
+        handshake_patterns = [
+            r'handshake.*failed|ssl.*handshake.*error|tls.*handshake.*failed',
+            r'handshake.*timeout|handshake.*rejected',
+            r'ssl.*error|tls.*error|certificate.*handshake',
+            r'tls.*1\.2.*handshake.*failed|tls.*1\.3.*handshake.*error',
+            r'aes.*encryption.*handshake.*failed',
+            r'mutual.*authentication.*handshake.*failed',
+            r'pki.*certificate.*handshake.*error',
+            r'deep.*security.*manager.*handshake.*failed'
+        ]
+        
+        for line in lines:
+            for pattern in handshake_patterns:
+                if re.search(pattern, line, re.IGNORECASE):
+                    analysis['key_findings_card']['handshake_failures']['failures_detected'] = True
+                    analysis['key_findings_card']['handshake_failures']['failure_count'] += 1
+                    failure_detail = f"{self._extract_timestamp(line) or 'Unknown time'}: {line.strip()[:100]}{'...' if len(line.strip()) > 100 else ''}"
+                    if failure_detail not in analysis['key_findings_card']['handshake_failures']['failure_details']:
+                        analysis['key_findings_card']['handshake_failures']['failure_details'].append(failure_detail)
+        
+        # 5. Detect certificate issues (Enhanced with DS 20.0 PKI specifications)
+        cert_patterns = [
+            r'certificate.*expired|certificate.*invalid|certificate.*error',
+            r'certificate.*not.*trusted|certificate.*validation.*failed',
+            r'cert.*expired|cert.*invalid|cert.*error',
+            r'event.*id.*930.*certificate.*accepted|event.*id.*931.*certificate.*deleted',
+            r'pki.*certificate.*authentication.*failed',
+            r'certificate.*chain.*verification.*failed',
+            r'certificate.*revocation.*checking.*failed',
+            r'root.*ca.*certificate.*invalid',
+            r'agent.*identity.*certificate.*error',
+            r'manager.*server.*certificate.*invalid',
+            r'time.*synchronization.*certificate.*validation.*failed'
+        ]
+        
+        for line in lines:
+            for pattern in cert_patterns:
+                if re.search(pattern, line, re.IGNORECASE):
+                    analysis['key_findings_card']['certificate_issues']['cert_problems_found'] = True
+                    analysis['key_findings_card']['certificate_issues']['cert_issues_count'] += 1
+                    cert_detail = f"{self._extract_timestamp(line) or 'Unknown time'}: {line.strip()[:100]}{'...' if len(line.strip()) > 100 else ''}"
+                    if cert_detail not in analysis['key_findings_card']['certificate_issues']['cert_problem_details']:
+                        analysis['key_findings_card']['certificate_issues']['cert_problem_details'].append(cert_detail)
+        
+        # 6. Detect network communication failures (Enhanced with DS 20.0 event IDs)
+        network_failure_patterns = [
+            r'connection.*failed|network.*error|network.*timeout',
+            r'cannot.*connect|connection.*refused|network.*unreachable',
+            r'timeout.*connecting|connection.*timeout|host.*unreachable',
+            r'event.*id.*4011.*failure.*to.*contact.*manager',
+            r'event.*id.*4012.*heartbeat.*failed',
+            r'event.*id.*730.*offline.*manager.*cannot.*communicate',
+            r'event.*id.*742.*communication.*problem.*detected',
+            r'event.*id.*770.*agent.*heartbeat.*rejected',
+            r'event.*id.*771.*contact.*by.*unrecognized.*client',
+            r'deep.*security.*manager.*unreachable',
+            r'dns.*resolution.*failure.*deep.*security',
+            r'firewall.*blocking.*deep.*security.*communication'
+        ]
+        
+        for line in lines:
+            for pattern in network_failure_patterns:
+                if re.search(pattern, line, re.IGNORECASE):
+                    analysis['key_findings_card']['network_communication_failures']['network_failures_found'] = True
+                    analysis['key_findings_card']['network_communication_failures']['failure_count'] += 1
+                    network_detail = f"{self._extract_timestamp(line) or 'Unknown time'}: {line.strip()[:100]}{'...' if len(line.strip()) > 100 else ''}"
+                    if network_detail not in analysis['key_findings_card']['network_communication_failures']['network_failure_details']:
+                        analysis['key_findings_card']['network_communication_failures']['network_failure_details'].append(network_detail)
+        
+        # 7. Detect port failures (Enhanced with DS 20.0 communication ports)
+        port_failure_patterns = [
+            r'port.*\d+.*failed|port.*\d+.*blocked|port.*\d+.*refused',
+            r'listening.*failed|receiving.*failed|bind.*failed',
+            r'cannot.*listen.*port|failed.*bind.*port',
+            r'port.*4119.*blocked.*agent.*to.*manager',
+            r'port.*4120.*blocked.*manager.*to.*agent',
+            r'port.*4122.*blocked.*relay.*server',
+            r'port.*443.*blocked.*smart.*protection.*network',
+            r'firewall.*blocking.*port.*4119|firewall.*blocking.*port.*4120',
+            r'deep.*security.*port.*accessibility.*failed'
+        ]
+        
+        for line in lines:
+            for pattern in port_failure_patterns:
+                if re.search(pattern, line, re.IGNORECASE):
+                    analysis['key_findings_card']['port_failures']['port_issues_found'] = True
+                    
+                    # Extract port number
+                    port_match = re.search(r'port[:\s]*(\d+)', line, re.IGNORECASE)
+                    if port_match:
+                        port_num = port_match.group(1)
+                        if port_num not in analysis['key_findings_card']['port_failures']['failed_ports']:
+                            analysis['key_findings_card']['port_failures']['failed_ports'].append(port_num)
+                    
+                    # Categorize failure type
+                    if 'listening' in line.lower() or 'bind' in line.lower():
+                        listening_detail = f"{self._extract_timestamp(line) or 'Unknown time'}: {line.strip()[:100]}{'...' if len(line.strip()) > 100 else ''}"
+                        if listening_detail not in analysis['key_findings_card']['port_failures']['listening_failures']:
+                            analysis['key_findings_card']['port_failures']['listening_failures'].append(listening_detail)
+                    elif 'receiving' in line.lower() or 'blocked' in line.lower():
+                        receiving_detail = f"{self._extract_timestamp(line) or 'Unknown time'}: {line.strip()[:100]}{'...' if len(line.strip()) > 100 else ''}"
+                        if receiving_detail not in analysis['key_findings_card']['port_failures']['receiving_failures']:
+                            analysis['key_findings_card']['port_failures']['receiving_failures'].append(receiving_detail)
+        
+        # CARD 2: ROOT CAUSE ANALYSIS (AI-Powered)
+        self._populate_root_cause_analysis_card(analysis, log_content)
+        
+        # CARD 3: TROUBLESHOOTING RECOMMENDATIONS (Step-by-step guidance)
+        self._populate_troubleshooting_recommendations_card(analysis)
+        
+        # ENHANCED ANALYSIS: Apply Deep Security event intelligence
+        self._enhance_analysis_with_ds_events(analysis, ds_events_detected)
+        
+        return analysis
+    
+    def _detect_deep_security_events(self, log_content: str) -> Dict[str, Any]:
+        """Detect specific Deep Security events based on JSON specifications"""
+        detected_events = {
+            'communication_events': [],
+            'authentication_events': [],
+            'service_events': [],
+            'communication_specific_events': [],
+            'critical_patterns': [],
+            'event_timeline': []
+        }
+        
+        lines = log_content.split('\n')
+        
+        # Combine all event mappings for comprehensive detection
+        all_events = {
+            **self.communication_events,
+            **self.authentication_events, 
+            **self.service_events,
+            **self.communication_specific_events
+        }
+        
+        for i, line in enumerate(lines):
+            line_lower = line.lower()
+            
+            # Event ID detection
+            event_id_pattern = r'event\s*id[:\s]*(\d+)|id[:\s]*(\d+)'
+            event_match = re.search(event_id_pattern, line_lower)
+            
+            if event_match:
+                event_id = int(event_match.group(1) or event_match.group(2))
+                
+                if event_id in all_events:
+                    event_info = all_events[event_id].copy()
+                    event_info.update({
+                        'event_id': event_id,
+                        'line_number': i + 1,
+                        'log_content': line.strip(),
+                        'timestamp': self._extract_timestamp_from_line(line)
+                    })
+                    
+                    # Categorize event
+                    if event_id in self.communication_events:
+                        detected_events['communication_events'].append(event_info)
+                    elif event_id in self.authentication_events:
+                        detected_events['authentication_events'].append(event_info)
+                    elif event_id in self.service_events:
+                        detected_events['service_events'].append(event_info)
+                    elif event_id in self.communication_specific_events:
+                        detected_events['communication_specific_events'].append(event_info)
+                    
+                    detected_events['event_timeline'].append(event_info)
+            
+            # Pattern-based detection for additional intelligence
+            critical_patterns = {
+                'dns_resolution_failure': r'dns.*resolution.*fail|nslookup.*fail|hostname.*resolution.*error',
+                'firewall_blocking': r'connection.*timeout|port.*blocked|firewall.*block',
+                'certificate_expiration': r'certificate.*expir|cert.*expir|ssl.*certificate.*invalid',
+                'time_synchronization': r'time.*sync.*fail|clock.*drift|time.*difference',
+                'proxy_authentication': r'proxy.*auth.*fail|407.*proxy.*auth|proxy.*credential',
+                'manager_unreachable': r'manager.*unreachable|cannot.*contact.*manager|manager.*timeout',
+                'service_crash': r'service.*crash|process.*terminated|unexpected.*exit',
+                'insufficient_resources': r'insufficient.*memory|disk.*space.*low|resource.*exhausted',
+                'network_connectivity': r'network.*unreachable|connection.*refused|network.*timeout',
+                'ssl_handshake_failure': r'ssl.*handshake.*fail|tls.*handshake.*fail|certificate.*validation.*fail'
+            }
+            
+            for pattern_name, pattern in critical_patterns.items():
+                if re.search(pattern, line_lower):
+                    detected_events['critical_patterns'].append({
+                        'pattern_type': pattern_name,
+                        'line_number': i + 1,
+                        'content': line.strip(),
+                        'severity': self._get_pattern_severity(pattern_name)
+                    })
+        
+        # Sort timeline by line number
+        detected_events['event_timeline'].sort(key=lambda x: x['line_number'])
+        
+        return detected_events
+    
+    def _extract_timestamp_from_line(self, line: str) -> str:
+        """Extract timestamp from log line"""
+        timestamp_patterns = [
+            r'(\d{4}-\d{2}-\d{2}[T\s]\d{2}:\d{2}:\d{2})',
+            r'(\d{2}/\d{2}/\d{4}\s\d{2}:\d{2}:\d{2})',
+            r'(\w{3}\s\d{1,2}\s\d{2}:\d{2}:\d{2})'
+        ]
+        
+        for pattern in timestamp_patterns:
+            match = re.search(pattern, line)
+            if match:
+                return match.group(1)
+        return 'Unknown'
+    
+    def _get_pattern_severity(self, pattern_name: str) -> str:
+        """Get severity level for detected patterns"""
+        severity_mapping = {
+            'dns_resolution_failure': 'high',
+            'firewall_blocking': 'high', 
+            'certificate_expiration': 'critical',
+            'time_synchronization': 'high',
+            'proxy_authentication': 'medium',
+            'manager_unreachable': 'critical',
+            'service_crash': 'critical',
+            'insufficient_resources': 'high',
+            'network_connectivity': 'high',
+            'ssl_handshake_failure': 'high'
+        }
+        return severity_mapping.get(pattern_name, 'medium')
+    
+    def _enhance_analysis_with_ds_events(self, analysis: Dict[str, Any], ds_events: Dict[str, Any]):
+        """Enhance key findings analysis with Deep Security event intelligence"""
+        
+        # Enhance communication failures detection
+        comm_events = ds_events['communication_events']
+        if any(event['event_id'] in [730, 742, 4011, 4012] for event in comm_events):
+            analysis['key_findings_card']['network_communication_failures']['network_failures_found'] = True
+            analysis['key_findings_card']['network_communication_failures']['failure_count'] = len([
+                e for e in comm_events if e['event_id'] in [730, 742, 4011, 4012]
+            ])
+            analysis['key_findings_card']['network_communication_failures']['network_failure_details'] = [
+                f"Event ID {event['event_id']}: {event['description']} (Line {event['line_number']})"
+                for event in comm_events if event['event_id'] in [730, 742, 4011, 4012]
+            ]
+        
+        # Enhance certificate issues detection
+        auth_events = ds_events['authentication_events']
+        if any(event['event_id'] in [931, 734] for event in auth_events):
+            analysis['key_findings_card']['certificate_issues']['cert_problems_found'] = True
+            analysis['key_findings_card']['certificate_issues']['cert_issues_count'] = len([
+                e for e in auth_events if e['event_id'] in [931, 734]
+            ])
+            analysis['key_findings_card']['certificate_issues']['cert_problem_details'] = [
+                f"Event ID {event['event_id']}: {event['description']} (Line {event['line_number']})"
+                for event in auth_events if event['event_id'] in [931, 734]
+            ]
+        
+        # Enhance handshake failures detection with critical patterns
+        ssl_failures = [p for p in ds_events['critical_patterns'] if p['pattern_type'] == 'ssl_handshake_failure']
+        if ssl_failures:
+            analysis['key_findings_card']['handshake_failures']['failures_detected'] = True
+            analysis['key_findings_card']['handshake_failures']['failure_count'] = len(ssl_failures)
+            analysis['key_findings_card']['handshake_failures']['failure_details'] = [
+                f"SSL/TLS handshake failure detected (Line {failure['line_number']}): {failure['content'][:100]}..."
+                for failure in ssl_failures
+            ]
+        
+        # Enhance port failures detection
+        port_issues = [p for p in ds_events['critical_patterns'] if p['pattern_type'] in ['firewall_blocking', 'network_connectivity']]
+        if port_issues:
+            analysis['key_findings_card']['port_failures']['port_issues_found'] = True
+            # Determine affected ports based on Deep Security architecture
+            affected_ports = ['4119', '4120', '4122', '443']  # Core DS ports
+            analysis['key_findings_card']['port_failures']['failed_ports'] = affected_ports
+            analysis['key_findings_card']['port_failures']['listening_failures'] = [
+                f"Port connectivity issue detected (Line {issue['line_number']})"
+                for issue in port_issues
+            ]
+        
+        # Enhance proxy analysis
+        proxy_issues = [p for p in ds_events['critical_patterns'] if p['pattern_type'] == 'proxy_authentication']
+        if proxy_issues:
+            analysis['key_findings_card']['proxy_server_analysis']['proxy_detected'] = True
+            analysis['key_findings_card']['proxy_server_analysis']['proxy_issues'] = [
+                f"Proxy authentication issue (Line {issue['line_number']}): {issue['content'][:100]}..."
+                for issue in proxy_issues
+            ]
+    
+    def _analyze_ds_network_protocols(self, log_content: str) -> Dict[str, Any]:
+        """Comprehensive Deep Security Network Protocol Analysis (JSON specifications)"""
+        network_analysis = {
+            'primary_method': 'Communication method not clearly detected from logs',
+            'detected_method': 'Not determined',
+            'ports_detected': [],
+            'protocols_found': [],
+            'communication_flows': [],
+            'network_architecture': 'Unknown',
+            'tls_version_detected': [],
+            'certificate_validation': 'Not detected',
+            'bandwidth_indicators': [],
+            'cloud_service_endpoints': []
+        }
+        
+        lines = log_content.split('\n')
+        
+        # Enhanced Deep Security Port Analysis (JSON reference)
+        ds_port_mapping = {
+            '4119': {
+                'description': 'Agent-to-Manager Primary Communication (Outbound)',
+                'protocol': 'HTTPS',
+                'purpose': 'Primary agent to manager communication', 
+                'direction': 'Outbound from DS Agent',
+                'authentication': 'SSL/TLS mutual authentication with PKI certificates',
+                'data_types': ['agent_heartbeat', 'security_events', 'system_status', 'audit_logs'],
+                'frequency': 'Configurable, default 10 minutes'
+            },
+            '4120': {
+                'description': 'Manager-to-Agent Heartbeat & Policy Distribution (Inbound)',
+                'protocol': 'HTTPS',
+                'purpose': 'Manager to agent heartbeat and policy distribution',
+                'direction': 'Inbound to DS Agent',
+                'authentication': 'SSL/TLS mutual authentication with PKI certificates',
+                'data_types': ['security_policy_updates', 'configuration_changes', 'management_commands'],
+                'trigger': 'Policy changes or scheduled updates'
+            },
+            '4122': {
+                'description': 'Deep Security Relay Server Communication',
+                'protocol': 'HTTPS', 
+                'purpose': 'Deep Security Relay server communication',
+                'direction': 'Bidirectional',
+                'authentication': 'SSL/TLS mutual authentication',
+                'benefits': 'Reduces bandwidth to external Trend Micro servers',
+                'data_types': ['security_pattern_distribution', 'policy_relay', 'update_packages']
+            },
+            '443': {
+                'description': 'Smart Protection Network & Cloud Services',
+                'protocol': 'HTTPS',
+                'purpose': 'Smart Protection Network and Cloud Services',
+                'endpoints': ['*.icrc.trendmicro.com', 'ds20*.icrc.trendmicro.com', 'deepsec20-*.gfrbridge.trendmicro.com'],
+                'services': ['file_reputation', 'threat_intelligence', 'smart_scan', 'predictive_ml'],
+                'cloud_integration': 'Cloud One Workload Security'
+            }
+        }
+        
+        # Detect ports and protocols with enhanced context
+        for line in lines:
+            line_lower = line.lower()
+            
+            # Port detection with Deep Security context
+            for port, port_info in ds_port_mapping.items():
+                port_patterns = [
+                    rf'port[:\s]*{port}',
+                    rf':{port}[/\s]',
+                    rf'port.*{port}',
+                    rf'{port}.*port'
+                ]
+                
+                for pattern in port_patterns:
+                    if re.search(pattern, line_lower):
+                        # Check if already detected
+                        if not any(p['port'] == port for p in network_analysis['ports_detected']):
+                            port_entry = port_info.copy()
+                            port_entry['port'] = port
+                            port_entry['detected_in_line'] = line.strip()
+                            network_analysis['ports_detected'].append(port_entry)
+                            
+                            # Add communication flow
+                            network_analysis['communication_flows'].append({
+                                'port': port,
+                                'direction': port_info['direction'],
+                                'purpose': port_info['purpose'],
+                                'protocol': port_info['protocol']
+                            })
+                        break
+            
+            # Enhanced Protocol Detection
+            protocol_patterns = {
+                'HTTPS': r'https|ssl.*3|tls.*1\.[2-3]',
+                'TLS_1.2': r'tls.*1\.2|tlsv1\.2',
+                'TLS_1.3': r'tls.*1\.3|tlsv1\.3',
+                'SSL': r'ssl[^v]|ssl.*3',
+                'TCP': r'tcp[^/]',
+                'HTTP': r'http[^s]'
+            }
+            
+            for protocol, pattern in protocol_patterns.items():
+                if re.search(pattern, line_lower) and protocol not in network_analysis['protocols_found']:
+                    network_analysis['protocols_found'].append(protocol)
+                    
+                    # Detect TLS versions specifically
+                    if protocol in ['TLS_1.2', 'TLS_1.3']:
+                        network_analysis['tls_version_detected'].append(protocol)
+            
+            # Certificate validation detection
+            cert_validation_patterns = [
+                r'certificate.*valid|cert.*valid|ssl.*certificate.*ok',
+                r'pki.*authentication.*success|mutual.*auth.*success',
+                r'certificate.*chain.*valid|cert.*chain.*ok'
+            ]
+            
+            for pattern in cert_validation_patterns:
+                if re.search(pattern, line_lower):
+                    network_analysis['certificate_validation'] = 'Certificate validation detected'
+                    break
+            
+            # Cloud service endpoint detection
+            cloud_endpoints = [
+                r'\*\.icrc\.trendmicro\.com',
+                r'ds20.*\.icrc\.trendmicro\.com',
+                r'deepsec20-.*\.gfrbridge\.trendmicro\.com',
+                r'\*\.workload\.trendmicro\.com',
+                r'\*\.xdr\.trendmicro\.com',
+                r'ds20-.*-.*\.trx\.trendmicro\.com'
+            ]
+            
+            for endpoint_pattern in cloud_endpoints:
+                if re.search(endpoint_pattern, line_lower):
+                    if endpoint_pattern not in network_analysis['cloud_service_endpoints']:
+                        network_analysis['cloud_service_endpoints'].append(endpoint_pattern)
+            
+            # Communication method detection
+            comm_method_patterns = {
+                'Agent Initiated Communication (AIC)': r'aic.*mode|agent.*initiated.*communication',
+                'Manager Initiated Communication (MIC)': r'mic.*mode|manager.*initiated.*communication', 
+                'Bi-directional Communication': r'bidirectional.*mode|bi.*directional.*communication'
+            }
+            
+            for method, pattern in comm_method_patterns.items():
+                if re.search(pattern, line_lower):
+                    network_analysis['detected_method'] = method
+                    break
+            
+            # Bandwidth and performance indicators
+            bandwidth_patterns = [
+                r'bandwidth.*(\d+).*kbps|(\d+).*kbps.*bandwidth',
+                r'network.*latency.*(\d+).*ms',
+                r'packet.*loss.*(\d+).*%',
+                r'throughput.*(\d+).*mbps'
+            ]
+            
+            for pattern in bandwidth_patterns:
+                match = re.search(pattern, line_lower)
+                if match:
+                    network_analysis['bandwidth_indicators'].append(line.strip())
+        
+        # Determine primary communication method based on detected ports
+        detected_ports = [p['port'] for p in network_analysis['ports_detected']]
+        
+        if '4120' in detected_ports:
+            network_analysis['primary_method'] = 'Manager-to-Agent Heartbeat (Port 4120/HTTPS)'
+            network_analysis['network_architecture'] = 'Manager Initiated Communication'
+        elif '4119' in detected_ports:
+            network_analysis['primary_method'] = 'Agent-to-Manager Communication (Port 4119/HTTPS)'
+            network_analysis['network_architecture'] = 'Agent Initiated Communication'
+        elif '4122' in detected_ports:
+            network_analysis['primary_method'] = 'Relay Server Communication (Port 4122/HTTPS)'
+            network_analysis['network_architecture'] = 'Relay Server Architecture'
+        elif '443' in detected_ports:
+            network_analysis['primary_method'] = 'Smart Protection Network (Port 443/HTTPS)'
+            network_analysis['network_architecture'] = 'Cloud-Enhanced Protection'
+        
+        # Determine overall network architecture
+        if len(detected_ports) > 2:
+            network_analysis['network_architecture'] = 'Hybrid Deep Security Architecture'
+        elif any(endpoint in str(network_analysis['cloud_service_endpoints']) for endpoint in ['workload.trendmicro.com', 'xdr.trendmicro.com']):
+            network_analysis['network_architecture'] = 'Cloud One Workload Security / Vision One XDR'
+        
+        return network_analysis
+    
+    def _analyze_pki_certificate_issues(self, log_content: str, cert_issues: Dict[str, Any]) -> Dict[str, Any]:
+        """Comprehensive PKI Certificate Analysis for Deep Security (JSON specifications)"""
+        pki_analysis = {
+            'certificate_validation_status': 'Unknown',
+            'time_synchronization_status': 'Unknown',
+            'certificate_chain_status': 'Unknown',
+            'certificate_expiration_status': 'Unknown',
+            'root_ca_validation': 'Unknown',
+            'contributing_factors': [],
+            'specific_issues': [],
+            'resolution_complexity': 'Unknown',
+            'security_impact': 'Unknown'
+        }
+        
+        lines = log_content.split('\n')
+        
+        # Deep Security PKI Certificate Patterns (JSON reference)
+        certificate_patterns = {
+            'certificate_expiration': {
+                'patterns': [
+                    r'certificate.*expir|cert.*expir|certificate.*invalid.*date',
+                    r'ssl.*certificate.*expir|tls.*certificate.*expir',
+                    r'certificate.*not.*valid.*time|cert.*validity.*period',
+                    r'certificate.*expired.*on|cert.*expiration.*date'
+                ],
+                'severity': 'critical',
+                'root_cause': 'Certificate expiration preventing authentication',
+                'resolution': 'Certificate renewal required'
+            },
+            'time_synchronization_issues': {
+                'patterns': [
+                    r'time.*sync.*fail|clock.*drift|time.*difference.*exceed',
+                    r'system.*time.*incorrect|ntp.*sync.*fail|time.*server.*unreachable',
+                    r'certificate.*validation.*fail.*time|time.*skew.*detected',
+                    r'event.*id.*734.*time.*synchronization'
+                ],
+                'severity': 'high',
+                'root_cause': 'Time synchronization drift affecting certificate validation',
+                'resolution': 'NTP synchronization and time zone verification'
+            },
+            'certificate_chain_validation': {
+                'patterns': [
+                    r'certificate.*chain.*invalid|cert.*chain.*fail|chain.*validation.*error',
+                    r'intermediate.*certificate.*missing|ca.*certificate.*not.*found',
+                    r'certificate.*authority.*invalid|root.*ca.*not.*trusted',
+                    r'certificate.*path.*validation.*fail'
+                ],
+                'severity': 'high',
+                'root_cause': 'Certificate chain validation failure',
+                'resolution': 'Certificate chain reconstruction or CA trust establishment'
+            },
+            'certificate_revocation': {
+                'patterns': [
+                    r'certificate.*revok|cert.*revok|crl.*check.*fail',
+                    r'ocsp.*validation.*fail|certificate.*status.*invalid',
+                    r'revocation.*check.*timeout|crl.*download.*fail'
+                ],
+                'severity': 'high',
+                'root_cause': 'Certificate revocation status validation failure',
+                'resolution': 'Certificate replacement or CRL/OCSP configuration'
+            },
+            'mutual_authentication_failure': {
+                'patterns': [
+                    r'mutual.*auth.*fail|client.*certificate.*required|authentication.*handshake.*fail',
+                    r'certificate.*not.*present|client.*cert.*missing|ssl.*mutual.*auth.*error'
+                ],
+                'severity': 'critical',
+                'root_cause': 'Mutual SSL/TLS authentication failure',
+                'resolution': 'Client certificate installation and configuration'
+            },
+            'certificate_mismatch': {
+                'patterns': [
+                    r'certificate.*mismatch|hostname.*verification.*fail|certificate.*name.*invalid',
+                    r'subject.*alternative.*name.*mismatch|cn.*mismatch|certificate.*hostname.*error'
+                ],
+                'severity': 'medium',
+                'root_cause': 'Certificate subject/hostname mismatch',
+                'resolution': 'Certificate re-issuance with correct subject names'
+            }
+        }
+        
+        # Analyze certificate issues in log content
+        detected_issues = []
+        for issue_type, issue_info in certificate_patterns.items():
+            for pattern in issue_info['patterns']:
+                matches = []
+                for i, line in enumerate(lines):
+                    if re.search(pattern, line, re.IGNORECASE):
+                        matches.append({
+                            'line_number': i + 1,
+                            'content': line.strip(),
+                            'pattern_type': issue_type
+                        })
+                
+                if matches:
+                    detected_issues.append({
+                        'issue_type': issue_type,
+                        'severity': issue_info['severity'],
+                        'root_cause': issue_info['root_cause'],
+                        'resolution': issue_info['resolution'],
+                        'occurrences': len(matches),
+                        'sample_lines': matches[:3]  # Top 3 matches
+                    })
+        
+        # Analyze specific PKI infrastructure components
+        if detected_issues:
+            # Determine primary certificate issue
+            critical_issues = [issue for issue in detected_issues if issue['severity'] == 'critical']
+            high_issues = [issue for issue in detected_issues if issue['severity'] == 'high']
+            
+            if critical_issues:
+                primary_issue = critical_issues[0]
+                pki_analysis['resolution_complexity'] = 'High - Critical certificate infrastructure issue'
+                pki_analysis['security_impact'] = 'Critical - Authentication system compromised'
+            elif high_issues:
+                primary_issue = high_issues[0]
+                pki_analysis['resolution_complexity'] = 'Medium - Certificate configuration issue'
+                pki_analysis['security_impact'] = 'High - Authentication reliability affected'
+            else:
+                primary_issue = detected_issues[0]
+                pki_analysis['resolution_complexity'] = 'Low - Minor certificate issue'
+                pki_analysis['security_impact'] = 'Medium - Potential authentication issues'
+        
+        # Certificate validation status analysis
+        cert_validation_patterns = [
+            r'certificate.*valid|cert.*valid|certificate.*ok|pki.*auth.*success',
+            r'ssl.*certificate.*accepted|tls.*certificate.*verified|certificate.*chain.*valid'
+        ]
+        
+        cert_validation_detected = False
+        for pattern in cert_validation_patterns:
+            if any(re.search(pattern, line, re.IGNORECASE) for line in lines):
+                cert_validation_detected = True
+                break
+        
+        if cert_validation_detected:
+            pki_analysis['certificate_validation_status'] = 'Certificate validation successful detected'
+        elif detected_issues:
+            pki_analysis['certificate_validation_status'] = 'Certificate validation failures detected'
+        else:
+            pki_analysis['certificate_validation_status'] = 'No certificate validation events detected'
+        
+        # Time synchronization analysis
+        time_sync_patterns = [
+            r'ntp.*sync.*success|time.*sync.*ok|clock.*synchronized',
+            r'system.*time.*correct|time.*server.*reachable'
+        ]
+        
+        time_sync_success = any(
+            re.search(pattern, line, re.IGNORECASE) 
+            for pattern in time_sync_patterns 
+            for line in lines
+        )
+        
+        if time_sync_success:
+            pki_analysis['time_synchronization_status'] = 'Time synchronization successful'
+        elif any(issue['issue_type'] == 'time_synchronization_issues' for issue in detected_issues):
+            pki_analysis['time_synchronization_status'] = 'Time synchronization failures detected'
+        else:
+            pki_analysis['time_synchronization_status'] = 'Time synchronization status unknown'
+        
+        # Generate contributing factors for root cause analysis
+        pki_analysis['contributing_factors'] = []
+        
+        for issue in detected_issues:
+            if issue['severity'] == 'critical':
+                pki_analysis['contributing_factors'].append(f"PKI {issue['root_cause']} (critical impact)")
+            elif issue['severity'] == 'high':
+                pki_analysis['contributing_factors'].append(f"PKI {issue['root_cause']} (high impact)")
+            else:
+                pki_analysis['contributing_factors'].append(f"PKI {issue['root_cause']} (medium impact)")
+        
+        # Store specific issues for detailed analysis
+        pki_analysis['specific_issues'] = detected_issues
+        
+        return pki_analysis
+    
+    def _populate_root_cause_analysis_card(self, analysis: Dict[str, Any], log_content: str):
+        """Populate the AI-powered root cause analysis card"""
+        import re
+        
+        key_findings = analysis['key_findings_card']
+        root_cause_card = analysis['root_cause_analysis_card']
+        
+        # Analyze issues and correlation
+        issues_detected = []
+        contributing_factors = []
+        
+        # Check each key finding
+        if key_findings['last_successful_heartbeat']['status'] == 'Not found in logs':
+            issues_detected.append("No successful heartbeat communication detected")
+            contributing_factors.append("Agent-Manager heartbeat failure (critical)")
+        
+        if key_findings['network_communication_failures']['network_failures_found']:
+            issues_detected.append(f"Network failures detected ({key_findings['network_communication_failures']['failure_count']} events)")
+            contributing_factors.append("Network infrastructure issues (high impact)")
+        
+        if key_findings['certificate_issues']['cert_problems_found']:
+            # Enhanced PKI Certificate Analysis
+            pki_analysis = self._analyze_pki_certificate_issues(log_content, key_findings['certificate_issues'])
+            issues_detected.append(f"PKI Certificate issues detected ({key_findings['certificate_issues']['cert_issues_count']} events)")
+            contributing_factors.extend(pki_analysis['contributing_factors'])
+        
+        if key_findings['handshake_failures']['failures_detected']:
+            issues_detected.append(f"SSL/TLS handshake failures ({key_findings['handshake_failures']['failure_count']} events)")
+            contributing_factors.append("Cryptographic communication issues (high impact)")
+        
+        if key_findings['port_failures']['port_issues_found']:
+            issues_detected.append(f"Port accessibility issues on ports: {', '.join(key_findings['port_failures']['failed_ports'])}")
+            contributing_factors.append("Firewall or service binding problems (medium impact)")
+        
+        if key_findings['proxy_server_analysis']['proxy_detected']:
+            if key_findings['proxy_server_analysis']['proxy_issues']:
+                issues_detected.append("Proxy server configuration issues detected")
+                contributing_factors.append("Proxy authentication or connectivity problems (medium impact)")
+            else:
+                contributing_factors.append("Proxy server present but functioning normally (low impact)")
+        
+        # Enhanced AMSP Platform Dependencies Analysis
+        amsp_analysis = self._analyze_amsp_platform_dependencies(log_content)
+        if amsp_analysis['platform_integration_issues']:
+            for issue in amsp_analysis['platform_integration_issues']:
+                issues_detected.append(f"AMSP Platform Issue: {issue['description']}")
+                impact_level = "high impact" if issue['severity'] == 'high' else "medium impact"
+                contributing_factors.append(f"{issue['issue_type']} ({impact_level})")
+        
+        # Add AMSP service status to analysis
+        amsp_service_issues = []
+        for service_name, status in amsp_analysis['amsp_service_status'].items():
+            if not status['service_running'] and status['service_detected']:
+                amsp_service_issues.append(f"{service_name} not running")
+            if status['dependency_issues']:
+                amsp_service_issues.append(f"{service_name} dependency issues")
+            if status['error_patterns']:
+                amsp_service_issues.append(f"{service_name} error patterns detected")
+        
+        if amsp_service_issues:
+            issues_detected.append(f"AMSP Service Issues: {', '.join(amsp_service_issues)}")
+            contributing_factors.append("Deep Security service integration problems (high impact)")
+        
+        # Enhanced Proxy Configuration Intelligence Analysis
+        proxy_intelligence = self._analyze_proxy_configuration_intelligence(log_content)
+        
+        # Analyze proxy issues and add to root cause analysis
+        if proxy_intelligence['authentication_analysis']['http_407_errors_detected']:
+            issues_detected.append(f"HTTP 407 Proxy Authentication Errors ({proxy_intelligence['authentication_analysis']['authentication_failures']} events)")
+            contributing_factors.append("Proxy authentication failure preventing network access (high impact)")
+        
+        # Add proxy connection errors
+        proxy_errors = proxy_intelligence['proxy_errors']
+        if proxy_errors['connection_errors']['error_count'] > 0:
+            issues_detected.append(f"Proxy Connection Failures ({proxy_errors['connection_errors']['error_count']} events)")
+            contributing_factors.append("Proxy server connectivity issues (high impact)")
+        
+        if proxy_errors['configuration_errors']['error_count'] > 0:
+            issues_detected.append(f"Proxy Configuration Errors ({proxy_errors['configuration_errors']['error_count']} events)")
+            contributing_factors.append("Proxy configuration problems (medium impact)")
+        
+        if proxy_errors['ssl_tls_errors']['error_count'] > 0:
+            issues_detected.append(f"Proxy SSL/TLS Errors ({proxy_errors['ssl_tls_errors']['error_count']} events)")
+            contributing_factors.append("Proxy SSL tunnel failures (high impact)")
+        
+        # Add proxy intelligence recommendations to analysis
+        if proxy_intelligence['troubleshooting_recommendations']:
+            high_priority_proxy_issues = [rec for rec in proxy_intelligence['troubleshooting_recommendations'] if rec['priority'] == 'high']
+            if high_priority_proxy_issues:
+                issues_detected.append(f"Critical Proxy Issues: {len(high_priority_proxy_issues)} high-priority configuration problems")
+                contributing_factors.append("Critical proxy configuration requiring immediate attention (high impact)")
+        
+        # Determine primary root cause using AI correlation
+        if "No successful heartbeat" in str(issues_detected) and "Network failures" in str(issues_detected):
+            root_cause_card['primary_root_cause'] = "Complete communication breakdown between DS Agent and Manager due to network infrastructure failure"
+            root_cause_card['severity_assessment'] = "Critical - Agent completely offline"
+            root_cause_card['ai_confidence_score'] = 95
+        elif "Certificate problems" in str(issues_detected) and "handshake failures" in str(issues_detected):
+            root_cause_card['primary_root_cause'] = "PKI certificate authentication failure preventing secure communication"
+            root_cause_card['severity_assessment'] = "High - Authentication system compromised"
+            root_cause_card['ai_confidence_score'] = 88
+        elif "Network failures" in str(issues_detected):
+            root_cause_card['primary_root_cause'] = "Network connectivity issues preventing DS Agent communication"
+            root_cause_card['severity_assessment'] = "High - Network infrastructure problems"
+            root_cause_card['ai_confidence_score'] = 82
+        elif "No successful heartbeat" in str(issues_detected):
+            root_cause_card['primary_root_cause'] = "DS Agent heartbeat communication failure - Agent may be offline"
+            root_cause_card['severity_assessment'] = "Critical - Agent status unknown"
+            root_cause_card['ai_confidence_score'] = 75
+        elif "AMSP Platform Issue" in str(issues_detected) and "AMSP Service Issues" in str(issues_detected):
+            root_cause_card['primary_root_cause'] = "AMSP platform integration failure - Deep Security service dependencies compromised"
+            root_cause_card['severity_assessment'] = "Critical - Core platform services failed"
+            root_cause_card['ai_confidence_score'] = 90
+        elif "AMSP Service Issues" in str(issues_detected):
+            root_cause_card['primary_root_cause'] = "Deep Security service integration problems - AMSP platform service issues"
+            root_cause_card['severity_assessment'] = "High - Service dependency problems"
+            root_cause_card['ai_confidence_score'] = 85
+        elif "AMSP Platform Issue" in str(issues_detected):
+            root_cause_card['primary_root_cause'] = "AMSP platform initialization or module loading issues"
+            root_cause_card['severity_assessment'] = "High - Platform integration problems"
+            root_cause_card['ai_confidence_score'] = 80
+        elif "HTTP 407 Proxy Authentication" in str(issues_detected):
+            root_cause_card['primary_root_cause'] = "Proxy authentication failure - HTTP 407 errors preventing network access"
+            root_cause_card['severity_assessment'] = "High - Proxy authentication system failure"
+            root_cause_card['ai_confidence_score'] = 87
+        elif "Proxy Connection Failures" in str(issues_detected) and "Critical Proxy Issues" in str(issues_detected):
+            root_cause_card['primary_root_cause'] = "Complete proxy infrastructure failure - Multiple proxy configuration and connectivity issues"
+            root_cause_card['severity_assessment'] = "Critical - Proxy system completely non-functional"
+            root_cause_card['ai_confidence_score'] = 92
+        elif "Proxy Connection Failures" in str(issues_detected):
+            root_cause_card['primary_root_cause'] = "Proxy server connectivity failure preventing network communication"
+            root_cause_card['severity_assessment'] = "High - Proxy infrastructure problems"
+            root_cause_card['ai_confidence_score'] = 84
+        elif "Proxy SSL/TLS Errors" in str(issues_detected):
+            root_cause_card['primary_root_cause'] = "Proxy SSL/TLS tunnel failures - Encrypted communication through proxy compromised"
+            root_cause_card['severity_assessment'] = "High - Proxy security tunnel problems"
+            root_cause_card['ai_confidence_score'] = 83
+        elif "Proxy Configuration Errors" in str(issues_detected) or "Critical Proxy Issues" in str(issues_detected):
+            root_cause_card['primary_root_cause'] = "Proxy configuration problems - Invalid proxy settings preventing network access"
+            root_cause_card['severity_assessment'] = "Medium - Proxy configuration issues"
+            root_cause_card['ai_confidence_score'] = 78
+        elif "Port accessibility" in str(issues_detected):
+            root_cause_card['primary_root_cause'] = "Port accessibility issues - Firewall or service configuration problems"
+            root_cause_card['severity_assessment'] = "Medium - Configuration issues"
+            root_cause_card['ai_confidence_score'] = 70
+        else:
+            root_cause_card['primary_root_cause'] = "Communication patterns appear normal - Review logs for intermittent issues"
+            root_cause_card['severity_assessment'] = "Low - Monitoring recommended"
+            root_cause_card['ai_confidence_score'] = 60
+        
+        # Calculate offline duration impact
+        heartbeat_info = key_findings['last_successful_heartbeat']
+        if heartbeat_info['time_ago'] and 'days' in heartbeat_info['time_ago']:
+            days_match = re.search(r'(\d+) days', heartbeat_info['time_ago'])
+            if days_match and int(days_match.group(1)) > 1:
+                root_cause_card['offline_duration_impact'] = f"Extended offline period ({heartbeat_info['time_ago']}) - High security risk"
+            else:
+                root_cause_card['offline_duration_impact'] = f"Recent offline event ({heartbeat_info['time_ago']}) - Moderate impact"
+        else:
+            root_cause_card['offline_duration_impact'] = "Cannot determine offline duration from available logs"
+        
+        # Set correlation analysis
+        root_cause_card['contributing_factors'] = contributing_factors
+        root_cause_card['issues_detected'] = issues_detected
+        root_cause_card['root_causes'] = issues_detected  # For backward compatibility
+        root_cause_card['correlation_analysis'] = [
+            f"Total issues detected: {len(issues_detected)}",
+            f"Primary communication method: {key_findings['communication_method']['detected_method']}",
+            f"Protocols in use: {', '.join(key_findings['communication_method']['protocols_found']) if key_findings['communication_method']['protocols_found'] else 'None detected'}",
+            f"Proxy configuration: {'Present' if key_findings['proxy_server_analysis']['proxy_detected'] else 'Not detected'}"
+        ]
+    
+    def _populate_troubleshooting_recommendations_card(self, analysis: Dict[str, Any]):
+        """Trend Micro Deep Security Technical Support - Direct Troubleshooting Instructions"""
+        key_findings = analysis['key_findings_card'] 
+        root_cause_card = analysis['root_cause_analysis_card']
+        recommendations_card = analysis['troubleshooting_recommendations_card']
+        
+        # Get AI analysis results
+        ai_confidence = root_cause_card.get('ai_confidence_score', 0)
+        primary_root_cause = root_cause_card.get('primary_root_cause', '')
+        severity = root_cause_card.get('severity_assessment', 'Unknown')
+        
+        # Count actual issues detected
+        issues_detected = 0
+        critical_issues = []
+        
+        if key_findings['last_successful_heartbeat']['status'] == 'Not found in logs':
+            issues_detected += 1
+            critical_issues.append('heartbeat_failure')
+            
+        if key_findings['network_communication_failures']['network_failures_found']:
+            issues_detected += 1
+            critical_issues.append('network_failures')
+            
+        if key_findings['certificate_issues']['cert_problems_found']:
+            issues_detected += 1
+            critical_issues.append('certificate_issues')
+            
+        if key_findings['handshake_failures']['failures_detected']:
+            issues_detected += 1
+            critical_issues.append('handshake_failures')
+            
+        if key_findings['port_failures']['port_issues_found']:
+            issues_detected += 1
+            critical_issues.append('port_failures')
+            
+        if key_findings['proxy_server_analysis']['proxy_detected'] and key_findings['proxy_server_analysis']['proxy_issues']:
+            issues_detected += 1
+            critical_issues.append('proxy_issues')
+        
+        # Generate direct technical support instructions
+        if issues_detected == 0 or ai_confidence < 70:
+            # No significant issues - minimal guidance
+            troubleshooting_steps = [
+                "✅ Analysis complete: No critical DS Agent communication issues detected",
+                "The logs indicate normal DS Agent operation with successful heartbeat communications",
+                "",
+                "If you're experiencing DS Agent offline issues:",
+                "• Verify logs were collected during the actual problem occurrence",
+                "• Check DS Manager console for real-time agent status",
+                "• Enable DS Agent debug logging: 'dsa_control --debug' and reproduce the issue"
+            ]
+            
+        else:
+            # Critical issues detected - provide direct Trend Micro technical support instructions
+            troubleshooting_steps = []
+            
+            # Add severity and confidence header
+            if 'Critical' in severity:
+                troubleshooting_steps.append(f"🚨 CRITICAL DS AGENT ISSUE DETECTED")
+            elif 'High' in severity:
+                troubleshooting_steps.append(f"⚠️ HIGH PRIORITY DS AGENT ISSUE") 
+            else:
+                troubleshooting_steps.append(f"📋 DS AGENT COMMUNICATION ISSUE")
+                
+            troubleshooting_steps.extend([
+                f"Root Cause: {primary_root_cause}",
+                f"AI Confidence: {ai_confidence}%",
+                "",
+                "TREND MICRO TECHNICAL SUPPORT INSTRUCTIONS:"
+            ])
+            
+            # Provide direct, issue-specific instructions
+            if 'heartbeat_failure' in critical_issues:
+                troubleshooting_steps.extend([
+                    "",
+                    "🔧 DS Agent Service Issue:",
+                    "1. Check DS Agent service: Get-Service 'Trend Micro Deep Security Agent'",
+                    "2. If stopped, restart: Restart-Service 'Trend Micro Deep Security Agent'",
+                    "3. Verify DS Manager connectivity: Test-NetConnection <DS_Manager_IP> -Port 4119"
+                ])
+            
+            if 'network_failures' in critical_issues:
+                troubleshooting_steps.extend([
+                    "",
+                    "🌐 Network Connectivity Issue:",
+                    "1. Test DNS resolution: nslookup <DS_Manager_FQDN>",
+                    "2. Verify network connectivity: ping <DS_Manager_IP>",
+                    "3. Check DS communication ports: telnet <DS_Manager_IP> 4119",
+                    "4. Verify firewall rules allow DS Agent traffic (ports 4119, 4120, 4122, 443)"
+                ])
+            
+            if 'certificate_issues' in critical_issues:
+                troubleshooting_steps.extend([
+                    "",
+                    "🔐 Certificate Authentication Issue:",
+                    "1. Verify system time is synchronized with DS Manager",
+                    "2. Check DS Manager Event Log for certificate errors (Event IDs 930, 931)",
+                    "3. Reset DS Agent certificate: dsa_control --reset-certificate",
+                    "4. Re-activate agent: dsa_control --activate dsm://<DS_Manager>:4119/"
+                ])
+            
+            if 'handshake_failures' in critical_issues:
+                troubleshooting_steps.extend([
+                    "",
+                    "🤝 SSL/TLS Handshake Issue:",
+                    "1. Check DS Manager certificate validity and trust chain",
+                    "2. Verify SSL cipher compatibility between Agent and Manager",
+                    "3. Review DS Agent SSL settings in registry or configuration files",
+                    "4. Test SSL connection: openssl s_client -connect <DS_Manager>:4119"
+                ])
+            
+            if 'port_failures' in critical_issues:
+                failed_ports = key_findings['port_failures'].get('failed_ports', [])
+                troubleshooting_steps.extend([
+                    "",
+                    f"🚪 Port Access Issue (Ports: {', '.join(failed_ports)}):",
+                    "1. Verify DS Manager is listening on required ports",
+                    "2. Check local Windows Firewall: Get-NetFirewallRule | Where DisplayName -like '*Deep Security*'",
+                    "3. Test port connectivity from agent machine: telnet <DS_Manager_IP> <port>",
+                    "4. Review network firewall rules for DS communication ports"
+                ])
+            
+            if 'proxy_issues' in critical_issues:
+                troubleshooting_steps.extend([
+                    "",
+                    "🔄 Proxy Server Issue:",
+                    "1. Verify proxy settings in DS Agent configuration",
+                    "2. Test proxy connectivity: curl --proxy <proxy_host:port> https://<DS_Manager>:4119",
+                    "3. Check proxy authentication credentials",
+                    "4. Ensure proxy supports HTTPS tunneling for DS Agent communication"
+                ])
+            
+            # Add final resolution steps
+            troubleshooting_steps.extend([
+                "",
+                "📋 VERIFICATION STEPS:",
+                "1. After changes, restart DS Agent service",
+                "2. Monitor DS Manager console for agent status changes",
+                "3. Check DS Agent logs for successful heartbeat communications",
+                "4. Verify protection status: dsa_control --status",
+                "",
+                "📞 If issue persists after following these steps:",
+                "Contact Trend Micro Technical Support with this analysis report"
+            ])
+        
+        # Store simplified troubleshooting steps
+        recommendations_card['troubleshooting_steps'] = troubleshooting_steps
+    
+    def _analyze_amsp_platform_dependencies(self, log_content: str) -> Dict[str, Any]:
+        """
+        Analyze AMSP (Anti-Malware Solution Platform) dependencies and service correlation
+        Based on JSON specifications for Deep Security component integration
+        
+        Args:
+            log_content (str): The DS Agent log content
+            
+        Returns:
+            Dict[str, Any]: AMSP platform dependency analysis
+        """
+        amsp_analysis = {
+            'analysis_timestamp': datetime.now().isoformat(),
+            'amsp_service_status': {},
+            'dependency_chain_analysis': {},
+            'service_correlation': {},
+            'platform_integration_issues': [],
+            'recommendation_priority': 'medium'
+        }
+        
+        # AMSP Service Detection Patterns (from JSON specifications)
+        amsp_service_patterns = {
+            'ds_agent_service': {
+                'patterns': [
+                    r'ds_agent\.exe|dsa\.exe',
+                    r'trend.*micro.*ds.*agent',
+                    r'deep.*security.*agent.*service'
+                ],
+                'status_indicators': [
+                    r'service.*started|service.*running',
+                    r'service.*stopped|service.*failed',
+                    r'service.*initialization.*complete|service.*ready'
+                ]
+            },
+            'dsa_core_service': {
+                'patterns': [
+                    r'dsa_core\.exe|dsa\.core',
+                    r'deep.*security.*core.*service',
+                    r'trend.*micro.*core.*process'
+                ],
+                'dependency_check': [
+                    r'core.*service.*dependency|dependency.*core.*service',
+                    r'failed.*load.*core.*module|core.*module.*not.*found'
+                ]
+            },
+            'amsp_platform_service': {
+                'patterns': [
+                    r'amsp.*platform|anti.*malware.*solution.*platform',
+                    r'trend.*micro.*solution.*platform',
+                    r'amenableselfprotection|tmsp.*service'
+                ],
+                'failure_indicators': [
+                    r'amsp.*initialization.*failed|amsp.*service.*crashed',
+                    r'failed.*install.*upgrade.*amsp|amsp.*not.*responding',
+                    r'amsp.*func.*not.*support|amenableselfprotection.*failed'
+                ]
+            }
+        }
+        
+        # Analyze service status for each component
+        for service_name, service_config in amsp_service_patterns.items():
+            service_status = {
+                'service_detected': False,
+                'service_running': False,
+                'dependency_issues': [],
+                'error_patterns': [],
+                'last_activity': None
+            }
+            
+            # Check for service presence
+            for pattern in service_config['patterns']:
+                service_matches = re.findall(pattern, log_content, re.IGNORECASE | re.MULTILINE)
+                if service_matches:
+                    service_status['service_detected'] = True
+                    service_status['detection_count'] = len(service_matches)
+                    break
+            
+            # Check service status indicators
+            if 'status_indicators' in service_config:
+                for status_pattern in service_config['status_indicators']:
+                    status_matches = re.findall(status_pattern, log_content, re.IGNORECASE | re.MULTILINE)
+                    if status_matches:
+                        if 'started' in status_pattern or 'running' in status_pattern or 'ready' in status_pattern:
+                            service_status['service_running'] = True
+                        service_status['status_events'] = len(status_matches)
+            
+            # Check for dependency issues
+            if 'dependency_check' in service_config:
+                for dep_pattern in service_config['dependency_check']:
+                    dep_matches = re.findall(dep_pattern, log_content, re.IGNORECASE | re.MULTILINE)
+                    if dep_matches:
+                        service_status['dependency_issues'].extend(dep_matches)
+            
+            # Check for failure indicators
+            if 'failure_indicators' in service_config:
+                for failure_pattern in service_config['failure_indicators']:
+                    failure_matches = re.findall(failure_pattern, log_content, re.IGNORECASE | re.MULTILINE)
+                    if failure_matches:
+                        service_status['error_patterns'].extend(failure_matches)
+            
+            amsp_analysis['amsp_service_status'][service_name] = service_status
+        
+        # Service Dependency Chain Analysis
+        dependency_chain = {
+            'primary_dependencies': {
+                'ds_agent_to_dsa_core': self._check_service_dependency(
+                    log_content, 'ds_agent', 'dsa_core'
+                ),
+                'dsa_core_to_amsp_platform': self._check_service_dependency(
+                    log_content, 'dsa_core', 'amsp_platform'
+                ),
+                'amsp_to_network_services': self._check_service_dependency(
+                    log_content, 'amsp_platform', 'network_services'
+                )
+            },
+            'circular_dependency_check': self._detect_circular_dependencies(log_content),
+            'missing_dependencies': []
+        }
+        
+        # Check for missing critical dependencies
+        critical_dependencies = ['network_services', 'certificate_store', 'wmi_service', 'event_log_service']
+        for dependency in critical_dependencies:
+            if not self._check_dependency_availability(log_content, dependency):
+                dependency_chain['missing_dependencies'].append(dependency)
+        
+        amsp_analysis['dependency_chain_analysis'] = dependency_chain
+        
+        # Service Correlation Analysis - Events happening together
+        correlation_patterns = {
+            'amsp_ds_agent_correlation': self._analyze_service_correlation(
+                log_content, 'amsp', 'ds_agent'
+            ),
+            'network_amsp_correlation': self._analyze_service_correlation(
+                log_content, 'network', 'amsp'
+            ),
+            'certificate_amsp_correlation': self._analyze_service_correlation(
+                log_content, 'certificate', 'amsp'
+            )
+        }
+        
+        amsp_analysis['service_correlation'] = correlation_patterns
+        
+        # Platform Integration Issues Detection
+        integration_issues = []
+        
+        # Check for AMSP initialization failures
+        amsp_init_failures = re.findall(
+            r'amsp.*initialization.*failed|failed.*initialize.*amsp|amsp.*startup.*error',
+            log_content, re.IGNORECASE | re.MULTILINE
+        )
+        if amsp_init_failures:
+            integration_issues.append({
+                'issue_type': 'amsp_initialization_failure',
+                'severity': 'high',
+                'description': f'AMSP platform initialization failures detected ({len(amsp_init_failures)} events)',
+                'recommendation': 'Check AMSP service dependencies and system requirements'
+            })
+        
+        # Check for module loading issues
+        module_load_failures = re.findall(
+            r'failed.*load.*module|module.*not.*found|dll.*load.*failed',
+            log_content, re.IGNORECASE | re.MULTILINE
+        )
+        if module_load_failures:
+            integration_issues.append({
+                'issue_type': 'module_loading_failure',
+                'severity': 'medium',
+                'description': f'Module loading issues detected ({len(module_load_failures)} events)',
+                'recommendation': 'Verify Deep Security installation integrity and file permissions'
+            })
+        
+        # Check for service communication failures
+        service_comm_failures = re.findall(
+            r'service.*communication.*failed|failed.*communicate.*service|ipc.*failure',
+            log_content, re.IGNORECASE | re.MULTILINE
+        )
+        if service_comm_failures:
+            integration_issues.append({
+                'issue_type': 'service_communication_failure',
+                'severity': 'high',
+                'description': f'Inter-service communication failures ({len(service_comm_failures)} events)',
+                'recommendation': 'Check service permissions and IPC configuration'
+            })
+        
+        amsp_analysis['platform_integration_issues'] = integration_issues
+        
+        # Determine recommendation priority
+        if len(integration_issues) > 0:
+            high_severity_issues = [issue for issue in integration_issues if issue['severity'] == 'high']
+            if high_severity_issues:
+                amsp_analysis['recommendation_priority'] = 'critical'
+            else:
+                amsp_analysis['recommendation_priority'] = 'high'
+        
+        return amsp_analysis
+    
+    def _check_service_dependency(self, log_content: str, source_service: str, target_service: str) -> Dict[str, Any]:
+        """Check dependency relationship between two services"""
+        dependency_info = {
+            'dependency_exists': False,
+            'dependency_healthy': False,
+            'failure_events': 0,
+            'last_interaction': None
+        }
+        
+        # Look for dependency-related log entries
+        dependency_pattern = rf'{source_service}.*{target_service}|{target_service}.*{source_service}'
+        dependency_matches = re.findall(dependency_pattern, log_content, re.IGNORECASE | re.MULTILINE)
+        
+        if dependency_matches:
+            dependency_info['dependency_exists'] = True
+            dependency_info['interaction_count'] = len(dependency_matches)
+            
+            # Check for failure patterns in dependency
+            failure_pattern = rf'{source_service}.*{target_service}.*failed|{target_service}.*{source_service}.*error'
+            failure_matches = re.findall(failure_pattern, log_content, re.IGNORECASE | re.MULTILINE)
+            dependency_info['failure_events'] = len(failure_matches)
+            dependency_info['dependency_healthy'] = len(failure_matches) == 0
+        
+        return dependency_info
+    
+    def _detect_circular_dependencies(self, log_content: str) -> Dict[str, Any]:
+        """Detect circular dependency patterns that could cause service issues"""
+        circular_check = {
+            'circular_dependencies_detected': False,
+            'potential_cycles': [],
+            'recommendation': 'No circular dependencies detected'
+        }
+        
+        # Look for circular dependency indicators
+        circular_patterns = [
+            r'circular.*dependency|dependency.*loop|recursive.*dependency',
+            r'service.*waiting.*for.*service.*waiting',
+            r'deadlock.*detected|mutual.*dependency.*failure'
+        ]
+        
+        for pattern in circular_patterns:
+            matches = re.findall(pattern, log_content, re.IGNORECASE | re.MULTILINE)
+            if matches:
+                circular_check['circular_dependencies_detected'] = True
+                circular_check['potential_cycles'].extend(matches)
+                circular_check['recommendation'] = 'Review service startup order and dependency configuration'
+        
+        return circular_check
+    
+    def _check_dependency_availability(self, log_content: str, dependency_name: str) -> bool:
+        """Check if a critical dependency is available"""
+        dependency_patterns = {
+            'network_services': [r'network.*service.*running|network.*interface.*up', r'dns.*resolution.*successful'],
+            'certificate_store': [r'certificate.*store.*available|cert.*store.*accessible'],
+            'wmi_service': [r'wmi.*service.*running|wmi.*query.*successful'],
+            'event_log_service': [r'event.*log.*service.*running|event.*logging.*enabled']
+        }
+        
+        if dependency_name in dependency_patterns:
+            for pattern in dependency_patterns[dependency_name]:
+                if re.search(pattern, log_content, re.IGNORECASE | re.MULTILINE):
+                    return True
+        
+        return False
+    
+    def _analyze_service_correlation(self, log_content: str, service1: str, service2: str) -> Dict[str, Any]:
+        """Analyze correlation between two services based on log timestamps and events"""
+        correlation_info = {
+            'correlation_detected': False,
+            'correlation_strength': 'none',
+            'event_timing_analysis': {},
+            'related_events_count': 0
+        }
+        
+        # Look for events involving both services within close time proximity
+        service1_events = re.findall(rf'.*{service1}.*', log_content, re.IGNORECASE | re.MULTILINE)
+        service2_events = re.findall(rf'.*{service2}.*', log_content, re.IGNORECASE | re.MULTILINE)
+        
+        if service1_events and service2_events:
+            correlation_info['correlation_detected'] = True
+            correlation_info['service1_events'] = len(service1_events)
+            correlation_info['service2_events'] = len(service2_events)
+            
+            # Simple correlation strength based on event frequency
+            total_events = len(service1_events) + len(service2_events)
+            if total_events > 20:
+                correlation_info['correlation_strength'] = 'high'
+            elif total_events > 10:
+                correlation_info['correlation_strength'] = 'medium'
+            else:
+                correlation_info['correlation_strength'] = 'low'
+            
+            correlation_info['related_events_count'] = total_events
+        
+        return correlation_info
+
+    def _analyze_proxy_configuration_intelligence(self, log_content: str) -> Dict[str, Any]:
+        """
+        Enhanced proxy configuration intelligence analysis
+        Based on JSON specifications for HTTP 407 errors, authentication methods, and corporate proxy patterns
+        
+        Args:
+            log_content (str): The DS Agent log content
+            
+        Returns:
+            Dict[str, Any]: Advanced proxy configuration analysis
+        """
+        proxy_intelligence = {
+            'analysis_timestamp': datetime.now().isoformat(),
+            'proxy_detection': {},
+            'authentication_analysis': {},
+            'proxy_errors': {},
+            'corporate_proxy_patterns': {},
+            'bypass_configuration': {},
+            'troubleshooting_recommendations': []
+        }
+        
+        # Enhanced Proxy Detection Patterns (from JSON specifications)
+        proxy_detection_patterns = {
+            'http_proxy_patterns': [
+                r'http[s]?://.*proxy.*:\d+|proxy.*server.*http[s]?',
+                r'http.*proxy.*host|http.*proxy.*port',
+                r'environment.*http_proxy|system.*http.*proxy'
+            ],
+            'socks_proxy_patterns': [
+                r'socks[45]?://.*:\d+|socks.*proxy.*server',
+                r'socks.*proxy.*host|socks.*proxy.*port'
+            ],
+            'automatic_proxy_patterns': [
+                r'wpad.*proxy.*auto.*config|pac.*file.*proxy',
+                r'automatic.*proxy.*detection|dhcp.*proxy.*discovery',
+                r'internet.*explorer.*proxy.*settings'
+            ],
+            'policy_based_proxy_patterns': [
+                r'group.*policy.*proxy|domain.*policy.*proxy',
+                r'registry.*proxy.*settings|policy.*based.*proxy'
+            ]
+        }
+        
+        # Analyze proxy detection
+        proxy_detection = {
+            'proxy_types_detected': [],
+            'proxy_servers_found': [],
+            'detection_confidence': 'none'
+        }
+        
+        for proxy_type, patterns in proxy_detection_patterns.items():
+            for pattern in patterns:
+                matches = re.findall(pattern, log_content, re.IGNORECASE | re.MULTILINE)
+                if matches:
+                    proxy_detection['proxy_types_detected'].append(proxy_type)
+                    
+                    # Extract proxy server details
+                    server_pattern = r'((?:\d{1,3}\.){3}\d{1,3}|[\w\.-]+):\d+'
+                    server_matches = re.findall(server_pattern, str(matches), re.IGNORECASE)
+                    proxy_detection['proxy_servers_found'].extend(server_matches)
+        
+        # Determine detection confidence
+        if len(proxy_detection['proxy_types_detected']) > 2:
+            proxy_detection['detection_confidence'] = 'high'
+        elif len(proxy_detection['proxy_types_detected']) > 0:
+            proxy_detection['detection_confidence'] = 'medium'
+        
+        proxy_intelligence['proxy_detection'] = proxy_detection
+        
+        # HTTP 407 Proxy Authentication Analysis
+        http_407_patterns = [
+            r'http.*407.*proxy.*authentication.*required',
+            r'proxy.*authentication.*failed.*407',
+            r'authentication.*required.*proxy.*server',
+            r'407.*unauthorized.*proxy.*authentication'
+        ]
+        
+        authentication_analysis = {
+            'http_407_errors_detected': False,
+            'authentication_failures': 0,
+            'authentication_methods': [],
+            'credential_issues': []
+        }
+        
+        for pattern in http_407_patterns:
+            matches = re.findall(pattern, log_content, re.IGNORECASE | re.MULTILINE)
+            if matches:
+                authentication_analysis['http_407_errors_detected'] = True
+                authentication_analysis['authentication_failures'] += len(matches)
+        
+        # Authentication Method Detection
+        auth_method_patterns = {
+            'ntlm_authentication': [
+                r'ntlm.*authentication|ntlm.*proxy|proxy.*ntlm',
+                r'windows.*integrated.*authentication|negotiate.*ntlm'
+            ],
+            'kerberos_authentication': [
+                r'kerberos.*authentication|kerberos.*proxy',
+                r'spnego.*kerberos|negotiate.*kerberos'
+            ],
+            'basic_authentication': [
+                r'basic.*authentication|basic.*proxy',
+                r'username.*password.*proxy|credentials.*basic'
+            ],
+            'digest_authentication': [
+                r'digest.*authentication|digest.*proxy',
+                r'md5.*digest.*authentication'
+            ]
+        }
+        
+        for auth_method, patterns in auth_method_patterns.items():
+            for pattern in patterns:
+                matches = re.findall(pattern, log_content, re.IGNORECASE | re.MULTILINE)
+                if matches:
+                    authentication_analysis['authentication_methods'].append(auth_method)
+        
+        # Credential Issues Detection
+        credential_issue_patterns = [
+            r'invalid.*proxy.*credentials|proxy.*credentials.*failed',
+            r'authentication.*timeout|proxy.*authentication.*expired',
+            r'user.*account.*locked|domain.*authentication.*failed'
+        ]
+        
+        for pattern in credential_issue_patterns:
+            matches = re.findall(pattern, log_content, re.IGNORECASE | re.MULTILINE)
+            if matches:
+                authentication_analysis['credential_issues'].extend(matches)
+        
+        proxy_intelligence['authentication_analysis'] = authentication_analysis
+        
+        # Proxy Error Analysis
+        proxy_error_patterns = {
+            'connection_errors': [
+                r'proxy.*connection.*failed|failed.*connect.*proxy',
+                r'proxy.*server.*unreachable|proxy.*timeout',
+                r'proxy.*connection.*refused|proxy.*server.*down'
+            ],
+            'configuration_errors': [
+                r'proxy.*configuration.*error|invalid.*proxy.*settings',
+                r'proxy.*port.*invalid|proxy.*host.*invalid',
+                r'malformed.*proxy.*url|proxy.*address.*error'
+            ],
+            'ssl_tls_errors': [
+                r'proxy.*ssl.*error|proxy.*tls.*error',
+                r'proxy.*certificate.*error|proxy.*handshake.*failed',
+                r'tunnel.*through.*proxy.*failed'
+            ]
+        }
+        
+        proxy_errors = {}
+        for error_type, patterns in proxy_error_patterns.items():
+            error_count = 0
+            error_details = []
+            for pattern in patterns:
+                matches = re.findall(pattern, log_content, re.IGNORECASE | re.MULTILINE)
+                if matches:
+                    error_count += len(matches)
+                    error_details.extend(matches)
+            
+            proxy_errors[error_type] = {
+                'error_count': error_count,
+                'error_details': error_details[:5]  # Limit to first 5 errors
+            }
+        
+        proxy_intelligence['proxy_errors'] = proxy_errors
+        
+        # Corporate Proxy Pattern Analysis
+        corporate_patterns = {
+            'domain_integration': [
+                r'domain.*proxy.*authentication|corporate.*proxy.*server',
+                r'active.*directory.*proxy|domain.*controller.*proxy'
+            ],
+            'proxy_pac_files': [
+                r'pac.*file.*proxy|proxy.*auto.*config',
+                r'wpad.*configuration|automatic.*proxy.*script'
+            ],
+            'enterprise_features': [
+                r'proxy.*bypass.*list|proxy.*exception.*list',
+                r'per.*application.*proxy|application.*specific.*proxy'
+            ]
+        }
+        
+        corporate_proxy_patterns = {}
+        for pattern_type, patterns in corporate_patterns.items():
+            pattern_detected = False
+            pattern_details = []
+            for pattern in patterns:
+                matches = re.findall(pattern, log_content, re.IGNORECASE | re.MULTILINE)
+                if matches:
+                    pattern_detected = True
+                    pattern_details.extend(matches)
+            
+            corporate_proxy_patterns[pattern_type] = {
+                'detected': pattern_detected,
+                'details': pattern_details[:3]  # Limit details
+            }
+        
+        proxy_intelligence['corporate_proxy_patterns'] = corporate_proxy_patterns
+        
+        # Proxy Bypass Configuration Analysis
+        bypass_patterns = [
+            r'proxy.*bypass.*list|bypass.*proxy.*for',
+            r'no.*proxy.*for|proxy.*exception',
+            r'direct.*connection.*for|bypass.*proxy.*server'
+        ]
+        
+        bypass_analysis = {
+            'bypass_configured': False,
+            'bypass_rules': [],
+            'local_bypass_detected': False
+        }
+        
+        for pattern in bypass_patterns:
+            matches = re.findall(pattern, log_content, re.IGNORECASE | re.MULTILINE)
+            if matches:
+                bypass_analysis['bypass_configured'] = True
+                bypass_analysis['bypass_rules'].extend(matches)
+        
+        # Check for local/localhost bypass
+        local_bypass_patterns = [
+            r'bypass.*localhost|bypass.*127\.0\.0\.1',
+            r'local.*direct.*connection|localhost.*no.*proxy'
+        ]
+        
+        for pattern in local_bypass_patterns:
+            if re.search(pattern, log_content, re.IGNORECASE | re.MULTILINE):
+                bypass_analysis['local_bypass_detected'] = True
+        
+        proxy_intelligence['bypass_configuration'] = bypass_analysis
+        
+        # Generate Troubleshooting Recommendations
+        recommendations = []
+        
+        if authentication_analysis['http_407_errors_detected']:
+            recommendations.append({
+                'priority': 'high',
+                'category': 'authentication',
+                'recommendation': 'Configure proxy authentication credentials',
+                'details': 'HTTP 407 errors indicate proxy authentication failure. Verify username/password or enable integrated authentication.'
+            })
+        
+        if proxy_errors['connection_errors']['error_count'] > 0:
+            recommendations.append({
+                'priority': 'high',
+                'category': 'connectivity',
+                'recommendation': 'Verify proxy server connectivity',
+                'details': 'Proxy connection failures detected. Check proxy server availability and network connectivity.'
+            })
+        
+        if proxy_errors['configuration_errors']['error_count'] > 0:
+            recommendations.append({
+                'priority': 'medium',
+                'category': 'configuration',
+                'recommendation': 'Review proxy configuration settings',
+                'details': 'Configuration errors detected. Verify proxy server address, port, and URL format.'
+            })
+        
+        if proxy_errors['ssl_tls_errors']['error_count'] > 0:
+            recommendations.append({
+                'priority': 'high',
+                'category': 'security',
+                'recommendation': 'Fix SSL/TLS proxy tunnel issues',
+                'details': 'SSL/TLS errors through proxy detected. Check proxy SSL configuration and certificate trust.'
+            })
+        
+        if not bypass_analysis['bypass_configured'] and corporate_proxy_patterns['domain_integration']['detected']:
+            recommendations.append({
+                'priority': 'medium',
+                'category': 'optimization',
+                'recommendation': 'Configure proxy bypass for internal resources',
+                'details': 'Corporate proxy detected without bypass configuration. Consider adding bypass rules for internal servers.'
+            })
+        
+        proxy_intelligence['troubleshooting_recommendations'] = recommendations
+        
+        return proxy_intelligence
+
+    def _ai_analyze_heartbeat_communication(self, log_content: str, communication_analysis: Dict[str, Any]) -> Dict[str, Any]:
+        """AI-powered root cause analysis for heartbeat and network communication issues"""
+        
+        root_cause_analysis = {
+            'root_causes': [],
+            'confidence_score': 0.0,
+            'ai_insights': [],
+            'correlation_analysis': {}
+        }
+        
+        # Analyze patterns and correlations
+        issues_found = []
+        
+        # Heartbeat issues
+        if communication_analysis['last_successful_heartbeat']['status'] != 'found':
+            issues_found.append('No successful heartbeat detected')
+            root_cause_analysis['root_causes'].append({
+                'category': 'Heartbeat Communication',
+                'issue': 'Agent-Manager heartbeat communication failure',
+                'severity': 'critical',
+                'confidence': 0.9,
+                'explanation': 'No successful heartbeat communication detected in logs, indicating complete communication failure between DS Agent and Manager'
+            })
+        
+        # Communication method issues
+        if communication_analysis['communication_method']['primary_method'] == 'unknown':
+            issues_found.append('Unknown communication method')
+            root_cause_analysis['root_causes'].append({
+                'category': 'Communication Protocol',
+                'issue': 'Unable to determine communication method',
+                'severity': 'high',
+                'confidence': 0.8,
+                'explanation': 'Could not identify the primary communication protocol, suggesting fundamental connectivity issues'
+            })
+        
+        # Certificate issues (Enhanced with DS 20.0 PKI specifications)
+        if communication_analysis['certificate_issues']['found']:
+            issues_found.append(f"DS PKI Certificate problems ({communication_analysis['certificate_issues']['count']} events)")
+            root_cause_analysis['root_causes'].append({
+                'category': 'Deep Security PKI Certificate Authentication',
+                'issue': 'PKI mutual authentication failures between DS Agent and Manager',
+                'severity': 'high',
+                'confidence': 0.9,
+                'explanation': f"Found {communication_analysis['certificate_issues']['count']} certificate-related issues. Deep Security uses PKI certificates for mutual authentication with certificate chain verification and revocation checking. Monitor Event IDs 930/931 for certificate status."
+            })
+        
+        # Handshake failures
+        if communication_analysis['handshake_failures']['found']:
+            issues_found.append(f"SSL/TLS handshake failures ({communication_analysis['handshake_failures']['count']} events)")
+            root_cause_analysis['root_causes'].append({
+                'category': 'SSL/TLS Handshake',
+                'issue': 'SSL/TLS handshake failures',
+                'severity': 'high',
+                'confidence': 0.9,
+                'explanation': f"Detected {communication_analysis['handshake_failures']['count']} handshake failures indicating certificate or protocol issues"
+            })
+        
+        # Network communication failures (Enhanced with DS 20.0 event correlation)
+        if communication_analysis['network_communication_failures']['found']:
+            issues_found.append(f"DS Network failures ({communication_analysis['network_communication_failures']['count']} events)")
+            root_cause_analysis['root_causes'].append({
+                'category': 'Deep Security Network Communication',
+                'issue': 'DS Agent-Manager network communication failures',
+                'severity': 'critical',
+                'confidence': 0.95,
+                'explanation': f"Found {communication_analysis['network_communication_failures']['count']} network communication failures. Critical Deep Security Event IDs detected: 730 (Agent offline), 742 (Communication problem), 4011 (Failure to contact manager), 4012 (Heartbeat failed). Requires immediate network infrastructure investigation."
+            })
+        
+        # Port failures
+        if communication_analysis['port_failures']['found']:
+            failed_ports = ', '.join(communication_analysis['port_failures']['failed_ports'])
+            issues_found.append(f"Port failures on {failed_ports}")
+            root_cause_analysis['root_causes'].append({
+                'category': 'Port Accessibility',
+                'issue': 'Port binding or accessibility failures',
+                'severity': 'high',
+                'confidence': 0.8,
+                'explanation': f"Port failures detected on {failed_ports}, indicating firewall or service binding issues"
+            })
+        
+        # Proxy issues
+        if communication_analysis['proxy_server_detected']['found']:
+            root_cause_analysis['ai_insights'].append({
+                'type': 'proxy_analysis',
+                'insight': f"Proxy server detected ({communication_analysis['proxy_server_detected']['proxy_type']})",
+                'impact': 'Proxy configuration may be affecting DS Agent communication'
+            })
+        
+        # Calculate overall confidence score
+        if root_cause_analysis['root_causes']:
+            avg_confidence = sum(rc['confidence'] for rc in root_cause_analysis['root_causes']) / len(root_cause_analysis['root_causes'])
+            root_cause_analysis['confidence_score'] = avg_confidence
+        
+        # AI correlation analysis
+        root_cause_analysis['correlation_analysis'] = {
+            'primary_failure_mode': self._determine_primary_failure_mode(communication_analysis),
+            'secondary_issues': issues_found,
+            'recommended_investigation_order': self._get_investigation_priority(root_cause_analysis['root_causes'])
+        }
+        
+        return root_cause_analysis
+    
+    def _generate_focused_troubleshooting(self, communication_analysis: Dict[str, Any], ai_root_cause: Dict[str, Any]) -> List[Dict[str, Any]]:
+        """Generate step-by-step troubleshooting recommendations focused on heartbeat and network issues"""
+        
+        troubleshooting_steps = []
+        
+        # Step 1: Heartbeat Communication Check (Enhanced with DS 20.0 specifications)
+        if communication_analysis['last_successful_heartbeat']['status'] != 'found':
+            troubleshooting_steps.append({
+                'step_number': 1,
+                'category': 'Deep Security Heartbeat Verification',
+                'title': 'Verify DS Agent-Manager Heartbeat Communication (Default 10-minute interval)',
+                'priority': 'critical',
+                'actions': [
+                    'Windows: Test-NetConnection -ComputerName <DSM_hostname> -Port 4120',
+                    'Linux: telnet <DSM_hostname> 4120 (Manager-to-Agent heartbeat)',
+                    'Verify DS Agent service: Windows: Get-Service ds_agent | Linux: systemctl status ds_agent',
+                    'Check DNS resolution: nslookup <DSM_hostname>',
+                    'Validate Manager address in DS Agent configuration',
+                    'Monitor for Event ID 731 (back online) vs Event ID 730 (offline)',
+                    'Verify heartbeat frequency setting (default 600 seconds)'
+                ],
+                'validation': 'Monitor logs for Event ID 731 (Agent back online) and successful heartbeat messages'
+            })
+        
+        # Step 2: Certificate and Authentication (Enhanced with DS 20.0 PKI specifications)
+        if communication_analysis['certificate_issues']['found'] or communication_analysis['handshake_failures']['found']:
+            troubleshooting_steps.append({
+                'step_number': 2,
+                'category': 'Deep Security PKI Certificate Authentication',
+                'title': 'Resolve Certificate and TLS 1.2/1.3 Handshake Issues',
+                'priority': 'high',
+                'actions': [
+                    'Verify NTP time synchronization (critical for certificate validation)',
+                    'Check for Event ID 930 (Certificate accepted) vs Event ID 931 (Certificate deleted)',
+                    'Validate agent identity certificates and manager server certificates',
+                    'Verify certificate chain and root CA certificate accessibility',
+                    'Test TLS 1.2/1.3 with AES encryption handshake manually',
+                    'Check certificate revocation status and validation process',
+                    'Windows: Use certlm.msc for certificate store management',
+                    'Monitor for Event ID 734 (Time synchronization issues affecting certificates)'
+                ],
+                'validation': 'Confirm Event ID 930 (Certificate accepted) and successful TLS handshake completion'
+            })
+        
+        # Step 3: Network Communication (Enhanced with DS 20.0 communication architecture)
+        if communication_analysis['network_communication_failures']['found']:
+            troubleshooting_steps.append({
+                'step_number': 3,
+                'category': 'Deep Security Network Communication',
+                'title': 'Diagnose DS Agent Network Communication Failures',
+                'priority': 'critical',
+                'actions': [
+                    'Test port 4119 (Agent-to-Manager HTTPS communication outbound)',
+                    'Test port 4120 (Manager-to-Agent HTTPS heartbeat inbound)',
+                    'Test port 4122 (Relay server communication if applicable)',
+                    'Test port 443 (Smart Protection Network and Cloud One connectivity)',
+                    'Verify DNS resolution for *.trendmicro.com domains',
+                    'Check firewall rules for Deep Security communication ports',
+                    'Monitor for Event ID 4011 (Failure to contact manager)',
+                    'Monitor for Event ID 742/743 (Communication problem detected/resolved)',
+                    'Validate minimum bandwidth: 64kbps per agent, recommended 128kbps'
+                ],
+                'validation': 'Confirm Event ID 743 (Communication problem resolved) and successful port connectivity'
+            })
+        
+        # Step 4: Port and Service Issues
+        if communication_analysis['port_failures']['found']:
+            troubleshooting_steps.append({
+                'step_number': 4,
+                'category': 'Port and Service Diagnostics',
+                'title': 'Resolve Port Binding and Service Issues',
+                'priority': 'high',
+                'actions': [
+                    f"Check if ports {', '.join(communication_analysis['port_failures']['failed_ports'])} are available",
+                    'Verify DS Agent service has proper permissions to bind ports',
+                    'Check for conflicting services using the same ports',
+                    'Review system firewall and security software configurations',
+                    'Restart DS Agent service with elevated privileges if needed'
+                ],
+                'validation': 'Confirm ports are successfully bound and accessible'
+            })
+        
+        # Step 5: Proxy Configuration (Enhanced with DS 20.0 proxy support)
+        if communication_analysis['proxy_server_detected']['found']:
+            troubleshooting_steps.append({
+                'step_number': 5,
+                'category': 'Deep Security Proxy Configuration',
+                'title': f"Configure {communication_analysis['proxy_server_detected']['proxy_type']} for DS Agent",
+                'priority': 'medium',
+                'actions': [
+                    'Verify supported proxy types: HTTP, HTTPS, SOCKS proxy servers',
+                    'Test authentication methods: Basic, NTLM, Kerberos authentication',
+                    'Configure per-agent proxy settings or policy-based proxy configuration',
+                    'Test automatic proxy detection if enabled',
+                    'Verify proxy server can handle HTTPS traffic to Manager (ports 4119/4120)',
+                    'Check proxy server logs for Deep Security communication attempts',
+                    'Consider proxy bypass for internal Deep Security Manager communications',
+                    'Monitor for HTTP 407 (Proxy Authentication Required) errors'
+                ],
+                'validation': 'Verify DS Agent can communicate through proxy to Deep Security Manager without HTTP 407 errors'
+            })
+        
+        # Add general health check if no specific issues found
+        if not troubleshooting_steps:
+            troubleshooting_steps.append({
+                'step_number': 1,
+                'category': 'Health Verification',
+                'title': 'Verify DS Agent Communication Health',
+                'priority': 'informational',
+                'actions': [
+                    'Confirm regular heartbeat communications are occurring',
+                    'Monitor communication method and protocol usage',
+                    'Verify all required ports are functioning correctly',
+                    'Check for any proxy server configurations',
+                    'Validate certificate health and expiration dates'
+                ],
+                'validation': 'All communication patterns appear healthy'
+            })
+        
+        return troubleshooting_steps
+    
+    def _extract_timestamp(self, log_line: str) -> str:
+        """Extract timestamp from log line"""
+        import re
+        timestamp_patterns = [
+            r'(\d{4}-\d{2}-\d{2}[T\s]\d{2}:\d{2}:\d{2})',
+            r'(\d{2}/\d{2}/\d{4}\s\d{2}:\d{2}:\d{2})',
+            r'(\w{3}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2})'
+        ]
+        
+        for pattern in timestamp_patterns:
+            match = re.search(pattern, log_line)
+            if match:
+                return match.group(1)
+        return 'unknown'
+    
+    def _determine_primary_failure_mode(self, communication_analysis: Dict[str, Any]) -> str:
+        """Determine the primary failure mode based on analysis"""
+        if communication_analysis['network_communication_failures']['found']:
+            return 'Network Infrastructure Failure'
+        elif communication_analysis['certificate_issues']['found']:
+            return 'Certificate Authentication Failure'
+        elif communication_analysis['handshake_failures']['found']:
+            return 'SSL/TLS Communication Failure'
+        elif communication_analysis['port_failures']['found']:
+            return 'Port Accessibility Failure'
+        elif communication_analysis['last_successful_heartbeat']['status'] != 'found':
+            return 'Heartbeat Communication Failure'
+        else:
+            return 'Unknown Communication Issue'
+    
+    def _get_investigation_priority(self, root_causes: List[Dict[str, Any]]) -> List[str]:
+        """Get prioritized investigation order"""
+        priority_order = []
+        
+        # Sort by confidence and severity
+        sorted_causes = sorted(root_causes, key=lambda x: (x['confidence'], 1 if x['severity'] == 'critical' else 0), reverse=True)
+        
+        for cause in sorted_causes:
+            priority_order.append(f"{cause['category']}: {cause['issue']}")
+        
+        return priority_order
