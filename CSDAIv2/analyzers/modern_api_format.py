@@ -162,8 +162,55 @@ class ModernAMSPAnalysisResponse:
     raw_data: Optional[Dict[str, Any]] = None
     
     def to_dict(self) -> Dict[str, Any]:
-        """Convert to dictionary for JSON serialization"""
-        return asdict(self)
+        """Convert to dictionary for JSON serialization with safe fallbacks"""
+        try:
+            return asdict(self)
+        except (TypeError, ValueError, RecursionError) as e:
+            # Safe fallback if asdict fails
+            print(f"⚠️ asdict failed: {e}, using manual serialization")
+            return {
+                'success': getattr(self, 'success', True),
+                'analysis_type': getattr(self, 'analysis_type', 'amsp_logs'),
+                'session_id': getattr(self, 'session_id', 'unknown'),
+                'timestamp': getattr(self, 'timestamp', ''),
+                'format_version': getattr(self, 'format_version', 'modern_v1'),
+                'processing': self._safe_serialize(getattr(self, 'processing', None)),
+                'health': self._safe_serialize(getattr(self, 'health', None)),
+                'issues': self._safe_serialize(getattr(self, 'issues', None)),
+                'ai_analysis': self._safe_serialize(getattr(self, 'ai_analysis', None)),
+                'components': self._safe_serialize(getattr(self, 'components', {})),
+                'timeline': self._safe_serialize(getattr(self, 'timeline', None)),
+                'raw_data': getattr(self, 'raw_data', None) or {}
+            }
+    
+    def _safe_serialize(self, obj):
+        """Safely serialize objects with fallbacks"""
+        if obj is None:
+            return {}
+        
+        try:
+            # Handle dataclass objects (like AMSPLogEntry)
+            if hasattr(obj, '__dataclass_fields__'):
+                return asdict(obj)
+            elif isinstance(obj, dict):
+                # Recursively serialize dict values
+                return {k: self._safe_serialize(v) for k, v in obj.items()}
+            elif isinstance(obj, (list, tuple)):
+                # Recursively serialize list/tuple items
+                return [self._safe_serialize(item) for item in obj]
+            elif hasattr(obj, '__dict__'):
+                # Handle regular objects with __dict__
+                serialized = {}
+                for k, v in obj.__dict__.items():
+                    if not k.startswith('_'):
+                        serialized[k] = self._safe_serialize(v)
+                return serialized
+            else:
+                # Convert to string for primitive types or unknown objects
+                return str(obj) if not isinstance(obj, (int, float, bool, str)) else obj
+        except Exception as e:
+            print(f"⚠️ Safe serialization failed for {type(obj)}: {e}")
+            return str(obj)
     
     def to_json(self) -> str:
         """Convert to JSON string"""

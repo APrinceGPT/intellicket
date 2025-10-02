@@ -1,0 +1,64 @@
+Top 10 Busy Proc [1]: 
+                       Name = c:\program files\guardicore\gc-guest-agent.exe
+                      Count = 22563172
+      AMSP_EVENT_ID_PROCESS = 2640442
+       AMSP_EVENT_ID_FILEIO = 19922729
+          AMSP_EVENT_ID_API = 1
+Top 10 Busy Proc [2]: 
+                       Name = c:\program files\guardicore\gc-enforcement-agent.exe
+                      Count = 10859126
+      AMSP_EVENT_ID_PROCESS = 50647
+       AMSP_EVENT_ID_FILEIO = 10808478
+          AMSP_EVENT_ID_API = 1
+Top 10 Busy Proc [3]: 
+                       Name = c:\program files (x86)\bigfix enterprise\bes client\besclient.exe
+                      Count = 10607903
+      AMSP_EVENT_ID_PROCESS = 7140837
+     AMSP_EVENT_ID_REGISTRY = 1455
+       AMSP_EVENT_ID_FILEIO = 3465611
+Top 10 Busy Proc [4]: 
+                       Name = c:\windows\system32\svchost.exe
+                      Count = 5718311
+      AMSP_EVENT_ID_PROCESS = 558156
+     AMSP_EVENT_ID_REGISTRY = 2440385
+       AMSP_EVENT_ID_FILEIO = 2719770
+Top 10 Busy Proc [5]: 
+                       Name = c:\windows\system32\tasklist.exe
+                      Count = 4408812
+      AMSP_EVENT_ID_PROCESS = 2090466
+     AMSP_EVENT_ID_REGISTRY = 2
+       AMSP_EVENT_ID_FILEIO = 2264197
+          AMSP_EVENT_ID_API = 54147
+Top 10 Busy Proc [6]: 
+                       Name = c:\windows\system32\taskhostw.exe
+                      Count = 2454855
+      AMSP_EVENT_ID_PROCESS = 98251
+     AMSP_EVENT_ID_REGISTRY = 2214797
+       AMSP_EVENT_ID_FILEIO = 141807
+Top 10 Busy Proc [7]: 
+                       Name = c:\program files\azureconnectedmachineagent\gcarcservice2\gc\gc_worker.exe
+                      Count = 2342624
+      AMSP_EVENT_ID_PROCESS = 34803
+     AMSP_EVENT_ID_REGISTRY = 553265
+       AMSP_EVENT_ID_FILEIO = 1324712
+          AMSP_EVENT_ID_API = 733
+         AMSP_EVENT_ID_AMSI = 429111
+Top 10 Busy Proc [8]: 
+                       Name = c:\windows\system32\conhost.exe
+                      Count = 2162599
+      AMSP_EVENT_ID_PROCESS = 1419524
+     AMSP_EVENT_ID_REGISTRY = 2
+       AMSP_EVENT_ID_FILEIO = 743073
+Top 10 Busy Proc [9]: 
+                       Name = c:\program files\silverfort\silverfort ad adapter\silverfortadadapter.exe
+                      Count = 1817975
+      AMSP_EVENT_ID_PROCESS = 182743
+     AMSP_EVENT_ID_REGISTRY = 6
+       AMSP_EVENT_ID_FILEIO = 1635226
+Top 10 Busy Proc [10]: 
+                       Name = c:\packages\plugins\microsoft.azure.monitor.azuremonitorwindowsagent\1.30.0.0\monitoring\agent\monagentcore.exe
+                      Count = 829044
+      AMSP_EVENT_ID_PROCESS = 40888
+     AMSP_EVENT_ID_REGISTRY = 4
+       AMSP_EVENT_ID_FILEIO = 734427
+          AMSP_EVENT_ID_API = 53725

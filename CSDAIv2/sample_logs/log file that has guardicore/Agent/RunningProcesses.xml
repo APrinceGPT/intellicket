@@ -1,0 +1,2782 @@
+<HostMetaDatas>
+	<HostMetaData identifier="[System Process]\0" type="runningProcess">
+		<Attributes>
+			<Attribute name="parent" value="0" />
+			<Attribute name="pid" value="0" />
+			<Attribute name="process" value="[System Process]" />
+			<Attribute name="threads" value="4" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="AggregatorHost.exe\4524" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="AggregatorHost.exe" />
+			<Attribute name="created" value="133912124054457961" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="3156" />
+			<Attribute name="path" value="C:\Windows\System32\AggregatorHost.exe" />
+			<Attribute name="pid" value="4524" />
+			<Attribute name="process" value="AggregatorHost.exe" />
+			<Attribute name="threads" value="4" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="AMAExtHealthMonitor.exe\468" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="AMAExtHealthMonitor.exe Global\AMA-HealthMonitor-ShutdownEvent AzureMonitorAgent-ResetEvent enable" />
+			<Attribute name="created" value="133912125975072006" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="408" />
+			<Attribute name="path" value="C:\Packages\Plugins\Microsoft.Azure.Monitor.AzureMonitorWindowsAgent\1.30.0.0\AMAExtHealthMonitor.exe" />
+			<Attribute name="pid" value="468" />
+			<Attribute name="process" value="AMAExtHealthMonitor.exe" />
+			<Attribute name="threads" value="12" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="AzureADPasswordProtectionDCAgent.exe\2132" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files\Azure AD Password Protection DC Agent\Service\AzureADPasswordProtectionDCAgent.exe&quot;" />
+			<Attribute name="created" value="133912124031734210" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Program Files\Azure AD Password Protection DC Agent\Service\AzureADPasswordProtectionDCAgent.exe" />
+			<Attribute name="pid" value="2132" />
+			<Attribute name="process" value="AzureADPasswordProtectionDCAgent.exe" />
+			<Attribute name="threads" value="17" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="BESClient.exe\4264" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files (x86)\BigFix Enterprise\BES Client\BESClient.exe&quot;" />
+			<Attribute name="created" value="133912125639455756" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Program Files (x86)\BigFix Enterprise\BES Client\BESClient.exe" />
+			<Attribute name="pid" value="4264" />
+			<Attribute name="process" value="BESClient.exe" />
+			<Attribute name="threads" value="14" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="BESClientHelper.exe\2636" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files (x86)\BigFix Enterprise\BES Client\BESClientHelper.exe&quot;" />
+			<Attribute name="created" value="133912124031757020" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Program Files (x86)\BigFix Enterprise\BES Client\BESClientHelper.exe" />
+			<Attribute name="pid" value="2636" />
+			<Attribute name="process" value="BESClientHelper.exe" />
+			<Attribute name="threads" value="2" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="BESClientUI.exe\12420" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files (x86)\BigFix Enterprise\BES Client\BESClientUI.exe&quot; \\.\pipe\BFUIToClient4_3 \\.\pipe\BFClientToUI4_3" />
+			<Attribute name="created" value="133915033689378449" />
+			<Attribute name="group" value="KESHET_BROAD\Domain Users" />
+			<Attribute name="groupId" value="S-1-5-21-524706130-1136157797-1532313055-513" />
+			<Attribute name="parent" value="4264" />
+			<Attribute name="path" value="C:\Program Files (x86)\BigFix Enterprise\BES Client\BESClientUI.exe" />
+			<Attribute name="pid" value="12420" />
+			<Attribute name="process" value="BESClientUI.exe" />
+			<Attribute name="threads" value="9" />
+			<Attribute name="user" value="linoyka@keshet-tv.com" />
+			<Attribute name="userId" value="S-1-5-21-524706130-1136157797-1532313055-69216" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="CETASvc.exe\1812" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files (x86)\Trend Micro\Endpoint Basecamp\modules\ceta\CETASvc.exe&quot; --service --env=&quot;prod&quot; --region=&quot;eu1&quot; --log-path=&quot;C:\Program Files (x86)\Trend Micro\Endpoint Basecamp\log&quot;" />
+			<Attribute name="created" value="133912124031938959" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Program Files (x86)\Trend Micro\Endpoint Basecamp\modules\ceta\CETASvc.exe" />
+			<Attribute name="pid" value="1812" />
+			<Attribute name="process" value="CETASvc.exe" />
+			<Attribute name="threads" value="18" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="ClMgrS.exe\6504" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files\HDS\Backup and Recovery\Base\ClMgrS.exe&quot; -vm Instance001" />
+			<Attribute name="created" value="133912124065032564" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Program Files\HDS\Backup and Recovery\Base\ClMgrS.exe" />
+			<Attribute name="pid" value="6504" />
+			<Attribute name="process" value="ClMgrS.exe" />
+			<Attribute name="threads" value="21" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="CloudEndpointService.exe\3096" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files\Trend Micro\Cloud Endpoint\CloudEndpointService.exe&quot; --service --env=&quot;prod&quot; --region=&quot;eu1&quot; --tid=&quot;d710705f-d0cb-4a13-8822-e439bedbecac&quot; --xid=&quot;294439e3-f50a-4a02-906b-f8d347dfee8c&quot;" />
+			<Attribute name="created" value="133912124032451612" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Program Files\Trend Micro\Cloud Endpoint\CloudEndpointService.exe" />
+			<Attribute name="pid" value="3096" />
+			<Attribute name="process" value="CloudEndpointService.exe" />
+			<Attribute name="threads" value="87" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="collectoragent.exe\4672" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files (x86)\Fortinet\FSAE\collectoragent.exe&quot;" />
+			<Attribute name="created" value="133912124056912553" />
+			<Attribute name="group" value="KESHET_BROAD\Domain Users" />
+			<Attribute name="groupId" value="S-1-5-21-524706130-1136157797-1532313055-513" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Program Files (x86)\Fortinet\FSAE\collectoragent.exe" />
+			<Attribute name="pid" value="4672" />
+			<Attribute name="process" value="collectoragent.exe" />
+			<Attribute name="threads" value="277" />
+			<Attribute name="user" value="kstsupp@keshet.dom" />
+			<Attribute name="userId" value="S-1-5-21-524706130-1136157797-1532313055-6471" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="conhost.exe\2472" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="\??\C:\Windows\system32\conhost.exe 0x4" />
+			<Attribute name="created" value="133912124030551219" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="2044" />
+			<Attribute name="path" value="C:\Windows\System32\conhost.exe" />
+			<Attribute name="pid" value="2472" />
+			<Attribute name="process" value="conhost.exe" />
+			<Attribute name="threads" value="4" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="conhost.exe\3848" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="\??\C:\Windows\system32\conhost.exe 0x4" />
+			<Attribute name="created" value="133912126026982116" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="1808" />
+			<Attribute name="path" value="C:\Windows\System32\conhost.exe" />
+			<Attribute name="pid" value="3848" />
+			<Attribute name="process" value="conhost.exe" />
+			<Attribute name="threads" value="4" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="conhost.exe\4044" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="\??\C:\Windows\system32\conhost.exe 0x4" />
+			<Attribute name="created" value="133912126017651405" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="7828" />
+			<Attribute name="path" value="C:\Windows\System32\conhost.exe" />
+			<Attribute name="pid" value="4044" />
+			<Attribute name="process" value="conhost.exe" />
+			<Attribute name="threads" value="4" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="conhost.exe\4228" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="\??\C:\Windows\system32\conhost.exe 0x4" />
+			<Attribute name="created" value="133912124051026264" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="4116" />
+			<Attribute name="path" value="C:\Windows\System32\conhost.exe" />
+			<Attribute name="pid" value="4228" />
+			<Attribute name="process" value="conhost.exe" />
+			<Attribute name="threads" value="2" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="conhost.exe\4268" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="\??\C:\Windows\system32\conhost.exe 0x4" />
+			<Attribute name="created" value="133912124051176954" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="4184" />
+			<Attribute name="path" value="C:\Windows\System32\conhost.exe" />
+			<Attribute name="pid" value="4268" />
+			<Attribute name="process" value="conhost.exe" />
+			<Attribute name="threads" value="2" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="conhost.exe\4576" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="\??\C:\Windows\system32\conhost.exe 0x4" />
+			<Attribute name="created" value="133912124054749886" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="4436" />
+			<Attribute name="path" value="C:\Windows\System32\conhost.exe" />
+			<Attribute name="pid" value="4576" />
+			<Attribute name="process" value="conhost.exe" />
+			<Attribute name="threads" value="2" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="conhost.exe\7016" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="\??\C:\Windows\system32\conhost.exe 0x4" />
+			<Attribute name="created" value="133912125977470830" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="468" />
+			<Attribute name="path" value="C:\Windows\System32\conhost.exe" />
+			<Attribute name="pid" value="7016" />
+			<Attribute name="process" value="conhost.exe" />
+			<Attribute name="threads" value="2" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="conhost.exe\7096" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="\??\C:\Windows\system32\conhost.exe 0x4" />
+			<Attribute name="created" value="133912125997674309" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="7044" />
+			<Attribute name="path" value="C:\Windows\System32\conhost.exe" />
+			<Attribute name="pid" value="7096" />
+			<Attribute name="process" value="conhost.exe" />
+			<Attribute name="threads" value="4" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="conhost.exe\7232" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="\??\C:\Windows\system32\conhost.exe 0x4" />
+			<Attribute name="created" value="133912124075034831" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="7200" />
+			<Attribute name="path" value="C:\Windows\System32\conhost.exe" />
+			<Attribute name="pid" value="7232" />
+			<Attribute name="process" value="conhost.exe" />
+			<Attribute name="threads" value="4" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="conhost.exe\7324" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="\??\C:\Windows\system32\conhost.exe 0x4" />
+			<Attribute name="created" value="133912124075873798" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="7288" />
+			<Attribute name="path" value="C:\Windows\System32\conhost.exe" />
+			<Attribute name="pid" value="7324" />
+			<Attribute name="process" value="conhost.exe" />
+			<Attribute name="threads" value="2" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="conhost.exe\7360" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="\??\C:\Windows\system32\conhost.exe 0x4" />
+			<Attribute name="created" value="133912126007952097" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="1680" />
+			<Attribute name="path" value="C:\Windows\System32\conhost.exe" />
+			<Attribute name="pid" value="7360" />
+			<Attribute name="process" value="conhost.exe" />
+			<Attribute name="threads" value="4" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="conhost.exe\7436" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="\??\C:\Windows\system32\conhost.exe 0x4" />
+			<Attribute name="created" value="133912125816918871" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="3080" />
+			<Attribute name="path" value="C:\Windows\System32\conhost.exe" />
+			<Attribute name="pid" value="7436" />
+			<Attribute name="process" value="conhost.exe" />
+			<Attribute name="threads" value="4" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="conhost.exe\8100" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="\??\C:\Windows\system32\conhost.exe 0x4" />
+			<Attribute name="created" value="133912124121997898" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="8072" />
+			<Attribute name="path" value="C:\Windows\System32\conhost.exe" />
+			<Attribute name="pid" value="8100" />
+			<Attribute name="process" value="conhost.exe" />
+			<Attribute name="threads" value="2" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="conhost.exe\8864" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="\??\C:\Windows\system32\conhost.exe 0x4" />
+			<Attribute name="created" value="133912124176750882" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="8852" />
+			<Attribute name="path" value="C:\Windows\System32\conhost.exe" />
+			<Attribute name="pid" value="8864" />
+			<Attribute name="process" value="conhost.exe" />
+			<Attribute name="threads" value="2" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="coreFrameworkHost.exe\7200" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="coreFrameworkHost.exe 2044 1" />
+			<Attribute name="created" value="133912124074636195" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="2044" />
+			<Attribute name="path" value="C:\Program Files\Trend Micro\AMSP\coreFrameworkHost.exe" />
+			<Attribute name="pid" value="7200" />
+			<Attribute name="process" value="coreFrameworkHost.exe" />
+			<Attribute name="threads" value="2" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="coreServiceShell.exe\2044" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files\Trend Micro\AMSP\coreServiceShell.exe&quot; coreFrameworkHost.exe -m=nb -dt=180000 -ad -bt=0" />
+			<Attribute name="created" value="133912124029348251" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Program Files\Trend Micro\AMSP\coreServiceShell.exe" />
+			<Attribute name="pid" value="2044" />
+			<Attribute name="process" value="coreServiceShell.exe" />
+			<Attribute name="threads" value="62" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="csrss.exe\14444" type="runningProcess">
+		<Attributes>
+			<Attribute name="parent" value="15100" />
+			<Attribute name="pid" value="14444" />
+			<Attribute name="process" value="csrss.exe" />
+			<Attribute name="threads" value="10" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="csrss.exe\528" type="runningProcess">
+		<Attributes>
+			<Attribute name="parent" value="520" />
+			<Attribute name="pid" value="528" />
+			<Attribute name="process" value="csrss.exe" />
+			<Attribute name="threads" value="13" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="csrss.exe\640" type="runningProcess">
+		<Attributes>
+			<Attribute name="parent" value="624" />
+			<Attribute name="pid" value="640" />
+			<Attribute name="process" value="csrss.exe" />
+			<Attribute name="threads" value="10" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="ctfmon.exe\12100" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;ctfmon.exe&quot;" />
+			<Attribute name="created" value="133915033889002278" />
+			<Attribute name="group" value="KESHET_BROAD\Domain Users" />
+			<Attribute name="groupId" value="S-1-5-21-524706130-1136157797-1532313055-513" />
+			<Attribute name="parent" value="11476" />
+			<Attribute name="path" value="C:\Windows\System32\ctfmon.exe" />
+			<Attribute name="pid" value="12100" />
+			<Attribute name="process" value="ctfmon.exe" />
+			<Attribute name="threads" value="9" />
+			<Attribute name="user" value="linoyka@keshet-tv.com" />
+			<Attribute name="userId" value="S-1-5-21-524706130-1136157797-1532313055-69216" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="cvd.exe\4052" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files\HDS\Backup and Recovery\Base\cvd.exe&quot; -vm Instance001" />
+			<Attribute name="created" value="133912124045031570" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Program Files\HDS\Backup and Recovery\Base\cvd.exe" />
+			<Attribute name="pid" value="4052" />
+			<Attribute name="process" value="cvd.exe" />
+			<Attribute name="threads" value="54" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="cvfwd.exe\3284" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files\HDS\Backup and Recovery\Base\cvfwd.exe&quot; -vm Instance001" />
+			<Attribute name="created" value="133912124033453521" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Program Files\HDS\Backup and Recovery\Base\cvfwd.exe" />
+			<Attribute name="pid" value="3284" />
+			<Attribute name="process" value="cvfwd.exe" />
+			<Attribute name="threads" value="17" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="dfsrs.exe\3136" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\DFSRs.exe" />
+			<Attribute name="created" value="133912124032741542" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\dfsrs.exe" />
+			<Attribute name="pid" value="3136" />
+			<Attribute name="process" value="dfsrs.exe" />
+			<Attribute name="threads" value="26" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="dfssvc.exe\3376" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\dfssvc.exe" />
+			<Attribute name="created" value="133912124033826305" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\dfssvc.exe" />
+			<Attribute name="pid" value="3376" />
+			<Attribute name="process" value="dfssvc.exe" />
+			<Attribute name="threads" value="13" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="dllhost.exe\15132" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\DllHost.exe /Processid:{973D20D7-562D-44B9-B70B-5A0F49CCDF3F}" />
+			<Attribute name="created" value="133915034794168715" />
+			<Attribute name="group" value="KESHET_BROAD\Domain Users" />
+			<Attribute name="groupId" value="S-1-5-21-524706130-1136157797-1532313055-513" />
+			<Attribute name="parent" value="972" />
+			<Attribute name="path" value="C:\Windows\System32\dllhost.exe" />
+			<Attribute name="pid" value="15132" />
+			<Attribute name="process" value="dllhost.exe" />
+			<Attribute name="threads" value="5" />
+			<Attribute name="user" value="linoyka@keshet-tv.com" />
+			<Attribute name="userId" value="S-1-5-21-524706130-1136157797-1532313055-69216" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="dllhost.exe\6288" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\dllhost.exe /Processid:{02D4B3F1-FD88-11D1-960D-00805FC79235}" />
+			<Attribute name="created" value="133912124063252854" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\dllhost.exe" />
+			<Attribute name="pid" value="6288" />
+			<Attribute name="process" value="dllhost.exe" />
+			<Attribute name="threads" value="12" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="dllhost.exe\9320" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\DllHost.exe /Processid:{AB8902B4-09CA-4BB6-B78D-A8F59079A8D5}" />
+			<Attribute name="created" value="133915940774898964" />
+			<Attribute name="group" value="KESHET_BROAD\Domain Users" />
+			<Attribute name="groupId" value="S-1-5-21-524706130-1136157797-1532313055-513" />
+			<Attribute name="parent" value="972" />
+			<Attribute name="path" value="C:\Windows\System32\dllhost.exe" />
+			<Attribute name="pid" value="9320" />
+			<Attribute name="process" value="dllhost.exe" />
+			<Attribute name="threads" value="7" />
+			<Attribute name="user" value="linoyka@keshet-tv.com" />
+			<Attribute name="userId" value="S-1-5-21-524706130-1136157797-1532313055-69216" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="dns.exe\3184" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\dns.exe" />
+			<Attribute name="created" value="133912124033046141" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\dns.exe" />
+			<Attribute name="pid" value="3184" />
+			<Attribute name="process" value="dns.exe" />
+			<Attribute name="threads" value="16" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="ds_monitor.exe\3216" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files\Trend Micro\Deep Security Agent\ds_monitor.exe&quot;" />
+			<Attribute name="created" value="133912124033145992" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Program Files\Trend Micro\Deep Security Agent\ds_monitor.exe" />
+			<Attribute name="pid" value="3216" />
+			<Attribute name="process" value="ds_monitor.exe" />
+			<Attribute name="threads" value="2" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="dsa.exe\6308" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files\Trend Micro\Deep Security Agent\dsa.exe&quot; -a &quot;ds_agent&quot; -b -i -w &quot;HKLM\Software\TrendMicro\Deep Security Agent\DataFolder&quot; -e &quot;C:\Program Files\Trend Micro\Deep Security Agent\ext&quot;" />
+			<Attribute name="created" value="133912124063355886" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Program Files\Trend Micro\Deep Security Agent\dsa.exe" />
+			<Attribute name="pid" value="6308" />
+			<Attribute name="process" value="dsa.exe" />
+			<Attribute name="threads" value="61" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="dwm.exe\11460" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;dwm.exe&quot;" />
+			<Attribute name="created" value="133915032185827690" />
+			<Attribute name="group" value="Window Manager\DWM-4" />
+			<Attribute name="groupId" value="S-1-5-90-0-4" />
+			<Attribute name="parent" value="7504" />
+			<Attribute name="path" value="C:\Windows\System32\dwm.exe" />
+			<Attribute name="pid" value="11460" />
+			<Attribute name="process" value="dwm.exe" />
+			<Attribute name="threads" value="17" />
+			<Attribute name="user" value="Window Manager\DWM-4" />
+			<Attribute name="userId" value="S-1-5-90-0-4" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="dwm.exe\1220" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;dwm.exe&quot;" />
+			<Attribute name="created" value="133912123931975041" />
+			<Attribute name="group" value="Window Manager\DWM-1" />
+			<Attribute name="groupId" value="S-1-5-90-0-1" />
+			<Attribute name="parent" value="700" />
+			<Attribute name="path" value="C:\Windows\System32\dwm.exe" />
+			<Attribute name="pid" value="1220" />
+			<Attribute name="process" value="dwm.exe" />
+			<Attribute name="threads" value="15" />
+			<Attribute name="user" value="Window Manager\DWM-1" />
+			<Attribute name="userId" value="S-1-5-90-0-1" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="EndpointBasecamp.exe\3512" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\\Program Files (x86)\\Trend Micro\\Endpoint Basecamp\\EndpointBasecamp.exe&quot; /service" />
+			<Attribute name="created" value="133912124034257453" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Program Files (x86)\Trend Micro\Endpoint Basecamp\EndpointBasecamp.exe" />
+			<Attribute name="pid" value="3512" />
+			<Attribute name="process" value="EndpointBasecamp.exe" />
+			<Attribute name="threads" value="13" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="EndpointBasecamp.exe\4116" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files (x86)\Trend Micro\Endpoint Basecamp\EndpointBasecamp.exe&quot; /xbc_auth_sdk IoFWMv22dwT21GP83K2n" />
+			<Attribute name="created" value="133912124048317136" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="1812" />
+			<Attribute name="path" value="C:\Program Files (x86)\Trend Micro\Endpoint Basecamp\EndpointBasecamp.exe" />
+			<Attribute name="pid" value="4116" />
+			<Attribute name="process" value="EndpointBasecamp.exe" />
+			<Attribute name="threads" value="3" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="EndpointBasecamp.exe\4184" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files (x86)\Trend Micro\Endpoint Basecamp\EndpointBasecamp.exe&quot; /xbc_auth_sdk LkUIwEDnDMbmNvkDTe6o" />
+			<Attribute name="created" value="133912124049204624" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="3096" />
+			<Attribute name="path" value="C:\Program Files (x86)\Trend Micro\Endpoint Basecamp\EndpointBasecamp.exe" />
+			<Attribute name="pid" value="4184" />
+			<Attribute name="process" value="EndpointBasecamp.exe" />
+			<Attribute name="threads" value="3" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="EndpointBasecamp.exe\4436" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files (x86)\Trend Micro\Endpoint Basecamp\EndpointBasecamp.exe&quot; /xbc_auth_sdk jWeJf3Vl3hR7FOnzhp0B" />
+			<Attribute name="created" value="133912124053936183" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="3524" />
+			<Attribute name="path" value="C:\Program Files (x86)\Trend Micro\Endpoint Basecamp\EndpointBasecamp.exe" />
+			<Attribute name="pid" value="4436" />
+			<Attribute name="process" value="EndpointBasecamp.exe" />
+			<Attribute name="threads" value="3" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="EndpointBasecamp.exe\7288" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files (x86)\Trend Micro\Endpoint Basecamp\EndpointBasecamp.exe&quot; /svchost_vom" />
+			<Attribute name="created" value="133912124075598087" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="3512" />
+			<Attribute name="path" value="C:\Program Files (x86)\Trend Micro\Endpoint Basecamp\EndpointBasecamp.exe" />
+			<Attribute name="pid" value="7288" />
+			<Attribute name="process" value="EndpointBasecamp.exe" />
+			<Attribute name="threads" value="15" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="EndpointBasecamp.exe\8072" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files (x86)\Trend Micro\Endpoint Basecamp\EndpointBasecamp.exe&quot; /xbc_auth_sdk aMEAP5SgVwiTJYDYyZ9p" />
+			<Attribute name="created" value="133912124121591391" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="6308" />
+			<Attribute name="path" value="C:\Program Files (x86)\Trend Micro\Endpoint Basecamp\EndpointBasecamp.exe" />
+			<Attribute name="pid" value="8072" />
+			<Attribute name="process" value="EndpointBasecamp.exe" />
+			<Attribute name="threads" value="3" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="explorer.exe\4504" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\Explorer.EXE" />
+			<Attribute name="created" value="133915033638796148" />
+			<Attribute name="group" value="KESHET_BROAD\Domain Users" />
+			<Attribute name="groupId" value="S-1-5-21-524706130-1136157797-1532313055-513" />
+			<Attribute name="parent" value="11408" />
+			<Attribute name="path" value="C:\Windows\explorer.exe" />
+			<Attribute name="pid" value="4504" />
+			<Attribute name="process" value="explorer.exe" />
+			<Attribute name="threads" value="52" />
+			<Attribute name="user" value="linoyka@keshet-tv.com" />
+			<Attribute name="userId" value="S-1-5-21-524706130-1136157797-1532313055-69216" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="fontdrvhost.exe\13308" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;fontdrvhost.exe&quot;" />
+			<Attribute name="created" value="133915032184934724" />
+			<Attribute name="group" value="Font Driver Host\UMFD-4" />
+			<Attribute name="groupId" value="S-1-5-96-0-4" />
+			<Attribute name="parent" value="7504" />
+			<Attribute name="path" value="C:\Windows\System32\fontdrvhost.exe" />
+			<Attribute name="pid" value="13308" />
+			<Attribute name="process" value="fontdrvhost.exe" />
+			<Attribute name="threads" value="5" />
+			<Attribute name="user" value="Font Driver Host\UMFD-4" />
+			<Attribute name="userId" value="S-1-5-96-0-4" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="fontdrvhost.exe\4064" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;fontdrvhost.exe&quot;" />
+			<Attribute name="created" value="133912124045116684" />
+			<Attribute name="group" value="Font Driver Host\UMFD-1" />
+			<Attribute name="groupId" value="S-1-5-96-0-1" />
+			<Attribute name="parent" value="700" />
+			<Attribute name="path" value="C:\Windows\System32\fontdrvhost.exe" />
+			<Attribute name="pid" value="4064" />
+			<Attribute name="process" value="fontdrvhost.exe" />
+			<Attribute name="threads" value="5" />
+			<Attribute name="user" value="Font Driver Host\UMFD-1" />
+			<Attribute name="userId" value="S-1-5-96-0-1" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="fontdrvhost.exe\4068" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;fontdrvhost.exe&quot;" />
+			<Attribute name="created" value="133912124045116712" />
+			<Attribute name="group" value="Font Driver Host\UMFD-0" />
+			<Attribute name="groupId" value="S-1-5-96-0-0" />
+			<Attribute name="parent" value="632" />
+			<Attribute name="path" value="C:\Windows\System32\fontdrvhost.exe" />
+			<Attribute name="pid" value="4068" />
+			<Attribute name="process" value="fontdrvhost.exe" />
+			<Attribute name="threads" value="5" />
+			<Attribute name="user" value="Font Driver Host\UMFD-0" />
+			<Attribute name="userId" value="S-1-5-96-0-0" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="gc-agent-ui.exe\10104" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files\Guardicore\gc-agent-ui.exe&quot;" />
+			<Attribute name="created" value="133915033592208782" />
+			<Attribute name="group" value="KESHET_BROAD\Domain Users" />
+			<Attribute name="groupId" value="S-1-5-21-524706130-1136157797-1532313055-513" />
+			<Attribute name="parent" value="1792" />
+			<Attribute name="path" value="C:\Program Files\Guardicore\gc-agent-ui.exe" />
+			<Attribute name="pid" value="10104" />
+			<Attribute name="process" value="gc-agent-ui.exe" />
+			<Attribute name="threads" value="17" />
+			<Attribute name="user" value="linoyka@keshet-tv.com" />
+			<Attribute name="userId" value="S-1-5-21-524706130-1136157797-1532313055-69216" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="gc-agents-service.exe\2584" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files\Guardicore\gc-agents-service.exe&quot; -d -l &quot;C:\ProgramData\Guardicore\logs\gc-agents-service.log&quot; --resources-logfile &quot;C:\ProgramData\Guardicore\logs\gc-agent-services-resources.csv&quot; --resources-common-logfile &quot;C:\ProgramData\Guardicore\logs\gc-agents-resources.csv&quot; --reg-key &quot;Software\Guardicore&quot; " />
+			<Attribute name="created" value="133912125763025030" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Program Files\Guardicore\gc-agents-service.exe" />
+			<Attribute name="pid" value="2584" />
+			<Attribute name="process" value="gc-agents-service.exe" />
+			<Attribute name="threads" value="3" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="gc-agents-service.exe\3080" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files\Guardicore\gc-agents-service.exe&quot; -l &quot;C:\ProgramData\Guardicore\logs\gc-agents-service.log&quot; --resources-logfile &quot;C:\ProgramData\Guardicore\logs\gc-agent-services-resources.csv&quot; --resources-common-logfile &quot;C:\ProgramData\Guardicore\logs\gc-agents-resources.csv&quot; --reg-key &quot;Software\Guardicore&quot;  --uuid 7fe72485-a57a-435c-bed8-83df4bafe5de" />
+			<Attribute name="created" value="133912125816531766" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="2584" />
+			<Attribute name="path" value="C:\Program Files\Guardicore\gc-agents-service.exe" />
+			<Attribute name="pid" value="3080" />
+			<Attribute name="process" value="gc-agents-service.exe" />
+			<Attribute name="threads" value="7" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="gc-controller.exe\4864" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files\Guardicore\gc-controller.exe&quot; -l &quot;C:\ProgramData\Guardicore\logs\gc-controller.log&quot; --method tcp-tls -p 10.254.254.40:443    --remote-name guardicore-controller-server-v2 -A &quot;C:\ProgramData\Guardicore\certs\client.ca.pem&quot; -C &quot;C:\ProgramData\Guardicore\certs\client.cert.pem&quot; -K &quot;C:\ProgramData\Guardicore\certs\client.key.pem&quot; --reconnect-interval 20 --audit-logfile &quot;C:\ProgramData\Guardicore\logs\gc-audit-log.bin&quot; --pidfile &quot;C:\ProgramData\Guardicore\pids\gc-controller.pid&quot;  " />
+			<Attribute name="created" value="133912125844542510" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="3080" />
+			<Attribute name="path" value="C:\Program Files\Guardicore\gc-controller.exe" />
+			<Attribute name="pid" value="4864" />
+			<Attribute name="process" value="gc-controller.exe" />
+			<Attribute name="threads" value="8" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="gc-deception-agent.exe\4104" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files\Guardicore\gc-deception-agent.exe&quot; -l &quot;C:\ProgramData\Guardicore\logs\gc-deception-agent.log&quot; --method tcp-tls -p 10.254.254.40:443    --remote-name guardicore-deception-server-v2 -A &quot;C:\ProgramData\Guardicore\certs\client.ca.pem&quot; -C &quot;C:\ProgramData\Guardicore\certs\client.cert.pem&quot; -K &quot;C:\ProgramData\Guardicore\certs\client.key.pem&quot; --pidfile &quot;C:\ProgramData\Guardicore\pids\gc-deception.pid&quot; " />
+			<Attribute name="created" value="133912125839556248" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="3080" />
+			<Attribute name="path" value="C:\Program Files\Guardicore\gc-deception-agent.exe" />
+			<Attribute name="pid" value="4104" />
+			<Attribute name="process" value="gc-deception-agent.exe" />
+			<Attribute name="threads" value="7" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="gc-detection-agent.exe\3748" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files\Guardicore\gc-detection-agent.exe&quot; -l &quot;C:\ProgramData\Guardicore\logs\gc-detection-agent.log&quot; --method tcp-tls -p 10.254.254.40:443    --remote-name guardicore-detection-server-v2 -A &quot;C:\ProgramData\Guardicore\certs\client.ca.pem&quot; -C &quot;C:\ProgramData\Guardicore\certs\client.cert.pem&quot; -K &quot;C:\ProgramData\Guardicore\certs\client.key.pem&quot; --pidfile &quot;C:\ProgramData\Guardicore\pids\gc-detection.pid&quot; " />
+			<Attribute name="created" value="133912125828525369" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="3080" />
+			<Attribute name="path" value="C:\Program Files\Guardicore\gc-detection-agent.exe" />
+			<Attribute name="pid" value="3748" />
+			<Attribute name="process" value="gc-detection-agent.exe" />
+			<Attribute name="threads" value="8" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="gc-enforcement-agent.exe\4588" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files\Guardicore\gc-enforcement-agent.exe&quot; -l &quot;C:\ProgramData\Guardicore\logs\gc-enforcement-agent.log&quot; --driver-logfile &quot;C:\ProgramData\Guardicore\logs\gc-enforcement-driver.log&quot; -Q &quot;C:\ProgramData\Guardicore\logs\gc-enforcement-policy.log&quot; -U &quot;C:\ProgramData\Guardicore\logs\gc-enforcement-usergroups.log&quot; --method tcp-tls -p 10.254.254.40:443    --remote-name guardicore-enforcement-server-v2 -A &quot;C:\ProgramData\Guardicore\certs\client.ca.pem&quot; -C &quot;C:\ProgramData\Guardicore\certs\client.cert.pem&quot; -K &quot;C:\ProgramData\Guardicore\certs\client.key.pem&quot; --pidfile &quot;C:\ProgramData\Guardicore\pids\gc-enforcement.pid&quot;  " />
+			<Attribute name="created" value="133912125835780491" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="3080" />
+			<Attribute name="path" value="C:\Program Files\Guardicore\gc-enforcement-agent.exe" />
+			<Attribute name="pid" value="4588" />
+			<Attribute name="process" value="gc-enforcement-agent.exe" />
+			<Attribute name="threads" value="18" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="gc-guest-agent.exe\6908" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files\Guardicore\gc-guest-agent.exe&quot; -l &quot;C:\ProgramData\Guardicore\logs\gc-guest-agent.log&quot; -n &quot;C:\ProgramData\Guardicore\logs\gc-net-event-log.bin&quot; -b &quot;C:\ProgramData\Guardicore\logs\gc-blocked-net-event-log.bin&quot; --method tcp-tls -p 10.254.254.40:443    --remote-name guardicore-reveal-server-v2 -A &quot;C:\ProgramData\Guardicore\certs\client.ca.pem&quot; -C &quot;C:\ProgramData\Guardicore\certs\client.cert.pem&quot; -K &quot;C:\ProgramData\Guardicore\certs\client.key.pem&quot; --pidfile &quot;C:\ProgramData\Guardicore\pids\gc-reveal.pid&quot;  " />
+			<Attribute name="created" value="133912125842860774" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="3080" />
+			<Attribute name="path" value="C:\Program Files\Guardicore\gc-guest-agent.exe" />
+			<Attribute name="pid" value="6908" />
+			<Attribute name="process" value="gc-guest-agent.exe" />
+			<Attribute name="threads" value="9" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="gc_arc_service.exe\3644" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files\AzureConnectedMachineAgent\GCArcService2\GC\gc_arc_service.exe&quot; -k netsvcs" />
+			<Attribute name="created" value="133912125272817737" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Program Files\AzureConnectedMachineAgent\GCArcService2\GC\gc_arc_service.exe" />
+			<Attribute name="pid" value="3644" />
+			<Attribute name="process" value="gc_arc_service.exe" />
+			<Attribute name="threads" value="9" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="gc_extension_service.exe\2320" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files\AzureConnectedMachineAgent\ExtensionService2\GC\gc_extension_service.exe&quot; -k netsvcs" />
+			<Attribute name="created" value="133912125674856499" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Program Files\AzureConnectedMachineAgent\ExtensionService2\GC\gc_extension_service.exe" />
+			<Attribute name="pid" value="2320" />
+			<Attribute name="process" value="gc_extension_service.exe" />
+			<Attribute name="threads" value="10" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="himds.exe\7136" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files\AzureConnectedMachineAgent\himds.exe&quot;" />
+			<Attribute name="created" value="133912125830703386" />
+			<Attribute name="group" value="NT SERVICE\himds" />
+			<Attribute name="groupId" value="S-1-5-80-4215458991-2034252225-2287069555-1155419622-2701885083" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Program Files\AzureConnectedMachineAgent\himds.exe" />
+			<Attribute name="pid" value="7136" />
+			<Attribute name="process" value="himds.exe" />
+			<Attribute name="threads" value="14" />
+			<Attribute name="user" value="NT SERVICE\himds" />
+			<Attribute name="userId" value="S-1-5-80-4215458991-2034252225-2287069555-1155419622-2701885083" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="ismserv.exe\3348" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\System32\ismserv.exe" />
+			<Attribute name="created" value="133912124033698692" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\ismserv.exe" />
+			<Attribute name="pid" value="3348" />
+			<Attribute name="process" value="ismserv.exe" />
+			<Attribute name="threads" value="7" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="LogonUI.exe\1172" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;LogonUI.exe&quot; /flags:0x2 /state0:0xa3b06855 /state1:0x41c64e6d" />
+			<Attribute name="created" value="133912123931721338" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="700" />
+			<Attribute name="path" value="C:\Windows\System32\LogonUI.exe" />
+			<Attribute name="pid" value="1172" />
+			<Attribute name="process" value="LogonUI.exe" />
+			<Attribute name="threads" value="8" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="lsass.exe\776" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\lsass.exe" />
+			<Attribute name="created" value="133912123910593231" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="632" />
+			<Attribute name="path" value="C:\Windows\System32\lsass.exe" />
+			<Attribute name="pid" value="776" />
+			<Attribute name="process" value="lsass.exe" />
+			<Attribute name="threads" value="41" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="Microsoft.ActiveDirectory.WebServices.exe\2904" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\ADWS\Microsoft.ActiveDirectory.WebServices.exe" />
+			<Attribute name="created" value="133912124031716617" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\ADWS\Microsoft.ActiveDirectory.WebServices.exe" />
+			<Attribute name="pid" value="2904" />
+			<Attribute name="process" value="Microsoft.ActiveDirectory.WebServices.exe" />
+			<Attribute name="threads" value="12" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="Microsoft.Tri.Sensor.exe\6340" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files\Azure Advanced Threat Protection Sensor\2.240.18679.33653\Microsoft.Tri.Sensor.exe&quot;" />
+			<Attribute name="created" value="133914312440427803" />
+			<Attribute name="group" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="groupId" value="S-1-5-19" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Program Files\Azure Advanced Threat Protection Sensor\2.240.18679.33653\Microsoft.Tri.Sensor.exe" />
+			<Attribute name="pid" value="6340" />
+			<Attribute name="process" value="Microsoft.Tri.Sensor.exe" />
+			<Attribute name="threads" value="51" />
+			<Attribute name="user" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="userId" value="S-1-5-19" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="Microsoft.Tri.Sensor.Updater.exe\13056" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files\Azure Advanced Threat Protection Sensor\2.240.18679.33653\Microsoft.Tri.Sensor.Updater.exe&quot;" />
+			<Attribute name="created" value="133914311950170139" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Program Files\Azure Advanced Threat Protection Sensor\2.240.18679.33653\Microsoft.Tri.Sensor.Updater.exe" />
+			<Attribute name="pid" value="13056" />
+			<Attribute name="process" value="Microsoft.Tri.Sensor.Updater.exe" />
+			<Attribute name="threads" value="24" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="mmc.exe\12464" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Windows\system32\mmc.exe&quot; &quot;C:\Windows\system32\eventvwr.msc&quot; /s" />
+			<Attribute name="created" value="133915039553528766" />
+			<Attribute name="group" value="KESHET_BROAD\Domain Users" />
+			<Attribute name="groupId" value="S-1-5-21-524706130-1136157797-1532313055-513" />
+			<Attribute name="parent" value="4504" />
+			<Attribute name="path" value="C:\Windows\System32\mmc.exe" />
+			<Attribute name="pid" value="12464" />
+			<Attribute name="process" value="mmc.exe" />
+			<Attribute name="threads" value="13" />
+			<Attribute name="user" value="linoyka@keshet-tv.com" />
+			<Attribute name="userId" value="S-1-5-21-524706130-1136157797-1532313055-69216" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="mmc.exe\16264" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Windows\system32\mmc.exe&quot; &quot;C:\Windows\system32\services.msc&quot; " />
+			<Attribute name="created" value="133915039409855412" />
+			<Attribute name="group" value="KESHET_BROAD\Domain Users" />
+			<Attribute name="groupId" value="S-1-5-21-524706130-1136157797-1532313055-513" />
+			<Attribute name="parent" value="4504" />
+			<Attribute name="path" value="C:\Windows\System32\mmc.exe" />
+			<Attribute name="pid" value="16264" />
+			<Attribute name="process" value="mmc.exe" />
+			<Attribute name="threads" value="9" />
+			<Attribute name="user" value="linoyka@keshet-tv.com" />
+			<Attribute name="userId" value="S-1-5-21-524706130-1136157797-1532313055-69216" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="MonAgentCore.exe\10656" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="  -deploymentdir &quot;C:\Packages\Plugins\Microsoft.Azure.Monitor.AzureMonitorWindowsAgent\1.30.0.0\Monitoring\Agent&quot; -LocalPath &quot;C:\Resources\Directory\AMADataStore.KSDC01&quot;  -mcsmode    -InitializedEvent &quot;AzureMonitorAgentExtension-StartAgentEventName&quot;  -managerver 1  -parent 10564 -ShutDownEvent AzureMonitorAgentExtension-ShutdownEventName10540 -TotalShutDownEvent AzureMonitorAgentExtension-TotalShutdownEventName10540 -ConfigFile &quot;C:\Resources\Directory\AMADataStore.KSDC01\mcs\mcsconfig.latest.xml&quot; " />
+			<Attribute name="created" value="133912126608302834" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="10564" />
+			<Attribute name="path" value="C:\Packages\Plugins\Microsoft.Azure.Monitor.AzureMonitorWindowsAgent\1.30.0.0\Monitoring\Agent\MonAgentCore.exe" />
+			<Attribute name="pid" value="10656" />
+			<Attribute name="process" value="MonAgentCore.exe" />
+			<Attribute name="threads" value="50" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="MonAgentHost.exe\10540" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value=" -LocalPath &quot;C:\Resources\Directory\AMADataStore.KSDC01&quot; -parent 10516 -mcsmode  -ShutDownEvent AzureMonitorAgentExtension-ShutdownEventName -TotalShutDownEvent AzureMonitorAgentExtension-TotalShutdownEventName -InitializedEvent AzureMonitorAgentExtension-StartAgentEventName" />
+			<Attribute name="created" value="133912126594745138" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="10516" />
+			<Attribute name="path" value="C:\Packages\Plugins\Microsoft.Azure.Monitor.AzureMonitorWindowsAgent\1.30.0.0\Monitoring\Agent\MonAgentHost.exe" />
+			<Attribute name="pid" value="10540" />
+			<Attribute name="process" value="MonAgentHost.exe" />
+			<Attribute name="threads" value="3" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="MonAgentLauncher.exe\10516" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="Monitoring\Agent\MonAgentLauncher.exe -useenv -ShutDownEvent AzureMonitorAgentExtension-ShutdownEventName -TotalShutDownEvent AzureMonitorAgentExtension-TotalShutdownEventName -StartEvent AzureMonitorAgentExtension-StartAgentEventName -StopEvent AzureMonitorAgentExtension-StopAgentEventName" />
+			<Attribute name="created" value="133912126592573495" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="468" />
+			<Attribute name="path" value="C:\Packages\Plugins\Microsoft.Azure.Monitor.AzureMonitorWindowsAgent\1.30.0.0\Monitoring\Agent\MonAgentLauncher.exe" />
+			<Attribute name="pid" value="10516" />
+			<Attribute name="process" value="MonAgentLauncher.exe" />
+			<Attribute name="threads" value="2" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="MonAgentManager.exe\10564" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="-serviceShutdown MonAgentShutdownEvent.10540 -parent 10540 -deploymentdir &quot;C:\Packages\Plugins\Microsoft.Azure.Monitor.AzureMonitorWindowsAgent\1.30.0.0\Monitoring\Agent&quot; -LocalPath &quot;C:\Resources\Directory\AMADataStore.KSDC01&quot; &quot;-mcsmode&quot; &quot;-ShutDownEvent&quot; &quot;AzureMonitorAgentExtension-ShutdownEventName&quot; &quot;-TotalShutDownEvent&quot; &quot;AzureMonitorAgentExtension-TotalShutdownEventName&quot; &quot;-InitializedEvent&quot; &quot;AzureMonitorAgentExtension-StartAgentEventName&quot; -LogPath &quot;C:\Resources\Directory\AMADataStore.KSDC01\Configuration\MonAgentHost.9.log&quot;" />
+			<Attribute name="created" value="133912126596567957" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="10540" />
+			<Attribute name="path" value="C:\Packages\Plugins\Microsoft.Azure.Monitor.AzureMonitorWindowsAgent\1.30.0.0\Monitoring\Agent\MonAgentManager.exe" />
+			<Attribute name="pid" value="10564" />
+			<Attribute name="process" value="MonAgentManager.exe" />
+			<Attribute name="threads" value="18" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="msdtc.exe\7652" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\System32\msdtc.exe" />
+			<Attribute name="created" value="133912124128575207" />
+			<Attribute name="group" value="NT AUTHORITY\NETWORK SERVICE" />
+			<Attribute name="groupId" value="S-1-5-20" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\msdtc.exe" />
+			<Attribute name="pid" value="7652" />
+			<Attribute name="process" value="msdtc.exe" />
+			<Attribute name="threads" value="9" />
+			<Attribute name="user" value="NT AUTHORITY\NETWORK SERVICE" />
+			<Attribute name="userId" value="S-1-5-20" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="Notifier.exe\14508" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files\Trend Micro\Deep Security Agent\Notifier.exe&quot; " />
+			<Attribute name="created" value="133915034164686897" />
+			<Attribute name="group" value="KESHET_BROAD\Domain Users" />
+			<Attribute name="groupId" value="S-1-5-21-524706130-1136157797-1532313055-513" />
+			<Attribute name="parent" value="11132" />
+			<Attribute name="path" value="C:\Program Files\Trend Micro\Deep Security Agent\Notifier.exe" />
+			<Attribute name="pid" value="14508" />
+			<Attribute name="process" value="Notifier.exe" />
+			<Attribute name="threads" value="6" />
+			<Attribute name="user" value="linoyka@keshet-tv.com" />
+			<Attribute name="userId" value="S-1-5-21-524706130-1136157797-1532313055-69216" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="Notifier.exe\6316" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files\Trend Micro\Deep Security Agent\Notifier.exe&quot; -service" />
+			<Attribute name="created" value="133912124063402261" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Program Files\Trend Micro\Deep Security Agent\Notifier.exe" />
+			<Attribute name="pid" value="6316" />
+			<Attribute name="process" value="Notifier.exe" />
+			<Attribute name="threads" value="6" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="NSClient++.exe\2564" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files\NSClient++\NSClient++.exe&quot;" />
+			<Attribute name="created" value="133912124031760877" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Program Files\NSClient++\NSClient++.exe" />
+			<Attribute name="pid" value="2564" />
+			<Attribute name="process" value="NSClient++.exe" />
+			<Attribute name="threads" value="5" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="rdpclip.exe\9628" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="rdpclip" />
+			<Attribute name="created" value="133915033558386236" />
+			<Attribute name="group" value="KESHET_BROAD\Domain Users" />
+			<Attribute name="groupId" value="S-1-5-21-524706130-1136157797-1532313055-513" />
+			<Attribute name="parent" value="1016" />
+			<Attribute name="path" value="C:\Windows\System32\rdpclip.exe" />
+			<Attribute name="pid" value="9628" />
+			<Attribute name="process" value="rdpclip.exe" />
+			<Attribute name="threads" value="14" />
+			<Attribute name="user" value="linoyka@keshet-tv.com" />
+			<Attribute name="userId" value="S-1-5-21-524706130-1136157797-1532313055-69216" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="Registry\100" type="runningProcess">
+		<Attributes>
+			<Attribute name="parent" value="4" />
+			<Attribute name="pid" value="100" />
+			<Attribute name="process" value="Registry" />
+			<Attribute name="threads" value="4" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="RuntimeBroker.exe\10096" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\System32\RuntimeBroker.exe -Embedding" />
+			<Attribute name="created" value="133915033747299284" />
+			<Attribute name="group" value="KESHET_BROAD\Domain Users" />
+			<Attribute name="groupId" value="S-1-5-21-524706130-1136157797-1532313055-513" />
+			<Attribute name="parent" value="972" />
+			<Attribute name="path" value="C:\Windows\System32\RuntimeBroker.exe" />
+			<Attribute name="pid" value="10096" />
+			<Attribute name="process" value="RuntimeBroker.exe" />
+			<Attribute name="threads" value="4" />
+			<Attribute name="user" value="linoyka@keshet-tv.com" />
+			<Attribute name="userId" value="S-1-5-21-524706130-1136157797-1532313055-69216" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="RuntimeBroker.exe\13104" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\System32\RuntimeBroker.exe -Embedding" />
+			<Attribute name="created" value="133915033897445340" />
+			<Attribute name="group" value="KESHET_BROAD\Domain Users" />
+			<Attribute name="groupId" value="S-1-5-21-524706130-1136157797-1532313055-513" />
+			<Attribute name="parent" value="972" />
+			<Attribute name="path" value="C:\Windows\System32\RuntimeBroker.exe" />
+			<Attribute name="pid" value="13104" />
+			<Attribute name="process" value="RuntimeBroker.exe" />
+			<Attribute name="threads" value="2" />
+			<Attribute name="user" value="linoyka@keshet-tv.com" />
+			<Attribute name="userId" value="S-1-5-21-524706130-1136157797-1532313055-69216" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="RuntimeBroker.exe\3772" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\System32\RuntimeBroker.exe -Embedding" />
+			<Attribute name="created" value="133915033855949802" />
+			<Attribute name="group" value="KESHET_BROAD\Domain Users" />
+			<Attribute name="groupId" value="S-1-5-21-524706130-1136157797-1532313055-513" />
+			<Attribute name="parent" value="972" />
+			<Attribute name="path" value="C:\Windows\System32\RuntimeBroker.exe" />
+			<Attribute name="pid" value="3772" />
+			<Attribute name="process" value="RuntimeBroker.exe" />
+			<Attribute name="threads" value="7" />
+			<Attribute name="user" value="linoyka@keshet-tv.com" />
+			<Attribute name="userId" value="S-1-5-21-524706130-1136157797-1532313055-69216" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="SearchApp.exe\6148" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Windows\SystemApps\Microsoft.Windows.Search_cw5n1h2txyewy\SearchApp.exe&quot; -ServerName:CortanaUI.AppX8z9r6jm96hw4bsbneegw0kyxx296wr9t.mca" />
+			<Attribute name="created" value="133915033813798538" />
+			<Attribute name="group" value="KESHET_BROAD\Domain Users" />
+			<Attribute name="groupId" value="S-1-5-21-524706130-1136157797-1532313055-513" />
+			<Attribute name="parent" value="972" />
+			<Attribute name="path" value="C:\Windows\SystemApps\Microsoft.Windows.Search_cw5n1h2txyewy\SearchApp.exe" />
+			<Attribute name="pid" value="6148" />
+			<Attribute name="process" value="SearchApp.exe" />
+			<Attribute name="threads" value="41" />
+			<Attribute name="user" value="linoyka@keshet-tv.com" />
+			<Attribute name="userId" value="S-1-5-21-524706130-1136157797-1532313055-69216" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="ServerManager.exe\13060" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Windows\system32\ServerManager.exe&quot; " />
+			<Attribute name="created" value="133915033772956792" />
+			<Attribute name="group" value="KESHET_BROAD\Domain Users" />
+			<Attribute name="groupId" value="S-1-5-21-524706130-1136157797-1532313055-513" />
+			<Attribute name="parent" value="13716" />
+			<Attribute name="path" value="C:\Windows\System32\ServerManager.exe" />
+			<Attribute name="pid" value="13060" />
+			<Attribute name="process" value="ServerManager.exe" />
+			<Attribute name="threads" value="15" />
+			<Attribute name="user" value="linoyka@keshet-tv.com" />
+			<Attribute name="userId" value="S-1-5-21-524706130-1136157797-1532313055-69216" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="services.exe\764" type="runningProcess">
+		<Attributes>
+			<Attribute name="parent" value="632" />
+			<Attribute name="pid" value="764" />
+			<Attribute name="process" value="services.exe" />
+			<Attribute name="threads" value="10" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="sihost.exe\12404" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="sihost.exe" />
+			<Attribute name="created" value="133915033567045771" />
+			<Attribute name="group" value="KESHET_BROAD\Domain Users" />
+			<Attribute name="groupId" value="S-1-5-21-524706130-1136157797-1532313055-513" />
+			<Attribute name="parent" value="2588" />
+			<Attribute name="path" value="C:\Windows\System32\sihost.exe" />
+			<Attribute name="pid" value="12404" />
+			<Attribute name="process" value="sihost.exe" />
+			<Attribute name="threads" value="12" />
+			<Attribute name="user" value="linoyka@keshet-tv.com" />
+			<Attribute name="userId" value="S-1-5-21-524706130-1136157797-1532313055-69216" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="SilverfortADAdapter.exe\2400" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files\Silverfort\Silverfort AD Adapter\SilverfortADAdapter.exe&quot;" />
+			<Attribute name="created" value="133912125907194318" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Program Files\Silverfort\Silverfort AD Adapter\SilverfortADAdapter.exe" />
+			<Attribute name="pid" value="2400" />
+			<Attribute name="process" value="SilverfortADAdapter.exe" />
+			<Attribute name="threads" value="14" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="SilverfortController.exe\7044" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files\Silverfort\Silverfort AD Adapter\SilverfortController.exe&quot;" />
+			<Attribute name="created" value="133912125994469308" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="2400" />
+			<Attribute name="path" value="C:\Program Files\Silverfort\Silverfort AD Adapter\SilverfortController.exe" />
+			<Attribute name="pid" value="7044" />
+			<Attribute name="process" value="SilverfortController.exe" />
+			<Attribute name="threads" value="20" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="SilverfortDivert.exe\7828" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files\Silverfort\Silverfort AD Adapter\SilverfortDivert.exe&quot;" />
+			<Attribute name="created" value="133912126012396024" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="2400" />
+			<Attribute name="path" value="C:\Program Files\Silverfort\Silverfort AD Adapter\SilverfortDivert.exe" />
+			<Attribute name="pid" value="7828" />
+			<Attribute name="process" value="SilverfortDivert.exe" />
+			<Attribute name="threads" value="45" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="SilverfortPas.exe\1808" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files\Silverfort\Silverfort AD Adapter\SilverfortPas.exe&quot;" />
+			<Attribute name="created" value="133912126022252888" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="2400" />
+			<Attribute name="path" value="C:\Program Files\Silverfort\Silverfort AD Adapter\SilverfortPas.exe" />
+			<Attribute name="pid" value="1808" />
+			<Attribute name="process" value="SilverfortPas.exe" />
+			<Attribute name="threads" value="10" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="SilverfortServer.exe\1680" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files\Silverfort\Silverfort AD Adapter\SilverfortServer.exe&quot;" />
+			<Attribute name="created" value="133912126003166692" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="2400" />
+			<Attribute name="path" value="C:\Program Files\Silverfort\Silverfort AD Adapter\SilverfortServer.exe" />
+			<Attribute name="pid" value="1680" />
+			<Attribute name="process" value="SilverfortServer.exe" />
+			<Attribute name="threads" value="19" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="SilverfortUpdater.exe\2608" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files\Silverfort\Silverfort AD Adapter\SilverfortUpdater.exe&quot;" />
+			<Attribute name="created" value="133912125935319533" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Program Files\Silverfort\Silverfort AD Adapter\SilverfortUpdater.exe" />
+			<Attribute name="pid" value="2608" />
+			<Attribute name="process" value="SilverfortUpdater.exe" />
+			<Attribute name="threads" value="9" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="smss.exe\400" type="runningProcess">
+		<Attributes>
+			<Attribute name="parent" value="4" />
+			<Attribute name="pid" value="400" />
+			<Attribute name="process" value="smss.exe" />
+			<Attribute name="threads" value="2" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="spoolsv.exe\1468" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\System32\spoolsv.exe" />
+			<Attribute name="created" value="133912124029138278" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\spoolsv.exe" />
+			<Attribute name="pid" value="1468" />
+			<Attribute name="process" value="spoolsv.exe" />
+			<Attribute name="threads" value="12" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="StartMenuExperienceHost.exe\3180" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Windows\SystemApps\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\StartMenuExperienceHost.exe&quot; -ServerName:App.AppXywbrabmsek0gm3tkwpr5kwzbs55tkqay.mca" />
+			<Attribute name="created" value="133915033726535367" />
+			<Attribute name="group" value="KESHET_BROAD\Domain Users" />
+			<Attribute name="groupId" value="S-1-5-21-524706130-1136157797-1532313055-513" />
+			<Attribute name="parent" value="972" />
+			<Attribute name="path" value="C:\Windows\SystemApps\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\StartMenuExperienceHost.exe" />
+			<Attribute name="pid" value="3180" />
+			<Attribute name="process" value="StartMenuExperienceHost.exe" />
+			<Attribute name="threads" value="8" />
+			<Attribute name="user" value="linoyka@keshet-tv.com" />
+			<Attribute name="userId" value="S-1-5-21-524706130-1136157797-1532313055-69216" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\10068" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\System32\svchost.exe -k netsvcs -p -s NetSetupSvc" />
+			<Attribute name="created" value="133915939950415129" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="10068" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="6" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\10124" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k LocalSystemNetworkRestricted -p -s PcaSvc" />
+			<Attribute name="created" value="133912125665457799" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="10124" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="6" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\1016" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\System32\svchost.exe -k termsvcs -s TermService" />
+			<Attribute name="created" value="133912123931081445" />
+			<Attribute name="group" value="NT AUTHORITY\NETWORK SERVICE" />
+			<Attribute name="groupId" value="S-1-5-20" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="1016" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="35" />
+			<Attribute name="user" value="NT AUTHORITY\NETWORK SERVICE" />
+			<Attribute name="userId" value="S-1-5-20" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\1040" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\System32\svchost.exe -k LocalServiceNetworkRestricted -p -s lmhosts" />
+			<Attribute name="created" value="133912123931246579" />
+			<Attribute name="group" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="groupId" value="S-1-5-19" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="1040" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="4" />
+			<Attribute name="user" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="userId" value="S-1-5-19" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\1048" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k LocalService -p -s nsi" />
+			<Attribute name="created" value="133912123931256998" />
+			<Attribute name="group" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="groupId" value="S-1-5-19" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="1048" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="4" />
+			<Attribute name="user" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="userId" value="S-1-5-19" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\1056" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k LocalService -s w32time" />
+			<Attribute name="created" value="133912123931264953" />
+			<Attribute name="group" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="groupId" value="S-1-5-19" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="1056" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="4" />
+			<Attribute name="user" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="userId" value="S-1-5-19" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\10704" type="runningProcess">
+		<Attributes>
+			<Attribute name="parent" value="764" />
+			<Attribute name="pid" value="10704" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="1" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\10960" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k UnistackSvcGroup -s WpnUserService" />
+			<Attribute name="created" value="133915033569374290" />
+			<Attribute name="group" value="KESHET_BROAD\Domain Users" />
+			<Attribute name="groupId" value="S-1-5-21-524706130-1136157797-1532313055-513" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="10960" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="3" />
+			<Attribute name="user" value="linoyka@keshet-tv.com" />
+			<Attribute name="userId" value="S-1-5-21-524706130-1136157797-1532313055-69216" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\1120" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k LocalServiceNetworkRestricted -p -s TimeBrokerSvc" />
+			<Attribute name="created" value="133912123931542007" />
+			<Attribute name="group" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="groupId" value="S-1-5-19" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="1120" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="3" />
+			<Attribute name="user" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="userId" value="S-1-5-19" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\1128" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\System32\svchost.exe -k LocalSystemNetworkRestricted -p -s NcbService" />
+			<Attribute name="created" value="133912123931545368" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="1128" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="2" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\11476" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\System32\svchost.exe -k LocalSystemNetworkRestricted -p -s TabletInputService" />
+			<Attribute name="created" value="133914279630786064" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="11476" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="3" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\11544" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k netsvcs -p -s TokenBroker" />
+			<Attribute name="created" value="133914279645068239" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="11544" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="2" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\1156" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k LocalServiceNetworkRestricted -p -s Dhcp" />
+			<Attribute name="created" value="133912123931600038" />
+			<Attribute name="group" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="groupId" value="S-1-5-19" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="1156" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="8" />
+			<Attribute name="user" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="userId" value="S-1-5-19" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\11896" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k appmodel -p -s camsvc" />
+			<Attribute name="created" value="133914279726307383" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="11896" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="1" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\12352" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k netsvcs -p -s Appinfo" />
+			<Attribute name="created" value="133914280050693666" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="12352" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="2" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\1256" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k NetworkService -p -s Dnscache" />
+			<Attribute name="created" value="133912123932064077" />
+			<Attribute name="group" value="NT AUTHORITY\NETWORK SERVICE" />
+			<Attribute name="groupId" value="S-1-5-20" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="1256" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="14" />
+			<Attribute name="user" value="NT AUTHORITY\NETWORK SERVICE" />
+			<Attribute name="userId" value="S-1-5-20" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\1348" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\System32\svchost.exe -k LocalServiceNetworkRestricted -p -s EventLog" />
+			<Attribute name="created" value="133912123932472228" />
+			<Attribute name="group" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="groupId" value="S-1-5-19" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="1348" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="11" />
+			<Attribute name="user" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="userId" value="S-1-5-19" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\1380" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k LocalServiceNoNetworkFirewall -p" />
+			<Attribute name="created" value="133912123932565888" />
+			<Attribute name="group" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="groupId" value="S-1-5-19" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="1380" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="14" />
+			<Attribute name="user" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="userId" value="S-1-5-19" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\13920" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k UnistackSvcGroup -s CDPUserSvc" />
+			<Attribute name="created" value="133915033566629389" />
+			<Attribute name="group" value="KESHET_BROAD\Domain Users" />
+			<Attribute name="groupId" value="S-1-5-21-524706130-1136157797-1532313055-513" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="13920" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="4" />
+			<Attribute name="user" value="linoyka@keshet-tv.com" />
+			<Attribute name="userId" value="S-1-5-21-524706130-1136157797-1532313055-69216" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\1488" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\System32\svchost.exe -k NetworkService -p -s NlaSvc" />
+			<Attribute name="created" value="133912123933180421" />
+			<Attribute name="group" value="NT AUTHORITY\NETWORK SERVICE" />
+			<Attribute name="groupId" value="S-1-5-20" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="1488" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="4" />
+			<Attribute name="user" value="NT AUTHORITY\NETWORK SERVICE" />
+			<Attribute name="userId" value="S-1-5-20" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\1536" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k netsvcs -p -s gpsvc" />
+			<Attribute name="created" value="133912123933404328" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="1536" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="9" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\1544" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k netsvcs -p -s ProfSvc" />
+			<Attribute name="created" value="133912123933408610" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="1544" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="4" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\1564" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k LocalService -p -s EventSystem" />
+			<Attribute name="created" value="133912123933433335" />
+			<Attribute name="group" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="groupId" value="S-1-5-19" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="1564" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="9" />
+			<Attribute name="user" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="userId" value="S-1-5-19" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\15716" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\System32\svchost.exe -k LocalService -p -s LicenseManager" />
+			<Attribute name="created" value="133915115785919025" />
+			<Attribute name="group" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="groupId" value="S-1-5-19" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="15716" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="4" />
+			<Attribute name="user" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="userId" value="S-1-5-19" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\1572" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\System32\svchost.exe -k netsvcs -p -s Themes" />
+			<Attribute name="created" value="133912123933435623" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="1572" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="3" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\15960" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\System32\svchost.exe -k LocalSystemNetworkRestricted -p -s DsSvc" />
+			<Attribute name="created" value="133915115792244532" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="15960" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="4" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\1612" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k netsvcs -p -s IKEEXT" />
+			<Attribute name="created" value="133912123935285847" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="1612" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="6" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\1672" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k netsvcs -p -s SENS" />
+			<Attribute name="created" value="133912123933835042" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="1672" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="2" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\1692" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\System32\svchost.exe -k LocalSystemNetworkRestricted -p -s UmRdpService" />
+			<Attribute name="created" value="133912123933915226" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="1692" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="3" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\1712" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k LocalServiceNetworkRestricted -p -s WinHttpAutoProxySvc" />
+			<Attribute name="created" value="133912123935287874" />
+			<Attribute name="group" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="groupId" value="S-1-5-19" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="1712" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="4" />
+			<Attribute name="user" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="userId" value="S-1-5-19" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\1736" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k NetworkServiceNetworkRestricted -p -s PolicyAgent" />
+			<Attribute name="created" value="133912123935300529" />
+			<Attribute name="group" value="NT AUTHORITY\NETWORK SERVICE" />
+			<Attribute name="groupId" value="S-1-5-20" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="1736" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="5" />
+			<Attribute name="user" value="NT AUTHORITY\NETWORK SERVICE" />
+			<Attribute name="userId" value="S-1-5-20" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\1748" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k LocalServiceNetworkRestricted -p" />
+			<Attribute name="created" value="133912123934148629" />
+			<Attribute name="group" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="groupId" value="S-1-5-19" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="1748" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="3" />
+			<Attribute name="user" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="userId" value="S-1-5-19" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\1756" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\System32\svchost.exe -k LocalService -p -s netprofm" />
+			<Attribute name="created" value="133912123934150062" />
+			<Attribute name="group" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="groupId" value="S-1-5-19" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="1756" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="8" />
+			<Attribute name="user" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="userId" value="S-1-5-19" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\1792" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k netsvcs -p -s Schedule" />
+			<Attribute name="created" value="133912123934279076" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="1792" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="12" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\1904" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\System32\svchost.exe -k netsvcs -p -s ShellHWDetection" />
+			<Attribute name="created" value="133912123934597659" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="1904" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="3" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\1920" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\System32\svchost.exe -k NetworkService -p -s LanmanWorkstation" />
+			<Attribute name="created" value="133912123934720601" />
+			<Attribute name="group" value="NT AUTHORITY\NETWORK SERVICE" />
+			<Attribute name="groupId" value="S-1-5-20" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="1920" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="9" />
+			<Attribute name="user" value="NT AUTHORITY\NETWORK SERVICE" />
+			<Attribute name="userId" value="S-1-5-20" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\1940" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k netsvcs -s CertPropSvc" />
+			<Attribute name="created" value="133912123934801424" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="1940" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="5" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\1980" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k LocalService -p -s FontCache" />
+			<Attribute name="created" value="133912123934909884" />
+			<Attribute name="group" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="groupId" value="S-1-5-19" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="1980" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="6" />
+			<Attribute name="user" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="userId" value="S-1-5-19" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\2092" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k appmodel -p -s StateRepository" />
+			<Attribute name="created" value="133912125776749116" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="2092" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="6" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\2276" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\System32\svchost.exe -k netsvcs -p -s SessionEnv" />
+			<Attribute name="created" value="133912123936517438" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="2276" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="5" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\2344" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\System32\svchost.exe -k NetSvcs -p -s iphlpsvc" />
+			<Attribute name="created" value="133912123936772796" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="2344" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="6" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\2588" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k netsvcs -p -s UserManager" />
+			<Attribute name="created" value="133912123937823608" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="2588" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="6" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\2912" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k LocalService -p -s CDPSvc" />
+			<Attribute name="created" value="133912125646675981" />
+			<Attribute name="group" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="groupId" value="S-1-5-19" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="2912" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="3" />
+			<Attribute name="user" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="userId" value="S-1-5-19" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\2952" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k LocalServiceNoNetwork -p" />
+			<Attribute name="created" value="133912124031889990" />
+			<Attribute name="group" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="groupId" value="S-1-5-19" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="2952" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="3" />
+			<Attribute name="user" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="userId" value="S-1-5-19" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\2972" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\System32\svchost.exe -k smbsvcs -s LanmanServer" />
+			<Attribute name="created" value="133912124028329987" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="2972" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="6" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\2992" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k NetworkService -p -s CryptSvc" />
+			<Attribute name="created" value="133912124031961738" />
+			<Attribute name="group" value="NT AUTHORITY\NETWORK SERVICE" />
+			<Attribute name="groupId" value="S-1-5-20" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="2992" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="6" />
+			<Attribute name="user" value="NT AUTHORITY\NETWORK SERVICE" />
+			<Attribute name="userId" value="S-1-5-20" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\3036" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\System32\svchost.exe -k netsvcs -p -s Browser" />
+			<Attribute name="created" value="133912124028906204" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="3036" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="4" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\3156" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\System32\svchost.exe -k utcsvc -p" />
+			<Attribute name="created" value="133912124032923369" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="3156" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="10" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\3172" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\System32\svchost.exe -k LocalServiceNoNetwork -p -s DPS" />
+			<Attribute name="created" value="133912125659108462" />
+			<Attribute name="group" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="groupId" value="S-1-5-19" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="3172" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="21" />
+			<Attribute name="user" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="userId" value="S-1-5-19" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\3196" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\System32\svchost.exe -k LocalSystemNetworkRestricted -p -s Netman" />
+			<Attribute name="created" value="133912124033073888" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="3196" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="3" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\3224" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k netsvcs -p -s Winmgmt" />
+			<Attribute name="created" value="133912124033158574" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="3224" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="23" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\3404" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\System32\svchost.exe -k HPZ12" />
+			<Attribute name="created" value="133912124033918117" />
+			<Attribute name="group" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="groupId" value="S-1-5-19" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="3404" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="3" />
+			<Attribute name="user" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="userId" value="S-1-5-19" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\3464" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k LocalSystemNetworkRestricted -p -s SysMain" />
+			<Attribute name="created" value="133912124034040768" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="3464" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="3" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\3484" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k LocalService -p -s SstpSvc" />
+			<Attribute name="created" value="133912124034077304" />
+			<Attribute name="group" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="groupId" value="S-1-5-19" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="3484" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="2" />
+			<Attribute name="user" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="userId" value="S-1-5-19" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\3492" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\System32\svchost.exe -k HPZ12" />
+			<Attribute name="created" value="133912124034093079" />
+			<Attribute name="group" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="groupId" value="S-1-5-19" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="3492" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="3" />
+			<Attribute name="user" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="userId" value="S-1-5-19" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\3624" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k netsvcs -p -s WpnService" />
+			<Attribute name="created" value="133912124034983465" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="3624" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="2" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\3720" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\System32\svchost.exe -k NetworkService -p -s WinRM" />
+			<Attribute name="created" value="133912124035643727" />
+			<Attribute name="group" value="NT AUTHORITY\NETWORK SERVICE" />
+			<Attribute name="groupId" value="S-1-5-20" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="3720" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="5" />
+			<Attribute name="user" value="NT AUTHORITY\NETWORK SERVICE" />
+			<Attribute name="userId" value="S-1-5-20" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\4372" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\System32\svchost.exe -k netsvcs" />
+			<Attribute name="created" value="133912124052044809" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="4372" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="12" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\6064" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k netsvcs -p -s UsoSvc" />
+			<Attribute name="created" value="133912126455083803" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="6064" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="6" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\628" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k DcomLaunch -p -s LSM" />
+			<Attribute name="created" value="133912123929987357" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="628" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="8" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\7180" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k LocalService -p -s DispBrokerDesktopSvc" />
+			<Attribute name="created" value="133912124074490379" />
+			<Attribute name="group" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="groupId" value="S-1-5-19" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="7180" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="2" />
+			<Attribute name="user" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="userId" value="S-1-5-19" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\72" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k RPCSS -p" />
+			<Attribute name="created" value="133912123929741425" />
+			<Attribute name="group" value="NT AUTHORITY\NETWORK SERVICE" />
+			<Attribute name="groupId" value="S-1-5-20" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="72" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="11" />
+			<Attribute name="user" value="NT AUTHORITY\NETWORK SERVICE" />
+			<Attribute name="userId" value="S-1-5-20" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\7508" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k LocalSystemNetworkRestricted -p -s UALSVC" />
+			<Attribute name="created" value="133912126188982697" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="7508" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="11" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\9404" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\System32\svchost.exe -k LocalSystemNetworkRestricted -p -s StorSvc" />
+			<Attribute name="created" value="133912124447925837" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="9404" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="3" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\972" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k DcomLaunch -p" />
+			<Attribute name="created" value="133912123928625623" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="972" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="14" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\9744" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k ClipboardSvcGroup -p -s cbdhsvc" />
+			<Attribute name="created" value="133915034755603111" />
+			<Attribute name="group" value="KESHET_BROAD\Domain Users" />
+			<Attribute name="groupId" value="S-1-5-21-524706130-1136157797-1532313055-513" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="9744" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="8" />
+			<Attribute name="user" value="linoyka@keshet-tv.com" />
+			<Attribute name="userId" value="S-1-5-21-524706130-1136157797-1532313055-69216" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="svchost.exe\996" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\svchost.exe -k netsvcs -p -s wuauserv" />
+			<Attribute name="created" value="133915934982819851" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\svchost.exe" />
+			<Attribute name="pid" value="996" />
+			<Attribute name="process" value="svchost.exe" />
+			<Attribute name="threads" value="11" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="System\4" type="runningProcess">
+		<Attributes>
+			<Attribute name="parent" value="0" />
+			<Attribute name="pid" value="4" />
+			<Attribute name="process" value="System" />
+			<Attribute name="threads" value="263" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="taskhostw.exe\6560" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="taskhostw.exe {222A245B-E637-4AE9-A93F-A59CA119A75E}" />
+			<Attribute name="created" value="133915033589689958" />
+			<Attribute name="group" value="KESHET_BROAD\Domain Users" />
+			<Attribute name="groupId" value="S-1-5-21-524706130-1136157797-1532313055-513" />
+			<Attribute name="parent" value="1792" />
+			<Attribute name="path" value="C:\Windows\System32\taskhostw.exe" />
+			<Attribute name="pid" value="6560" />
+			<Attribute name="process" value="taskhostw.exe" />
+			<Attribute name="threads" value="5" />
+			<Attribute name="user" value="linoyka@keshet-tv.com" />
+			<Attribute name="userId" value="S-1-5-21-524706130-1136157797-1532313055-69216" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="Taskmgr.exe\14320" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Windows\system32\taskmgr.exe&quot; /4" />
+			<Attribute name="created" value="133915034218710386" />
+			<Attribute name="group" value="KESHET_BROAD\Domain Users" />
+			<Attribute name="groupId" value="S-1-5-21-524706130-1136157797-1532313055-513" />
+			<Attribute name="parent" value="4504" />
+			<Attribute name="path" value="C:\Windows\System32\Taskmgr.exe" />
+			<Attribute name="pid" value="14320" />
+			<Attribute name="process" value="Taskmgr.exe" />
+			<Attribute name="threads" value="14" />
+			<Attribute name="user" value="linoyka@keshet-tv.com" />
+			<Attribute name="userId" value="S-1-5-21-524706130-1136157797-1532313055-69216" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="TextInputHost.exe\7760" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\TextInputHost.exe&quot; -ServerName:InputApp.AppXjd5de1g66v206tj52m9d0dtpppx4cgpn.mca" />
+			<Attribute name="created" value="133915034758447012" />
+			<Attribute name="group" value="KESHET_BROAD\Domain Users" />
+			<Attribute name="groupId" value="S-1-5-21-524706130-1136157797-1532313055-513" />
+			<Attribute name="parent" value="972" />
+			<Attribute name="path" value="C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\TextInputHost.exe" />
+			<Attribute name="pid" value="7760" />
+			<Attribute name="process" value="TextInputHost.exe" />
+			<Attribute name="threads" value="13" />
+			<Attribute name="user" value="linoyka@keshet-tv.com" />
+			<Attribute name="userId" value="S-1-5-21-524706130-1136157797-1532313055-69216" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="TiWorker.exe\14824" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\winsxs\amd64_microsoft-windows-servicingstack_31bf3856ad364e35_10.0.20348.2750_none_b1add92ef99eeea4\TiWorker.exe -Embedding" />
+			<Attribute name="created" value="133915939697463399" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="972" />
+			<Attribute name="path" value="C:\Windows\WinSxS\amd64_microsoft-windows-servicingstack_31bf3856ad364e35_10.0.20348.2750_none_b1add92ef99eeea4\TiWorker.exe" />
+			<Attribute name="pid" value="14824" />
+			<Attribute name="process" value="TiWorker.exe" />
+			<Attribute name="threads" value="6" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="tm_netagent.exe\4828" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files\Trend Micro\Deep Security Agent\netagent\tm_netagent.exe&quot; --metrics-file &quot;C:\ProgramData\Trend Micro\Deep Security Agent\netagent\metrics.json&quot; --log-folder &quot;C:\ProgramData\Trend Micro\Deep Security Agent\netagent\logs&quot; --ptn-folder &quot;C:\Program Files\Trend Micro\Deep Security Agent\netagent\pattern&quot; --jat-folder &quot;C:\Program Files\Trend Micro\Deep Security Agent\netagent&quot; --jex-folder &quot;C:\ProgramData\Trend Micro\Deep Security Agent\netagentjava&quot; --log-console=false --log-level 1 --tmCfg WyJMU0FQIiwiU3NsSW5ib3VuZCIsIlNzbE91dGJvdW5kIl0=" />
+			<Attribute name="created" value="133912124216199625" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="8852" />
+			<Attribute name="path" value="C:\Program Files\Trend Micro\Deep Security Agent\netagent\tm_netagent.exe" />
+			<Attribute name="pid" value="4828" />
+			<Attribute name="process" value="tm_netagent.exe" />
+			<Attribute name="threads" value="12" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="tm_netagent.exe\8852" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files\Trend Micro\Deep Security Agent\netagent\tm_netagent.exe&quot; --metrics-file &quot;C:\ProgramData\Trend Micro\Deep Security Agent\netagent\metrics.json&quot; --log-folder &quot;C:\ProgramData\Trend Micro\Deep Security Agent\netagent\logs&quot; --ptn-folder &quot;C:\Program Files\Trend Micro\Deep Security Agent\netagent\pattern&quot; --jat-folder &quot;C:\Program Files\Trend Micro\Deep Security Agent\netagent&quot; --jex-folder &quot;C:\ProgramData\Trend Micro\Deep Security Agent\netagentjava&quot;  --log-console=false --log-level 1 --tmCfg WyJMU0FQIiwiU3NsSW5ib3VuZCIsIlNzbE91dGJvdW5kIl0=" />
+			<Attribute name="created" value="133912124175733027" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="6308" />
+			<Attribute name="path" value="C:\Program Files\Trend Micro\Deep Security Agent\netagent\tm_netagent.exe" />
+			<Attribute name="pid" value="8852" />
+			<Attribute name="process" value="tm_netagent.exe" />
+			<Attribute name="threads" value="8" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="TrustedInstaller.exe\11872" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\servicing\TrustedInstaller.exe" />
+			<Attribute name="created" value="133915939697136461" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\servicing\TrustedInstaller.exe" />
+			<Attribute name="pid" value="11872" />
+			<Attribute name="process" value="TrustedInstaller.exe" />
+			<Attribute name="threads" value="6" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="unsecapp.exe\8608" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\wbem\unsecapp.exe -Embedding" />
+			<Attribute name="created" value="133912124156155855" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="972" />
+			<Attribute name="path" value="C:\Windows\System32\wbem\unsecapp.exe" />
+			<Attribute name="pid" value="8608" />
+			<Attribute name="process" value="unsecapp.exe" />
+			<Attribute name="threads" value="2" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="vds.exe\6160" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\System32\vds.exe" />
+			<Attribute name="created" value="133912124062060923" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\vds.exe" />
+			<Attribute name="pid" value="6160" />
+			<Attribute name="process" value="vds.exe" />
+			<Attribute name="threads" value="12" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="VGAuthService.exe\3548" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files\VMware\VMware Tools\VMware VGAuth\VGAuthService.exe&quot;" />
+			<Attribute name="created" value="133912124034501708" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Program Files\VMware\VMware Tools\VMware VGAuth\VGAuthService.exe" />
+			<Attribute name="pid" value="3548" />
+			<Attribute name="process" value="VGAuthService.exe" />
+			<Attribute name="threads" value="2" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="vm3dservice.exe\3596" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files\VMware\VMware Tools\vm3dservice.exe&quot;" />
+			<Attribute name="created" value="133912124034696114" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Program Files\VMware\VMware Tools\vm3dservice.exe" />
+			<Attribute name="pid" value="3596" />
+			<Attribute name="process" value="vm3dservice.exe" />
+			<Attribute name="threads" value="3" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="vm3dservice.exe\3880" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files\VMware\VMware Tools\vm3dservice.exe&quot; -n" />
+			<Attribute name="created" value="133912124037884898" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="3596" />
+			<Attribute name="path" value="C:\Program Files\VMware\VMware Tools\vm3dservice.exe" />
+			<Attribute name="pid" value="3880" />
+			<Attribute name="process" value="vm3dservice.exe" />
+			<Attribute name="threads" value="4" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="vmtoolsd.exe\3580" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files\VMware\VMware Tools\vmtoolsd.exe&quot;" />
+			<Attribute name="created" value="133912124034664767" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Program Files\VMware\VMware Tools\vmtoolsd.exe" />
+			<Attribute name="pid" value="3580" />
+			<Attribute name="process" value="vmtoolsd.exe" />
+			<Attribute name="threads" value="15" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="WinCollect.exe\3608" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files\IBM\WinCollect\bin\WinCollect.exe&quot;" />
+			<Attribute name="created" value="133912124034811787" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Program Files\IBM\WinCollect\bin\WinCollect.exe" />
+			<Attribute name="pid" value="3608" />
+			<Attribute name="process" value="WinCollect.exe" />
+			<Attribute name="threads" value="14" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="wininit.exe\632" type="runningProcess">
+		<Attributes>
+			<Attribute name="parent" value="520" />
+			<Attribute name="pid" value="632" />
+			<Attribute name="process" value="wininit.exe" />
+			<Attribute name="threads" value="1" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="winlogon.exe\700" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="winlogon.exe" />
+			<Attribute name="created" value="133912123909378242" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="624" />
+			<Attribute name="path" value="C:\Windows\System32\winlogon.exe" />
+			<Attribute name="pid" value="700" />
+			<Attribute name="process" value="winlogon.exe" />
+			<Attribute name="threads" value="2" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="winlogon.exe\7504" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="winlogon.exe" />
+			<Attribute name="created" value="133915032176123300" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="15100" />
+			<Attribute name="path" value="C:\Windows\System32\winlogon.exe" />
+			<Attribute name="pid" value="7504" />
+			<Attribute name="process" value="winlogon.exe" />
+			<Attribute name="threads" value="2" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="WmiPrvSE.exe\14176" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\wbem\wmiprvse.exe�-Embedding" />
+			<Attribute name="created" value="133915939976712939" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="972" />
+			<Attribute name="path" value="C:\Windows\System32\wbem\WmiPrvSE.exe" />
+			<Attribute name="pid" value="14176" />
+			<Attribute name="process" value="WmiPrvSE.exe" />
+			<Attribute name="threads" value="13" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="WmiPrvSE.exe\14472" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\wbem\wmiprvse.exe�-secured�-Embedding" />
+			<Attribute name="created" value="133915939952388211" />
+			<Attribute name="group" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="groupId" value="S-1-5-19" />
+			<Attribute name="parent" value="972" />
+			<Attribute name="path" value="C:\Windows\System32\wbem\WmiPrvSE.exe" />
+			<Attribute name="pid" value="14472" />
+			<Attribute name="process" value="WmiPrvSE.exe" />
+			<Attribute name="threads" value="11" />
+			<Attribute name="user" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="userId" value="S-1-5-19" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="WmiPrvSE.exe\6696" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\wbem\wmiprvse.exe�-secured�-Embedding" />
+			<Attribute name="created" value="133912124069624396" />
+			<Attribute name="group" value="NT AUTHORITY\NETWORK SERVICE" />
+			<Attribute name="groupId" value="S-1-5-20" />
+			<Attribute name="parent" value="972" />
+			<Attribute name="path" value="C:\Windows\System32\wbem\WmiPrvSE.exe" />
+			<Attribute name="pid" value="6696" />
+			<Attribute name="process" value="WmiPrvSE.exe" />
+			<Attribute name="threads" value="17" />
+			<Attribute name="user" value="NT AUTHORITY\NETWORK SERVICE" />
+			<Attribute name="userId" value="S-1-5-20" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="WmiPrvSE.exe\7392" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="C:\Windows\system32\wbem\wmiprvse.exe�-Embedding" />
+			<Attribute name="created" value="133912124077082824" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="972" />
+			<Attribute name="path" value="C:\Windows\System32\wbem\WmiPrvSE.exe" />
+			<Attribute name="pid" value="7392" />
+			<Attribute name="process" value="WmiPrvSE.exe" />
+			<Attribute name="threads" value="8" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="WSCommunicator.exe\3524" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\\Program Files (x86)\\Trend Micro\\Endpoint Basecamp\\modules\\wsc\\WSCommunicator.exe&quot; /service" />
+			<Attribute name="created" value="133912124034359150" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Program Files (x86)\Trend Micro\Endpoint Basecamp\modules\wsc\WSCommunicator.exe" />
+			<Attribute name="pid" value="3524" />
+			<Attribute name="process" value="WSCommunicator.exe" />
+			<Attribute name="threads" value="11" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="WUDFHost.exe\4332" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Windows\System32\WUDFHost.exe&quot; -HostGUID:{193a1820-d9ac-4997-8c55-be817523f6aa} -IoEventPortName:\UMDFCommunicationPorts\WUDF\HostProcess-14c62b15-89d4-4e84-817a-6d5cb361a732 -SystemEventPortName:\UMDFCommunicationPorts\WUDF\HostProcess-fc2fe672-8115-4bab-a60e-0fe9f07c5f58 -IoCancelEventPortName:\UMDFCommunicationPorts\WUDF\HostProcess-2e70d3ef-5662-425c-88c8-e0e05ce56e69 -NonStateChangingEventPortName:\UMDFCommunicationPorts\WUDF\HostProcess-f50613ca-2fcb-4088-8fbe-cb3d333acb8c -LifetimeId:3a215de1-c6dd-4847-b285-bd3201ed1d47 -DeviceGroupId: -HostArg:0" />
+			<Attribute name="created" value="133915933624688086" />
+			<Attribute name="group" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="groupId" value="S-1-5-19" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Windows\System32\WUDFHost.exe" />
+			<Attribute name="pid" value="4332" />
+			<Attribute name="process" value="WUDFHost.exe" />
+			<Attribute name="threads" value="9" />
+			<Attribute name="user" value="NT AUTHORITY\LOCAL SERVICE" />
+			<Attribute name="userId" value="S-1-5-19" />
+		</Attributes>
+	</HostMetaData>
+	<HostMetaData identifier="zabbix_agentd.exe\3660" type="runningProcess">
+		<Attributes>
+			<Attribute name="commandLine" value="&quot;C:\Program Files\Zabbix Agent\zabbix_agentd.exe&quot; --config &quot;C:\Program Files\Zabbix Agent\zabbix_agentd.conf&quot;" />
+			<Attribute name="created" value="133912124035401392" />
+			<Attribute name="group" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="groupId" value="S-1-5-18" />
+			<Attribute name="parent" value="764" />
+			<Attribute name="path" value="C:\Program Files\Zabbix Agent\zabbix_agentd.exe" />
+			<Attribute name="pid" value="3660" />
+			<Attribute name="process" value="zabbix_agentd.exe" />
+			<Attribute name="threads" value="13" />
+			<Attribute name="user" value="NT AUTHORITY\SYSTEM" />
+			<Attribute name="userId" value="S-1-5-18" />
+		</Attributes>
+	</HostMetaData>
+</HostMetaDatas>

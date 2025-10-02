@@ -1,0 +1,16 @@
+Process Name - Count
+c:\windows\system32\svchost.exe - 2500
+chrome.exe - 1850
+C:\WINDOWS\SYSTEM32\EXPLORER.EXE - 800
+outlook.exe - 1200
+system32\lsass.exe - 600
+java.exe - 900
+C:\Windows\System32\dwm.exe - 400
+code.exe - 750
+winlogon.exe - 150
+notepad.exe - 350
+C:\Windows\System32\RuntimeBroker.exe - 300
+firefox.exe - 1100
+services.exe - 200
+excel.exe - 650
+csrss.exe - 100

@@ -1,0 +1,17 @@
+
+Filter Name                     Num Instances    Altitude    Frame
+------------------------------  -------------  ------------  -----
+bindflt                                 0       409800         0
+DfsDriver                               0       405000         0
+gc-enforcement                          3       340042         0
+TmKmSnsr                                5       328550         0
+tmeyes                                  3       328520         0
+DfsrRo                                  0       261100         0
+storqosflt                              0       244000         0
+wcifs                                   0       189900         0
+CldFlt                                  0       180451         0
+FileCrypt                               0       141100         0
+luafv                                   1       135000         0
+UnionFS                                 0       130850         0
+npsvctrig                               1        46000         0
+Wof                                     1        40700         0

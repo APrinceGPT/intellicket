@@ -1,0 +1,2054 @@
+<HostMetaDataQueryResult commandVersion="1">
+	<HostMetaDatas>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492889" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="1202" />
+				<Attribute name="EventIdentifier" value="-2147482446" />
+				<Attribute name="EventType" value="2" />
+				<Attribute name="InsertionStrings" value="[0x534 : No mapping between account names and security IDs was done.&#xD;&#xA;&#xD;&#xA;Advanced help for this problem is available on https://support.microsoft.com. Query for &quot;troubleshooting 1202 events&quot;. &#xD;&#xA;&#xD;&#xA;Error 0x534 occurs when a user account in one or more Group Policy objects (GPOs) could not be resolved to a SID.  This error is possibly caused by a mistyped or deleted user account referenced in either the User Rights or Restricted Groups branch of a GPO.  To resolve this event, contact an administrator in the domain to perform the following actions: &#xD;&#xA;&#xD;&#xA;1.&#x9;Identify accounts that could not be resolved to a SID:&#xD;&#xA;&#xD;&#xA;From the command prompt, type: FIND /I &quot;Cannot find&quot;  %SYSTEMROOT%\Security\Logs\winlogon.log&#xD;&#xA;&#xD;&#xA;The string following &quot;Cannot find&quot; in the FIND output identifies the problem account names.&#xD;&#xA;&#xD;&#xA;Example: Cannot find JohnDough.&#xD;&#xA;&#xD;&#xA;In this case, the SID for username &quot;JohnDough&quot; could not be determined. This most likely occurs because the account was deleted, renamed, or is spelled differently (e.g. &quot;JohnDoe&quot;). &#xD;&#xA;&#xD;&#xA;2.&#x9;Use RSoP to identify the specific User Rights, Restricted Groups, and Source GPOs that contain the problem accounts:&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; RSoP.msc&#xD;&#xA;b.&#x9;Review the results for Computer Configuration\Windows Settings\Security Settings\Local Policies\User Rights Assignment and Computer Configuration\Windows Settings\Security Settings\Local Policies\Restricted Groups for any errors flagged with a red X.&#xD;&#xA;c.&#x9;For any User Right or Restricted Group marked with a red X, the corresponding GPO that contains the problem policy setting is listed under the column entitled &quot;Source GPO&quot;. Note the specific User Rights, Restricted Groups and containing Source GPOs that are generating errors. &#xD;&#xA;&#xD;&#xA;3.&#x9;Remove unresolved accounts from Group Policy&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; MMC.EXE&#xD;&#xA;b.&#x9;From the File menu select &quot;Add/Remove Snap-in...&quot;&#xD;&#xA;c.&#x9;From the &quot;Add/Remove Snap-in&quot; dialog box select &quot;Add...&quot;&#xD;&#xA;d.&#x9;In the &quot;Add Standalone Snap-in&quot; dialog box select &quot;Group Policy&quot; and click &quot;Add&quot;&#xD;&#xA;e.&#x9;In the &quot;Select Group Policy Object&quot; dialog box click the &quot;Browse&quot; button.&#xD;&#xA;f.&#x9;On the &quot;Browse for a Group Policy Object&quot; dialog box choose the &quot;All&quot; tab&#xD;&#xA;g.&#x9;For each source GPO identified in step 2, correct the specific User Rights or Restricted Groups that were flagged with a red X in step 2. These User Rights or Restricted Groups can be corrected by removing or correcting any references to the problem accounts that were identified in step 1.]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Security policies were propagated with warning. 0x534 : No mapping between account names and security IDs was done.&#xD;&#xA;&#xD;&#xA;Advanced help for this problem is available on https://support.microsoft.com. Query for &quot;troubleshooting 1202 events&quot;. &#xD;&#xA;&#xD;&#xA;Error 0x534 occurs when a user account in one or more Group Policy objects (GPOs) could not be resolved to a SID.  This error is possibly caused by a mistyped or deleted user account referenced in either the User Rights or Restricted Groups branch of a GPO.  To resolve this event, contact an administrator in the domain to perform the following actions: &#xD;&#xA;&#xD;&#xA;1.&#x9;Identify accounts that could not be resolved to a SID:&#xD;&#xA;&#xD;&#xA;From the command prompt, type: FIND /I &quot;Cannot find&quot;  %SYSTEMROOT%\Security\Logs\winlogon.log&#xD;&#xA;&#xD;&#xA;The string following &quot;Cannot find&quot; in the FIND output identifies the problem account names.&#xD;&#xA;&#xD;&#xA;Example: Cannot find JohnDough.&#xD;&#xA;&#xD;&#xA;In this case, the SID for username &quot;JohnDough&quot; could not be determined. This most likely occurs because the account was deleted, renamed, or is spelled differently (e.g. &quot;JohnDoe&quot;). &#xD;&#xA;&#xD;&#xA;2.&#x9;Use RSoP to identify the specific User Rights, Restricted Groups, and Source GPOs that contain the problem accounts:&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; RSoP.msc&#xD;&#xA;b.&#x9;Review the results for Computer Configuration\Windows Settings\Security Settings\Local Policies\User Rights Assignment and Computer Configuration\Windows Settings\Security Settings\Local Policies\Restricted Groups for any errors flagged with a red X.&#xD;&#xA;c.&#x9;For any User Right or Restricted Group marked with a red X, the corresponding GPO that contains the problem policy setting is listed under the column entitled &quot;Source GPO&quot;. Note the specific User Rights, Restricted Groups and containing Source GPOs that are generating errors. &#xD;&#xA;&#xD;&#xA;3.&#x9;Remove unresolved accounts from Group Policy&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; MMC.EXE&#xD;&#xA;b.&#x9;From the File menu select &quot;Add/Remove Snap-in...&quot;&#xD;&#xA;c.&#x9;From the &quot;Add/Remove Snap-in&quot; dialog box select &quot;Add...&quot;&#xD;&#xA;d.&#x9;In the &quot;Add Standalone Snap-in&quot; dialog box select &quot;Group Policy&quot; and click &quot;Add&quot;&#xD;&#xA;e.&#x9;In the &quot;Select Group Policy Object&quot; dialog box click the &quot;Browse&quot; button.&#xD;&#xA;f.&#x9;On the &quot;Browse for a Group Policy Object&quot; dialog box choose the &quot;All&quot; tab&#xD;&#xA;g.&#x9;For each source GPO identified in step 2, correct the specific User Rights or Restricted Groups that were flagged with a red X in step 2. These User Rights or Restricted Groups can be corrected by removing or correcting any references to the problem accounts that were identified in step 1." />
+				<Attribute name="RecordNumber" value="492889" />
+				<Attribute name="SourceName" value="SceCli" />
+				<Attribute name="TimeGenerated" value="12/05/2025 07:28:10" />
+				<Attribute name="TimeWritten" value="12/05/2025 07:28:10" />
+				<Attribute name="Type" value="Warning" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492890" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492890" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 08:05:30" />
+				<Attribute name="TimeWritten" value="12/05/2025 08:05:30" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492891" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:59:01Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:59:01Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492891" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 08:06:01" />
+				<Attribute name="TimeWritten" value="12/05/2025 08:06:01" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492892" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492892" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 08:13:23" />
+				<Attribute name="TimeWritten" value="12/05/2025 08:13:23" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492893" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:58:54Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:58:54Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492893" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 08:13:54" />
+				<Attribute name="TimeWritten" value="12/05/2025 08:13:54" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492894" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="1" />
+				<Attribute name="CategoryString" value="General" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="102" />
+				<Attribute name="EventIdentifier" value="102" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[svchost;15960,P,98;DS_Token_DB: ;0;10;00;20348;0000]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="svchost (15960,P,98) DS_Token_DB: The database engine (10.00.20348.0000) is starting a new instance (0)." />
+				<Attribute name="RecordNumber" value="492894" />
+				<Attribute name="SourceName" value="ESENT" />
+				<Attribute name="TimeGenerated" value="12/05/2025 08:19:39" />
+				<Attribute name="TimeWritten" value="12/05/2025 08:19:39" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492895" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="3" />
+				<Attribute name="CategoryString" value="Logging/Recovery" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="300" />
+				<Attribute name="EventIdentifier" value="300" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[svchost;15960,R,98;DS_Token_DB: ]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="svchost (15960,R,98) DS_Token_DB: The database engine is initiating recovery steps." />
+				<Attribute name="RecordNumber" value="492895" />
+				<Attribute name="SourceName" value="ESENT" />
+				<Attribute name="TimeGenerated" value="12/05/2025 08:19:39" />
+				<Attribute name="TimeWritten" value="12/05/2025 08:19:39" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492896" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="3" />
+				<Attribute name="CategoryString" value="Logging/Recovery" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="301" />
+				<Attribute name="EventIdentifier" value="301" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[svchost;15960,R,98;DS_Token_DB: ;C:\Windows\system32\config\systemprofile\AppData\Local\DataSharing\Storage\DSS.log;&#xA;[1] 0.012280 -0.005240 (8) WT +J(CM:0, PgRf:0, Rd:0/0, Dy:0/0, Lg:32448/22) +M(C:0K, Fs:92, WS:224K # 164K, PF:132K # 68K, P:132K).;AttachDB ;2]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="svchost (15960,R,98) DS_Token_DB: The database engine has finished replaying logfile C:\Windows\system32\config\systemprofile\AppData\Local\DataSharing\Storage\DSS.log. &#xD;&#xA; &#xD;&#xA;Processing Stats: &#xA;[1] 0.012280 -0.005240 (8) WT +J(CM:0, PgRf:0, Rd:0/0, Dy:0/0, Lg:32448/22) +M(C:0K, Fs:92, WS:224K # 164K, PF:132K # 68K, P:132K). &#xD;&#xA;Log record of type &apos;AttachDB &apos; was seen most frequently (2 times)" />
+				<Attribute name="RecordNumber" value="492896" />
+				<Attribute name="SourceName" value="ESENT" />
+				<Attribute name="TimeGenerated" value="12/05/2025 08:19:39" />
+				<Attribute name="TimeWritten" value="12/05/2025 08:19:39" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492897" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="3" />
+				<Attribute name="CategoryString" value="Logging/Recovery" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="302" />
+				<Attribute name="EventIdentifier" value="302" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[svchost;15960,U,98;DS_Token_DB: ]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="svchost (15960,U,98) DS_Token_DB: The database engine has successfully completed recovery steps." />
+				<Attribute name="RecordNumber" value="492897" />
+				<Attribute name="SourceName" value="ESENT" />
+				<Attribute name="TimeGenerated" value="12/05/2025 08:19:39" />
+				<Attribute name="TimeWritten" value="12/05/2025 08:19:39" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492898" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="1" />
+				<Attribute name="CategoryString" value="General" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="105" />
+				<Attribute name="EventIdentifier" value="105" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[svchost;15960,D,0;DS_Token_DB: ;0;0;&#xA;[1] 0.001032 +J(0) +M(C:0K, Fs:191, WS:752K # 752K, PF:3276K # 3276K, P:3276K)&#xA;[2] 0.000441 +J(0) +M(C:8K, Fs:95, WS:368K # 368K, PF:320K # 320K, P:320K)&#xA;[3] 0.000026 +J(0) +M(C:0K, Fs:4, WS:16K # 16K, PF:64K # 64K, P:64K)&#xA;[4] 0.000211 +J(0) +M(C:0K, Fs:30, WS:116K # 116K, PF:172K # 172K, P:172K)&#xA;[5] 0.001001 +J(0) +M(C:0K, Fs:16, WS:64K # 64K, PF:32K # 32K, P:32K)&#xA;[6] 0.010971 +J(0) +M(C:0K, Fs:64, WS:256K # 256K, PF:44K # 44K, P:44K)&#xA;[7] 0.002327 -0.000684 (2) WT +J(0) +M(C:0K, Fs:33, WS:132K # 132K, PF:64K # 64K, P:64K)&#xA;[8] 0.020545 -0.006594 (12) WT +J(CM:0, PgRf:0, Rd:0/0, Dy:0/0, Lg:32448/22) +M(C:0K, Fs:150, WS:380K # 384K, PF:212K # 216K, P:212K)&#xA;[9] 0.000370 +J(0) +M(C:0K, Fs:9, WS:36K # 32K, PF:12K # 8K, P:12K)&#xA;[10] 0.000553 -0.000149 (1) WT +J(0) +M(C:0K, Fs:0, WS:-60K # 0K, PF:-60K # 0K, P:-60K)&#xA;[11] 0.000018 +J(CM:0, PgRf:0, Rd:0/0, Dy:0/0, Lg:49/1) +M(C:0K, Fs:4, WS:16K # 0K, PF:0K # 0K, P:0K)&#xA;[12] 0.000019 +J(0)&#xA;[13] 0.026747 -0.004630 (2) CM -0.009323 (21) WT +J(CM:2, PgRf:2, Rd:0/2, Dy:0/0, Lg:8759/5) +M(C:0K, Fs:59, WS:112K # 132K, PF:224K # 232K, P:224K)&#xA;[14] 0.000011 +J(0)&#xA;[15] 0.000013 +J(0)&#xA;[16] 0.000392 -0.000133 (1) WT +J(0) +M(C:0K, Fs:2, WS:0K # 0K, PF:0K # 0K, P:0K).;lgposV2[] = 00000005:0001:0000 - 00000005:0008:0039 - 00000005:0009:0000 - 00000005:0009:0000 (00000000:0000:0000)&#xA;cReInits = 2&#xA;]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="svchost (15960,D,0) DS_Token_DB: The database engine started a new instance (0). (Time=0 seconds) &#xD;&#xA; &#xD;&#xA;Additional Data:&#xD;&#xA; lgposV2[] = 00000005:0001:0000 - 00000005:0008:0039 - 00000005:0009:0000 - 00000005:0009:0000 (00000000:0000:0000)&#xA;cReInits = 2&#xA; &#xD;&#xA; &#xD;&#xA;Internal Timing Sequence: &#xA;[1] 0.001032 +J(0) +M(C:0K, Fs:191, WS:752K # 752K, PF:3276K # 3276K, P:3276K)&#xA;[2] 0.000441 +J(0) +M(C:8K, Fs:95, WS:368K # 368K, PF:320K # 320K, P:320K)&#xA;[3] 0.000026 +J(0) +M(C:0K, Fs:4, WS:16K # 16K, PF:64K # 64K, P:64K)&#xA;[4] 0.000211 +J(0) +M(C:0K, Fs:30, WS:116K # 116K, PF:172K # 172K, P:172K)&#xA;[5] 0.001001 +J(0) +M(C:0K, Fs:16, WS:64K # 64K, PF:32K # 32K, P:32K)&#xA;[6] 0.010971 +J(0) +M(C:0K, Fs:64, WS:256K # 256K, PF:44K # 44K, P:44K)&#xA;[7] 0.002327 -0.000684 (2) WT +J(0) +M(C:0K, Fs:33, WS:132K # 132K, PF:64K # 64K, P:64K)&#xA;[8] 0.020545 -0.006594 (12) WT +J(CM:0, PgRf:0, Rd:0/0, Dy:0/0, Lg:32448/22) +M(C:0K, Fs:150, WS:380K # 384K, PF:212K # 216K, P:212K)&#xA;[9] 0.000370 +J(0) +M(C:0K, Fs:9, WS:36K # 32K, PF:12K # 8K, P:12K)&#xA;[10] 0.000553 -0.000149 (1) WT +J(0) +M(C:0K, Fs:0, WS:-60K # 0K, PF:-60K # 0K, P:-60K)&#xA;[11] 0.000018 +J(CM:0, PgRf:0, Rd:0/0, Dy:0/0, Lg:49/1) +M(C:0K, Fs:4, WS:16K # 0K, PF:0K # 0K, P:0K)&#xA;[12] 0.000019 +J(0)&#xA;[13] 0.026747 -0.004630 (2) CM -0.009323 (21) WT +J(CM:2, PgRf:2, Rd:0/2, Dy:0/0, Lg:8759/5) +M(C:0K, Fs:59, WS:112K # 132K, PF:224K # 232K, P:224K)&#xA;[14] 0.000011 +J(0)&#xA;[15] 0.000013 +J(0)&#xA;[16] 0.000392 -0.000133 (1) WT +J(0) +M(C:0K, Fs:2, WS:0K # 0K, PF:0K # 0K, P:0K)." />
+				<Attribute name="RecordNumber" value="492898" />
+				<Attribute name="SourceName" value="ESENT" />
+				<Attribute name="TimeGenerated" value="12/05/2025 08:19:39" />
+				<Attribute name="TimeWritten" value="12/05/2025 08:19:39" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492899" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="1" />
+				<Attribute name="CategoryString" value="General" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="326" />
+				<Attribute name="EventIdentifier" value="326" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[svchost;15960,D,50;DS_Token_DB: ;1;C:\Windows\system32\config\systemprofile\AppData\Local\DataSharing\Storage\DSTokenDB2.dat;0;&#xA;[1] 0.000003 +J(0) +M(C:0K, Fs:1, WS:4K # 0K, PF:0K # 0K, P:0K)&#xA;[2] 0.000563 -0.000158 (1) WT +J(0) +M(C:0K, Fs:17, WS:4K # 8K, PF:4K # 0K, P:4K)&#xA;[3] 0.003293 -0.000794 (6) WT +J(CM:0, PgRf:0, Rd:0/0, Dy:0/0, Lg:3480/2) +M(C:0K, Fs:6, WS:20K # 0K, PF:20K # 0K, P:20K)&#xA;[4] 0.000329 +J(0)&#xA;[5] -&#xA;[6] -&#xA;[7] -&#xA;[8] 0.000326 -0.000233 (2) CM -0.000183 (2) WT +J(CM:2, PgRf:2, Rd:4/2, Dy:0/0, Lg:54/1) +M(C:8K, Fs:3, WS:12K # 0K, PF:28K # 0K, P:28K)&#xA;[9] 0.000743 -0.000523 (4) CM -0.000426 (4) WT +J(CM:4, PgRf:23, Rd:0/3, Dy:0/0, Lg:0/0) +M(C:0K, Fs:32, WS:120K # 88K, PF:196K # 188K, P:196K)&#xA;[10] 0.000485 -0.000253 (2) CM -0.000205 (2) WT +J(CM:2, PgRf:40, Rd:0/2, Dy:0/0, Lg:0/0) +M(C:0K, Fs:1, WS:4K # 4K, PF:64K # 56K, P:64K)&#xA;[11] 0.000172 -0.000118 (1) CM -0.000090 (1) WT +J(CM:1, PgRf:1, Rd:0/1, Dy:0/0, Lg:0/0)&#xA;[12] 0.000149 -0.000099 (1) CM -0.000081 (1) WT +J(CM:1, PgRf:42, Rd:0/1, Dy:0/0, Lg:0/0) +M(C:0K, Fs:4, WS:16K # 16K, PF:0K # 0K, P:0K)&#xA;[13] 0.0 +J(0)&#xA;[14] 0.0 +J(0)&#xA;[15] 0.000119 -0.000106 (1) CM -0.000089 (1) WT +J(CM:1, PgRf:1, Rd:0/1, Dy:0/0, Lg:0/0).;1 0;lgposAttach = 00000005:000B:0268,&#xA;dbv = 1568.180.400 (9360)]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="svchost (15960,D,50) DS_Token_DB: The database engine attached a database (1, C:\Windows\system32\config\systemprofile\AppData\Local\DataSharing\Storage\DSTokenDB2.dat). (Time=0 seconds) &#xD;&#xA; &#xD;&#xA;Saved Cache: 1 0 &#xD;&#xA;Additional Data: lgposAttach = 00000005:000B:0268,&#xA;dbv = 1568.180.400 (9360) &#xD;&#xA; &#xD;&#xA;Internal Timing Sequence: &#xA;[1] 0.000003 +J(0) +M(C:0K, Fs:1, WS:4K # 0K, PF:0K # 0K, P:0K)&#xA;[2] 0.000563 -0.000158 (1) WT +J(0) +M(C:0K, Fs:17, WS:4K # 8K, PF:4K # 0K, P:4K)&#xA;[3] 0.003293 -0.000794 (6) WT +J(CM:0, PgRf:0, Rd:0/0, Dy:0/0, Lg:3480/2) +M(C:0K, Fs:6, WS:20K # 0K, PF:20K # 0K, P:20K)&#xA;[4] 0.000329 +J(0)&#xA;[5] -&#xA;[6] -&#xA;[7] -&#xA;[8] 0.000326 -0.000233 (2) CM -0.000183 (2) WT +J(CM:2, PgRf:2, Rd:4/2, Dy:0/0, Lg:54/1) +M(C:8K, Fs:3, WS:12K # 0K, PF:28K # 0K, P:28K)&#xA;[9] 0.000743 -0.000523 (4) CM -0.000426 (4) WT +J(CM:4, PgRf:23, Rd:0/3, Dy:0/0, Lg:0/0) +M(C:0K, Fs:32, WS:120K # 88K, PF:196K # 188K, P:196K)&#xA;[10] 0.000485 -0.000253 (2) CM -0.000205 (2) WT +J(CM:2, PgRf:40, Rd:0/2, Dy:0/0, Lg:0/0) +M(C:0K, Fs:1, WS:4K # 4K, PF:64K # 56K, P:64K)&#xA;[11] 0.000172 -0.000118 (1) CM -0.000090 (1) WT +J(CM:1, PgRf:1, Rd:0/1, Dy:0/0, Lg:0/0)&#xA;[12] 0.000149 -0.000099 (1) CM -0.000081 (1) WT +J(CM:1, PgRf:42, Rd:0/1, Dy:0/0, Lg:0/0) +M(C:0K, Fs:4, WS:16K # 16K, PF:0K # 0K, P:0K)&#xA;[13] 0.0 +J(0)&#xA;[14] 0.0 +J(0)&#xA;[15] 0.000119 -0.000106 (1) CM -0.000089 (1) WT +J(CM:1, PgRf:1, Rd:0/1, Dy:0/0, Lg:0/0)." />
+				<Attribute name="RecordNumber" value="492899" />
+				<Attribute name="SourceName" value="ESENT" />
+				<Attribute name="TimeGenerated" value="12/05/2025 08:19:39" />
+				<Attribute name="TimeWritten" value="12/05/2025 08:19:39" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492900" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492900" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 08:19:52" />
+				<Attribute name="TimeWritten" value="12/05/2025 08:19:52" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492901" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:59:22Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:59:22Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492901" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 08:20:22" />
+				<Attribute name="TimeWritten" value="12/05/2025 08:20:22" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492902" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492902" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 09:00:36" />
+				<Attribute name="TimeWritten" value="12/05/2025 09:00:36" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492903" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:59:06Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:59:06Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492903" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 09:01:06" />
+				<Attribute name="TimeWritten" value="12/05/2025 09:01:06" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492904" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="1202" />
+				<Attribute name="EventIdentifier" value="-2147482446" />
+				<Attribute name="EventType" value="2" />
+				<Attribute name="InsertionStrings" value="[0x534 : No mapping between account names and security IDs was done.&#xD;&#xA;&#xD;&#xA;Advanced help for this problem is available on https://support.microsoft.com. Query for &quot;troubleshooting 1202 events&quot;. &#xD;&#xA;&#xD;&#xA;Error 0x534 occurs when a user account in one or more Group Policy objects (GPOs) could not be resolved to a SID.  This error is possibly caused by a mistyped or deleted user account referenced in either the User Rights or Restricted Groups branch of a GPO.  To resolve this event, contact an administrator in the domain to perform the following actions: &#xD;&#xA;&#xD;&#xA;1.&#x9;Identify accounts that could not be resolved to a SID:&#xD;&#xA;&#xD;&#xA;From the command prompt, type: FIND /I &quot;Cannot find&quot;  %SYSTEMROOT%\Security\Logs\winlogon.log&#xD;&#xA;&#xD;&#xA;The string following &quot;Cannot find&quot; in the FIND output identifies the problem account names.&#xD;&#xA;&#xD;&#xA;Example: Cannot find JohnDough.&#xD;&#xA;&#xD;&#xA;In this case, the SID for username &quot;JohnDough&quot; could not be determined. This most likely occurs because the account was deleted, renamed, or is spelled differently (e.g. &quot;JohnDoe&quot;). &#xD;&#xA;&#xD;&#xA;2.&#x9;Use RSoP to identify the specific User Rights, Restricted Groups, and Source GPOs that contain the problem accounts:&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; RSoP.msc&#xD;&#xA;b.&#x9;Review the results for Computer Configuration\Windows Settings\Security Settings\Local Policies\User Rights Assignment and Computer Configuration\Windows Settings\Security Settings\Local Policies\Restricted Groups for any errors flagged with a red X.&#xD;&#xA;c.&#x9;For any User Right or Restricted Group marked with a red X, the corresponding GPO that contains the problem policy setting is listed under the column entitled &quot;Source GPO&quot;. Note the specific User Rights, Restricted Groups and containing Source GPOs that are generating errors. &#xD;&#xA;&#xD;&#xA;3.&#x9;Remove unresolved accounts from Group Policy&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; MMC.EXE&#xD;&#xA;b.&#x9;From the File menu select &quot;Add/Remove Snap-in...&quot;&#xD;&#xA;c.&#x9;From the &quot;Add/Remove Snap-in&quot; dialog box select &quot;Add...&quot;&#xD;&#xA;d.&#x9;In the &quot;Add Standalone Snap-in&quot; dialog box select &quot;Group Policy&quot; and click &quot;Add&quot;&#xD;&#xA;e.&#x9;In the &quot;Select Group Policy Object&quot; dialog box click the &quot;Browse&quot; button.&#xD;&#xA;f.&#x9;On the &quot;Browse for a Group Policy Object&quot; dialog box choose the &quot;All&quot; tab&#xD;&#xA;g.&#x9;For each source GPO identified in step 2, correct the specific User Rights or Restricted Groups that were flagged with a red X in step 2. These User Rights or Restricted Groups can be corrected by removing or correcting any references to the problem accounts that were identified in step 1.]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Security policies were propagated with warning. 0x534 : No mapping between account names and security IDs was done.&#xD;&#xA;&#xD;&#xA;Advanced help for this problem is available on https://support.microsoft.com. Query for &quot;troubleshooting 1202 events&quot;. &#xD;&#xA;&#xD;&#xA;Error 0x534 occurs when a user account in one or more Group Policy objects (GPOs) could not be resolved to a SID.  This error is possibly caused by a mistyped or deleted user account referenced in either the User Rights or Restricted Groups branch of a GPO.  To resolve this event, contact an administrator in the domain to perform the following actions: &#xD;&#xA;&#xD;&#xA;1.&#x9;Identify accounts that could not be resolved to a SID:&#xD;&#xA;&#xD;&#xA;From the command prompt, type: FIND /I &quot;Cannot find&quot;  %SYSTEMROOT%\Security\Logs\winlogon.log&#xD;&#xA;&#xD;&#xA;The string following &quot;Cannot find&quot; in the FIND output identifies the problem account names.&#xD;&#xA;&#xD;&#xA;Example: Cannot find JohnDough.&#xD;&#xA;&#xD;&#xA;In this case, the SID for username &quot;JohnDough&quot; could not be determined. This most likely occurs because the account was deleted, renamed, or is spelled differently (e.g. &quot;JohnDoe&quot;). &#xD;&#xA;&#xD;&#xA;2.&#x9;Use RSoP to identify the specific User Rights, Restricted Groups, and Source GPOs that contain the problem accounts:&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; RSoP.msc&#xD;&#xA;b.&#x9;Review the results for Computer Configuration\Windows Settings\Security Settings\Local Policies\User Rights Assignment and Computer Configuration\Windows Settings\Security Settings\Local Policies\Restricted Groups for any errors flagged with a red X.&#xD;&#xA;c.&#x9;For any User Right or Restricted Group marked with a red X, the corresponding GPO that contains the problem policy setting is listed under the column entitled &quot;Source GPO&quot;. Note the specific User Rights, Restricted Groups and containing Source GPOs that are generating errors. &#xD;&#xA;&#xD;&#xA;3.&#x9;Remove unresolved accounts from Group Policy&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; MMC.EXE&#xD;&#xA;b.&#x9;From the File menu select &quot;Add/Remove Snap-in...&quot;&#xD;&#xA;c.&#x9;From the &quot;Add/Remove Snap-in&quot; dialog box select &quot;Add...&quot;&#xD;&#xA;d.&#x9;In the &quot;Add Standalone Snap-in&quot; dialog box select &quot;Group Policy&quot; and click &quot;Add&quot;&#xD;&#xA;e.&#x9;In the &quot;Select Group Policy Object&quot; dialog box click the &quot;Browse&quot; button.&#xD;&#xA;f.&#x9;On the &quot;Browse for a Group Policy Object&quot; dialog box choose the &quot;All&quot; tab&#xD;&#xA;g.&#x9;For each source GPO identified in step 2, correct the specific User Rights or Restricted Groups that were flagged with a red X in step 2. These User Rights or Restricted Groups can be corrected by removing or correcting any references to the problem accounts that were identified in step 1." />
+				<Attribute name="RecordNumber" value="492904" />
+				<Attribute name="SourceName" value="SceCli" />
+				<Attribute name="TimeGenerated" value="12/05/2025 09:21:15" />
+				<Attribute name="TimeWritten" value="12/05/2025 09:21:15" />
+				<Attribute name="Type" value="Warning" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492905" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492905" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 09:36:41" />
+				<Attribute name="TimeWritten" value="12/05/2025 09:36:41" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492906" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:59:13Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:59:13Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492906" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 09:37:13" />
+				<Attribute name="TimeWritten" value="12/05/2025 09:37:13" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492907" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492907" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 09:55:41" />
+				<Attribute name="TimeWritten" value="12/05/2025 09:55:41" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492908" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:59:12Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:59:12Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492908" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 09:56:12" />
+				<Attribute name="TimeWritten" value="12/05/2025 09:56:12" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492909" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492909" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 10:50:46" />
+				<Attribute name="TimeWritten" value="12/05/2025 10:50:46" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492910" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:59:16Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:59:16Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492910" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 10:51:16" />
+				<Attribute name="TimeWritten" value="12/05/2025 10:51:16" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492911" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="1202" />
+				<Attribute name="EventIdentifier" value="-2147482446" />
+				<Attribute name="EventType" value="2" />
+				<Attribute name="InsertionStrings" value="[0x534 : No mapping between account names and security IDs was done.&#xD;&#xA;&#xD;&#xA;Advanced help for this problem is available on https://support.microsoft.com. Query for &quot;troubleshooting 1202 events&quot;. &#xD;&#xA;&#xD;&#xA;Error 0x534 occurs when a user account in one or more Group Policy objects (GPOs) could not be resolved to a SID.  This error is possibly caused by a mistyped or deleted user account referenced in either the User Rights or Restricted Groups branch of a GPO.  To resolve this event, contact an administrator in the domain to perform the following actions: &#xD;&#xA;&#xD;&#xA;1.&#x9;Identify accounts that could not be resolved to a SID:&#xD;&#xA;&#xD;&#xA;From the command prompt, type: FIND /I &quot;Cannot find&quot;  %SYSTEMROOT%\Security\Logs\winlogon.log&#xD;&#xA;&#xD;&#xA;The string following &quot;Cannot find&quot; in the FIND output identifies the problem account names.&#xD;&#xA;&#xD;&#xA;Example: Cannot find JohnDough.&#xD;&#xA;&#xD;&#xA;In this case, the SID for username &quot;JohnDough&quot; could not be determined. This most likely occurs because the account was deleted, renamed, or is spelled differently (e.g. &quot;JohnDoe&quot;). &#xD;&#xA;&#xD;&#xA;2.&#x9;Use RSoP to identify the specific User Rights, Restricted Groups, and Source GPOs that contain the problem accounts:&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; RSoP.msc&#xD;&#xA;b.&#x9;Review the results for Computer Configuration\Windows Settings\Security Settings\Local Policies\User Rights Assignment and Computer Configuration\Windows Settings\Security Settings\Local Policies\Restricted Groups for any errors flagged with a red X.&#xD;&#xA;c.&#x9;For any User Right or Restricted Group marked with a red X, the corresponding GPO that contains the problem policy setting is listed under the column entitled &quot;Source GPO&quot;. Note the specific User Rights, Restricted Groups and containing Source GPOs that are generating errors. &#xD;&#xA;&#xD;&#xA;3.&#x9;Remove unresolved accounts from Group Policy&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; MMC.EXE&#xD;&#xA;b.&#x9;From the File menu select &quot;Add/Remove Snap-in...&quot;&#xD;&#xA;c.&#x9;From the &quot;Add/Remove Snap-in&quot; dialog box select &quot;Add...&quot;&#xD;&#xA;d.&#x9;In the &quot;Add Standalone Snap-in&quot; dialog box select &quot;Group Policy&quot; and click &quot;Add&quot;&#xD;&#xA;e.&#x9;In the &quot;Select Group Policy Object&quot; dialog box click the &quot;Browse&quot; button.&#xD;&#xA;f.&#x9;On the &quot;Browse for a Group Policy Object&quot; dialog box choose the &quot;All&quot; tab&#xD;&#xA;g.&#x9;For each source GPO identified in step 2, correct the specific User Rights or Restricted Groups that were flagged with a red X in step 2. These User Rights or Restricted Groups can be corrected by removing or correcting any references to the problem accounts that were identified in step 1.]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Security policies were propagated with warning. 0x534 : No mapping between account names and security IDs was done.&#xD;&#xA;&#xD;&#xA;Advanced help for this problem is available on https://support.microsoft.com. Query for &quot;troubleshooting 1202 events&quot;. &#xD;&#xA;&#xD;&#xA;Error 0x534 occurs when a user account in one or more Group Policy objects (GPOs) could not be resolved to a SID.  This error is possibly caused by a mistyped or deleted user account referenced in either the User Rights or Restricted Groups branch of a GPO.  To resolve this event, contact an administrator in the domain to perform the following actions: &#xD;&#xA;&#xD;&#xA;1.&#x9;Identify accounts that could not be resolved to a SID:&#xD;&#xA;&#xD;&#xA;From the command prompt, type: FIND /I &quot;Cannot find&quot;  %SYSTEMROOT%\Security\Logs\winlogon.log&#xD;&#xA;&#xD;&#xA;The string following &quot;Cannot find&quot; in the FIND output identifies the problem account names.&#xD;&#xA;&#xD;&#xA;Example: Cannot find JohnDough.&#xD;&#xA;&#xD;&#xA;In this case, the SID for username &quot;JohnDough&quot; could not be determined. This most likely occurs because the account was deleted, renamed, or is spelled differently (e.g. &quot;JohnDoe&quot;). &#xD;&#xA;&#xD;&#xA;2.&#x9;Use RSoP to identify the specific User Rights, Restricted Groups, and Source GPOs that contain the problem accounts:&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; RSoP.msc&#xD;&#xA;b.&#x9;Review the results for Computer Configuration\Windows Settings\Security Settings\Local Policies\User Rights Assignment and Computer Configuration\Windows Settings\Security Settings\Local Policies\Restricted Groups for any errors flagged with a red X.&#xD;&#xA;c.&#x9;For any User Right or Restricted Group marked with a red X, the corresponding GPO that contains the problem policy setting is listed under the column entitled &quot;Source GPO&quot;. Note the specific User Rights, Restricted Groups and containing Source GPOs that are generating errors. &#xD;&#xA;&#xD;&#xA;3.&#x9;Remove unresolved accounts from Group Policy&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; MMC.EXE&#xD;&#xA;b.&#x9;From the File menu select &quot;Add/Remove Snap-in...&quot;&#xD;&#xA;c.&#x9;From the &quot;Add/Remove Snap-in&quot; dialog box select &quot;Add...&quot;&#xD;&#xA;d.&#x9;In the &quot;Add Standalone Snap-in&quot; dialog box select &quot;Group Policy&quot; and click &quot;Add&quot;&#xD;&#xA;e.&#x9;In the &quot;Select Group Policy Object&quot; dialog box click the &quot;Browse&quot; button.&#xD;&#xA;f.&#x9;On the &quot;Browse for a Group Policy Object&quot; dialog box choose the &quot;All&quot; tab&#xD;&#xA;g.&#x9;For each source GPO identified in step 2, correct the specific User Rights or Restricted Groups that were flagged with a red X in step 2. These User Rights or Restricted Groups can be corrected by removing or correcting any references to the problem accounts that were identified in step 1." />
+				<Attribute name="RecordNumber" value="492911" />
+				<Attribute name="SourceName" value="SceCli" />
+				<Attribute name="TimeGenerated" value="12/05/2025 11:22:25" />
+				<Attribute name="TimeWritten" value="12/05/2025 11:22:25" />
+				<Attribute name="Type" value="Warning" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492912" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492912" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 11:26:03" />
+				<Attribute name="TimeWritten" value="12/05/2025 11:26:03" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492913" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:58:34Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:58:34Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492913" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 11:26:34" />
+				<Attribute name="TimeWritten" value="12/05/2025 11:26:34" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492914" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492914" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 11:45:51" />
+				<Attribute name="TimeWritten" value="12/05/2025 11:45:51" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492915" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:59:21Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:59:21Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492915" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 11:46:21" />
+				<Attribute name="TimeWritten" value="12/05/2025 11:46:21" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492916" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492916" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 12:40:56" />
+				<Attribute name="TimeWritten" value="12/05/2025 12:40:56" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492917" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:59:26Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:59:26Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492917" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 12:41:26" />
+				<Attribute name="TimeWritten" value="12/05/2025 12:41:26" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492918" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492918" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 13:13:25" />
+				<Attribute name="TimeWritten" value="12/05/2025 13:13:25" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492919" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:58:56Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:58:56Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492919" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 13:13:56" />
+				<Attribute name="TimeWritten" value="12/05/2025 13:13:56" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492920" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="0" />
+				<Attribute name="EventIdentifier" value="0" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[Service stopped]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Service stopped." />
+				<Attribute name="RecordNumber" value="492920" />
+				<Attribute name="SourceName" value="edgeupdate" />
+				<Attribute name="TimeGenerated" value="12/05/2025 13:14:29" />
+				<Attribute name="TimeWritten" value="12/05/2025 13:14:29" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492921" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492921" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 13:17:48" />
+				<Attribute name="TimeWritten" value="12/05/2025 13:17:48" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492922" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:59:19Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:59:19Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492922" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 13:18:19" />
+				<Attribute name="TimeWritten" value="12/05/2025 13:18:19" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492923" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="1202" />
+				<Attribute name="EventIdentifier" value="-2147482446" />
+				<Attribute name="EventType" value="2" />
+				<Attribute name="InsertionStrings" value="[0x534 : No mapping between account names and security IDs was done.&#xD;&#xA;&#xD;&#xA;Advanced help for this problem is available on https://support.microsoft.com. Query for &quot;troubleshooting 1202 events&quot;. &#xD;&#xA;&#xD;&#xA;Error 0x534 occurs when a user account in one or more Group Policy objects (GPOs) could not be resolved to a SID.  This error is possibly caused by a mistyped or deleted user account referenced in either the User Rights or Restricted Groups branch of a GPO.  To resolve this event, contact an administrator in the domain to perform the following actions: &#xD;&#xA;&#xD;&#xA;1.&#x9;Identify accounts that could not be resolved to a SID:&#xD;&#xA;&#xD;&#xA;From the command prompt, type: FIND /I &quot;Cannot find&quot;  %SYSTEMROOT%\Security\Logs\winlogon.log&#xD;&#xA;&#xD;&#xA;The string following &quot;Cannot find&quot; in the FIND output identifies the problem account names.&#xD;&#xA;&#xD;&#xA;Example: Cannot find JohnDough.&#xD;&#xA;&#xD;&#xA;In this case, the SID for username &quot;JohnDough&quot; could not be determined. This most likely occurs because the account was deleted, renamed, or is spelled differently (e.g. &quot;JohnDoe&quot;). &#xD;&#xA;&#xD;&#xA;2.&#x9;Use RSoP to identify the specific User Rights, Restricted Groups, and Source GPOs that contain the problem accounts:&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; RSoP.msc&#xD;&#xA;b.&#x9;Review the results for Computer Configuration\Windows Settings\Security Settings\Local Policies\User Rights Assignment and Computer Configuration\Windows Settings\Security Settings\Local Policies\Restricted Groups for any errors flagged with a red X.&#xD;&#xA;c.&#x9;For any User Right or Restricted Group marked with a red X, the corresponding GPO that contains the problem policy setting is listed under the column entitled &quot;Source GPO&quot;. Note the specific User Rights, Restricted Groups and containing Source GPOs that are generating errors. &#xD;&#xA;&#xD;&#xA;3.&#x9;Remove unresolved accounts from Group Policy&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; MMC.EXE&#xD;&#xA;b.&#x9;From the File menu select &quot;Add/Remove Snap-in...&quot;&#xD;&#xA;c.&#x9;From the &quot;Add/Remove Snap-in&quot; dialog box select &quot;Add...&quot;&#xD;&#xA;d.&#x9;In the &quot;Add Standalone Snap-in&quot; dialog box select &quot;Group Policy&quot; and click &quot;Add&quot;&#xD;&#xA;e.&#x9;In the &quot;Select Group Policy Object&quot; dialog box click the &quot;Browse&quot; button.&#xD;&#xA;f.&#x9;On the &quot;Browse for a Group Policy Object&quot; dialog box choose the &quot;All&quot; tab&#xD;&#xA;g.&#x9;For each source GPO identified in step 2, correct the specific User Rights or Restricted Groups that were flagged with a red X in step 2. These User Rights or Restricted Groups can be corrected by removing or correcting any references to the problem accounts that were identified in step 1.]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Security policies were propagated with warning. 0x534 : No mapping between account names and security IDs was done.&#xD;&#xA;&#xD;&#xA;Advanced help for this problem is available on https://support.microsoft.com. Query for &quot;troubleshooting 1202 events&quot;. &#xD;&#xA;&#xD;&#xA;Error 0x534 occurs when a user account in one or more Group Policy objects (GPOs) could not be resolved to a SID.  This error is possibly caused by a mistyped or deleted user account referenced in either the User Rights or Restricted Groups branch of a GPO.  To resolve this event, contact an administrator in the domain to perform the following actions: &#xD;&#xA;&#xD;&#xA;1.&#x9;Identify accounts that could not be resolved to a SID:&#xD;&#xA;&#xD;&#xA;From the command prompt, type: FIND /I &quot;Cannot find&quot;  %SYSTEMROOT%\Security\Logs\winlogon.log&#xD;&#xA;&#xD;&#xA;The string following &quot;Cannot find&quot; in the FIND output identifies the problem account names.&#xD;&#xA;&#xD;&#xA;Example: Cannot find JohnDough.&#xD;&#xA;&#xD;&#xA;In this case, the SID for username &quot;JohnDough&quot; could not be determined. This most likely occurs because the account was deleted, renamed, or is spelled differently (e.g. &quot;JohnDoe&quot;). &#xD;&#xA;&#xD;&#xA;2.&#x9;Use RSoP to identify the specific User Rights, Restricted Groups, and Source GPOs that contain the problem accounts:&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; RSoP.msc&#xD;&#xA;b.&#x9;Review the results for Computer Configuration\Windows Settings\Security Settings\Local Policies\User Rights Assignment and Computer Configuration\Windows Settings\Security Settings\Local Policies\Restricted Groups for any errors flagged with a red X.&#xD;&#xA;c.&#x9;For any User Right or Restricted Group marked with a red X, the corresponding GPO that contains the problem policy setting is listed under the column entitled &quot;Source GPO&quot;. Note the specific User Rights, Restricted Groups and containing Source GPOs that are generating errors. &#xD;&#xA;&#xD;&#xA;3.&#x9;Remove unresolved accounts from Group Policy&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; MMC.EXE&#xD;&#xA;b.&#x9;From the File menu select &quot;Add/Remove Snap-in...&quot;&#xD;&#xA;c.&#x9;From the &quot;Add/Remove Snap-in&quot; dialog box select &quot;Add...&quot;&#xD;&#xA;d.&#x9;In the &quot;Add Standalone Snap-in&quot; dialog box select &quot;Group Policy&quot; and click &quot;Add&quot;&#xD;&#xA;e.&#x9;In the &quot;Select Group Policy Object&quot; dialog box click the &quot;Browse&quot; button.&#xD;&#xA;f.&#x9;On the &quot;Browse for a Group Policy Object&quot; dialog box choose the &quot;All&quot; tab&#xD;&#xA;g.&#x9;For each source GPO identified in step 2, correct the specific User Rights or Restricted Groups that were flagged with a red X in step 2. These User Rights or Restricted Groups can be corrected by removing or correcting any references to the problem accounts that were identified in step 1." />
+				<Attribute name="RecordNumber" value="492923" />
+				<Attribute name="SourceName" value="SceCli" />
+				<Attribute name="TimeGenerated" value="12/05/2025 13:23:12" />
+				<Attribute name="TimeWritten" value="12/05/2025 13:23:12" />
+				<Attribute name="Type" value="Warning" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492924" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492924" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 13:36:00" />
+				<Attribute name="TimeWritten" value="12/05/2025 13:36:00" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492925" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:58:31Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:58:31Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492925" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 13:36:31" />
+				<Attribute name="TimeWritten" value="12/05/2025 13:36:31" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492926" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492926" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 14:31:05" />
+				<Attribute name="TimeWritten" value="12/05/2025 14:31:05" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492927" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:58:35Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:58:35Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492927" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 14:31:35" />
+				<Attribute name="TimeWritten" value="12/05/2025 14:31:35" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492928" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="1023" />
+				<Attribute name="EventIdentifier" value="1023" />
+				<Attribute name="EventType" value="1" />
+				<Attribute name="InsertionStrings" value="[C:\Windows\system32\ntdsperf.dll;126]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Windows cannot load the extensible counter DLL &quot;C:\Windows\system32\ntdsperf.dll&quot; (Win32 error code The specified module could not be found.)." />
+				<Attribute name="RecordNumber" value="492928" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Perflib" />
+				<Attribute name="TimeGenerated" value="12/05/2025 14:35:01" />
+				<Attribute name="TimeWritten" value="12/05/2025 14:35:01" />
+				<Attribute name="Type" value="Error" />
+				<Attribute name="User" value="NT AUTHORITY\SYSTEM" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492929" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492929" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 14:47:04" />
+				<Attribute name="TimeWritten" value="12/05/2025 14:47:04" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492930" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:58:34Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:58:34Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492930" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 14:47:34" />
+				<Attribute name="TimeWritten" value="12/05/2025 14:47:34" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492931" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="1202" />
+				<Attribute name="EventIdentifier" value="-2147482446" />
+				<Attribute name="EventType" value="2" />
+				<Attribute name="InsertionStrings" value="[0x534 : No mapping between account names and security IDs was done.&#xD;&#xA;&#xD;&#xA;Advanced help for this problem is available on https://support.microsoft.com. Query for &quot;troubleshooting 1202 events&quot;. &#xD;&#xA;&#xD;&#xA;Error 0x534 occurs when a user account in one or more Group Policy objects (GPOs) could not be resolved to a SID.  This error is possibly caused by a mistyped or deleted user account referenced in either the User Rights or Restricted Groups branch of a GPO.  To resolve this event, contact an administrator in the domain to perform the following actions: &#xD;&#xA;&#xD;&#xA;1.&#x9;Identify accounts that could not be resolved to a SID:&#xD;&#xA;&#xD;&#xA;From the command prompt, type: FIND /I &quot;Cannot find&quot;  %SYSTEMROOT%\Security\Logs\winlogon.log&#xD;&#xA;&#xD;&#xA;The string following &quot;Cannot find&quot; in the FIND output identifies the problem account names.&#xD;&#xA;&#xD;&#xA;Example: Cannot find JohnDough.&#xD;&#xA;&#xD;&#xA;In this case, the SID for username &quot;JohnDough&quot; could not be determined. This most likely occurs because the account was deleted, renamed, or is spelled differently (e.g. &quot;JohnDoe&quot;). &#xD;&#xA;&#xD;&#xA;2.&#x9;Use RSoP to identify the specific User Rights, Restricted Groups, and Source GPOs that contain the problem accounts:&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; RSoP.msc&#xD;&#xA;b.&#x9;Review the results for Computer Configuration\Windows Settings\Security Settings\Local Policies\User Rights Assignment and Computer Configuration\Windows Settings\Security Settings\Local Policies\Restricted Groups for any errors flagged with a red X.&#xD;&#xA;c.&#x9;For any User Right or Restricted Group marked with a red X, the corresponding GPO that contains the problem policy setting is listed under the column entitled &quot;Source GPO&quot;. Note the specific User Rights, Restricted Groups and containing Source GPOs that are generating errors. &#xD;&#xA;&#xD;&#xA;3.&#x9;Remove unresolved accounts from Group Policy&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; MMC.EXE&#xD;&#xA;b.&#x9;From the File menu select &quot;Add/Remove Snap-in...&quot;&#xD;&#xA;c.&#x9;From the &quot;Add/Remove Snap-in&quot; dialog box select &quot;Add...&quot;&#xD;&#xA;d.&#x9;In the &quot;Add Standalone Snap-in&quot; dialog box select &quot;Group Policy&quot; and click &quot;Add&quot;&#xD;&#xA;e.&#x9;In the &quot;Select Group Policy Object&quot; dialog box click the &quot;Browse&quot; button.&#xD;&#xA;f.&#x9;On the &quot;Browse for a Group Policy Object&quot; dialog box choose the &quot;All&quot; tab&#xD;&#xA;g.&#x9;For each source GPO identified in step 2, correct the specific User Rights or Restricted Groups that were flagged with a red X in step 2. These User Rights or Restricted Groups can be corrected by removing or correcting any references to the problem accounts that were identified in step 1.]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Security policies were propagated with warning. 0x534 : No mapping between account names and security IDs was done.&#xD;&#xA;&#xD;&#xA;Advanced help for this problem is available on https://support.microsoft.com. Query for &quot;troubleshooting 1202 events&quot;. &#xD;&#xA;&#xD;&#xA;Error 0x534 occurs when a user account in one or more Group Policy objects (GPOs) could not be resolved to a SID.  This error is possibly caused by a mistyped or deleted user account referenced in either the User Rights or Restricted Groups branch of a GPO.  To resolve this event, contact an administrator in the domain to perform the following actions: &#xD;&#xA;&#xD;&#xA;1.&#x9;Identify accounts that could not be resolved to a SID:&#xD;&#xA;&#xD;&#xA;From the command prompt, type: FIND /I &quot;Cannot find&quot;  %SYSTEMROOT%\Security\Logs\winlogon.log&#xD;&#xA;&#xD;&#xA;The string following &quot;Cannot find&quot; in the FIND output identifies the problem account names.&#xD;&#xA;&#xD;&#xA;Example: Cannot find JohnDough.&#xD;&#xA;&#xD;&#xA;In this case, the SID for username &quot;JohnDough&quot; could not be determined. This most likely occurs because the account was deleted, renamed, or is spelled differently (e.g. &quot;JohnDoe&quot;). &#xD;&#xA;&#xD;&#xA;2.&#x9;Use RSoP to identify the specific User Rights, Restricted Groups, and Source GPOs that contain the problem accounts:&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; RSoP.msc&#xD;&#xA;b.&#x9;Review the results for Computer Configuration\Windows Settings\Security Settings\Local Policies\User Rights Assignment and Computer Configuration\Windows Settings\Security Settings\Local Policies\Restricted Groups for any errors flagged with a red X.&#xD;&#xA;c.&#x9;For any User Right or Restricted Group marked with a red X, the corresponding GPO that contains the problem policy setting is listed under the column entitled &quot;Source GPO&quot;. Note the specific User Rights, Restricted Groups and containing Source GPOs that are generating errors. &#xD;&#xA;&#xD;&#xA;3.&#x9;Remove unresolved accounts from Group Policy&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; MMC.EXE&#xD;&#xA;b.&#x9;From the File menu select &quot;Add/Remove Snap-in...&quot;&#xD;&#xA;c.&#x9;From the &quot;Add/Remove Snap-in&quot; dialog box select &quot;Add...&quot;&#xD;&#xA;d.&#x9;In the &quot;Add Standalone Snap-in&quot; dialog box select &quot;Group Policy&quot; and click &quot;Add&quot;&#xD;&#xA;e.&#x9;In the &quot;Select Group Policy Object&quot; dialog box click the &quot;Browse&quot; button.&#xD;&#xA;f.&#x9;On the &quot;Browse for a Group Policy Object&quot; dialog box choose the &quot;All&quot; tab&#xD;&#xA;g.&#x9;For each source GPO identified in step 2, correct the specific User Rights or Restricted Groups that were flagged with a red X in step 2. These User Rights or Restricted Groups can be corrected by removing or correcting any references to the problem accounts that were identified in step 1." />
+				<Attribute name="RecordNumber" value="492931" />
+				<Attribute name="SourceName" value="SceCli" />
+				<Attribute name="TimeGenerated" value="12/05/2025 15:23:56" />
+				<Attribute name="TimeWritten" value="12/05/2025 15:23:56" />
+				<Attribute name="Type" value="Warning" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492932" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492932" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 15:26:09" />
+				<Attribute name="TimeWritten" value="12/05/2025 15:26:09" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492933" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:58:40Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:58:40Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492933" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 15:26:40" />
+				<Attribute name="TimeWritten" value="12/05/2025 15:26:40" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492934" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492934" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 16:21:15" />
+				<Attribute name="TimeWritten" value="12/05/2025 16:21:15" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492935" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:58:46Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:58:46Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492935" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 16:21:46" />
+				<Attribute name="TimeWritten" value="12/05/2025 16:21:46" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492936" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492936" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 16:44:52" />
+				<Attribute name="TimeWritten" value="12/05/2025 16:44:52" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492937" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:59:22Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:59:22Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492937" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 16:45:22" />
+				<Attribute name="TimeWritten" value="12/05/2025 16:45:22" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492938" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492938" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 17:16:20" />
+				<Attribute name="TimeWritten" value="12/05/2025 17:16:20" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492939" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:58:51Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:58:51Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492939" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 17:16:51" />
+				<Attribute name="TimeWritten" value="12/05/2025 17:16:51" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492940" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="1202" />
+				<Attribute name="EventIdentifier" value="-2147482446" />
+				<Attribute name="EventType" value="2" />
+				<Attribute name="InsertionStrings" value="[0x534 : No mapping between account names and security IDs was done.&#xD;&#xA;&#xD;&#xA;Advanced help for this problem is available on https://support.microsoft.com. Query for &quot;troubleshooting 1202 events&quot;. &#xD;&#xA;&#xD;&#xA;Error 0x534 occurs when a user account in one or more Group Policy objects (GPOs) could not be resolved to a SID.  This error is possibly caused by a mistyped or deleted user account referenced in either the User Rights or Restricted Groups branch of a GPO.  To resolve this event, contact an administrator in the domain to perform the following actions: &#xD;&#xA;&#xD;&#xA;1.&#x9;Identify accounts that could not be resolved to a SID:&#xD;&#xA;&#xD;&#xA;From the command prompt, type: FIND /I &quot;Cannot find&quot;  %SYSTEMROOT%\Security\Logs\winlogon.log&#xD;&#xA;&#xD;&#xA;The string following &quot;Cannot find&quot; in the FIND output identifies the problem account names.&#xD;&#xA;&#xD;&#xA;Example: Cannot find JohnDough.&#xD;&#xA;&#xD;&#xA;In this case, the SID for username &quot;JohnDough&quot; could not be determined. This most likely occurs because the account was deleted, renamed, or is spelled differently (e.g. &quot;JohnDoe&quot;). &#xD;&#xA;&#xD;&#xA;2.&#x9;Use RSoP to identify the specific User Rights, Restricted Groups, and Source GPOs that contain the problem accounts:&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; RSoP.msc&#xD;&#xA;b.&#x9;Review the results for Computer Configuration\Windows Settings\Security Settings\Local Policies\User Rights Assignment and Computer Configuration\Windows Settings\Security Settings\Local Policies\Restricted Groups for any errors flagged with a red X.&#xD;&#xA;c.&#x9;For any User Right or Restricted Group marked with a red X, the corresponding GPO that contains the problem policy setting is listed under the column entitled &quot;Source GPO&quot;. Note the specific User Rights, Restricted Groups and containing Source GPOs that are generating errors. &#xD;&#xA;&#xD;&#xA;3.&#x9;Remove unresolved accounts from Group Policy&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; MMC.EXE&#xD;&#xA;b.&#x9;From the File menu select &quot;Add/Remove Snap-in...&quot;&#xD;&#xA;c.&#x9;From the &quot;Add/Remove Snap-in&quot; dialog box select &quot;Add...&quot;&#xD;&#xA;d.&#x9;In the &quot;Add Standalone Snap-in&quot; dialog box select &quot;Group Policy&quot; and click &quot;Add&quot;&#xD;&#xA;e.&#x9;In the &quot;Select Group Policy Object&quot; dialog box click the &quot;Browse&quot; button.&#xD;&#xA;f.&#x9;On the &quot;Browse for a Group Policy Object&quot; dialog box choose the &quot;All&quot; tab&#xD;&#xA;g.&#x9;For each source GPO identified in step 2, correct the specific User Rights or Restricted Groups that were flagged with a red X in step 2. These User Rights or Restricted Groups can be corrected by removing or correcting any references to the problem accounts that were identified in step 1.]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Security policies were propagated with warning. 0x534 : No mapping between account names and security IDs was done.&#xD;&#xA;&#xD;&#xA;Advanced help for this problem is available on https://support.microsoft.com. Query for &quot;troubleshooting 1202 events&quot;. &#xD;&#xA;&#xD;&#xA;Error 0x534 occurs when a user account in one or more Group Policy objects (GPOs) could not be resolved to a SID.  This error is possibly caused by a mistyped or deleted user account referenced in either the User Rights or Restricted Groups branch of a GPO.  To resolve this event, contact an administrator in the domain to perform the following actions: &#xD;&#xA;&#xD;&#xA;1.&#x9;Identify accounts that could not be resolved to a SID:&#xD;&#xA;&#xD;&#xA;From the command prompt, type: FIND /I &quot;Cannot find&quot;  %SYSTEMROOT%\Security\Logs\winlogon.log&#xD;&#xA;&#xD;&#xA;The string following &quot;Cannot find&quot; in the FIND output identifies the problem account names.&#xD;&#xA;&#xD;&#xA;Example: Cannot find JohnDough.&#xD;&#xA;&#xD;&#xA;In this case, the SID for username &quot;JohnDough&quot; could not be determined. This most likely occurs because the account was deleted, renamed, or is spelled differently (e.g. &quot;JohnDoe&quot;). &#xD;&#xA;&#xD;&#xA;2.&#x9;Use RSoP to identify the specific User Rights, Restricted Groups, and Source GPOs that contain the problem accounts:&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; RSoP.msc&#xD;&#xA;b.&#x9;Review the results for Computer Configuration\Windows Settings\Security Settings\Local Policies\User Rights Assignment and Computer Configuration\Windows Settings\Security Settings\Local Policies\Restricted Groups for any errors flagged with a red X.&#xD;&#xA;c.&#x9;For any User Right or Restricted Group marked with a red X, the corresponding GPO that contains the problem policy setting is listed under the column entitled &quot;Source GPO&quot;. Note the specific User Rights, Restricted Groups and containing Source GPOs that are generating errors. &#xD;&#xA;&#xD;&#xA;3.&#x9;Remove unresolved accounts from Group Policy&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; MMC.EXE&#xD;&#xA;b.&#x9;From the File menu select &quot;Add/Remove Snap-in...&quot;&#xD;&#xA;c.&#x9;From the &quot;Add/Remove Snap-in&quot; dialog box select &quot;Add...&quot;&#xD;&#xA;d.&#x9;In the &quot;Add Standalone Snap-in&quot; dialog box select &quot;Group Policy&quot; and click &quot;Add&quot;&#xD;&#xA;e.&#x9;In the &quot;Select Group Policy Object&quot; dialog box click the &quot;Browse&quot; button.&#xD;&#xA;f.&#x9;On the &quot;Browse for a Group Policy Object&quot; dialog box choose the &quot;All&quot; tab&#xD;&#xA;g.&#x9;For each source GPO identified in step 2, correct the specific User Rights or Restricted Groups that were flagged with a red X in step 2. These User Rights or Restricted Groups can be corrected by removing or correcting any references to the problem accounts that were identified in step 1." />
+				<Attribute name="RecordNumber" value="492940" />
+				<Attribute name="SourceName" value="SceCli" />
+				<Attribute name="TimeGenerated" value="12/05/2025 17:24:42" />
+				<Attribute name="TimeWritten" value="12/05/2025 17:24:42" />
+				<Attribute name="Type" value="Warning" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492941" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492941" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 17:37:23" />
+				<Attribute name="TimeWritten" value="12/05/2025 17:37:23" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492942" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:58:59Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:58:59Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492942" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 17:37:59" />
+				<Attribute name="TimeWritten" value="12/05/2025 17:37:59" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492943" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492943" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 18:11:26" />
+				<Attribute name="TimeWritten" value="12/05/2025 18:11:26" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492944" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:58:56Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:58:56Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492944" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 18:11:56" />
+				<Attribute name="TimeWritten" value="12/05/2025 18:11:56" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492945" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492945" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 18:13:27" />
+				<Attribute name="TimeWritten" value="12/05/2025 18:13:27" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492946" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:58:58Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:58:58Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492946" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 18:13:58" />
+				<Attribute name="TimeWritten" value="12/05/2025 18:13:58" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492947" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492947" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 18:39:03" />
+				<Attribute name="TimeWritten" value="12/05/2025 18:39:03" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492948" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:58:35Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:58:35Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492948" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 18:39:35" />
+				<Attribute name="TimeWritten" value="12/05/2025 18:39:35" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492949" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492949" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 19:06:32" />
+				<Attribute name="TimeWritten" value="12/05/2025 19:06:32" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492950" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:59:02Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:59:02Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492950" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 19:07:02" />
+				<Attribute name="TimeWritten" value="12/05/2025 19:07:02" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492951" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="1202" />
+				<Attribute name="EventIdentifier" value="-2147482446" />
+				<Attribute name="EventType" value="2" />
+				<Attribute name="InsertionStrings" value="[0x534 : No mapping between account names and security IDs was done.&#xD;&#xA;&#xD;&#xA;Advanced help for this problem is available on https://support.microsoft.com. Query for &quot;troubleshooting 1202 events&quot;. &#xD;&#xA;&#xD;&#xA;Error 0x534 occurs when a user account in one or more Group Policy objects (GPOs) could not be resolved to a SID.  This error is possibly caused by a mistyped or deleted user account referenced in either the User Rights or Restricted Groups branch of a GPO.  To resolve this event, contact an administrator in the domain to perform the following actions: &#xD;&#xA;&#xD;&#xA;1.&#x9;Identify accounts that could not be resolved to a SID:&#xD;&#xA;&#xD;&#xA;From the command prompt, type: FIND /I &quot;Cannot find&quot;  %SYSTEMROOT%\Security\Logs\winlogon.log&#xD;&#xA;&#xD;&#xA;The string following &quot;Cannot find&quot; in the FIND output identifies the problem account names.&#xD;&#xA;&#xD;&#xA;Example: Cannot find JohnDough.&#xD;&#xA;&#xD;&#xA;In this case, the SID for username &quot;JohnDough&quot; could not be determined. This most likely occurs because the account was deleted, renamed, or is spelled differently (e.g. &quot;JohnDoe&quot;). &#xD;&#xA;&#xD;&#xA;2.&#x9;Use RSoP to identify the specific User Rights, Restricted Groups, and Source GPOs that contain the problem accounts:&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; RSoP.msc&#xD;&#xA;b.&#x9;Review the results for Computer Configuration\Windows Settings\Security Settings\Local Policies\User Rights Assignment and Computer Configuration\Windows Settings\Security Settings\Local Policies\Restricted Groups for any errors flagged with a red X.&#xD;&#xA;c.&#x9;For any User Right or Restricted Group marked with a red X, the corresponding GPO that contains the problem policy setting is listed under the column entitled &quot;Source GPO&quot;. Note the specific User Rights, Restricted Groups and containing Source GPOs that are generating errors. &#xD;&#xA;&#xD;&#xA;3.&#x9;Remove unresolved accounts from Group Policy&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; MMC.EXE&#xD;&#xA;b.&#x9;From the File menu select &quot;Add/Remove Snap-in...&quot;&#xD;&#xA;c.&#x9;From the &quot;Add/Remove Snap-in&quot; dialog box select &quot;Add...&quot;&#xD;&#xA;d.&#x9;In the &quot;Add Standalone Snap-in&quot; dialog box select &quot;Group Policy&quot; and click &quot;Add&quot;&#xD;&#xA;e.&#x9;In the &quot;Select Group Policy Object&quot; dialog box click the &quot;Browse&quot; button.&#xD;&#xA;f.&#x9;On the &quot;Browse for a Group Policy Object&quot; dialog box choose the &quot;All&quot; tab&#xD;&#xA;g.&#x9;For each source GPO identified in step 2, correct the specific User Rights or Restricted Groups that were flagged with a red X in step 2. These User Rights or Restricted Groups can be corrected by removing or correcting any references to the problem accounts that were identified in step 1.]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Security policies were propagated with warning. 0x534 : No mapping between account names and security IDs was done.&#xD;&#xA;&#xD;&#xA;Advanced help for this problem is available on https://support.microsoft.com. Query for &quot;troubleshooting 1202 events&quot;. &#xD;&#xA;&#xD;&#xA;Error 0x534 occurs when a user account in one or more Group Policy objects (GPOs) could not be resolved to a SID.  This error is possibly caused by a mistyped or deleted user account referenced in either the User Rights or Restricted Groups branch of a GPO.  To resolve this event, contact an administrator in the domain to perform the following actions: &#xD;&#xA;&#xD;&#xA;1.&#x9;Identify accounts that could not be resolved to a SID:&#xD;&#xA;&#xD;&#xA;From the command prompt, type: FIND /I &quot;Cannot find&quot;  %SYSTEMROOT%\Security\Logs\winlogon.log&#xD;&#xA;&#xD;&#xA;The string following &quot;Cannot find&quot; in the FIND output identifies the problem account names.&#xD;&#xA;&#xD;&#xA;Example: Cannot find JohnDough.&#xD;&#xA;&#xD;&#xA;In this case, the SID for username &quot;JohnDough&quot; could not be determined. This most likely occurs because the account was deleted, renamed, or is spelled differently (e.g. &quot;JohnDoe&quot;). &#xD;&#xA;&#xD;&#xA;2.&#x9;Use RSoP to identify the specific User Rights, Restricted Groups, and Source GPOs that contain the problem accounts:&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; RSoP.msc&#xD;&#xA;b.&#x9;Review the results for Computer Configuration\Windows Settings\Security Settings\Local Policies\User Rights Assignment and Computer Configuration\Windows Settings\Security Settings\Local Policies\Restricted Groups for any errors flagged with a red X.&#xD;&#xA;c.&#x9;For any User Right or Restricted Group marked with a red X, the corresponding GPO that contains the problem policy setting is listed under the column entitled &quot;Source GPO&quot;. Note the specific User Rights, Restricted Groups and containing Source GPOs that are generating errors. &#xD;&#xA;&#xD;&#xA;3.&#x9;Remove unresolved accounts from Group Policy&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; MMC.EXE&#xD;&#xA;b.&#x9;From the File menu select &quot;Add/Remove Snap-in...&quot;&#xD;&#xA;c.&#x9;From the &quot;Add/Remove Snap-in&quot; dialog box select &quot;Add...&quot;&#xD;&#xA;d.&#x9;In the &quot;Add Standalone Snap-in&quot; dialog box select &quot;Group Policy&quot; and click &quot;Add&quot;&#xD;&#xA;e.&#x9;In the &quot;Select Group Policy Object&quot; dialog box click the &quot;Browse&quot; button.&#xD;&#xA;f.&#x9;On the &quot;Browse for a Group Policy Object&quot; dialog box choose the &quot;All&quot; tab&#xD;&#xA;g.&#x9;For each source GPO identified in step 2, correct the specific User Rights or Restricted Groups that were flagged with a red X in step 2. These User Rights or Restricted Groups can be corrected by removing or correcting any references to the problem accounts that were identified in step 1." />
+				<Attribute name="RecordNumber" value="492951" />
+				<Attribute name="SourceName" value="SceCli" />
+				<Attribute name="TimeGenerated" value="12/05/2025 19:25:26" />
+				<Attribute name="TimeWritten" value="12/05/2025 19:25:26" />
+				<Attribute name="Type" value="Warning" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492952" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492952" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 20:01:37" />
+				<Attribute name="TimeWritten" value="12/05/2025 20:01:37" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492953" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:59:07Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:59:07Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492953" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 20:02:07" />
+				<Attribute name="TimeWritten" value="12/05/2025 20:02:07" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492954" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492954" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 20:30:13" />
+				<Attribute name="TimeWritten" value="12/05/2025 20:30:13" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492955" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:58:44Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:58:44Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492955" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 20:30:44" />
+				<Attribute name="TimeWritten" value="12/05/2025 20:30:44" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492956" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492956" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 20:56:43" />
+				<Attribute name="TimeWritten" value="12/05/2025 20:56:43" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492957" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:59:13Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:59:13Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492957" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 20:57:13" />
+				<Attribute name="TimeWritten" value="12/05/2025 20:57:13" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492958" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="10" />
+				<Attribute name="CategoryString" value="Online Defragmentation" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="700" />
+				<Attribute name="EventIdentifier" value="700" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[DFSRs;3136,D,0;\\.\C:\System Volume Information\DFSR\database_7888_1331_8812_ED7E\dfsr.db: ;\\.\C:\System Volume Information\DFSR\database_7888_1331_8812_ED7E\dfsr.db]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="DFSRs (3136,D,0) \\.\C:\System Volume Information\DFSR\database_7888_1331_8812_ED7E\dfsr.db: Online defragmentation is beginning a full pass on database &apos;\\.\C:\System Volume Information\DFSR\database_7888_1331_8812_ED7E\dfsr.db&apos;." />
+				<Attribute name="RecordNumber" value="492958" />
+				<Attribute name="SourceName" value="ESENT" />
+				<Attribute name="TimeGenerated" value="12/05/2025 21:00:08" />
+				<Attribute name="TimeWritten" value="12/05/2025 21:00:08" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492959" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="10" />
+				<Attribute name="CategoryString" value="Online Defragmentation" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="701" />
+				<Attribute name="EventIdentifier" value="701" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[DFSRs;3136,D,0;\\.\C:\System Volume Information\DFSR\database_7888_1331_8812_ED7E\dfsr.db: ;\\.\C:\System Volume Information\DFSR\database_7888_1331_8812_ED7E\dfsr.db;1;13/05/2025;0;1;1;56]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="DFSRs (3136,D,0) \\.\C:\System Volume Information\DFSR\database_7888_1331_8812_ED7E\dfsr.db: Online defragmentation has completed a full pass on database &apos;\\.\C:\System Volume Information\DFSR\database_7888_1331_8812_ED7E\dfsr.db&apos;, freeing 1 pages. This pass started on 13/05/2025 and ran for a total of 0 seconds, requiring 1 invocations over 1 days. Since the database was created it has been fully defragmented 56 times." />
+				<Attribute name="RecordNumber" value="492959" />
+				<Attribute name="SourceName" value="ESENT" />
+				<Attribute name="TimeGenerated" value="12/05/2025 21:00:08" />
+				<Attribute name="TimeWritten" value="12/05/2025 21:00:08" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492960" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492960" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 21:18:48" />
+				<Attribute name="TimeWritten" value="12/05/2025 21:18:48" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492961" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:59:18Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:59:18Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492961" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 21:19:18" />
+				<Attribute name="TimeWritten" value="12/05/2025 21:19:18" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492962" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="1202" />
+				<Attribute name="EventIdentifier" value="-2147482446" />
+				<Attribute name="EventType" value="2" />
+				<Attribute name="InsertionStrings" value="[0x534 : No mapping between account names and security IDs was done.&#xD;&#xA;&#xD;&#xA;Advanced help for this problem is available on https://support.microsoft.com. Query for &quot;troubleshooting 1202 events&quot;. &#xD;&#xA;&#xD;&#xA;Error 0x534 occurs when a user account in one or more Group Policy objects (GPOs) could not be resolved to a SID.  This error is possibly caused by a mistyped or deleted user account referenced in either the User Rights or Restricted Groups branch of a GPO.  To resolve this event, contact an administrator in the domain to perform the following actions: &#xD;&#xA;&#xD;&#xA;1.&#x9;Identify accounts that could not be resolved to a SID:&#xD;&#xA;&#xD;&#xA;From the command prompt, type: FIND /I &quot;Cannot find&quot;  %SYSTEMROOT%\Security\Logs\winlogon.log&#xD;&#xA;&#xD;&#xA;The string following &quot;Cannot find&quot; in the FIND output identifies the problem account names.&#xD;&#xA;&#xD;&#xA;Example: Cannot find JohnDough.&#xD;&#xA;&#xD;&#xA;In this case, the SID for username &quot;JohnDough&quot; could not be determined. This most likely occurs because the account was deleted, renamed, or is spelled differently (e.g. &quot;JohnDoe&quot;). &#xD;&#xA;&#xD;&#xA;2.&#x9;Use RSoP to identify the specific User Rights, Restricted Groups, and Source GPOs that contain the problem accounts:&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; RSoP.msc&#xD;&#xA;b.&#x9;Review the results for Computer Configuration\Windows Settings\Security Settings\Local Policies\User Rights Assignment and Computer Configuration\Windows Settings\Security Settings\Local Policies\Restricted Groups for any errors flagged with a red X.&#xD;&#xA;c.&#x9;For any User Right or Restricted Group marked with a red X, the corresponding GPO that contains the problem policy setting is listed under the column entitled &quot;Source GPO&quot;. Note the specific User Rights, Restricted Groups and containing Source GPOs that are generating errors. &#xD;&#xA;&#xD;&#xA;3.&#x9;Remove unresolved accounts from Group Policy&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; MMC.EXE&#xD;&#xA;b.&#x9;From the File menu select &quot;Add/Remove Snap-in...&quot;&#xD;&#xA;c.&#x9;From the &quot;Add/Remove Snap-in&quot; dialog box select &quot;Add...&quot;&#xD;&#xA;d.&#x9;In the &quot;Add Standalone Snap-in&quot; dialog box select &quot;Group Policy&quot; and click &quot;Add&quot;&#xD;&#xA;e.&#x9;In the &quot;Select Group Policy Object&quot; dialog box click the &quot;Browse&quot; button.&#xD;&#xA;f.&#x9;On the &quot;Browse for a Group Policy Object&quot; dialog box choose the &quot;All&quot; tab&#xD;&#xA;g.&#x9;For each source GPO identified in step 2, correct the specific User Rights or Restricted Groups that were flagged with a red X in step 2. These User Rights or Restricted Groups can be corrected by removing or correcting any references to the problem accounts that were identified in step 1.]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Security policies were propagated with warning. 0x534 : No mapping between account names and security IDs was done.&#xD;&#xA;&#xD;&#xA;Advanced help for this problem is available on https://support.microsoft.com. Query for &quot;troubleshooting 1202 events&quot;. &#xD;&#xA;&#xD;&#xA;Error 0x534 occurs when a user account in one or more Group Policy objects (GPOs) could not be resolved to a SID.  This error is possibly caused by a mistyped or deleted user account referenced in either the User Rights or Restricted Groups branch of a GPO.  To resolve this event, contact an administrator in the domain to perform the following actions: &#xD;&#xA;&#xD;&#xA;1.&#x9;Identify accounts that could not be resolved to a SID:&#xD;&#xA;&#xD;&#xA;From the command prompt, type: FIND /I &quot;Cannot find&quot;  %SYSTEMROOT%\Security\Logs\winlogon.log&#xD;&#xA;&#xD;&#xA;The string following &quot;Cannot find&quot; in the FIND output identifies the problem account names.&#xD;&#xA;&#xD;&#xA;Example: Cannot find JohnDough.&#xD;&#xA;&#xD;&#xA;In this case, the SID for username &quot;JohnDough&quot; could not be determined. This most likely occurs because the account was deleted, renamed, or is spelled differently (e.g. &quot;JohnDoe&quot;). &#xD;&#xA;&#xD;&#xA;2.&#x9;Use RSoP to identify the specific User Rights, Restricted Groups, and Source GPOs that contain the problem accounts:&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; RSoP.msc&#xD;&#xA;b.&#x9;Review the results for Computer Configuration\Windows Settings\Security Settings\Local Policies\User Rights Assignment and Computer Configuration\Windows Settings\Security Settings\Local Policies\Restricted Groups for any errors flagged with a red X.&#xD;&#xA;c.&#x9;For any User Right or Restricted Group marked with a red X, the corresponding GPO that contains the problem policy setting is listed under the column entitled &quot;Source GPO&quot;. Note the specific User Rights, Restricted Groups and containing Source GPOs that are generating errors. &#xD;&#xA;&#xD;&#xA;3.&#x9;Remove unresolved accounts from Group Policy&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; MMC.EXE&#xD;&#xA;b.&#x9;From the File menu select &quot;Add/Remove Snap-in...&quot;&#xD;&#xA;c.&#x9;From the &quot;Add/Remove Snap-in&quot; dialog box select &quot;Add...&quot;&#xD;&#xA;d.&#x9;In the &quot;Add Standalone Snap-in&quot; dialog box select &quot;Group Policy&quot; and click &quot;Add&quot;&#xD;&#xA;e.&#x9;In the &quot;Select Group Policy Object&quot; dialog box click the &quot;Browse&quot; button.&#xD;&#xA;f.&#x9;On the &quot;Browse for a Group Policy Object&quot; dialog box choose the &quot;All&quot; tab&#xD;&#xA;g.&#x9;For each source GPO identified in step 2, correct the specific User Rights or Restricted Groups that were flagged with a red X in step 2. These User Rights or Restricted Groups can be corrected by removing or correcting any references to the problem accounts that were identified in step 1." />
+				<Attribute name="RecordNumber" value="492962" />
+				<Attribute name="SourceName" value="SceCli" />
+				<Attribute name="TimeGenerated" value="12/05/2025 21:26:10" />
+				<Attribute name="TimeWritten" value="12/05/2025 21:26:10" />
+				<Attribute name="Type" value="Warning" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492963" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492963" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 21:51:49" />
+				<Attribute name="TimeWritten" value="12/05/2025 21:51:49" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492964" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:59:19Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:59:19Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492964" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 21:52:19" />
+				<Attribute name="TimeWritten" value="12/05/2025 21:52:19" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492965" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492965" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 22:18:37" />
+				<Attribute name="TimeWritten" value="12/05/2025 22:18:37" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492966" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:59:11Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:59:11Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492966" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 22:19:11" />
+				<Attribute name="TimeWritten" value="12/05/2025 22:19:11" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492967" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492967" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 22:41:52" />
+				<Attribute name="TimeWritten" value="12/05/2025 22:41:52" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492968" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:59:22Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:59:22Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492968" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 22:42:22" />
+				<Attribute name="TimeWritten" value="12/05/2025 22:42:22" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492969" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492969" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 22:46:54" />
+				<Attribute name="TimeWritten" value="12/05/2025 22:46:54" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492970" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:59:25Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:59:25Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492970" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 22:47:25" />
+				<Attribute name="TimeWritten" value="12/05/2025 22:47:25" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492971" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492971" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 23:13:29" />
+				<Attribute name="TimeWritten" value="12/05/2025 23:13:29" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492972" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:59:00Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:59:00Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492972" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 23:14:00" />
+				<Attribute name="TimeWritten" value="12/05/2025 23:14:00" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492973" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="0" />
+				<Attribute name="EventIdentifier" value="0" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[Service stopped]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Service stopped." />
+				<Attribute name="RecordNumber" value="492973" />
+				<Attribute name="SourceName" value="edgeupdate" />
+				<Attribute name="TimeGenerated" value="12/05/2025 23:14:35" />
+				<Attribute name="TimeWritten" value="12/05/2025 23:14:35" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492974" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="1202" />
+				<Attribute name="EventIdentifier" value="-2147482446" />
+				<Attribute name="EventType" value="2" />
+				<Attribute name="InsertionStrings" value="[0x534 : No mapping between account names and security IDs was done.&#xD;&#xA;&#xD;&#xA;Advanced help for this problem is available on https://support.microsoft.com. Query for &quot;troubleshooting 1202 events&quot;. &#xD;&#xA;&#xD;&#xA;Error 0x534 occurs when a user account in one or more Group Policy objects (GPOs) could not be resolved to a SID.  This error is possibly caused by a mistyped or deleted user account referenced in either the User Rights or Restricted Groups branch of a GPO.  To resolve this event, contact an administrator in the domain to perform the following actions: &#xD;&#xA;&#xD;&#xA;1.&#x9;Identify accounts that could not be resolved to a SID:&#xD;&#xA;&#xD;&#xA;From the command prompt, type: FIND /I &quot;Cannot find&quot;  %SYSTEMROOT%\Security\Logs\winlogon.log&#xD;&#xA;&#xD;&#xA;The string following &quot;Cannot find&quot; in the FIND output identifies the problem account names.&#xD;&#xA;&#xD;&#xA;Example: Cannot find JohnDough.&#xD;&#xA;&#xD;&#xA;In this case, the SID for username &quot;JohnDough&quot; could not be determined. This most likely occurs because the account was deleted, renamed, or is spelled differently (e.g. &quot;JohnDoe&quot;). &#xD;&#xA;&#xD;&#xA;2.&#x9;Use RSoP to identify the specific User Rights, Restricted Groups, and Source GPOs that contain the problem accounts:&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; RSoP.msc&#xD;&#xA;b.&#x9;Review the results for Computer Configuration\Windows Settings\Security Settings\Local Policies\User Rights Assignment and Computer Configuration\Windows Settings\Security Settings\Local Policies\Restricted Groups for any errors flagged with a red X.&#xD;&#xA;c.&#x9;For any User Right or Restricted Group marked with a red X, the corresponding GPO that contains the problem policy setting is listed under the column entitled &quot;Source GPO&quot;. Note the specific User Rights, Restricted Groups and containing Source GPOs that are generating errors. &#xD;&#xA;&#xD;&#xA;3.&#x9;Remove unresolved accounts from Group Policy&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; MMC.EXE&#xD;&#xA;b.&#x9;From the File menu select &quot;Add/Remove Snap-in...&quot;&#xD;&#xA;c.&#x9;From the &quot;Add/Remove Snap-in&quot; dialog box select &quot;Add...&quot;&#xD;&#xA;d.&#x9;In the &quot;Add Standalone Snap-in&quot; dialog box select &quot;Group Policy&quot; and click &quot;Add&quot;&#xD;&#xA;e.&#x9;In the &quot;Select Group Policy Object&quot; dialog box click the &quot;Browse&quot; button.&#xD;&#xA;f.&#x9;On the &quot;Browse for a Group Policy Object&quot; dialog box choose the &quot;All&quot; tab&#xD;&#xA;g.&#x9;For each source GPO identified in step 2, correct the specific User Rights or Restricted Groups that were flagged with a red X in step 2. These User Rights or Restricted Groups can be corrected by removing or correcting any references to the problem accounts that were identified in step 1.]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Security policies were propagated with warning. 0x534 : No mapping between account names and security IDs was done.&#xD;&#xA;&#xD;&#xA;Advanced help for this problem is available on https://support.microsoft.com. Query for &quot;troubleshooting 1202 events&quot;. &#xD;&#xA;&#xD;&#xA;Error 0x534 occurs when a user account in one or more Group Policy objects (GPOs) could not be resolved to a SID.  This error is possibly caused by a mistyped or deleted user account referenced in either the User Rights or Restricted Groups branch of a GPO.  To resolve this event, contact an administrator in the domain to perform the following actions: &#xD;&#xA;&#xD;&#xA;1.&#x9;Identify accounts that could not be resolved to a SID:&#xD;&#xA;&#xD;&#xA;From the command prompt, type: FIND /I &quot;Cannot find&quot;  %SYSTEMROOT%\Security\Logs\winlogon.log&#xD;&#xA;&#xD;&#xA;The string following &quot;Cannot find&quot; in the FIND output identifies the problem account names.&#xD;&#xA;&#xD;&#xA;Example: Cannot find JohnDough.&#xD;&#xA;&#xD;&#xA;In this case, the SID for username &quot;JohnDough&quot; could not be determined. This most likely occurs because the account was deleted, renamed, or is spelled differently (e.g. &quot;JohnDoe&quot;). &#xD;&#xA;&#xD;&#xA;2.&#x9;Use RSoP to identify the specific User Rights, Restricted Groups, and Source GPOs that contain the problem accounts:&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; RSoP.msc&#xD;&#xA;b.&#x9;Review the results for Computer Configuration\Windows Settings\Security Settings\Local Policies\User Rights Assignment and Computer Configuration\Windows Settings\Security Settings\Local Policies\Restricted Groups for any errors flagged with a red X.&#xD;&#xA;c.&#x9;For any User Right or Restricted Group marked with a red X, the corresponding GPO that contains the problem policy setting is listed under the column entitled &quot;Source GPO&quot;. Note the specific User Rights, Restricted Groups and containing Source GPOs that are generating errors. &#xD;&#xA;&#xD;&#xA;3.&#x9;Remove unresolved accounts from Group Policy&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; MMC.EXE&#xD;&#xA;b.&#x9;From the File menu select &quot;Add/Remove Snap-in...&quot;&#xD;&#xA;c.&#x9;From the &quot;Add/Remove Snap-in&quot; dialog box select &quot;Add...&quot;&#xD;&#xA;d.&#x9;In the &quot;Add Standalone Snap-in&quot; dialog box select &quot;Group Policy&quot; and click &quot;Add&quot;&#xD;&#xA;e.&#x9;In the &quot;Select Group Policy Object&quot; dialog box click the &quot;Browse&quot; button.&#xD;&#xA;f.&#x9;On the &quot;Browse for a Group Policy Object&quot; dialog box choose the &quot;All&quot; tab&#xD;&#xA;g.&#x9;For each source GPO identified in step 2, correct the specific User Rights or Restricted Groups that were flagged with a red X in step 2. These User Rights or Restricted Groups can be corrected by removing or correcting any references to the problem accounts that were identified in step 1." />
+				<Attribute name="RecordNumber" value="492974" />
+				<Attribute name="SourceName" value="SceCli" />
+				<Attribute name="TimeGenerated" value="12/05/2025 23:27:10" />
+				<Attribute name="TimeWritten" value="12/05/2025 23:27:10" />
+				<Attribute name="Type" value="Warning" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492975" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492975" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 23:42:00" />
+				<Attribute name="TimeWritten" value="12/05/2025 23:42:00" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492976" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:59:30Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:59:30Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492976" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="12/05/2025 23:42:30" />
+				<Attribute name="TimeWritten" value="12/05/2025 23:42:30" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492977" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492977" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="13/05/2025 00:37:05" />
+				<Attribute name="TimeWritten" value="13/05/2025 00:37:05" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492978" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:58:35Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:58:35Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492978" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="13/05/2025 00:37:35" />
+				<Attribute name="TimeWritten" value="13/05/2025 00:37:35" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492979" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492979" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="13/05/2025 01:00:33" />
+				<Attribute name="TimeWritten" value="13/05/2025 01:00:33" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492980" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:59:04Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:59:04Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492980" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="13/05/2025 01:01:04" />
+				<Attribute name="TimeWritten" value="13/05/2025 01:01:04" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492981" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492981" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="13/05/2025 01:15:53" />
+				<Attribute name="TimeWritten" value="13/05/2025 01:15:53" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492982" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:59:23Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:59:23Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492982" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="13/05/2025 01:16:23" />
+				<Attribute name="TimeWritten" value="13/05/2025 01:16:23" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492983" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="1202" />
+				<Attribute name="EventIdentifier" value="-2147482446" />
+				<Attribute name="EventType" value="2" />
+				<Attribute name="InsertionStrings" value="[0x534 : No mapping between account names and security IDs was done.&#xD;&#xA;&#xD;&#xA;Advanced help for this problem is available on https://support.microsoft.com. Query for &quot;troubleshooting 1202 events&quot;. &#xD;&#xA;&#xD;&#xA;Error 0x534 occurs when a user account in one or more Group Policy objects (GPOs) could not be resolved to a SID.  This error is possibly caused by a mistyped or deleted user account referenced in either the User Rights or Restricted Groups branch of a GPO.  To resolve this event, contact an administrator in the domain to perform the following actions: &#xD;&#xA;&#xD;&#xA;1.&#x9;Identify accounts that could not be resolved to a SID:&#xD;&#xA;&#xD;&#xA;From the command prompt, type: FIND /I &quot;Cannot find&quot;  %SYSTEMROOT%\Security\Logs\winlogon.log&#xD;&#xA;&#xD;&#xA;The string following &quot;Cannot find&quot; in the FIND output identifies the problem account names.&#xD;&#xA;&#xD;&#xA;Example: Cannot find JohnDough.&#xD;&#xA;&#xD;&#xA;In this case, the SID for username &quot;JohnDough&quot; could not be determined. This most likely occurs because the account was deleted, renamed, or is spelled differently (e.g. &quot;JohnDoe&quot;). &#xD;&#xA;&#xD;&#xA;2.&#x9;Use RSoP to identify the specific User Rights, Restricted Groups, and Source GPOs that contain the problem accounts:&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; RSoP.msc&#xD;&#xA;b.&#x9;Review the results for Computer Configuration\Windows Settings\Security Settings\Local Policies\User Rights Assignment and Computer Configuration\Windows Settings\Security Settings\Local Policies\Restricted Groups for any errors flagged with a red X.&#xD;&#xA;c.&#x9;For any User Right or Restricted Group marked with a red X, the corresponding GPO that contains the problem policy setting is listed under the column entitled &quot;Source GPO&quot;. Note the specific User Rights, Restricted Groups and containing Source GPOs that are generating errors. &#xD;&#xA;&#xD;&#xA;3.&#x9;Remove unresolved accounts from Group Policy&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; MMC.EXE&#xD;&#xA;b.&#x9;From the File menu select &quot;Add/Remove Snap-in...&quot;&#xD;&#xA;c.&#x9;From the &quot;Add/Remove Snap-in&quot; dialog box select &quot;Add...&quot;&#xD;&#xA;d.&#x9;In the &quot;Add Standalone Snap-in&quot; dialog box select &quot;Group Policy&quot; and click &quot;Add&quot;&#xD;&#xA;e.&#x9;In the &quot;Select Group Policy Object&quot; dialog box click the &quot;Browse&quot; button.&#xD;&#xA;f.&#x9;On the &quot;Browse for a Group Policy Object&quot; dialog box choose the &quot;All&quot; tab&#xD;&#xA;g.&#x9;For each source GPO identified in step 2, correct the specific User Rights or Restricted Groups that were flagged with a red X in step 2. These User Rights or Restricted Groups can be corrected by removing or correcting any references to the problem accounts that were identified in step 1.]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Security policies were propagated with warning. 0x534 : No mapping between account names and security IDs was done.&#xD;&#xA;&#xD;&#xA;Advanced help for this problem is available on https://support.microsoft.com. Query for &quot;troubleshooting 1202 events&quot;. &#xD;&#xA;&#xD;&#xA;Error 0x534 occurs when a user account in one or more Group Policy objects (GPOs) could not be resolved to a SID.  This error is possibly caused by a mistyped or deleted user account referenced in either the User Rights or Restricted Groups branch of a GPO.  To resolve this event, contact an administrator in the domain to perform the following actions: &#xD;&#xA;&#xD;&#xA;1.&#x9;Identify accounts that could not be resolved to a SID:&#xD;&#xA;&#xD;&#xA;From the command prompt, type: FIND /I &quot;Cannot find&quot;  %SYSTEMROOT%\Security\Logs\winlogon.log&#xD;&#xA;&#xD;&#xA;The string following &quot;Cannot find&quot; in the FIND output identifies the problem account names.&#xD;&#xA;&#xD;&#xA;Example: Cannot find JohnDough.&#xD;&#xA;&#xD;&#xA;In this case, the SID for username &quot;JohnDough&quot; could not be determined. This most likely occurs because the account was deleted, renamed, or is spelled differently (e.g. &quot;JohnDoe&quot;). &#xD;&#xA;&#xD;&#xA;2.&#x9;Use RSoP to identify the specific User Rights, Restricted Groups, and Source GPOs that contain the problem accounts:&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; RSoP.msc&#xD;&#xA;b.&#x9;Review the results for Computer Configuration\Windows Settings\Security Settings\Local Policies\User Rights Assignment and Computer Configuration\Windows Settings\Security Settings\Local Policies\Restricted Groups for any errors flagged with a red X.&#xD;&#xA;c.&#x9;For any User Right or Restricted Group marked with a red X, the corresponding GPO that contains the problem policy setting is listed under the column entitled &quot;Source GPO&quot;. Note the specific User Rights, Restricted Groups and containing Source GPOs that are generating errors. &#xD;&#xA;&#xD;&#xA;3.&#x9;Remove unresolved accounts from Group Policy&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; MMC.EXE&#xD;&#xA;b.&#x9;From the File menu select &quot;Add/Remove Snap-in...&quot;&#xD;&#xA;c.&#x9;From the &quot;Add/Remove Snap-in&quot; dialog box select &quot;Add...&quot;&#xD;&#xA;d.&#x9;In the &quot;Add Standalone Snap-in&quot; dialog box select &quot;Group Policy&quot; and click &quot;Add&quot;&#xD;&#xA;e.&#x9;In the &quot;Select Group Policy Object&quot; dialog box click the &quot;Browse&quot; button.&#xD;&#xA;f.&#x9;On the &quot;Browse for a Group Policy Object&quot; dialog box choose the &quot;All&quot; tab&#xD;&#xA;g.&#x9;For each source GPO identified in step 2, correct the specific User Rights or Restricted Groups that were flagged with a red X in step 2. These User Rights or Restricted Groups can be corrected by removing or correcting any references to the problem accounts that were identified in step 1." />
+				<Attribute name="RecordNumber" value="492983" />
+				<Attribute name="SourceName" value="SceCli" />
+				<Attribute name="TimeGenerated" value="13/05/2025 01:27:58" />
+				<Attribute name="TimeWritten" value="13/05/2025 01:27:58" />
+				<Attribute name="Type" value="Warning" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492984" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492984" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="13/05/2025 01:32:11" />
+				<Attribute name="TimeWritten" value="13/05/2025 01:32:11" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492985" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:58:41Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:58:41Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492985" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="13/05/2025 01:32:41" />
+				<Attribute name="TimeWritten" value="13/05/2025 01:32:41" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492986" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492986" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="13/05/2025 02:24:40" />
+				<Attribute name="TimeWritten" value="13/05/2025 02:24:40" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492987" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:59:11Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:59:11Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492987" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="13/05/2025 02:25:11" />
+				<Attribute name="TimeWritten" value="13/05/2025 02:25:11" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492988" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492988" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="13/05/2025 02:27:17" />
+				<Attribute name="TimeWritten" value="13/05/2025 02:27:17" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492989" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:58:47Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:58:47Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492989" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="13/05/2025 02:27:47" />
+				<Attribute name="TimeWritten" value="13/05/2025 02:27:47" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492990" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492990" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="13/05/2025 03:09:56" />
+				<Attribute name="TimeWritten" value="13/05/2025 03:09:56" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492991" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:59:27Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:59:27Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492991" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="13/05/2025 03:10:27" />
+				<Attribute name="TimeWritten" value="13/05/2025 03:10:27" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492992" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492992" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="13/05/2025 03:22:23" />
+				<Attribute name="TimeWritten" value="13/05/2025 03:22:23" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492993" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:58:53Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:58:53Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492993" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="13/05/2025 03:22:53" />
+				<Attribute name="TimeWritten" value="13/05/2025 03:22:53" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492994" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="1202" />
+				<Attribute name="EventIdentifier" value="-2147482446" />
+				<Attribute name="EventType" value="2" />
+				<Attribute name="InsertionStrings" value="[0x534 : No mapping between account names and security IDs was done.&#xD;&#xA;&#xD;&#xA;Advanced help for this problem is available on https://support.microsoft.com. Query for &quot;troubleshooting 1202 events&quot;. &#xD;&#xA;&#xD;&#xA;Error 0x534 occurs when a user account in one or more Group Policy objects (GPOs) could not be resolved to a SID.  This error is possibly caused by a mistyped or deleted user account referenced in either the User Rights or Restricted Groups branch of a GPO.  To resolve this event, contact an administrator in the domain to perform the following actions: &#xD;&#xA;&#xD;&#xA;1.&#x9;Identify accounts that could not be resolved to a SID:&#xD;&#xA;&#xD;&#xA;From the command prompt, type: FIND /I &quot;Cannot find&quot;  %SYSTEMROOT%\Security\Logs\winlogon.log&#xD;&#xA;&#xD;&#xA;The string following &quot;Cannot find&quot; in the FIND output identifies the problem account names.&#xD;&#xA;&#xD;&#xA;Example: Cannot find JohnDough.&#xD;&#xA;&#xD;&#xA;In this case, the SID for username &quot;JohnDough&quot; could not be determined. This most likely occurs because the account was deleted, renamed, or is spelled differently (e.g. &quot;JohnDoe&quot;). &#xD;&#xA;&#xD;&#xA;2.&#x9;Use RSoP to identify the specific User Rights, Restricted Groups, and Source GPOs that contain the problem accounts:&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; RSoP.msc&#xD;&#xA;b.&#x9;Review the results for Computer Configuration\Windows Settings\Security Settings\Local Policies\User Rights Assignment and Computer Configuration\Windows Settings\Security Settings\Local Policies\Restricted Groups for any errors flagged with a red X.&#xD;&#xA;c.&#x9;For any User Right or Restricted Group marked with a red X, the corresponding GPO that contains the problem policy setting is listed under the column entitled &quot;Source GPO&quot;. Note the specific User Rights, Restricted Groups and containing Source GPOs that are generating errors. &#xD;&#xA;&#xD;&#xA;3.&#x9;Remove unresolved accounts from Group Policy&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; MMC.EXE&#xD;&#xA;b.&#x9;From the File menu select &quot;Add/Remove Snap-in...&quot;&#xD;&#xA;c.&#x9;From the &quot;Add/Remove Snap-in&quot; dialog box select &quot;Add...&quot;&#xD;&#xA;d.&#x9;In the &quot;Add Standalone Snap-in&quot; dialog box select &quot;Group Policy&quot; and click &quot;Add&quot;&#xD;&#xA;e.&#x9;In the &quot;Select Group Policy Object&quot; dialog box click the &quot;Browse&quot; button.&#xD;&#xA;f.&#x9;On the &quot;Browse for a Group Policy Object&quot; dialog box choose the &quot;All&quot; tab&#xD;&#xA;g.&#x9;For each source GPO identified in step 2, correct the specific User Rights or Restricted Groups that were flagged with a red X in step 2. These User Rights or Restricted Groups can be corrected by removing or correcting any references to the problem accounts that were identified in step 1.]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Security policies were propagated with warning. 0x534 : No mapping between account names and security IDs was done.&#xD;&#xA;&#xD;&#xA;Advanced help for this problem is available on https://support.microsoft.com. Query for &quot;troubleshooting 1202 events&quot;. &#xD;&#xA;&#xD;&#xA;Error 0x534 occurs when a user account in one or more Group Policy objects (GPOs) could not be resolved to a SID.  This error is possibly caused by a mistyped or deleted user account referenced in either the User Rights or Restricted Groups branch of a GPO.  To resolve this event, contact an administrator in the domain to perform the following actions: &#xD;&#xA;&#xD;&#xA;1.&#x9;Identify accounts that could not be resolved to a SID:&#xD;&#xA;&#xD;&#xA;From the command prompt, type: FIND /I &quot;Cannot find&quot;  %SYSTEMROOT%\Security\Logs\winlogon.log&#xD;&#xA;&#xD;&#xA;The string following &quot;Cannot find&quot; in the FIND output identifies the problem account names.&#xD;&#xA;&#xD;&#xA;Example: Cannot find JohnDough.&#xD;&#xA;&#xD;&#xA;In this case, the SID for username &quot;JohnDough&quot; could not be determined. This most likely occurs because the account was deleted, renamed, or is spelled differently (e.g. &quot;JohnDoe&quot;). &#xD;&#xA;&#xD;&#xA;2.&#x9;Use RSoP to identify the specific User Rights, Restricted Groups, and Source GPOs that contain the problem accounts:&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; RSoP.msc&#xD;&#xA;b.&#x9;Review the results for Computer Configuration\Windows Settings\Security Settings\Local Policies\User Rights Assignment and Computer Configuration\Windows Settings\Security Settings\Local Policies\Restricted Groups for any errors flagged with a red X.&#xD;&#xA;c.&#x9;For any User Right or Restricted Group marked with a red X, the corresponding GPO that contains the problem policy setting is listed under the column entitled &quot;Source GPO&quot;. Note the specific User Rights, Restricted Groups and containing Source GPOs that are generating errors. &#xD;&#xA;&#xD;&#xA;3.&#x9;Remove unresolved accounts from Group Policy&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; MMC.EXE&#xD;&#xA;b.&#x9;From the File menu select &quot;Add/Remove Snap-in...&quot;&#xD;&#xA;c.&#x9;From the &quot;Add/Remove Snap-in&quot; dialog box select &quot;Add...&quot;&#xD;&#xA;d.&#x9;In the &quot;Add Standalone Snap-in&quot; dialog box select &quot;Group Policy&quot; and click &quot;Add&quot;&#xD;&#xA;e.&#x9;In the &quot;Select Group Policy Object&quot; dialog box click the &quot;Browse&quot; button.&#xD;&#xA;f.&#x9;On the &quot;Browse for a Group Policy Object&quot; dialog box choose the &quot;All&quot; tab&#xD;&#xA;g.&#x9;For each source GPO identified in step 2, correct the specific User Rights or Restricted Groups that were flagged with a red X in step 2. These User Rights or Restricted Groups can be corrected by removing or correcting any references to the problem accounts that were identified in step 1." />
+				<Attribute name="RecordNumber" value="492994" />
+				<Attribute name="SourceName" value="SceCli" />
+				<Attribute name="TimeGenerated" value="13/05/2025 03:28:41" />
+				<Attribute name="TimeWritten" value="13/05/2025 03:28:41" />
+				<Attribute name="Type" value="Warning" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492995" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492995" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="13/05/2025 04:07:41" />
+				<Attribute name="TimeWritten" value="13/05/2025 04:07:41" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492996" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:59:16Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:59:16Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492996" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="13/05/2025 04:08:16" />
+				<Attribute name="TimeWritten" value="13/05/2025 04:08:16" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492997" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492997" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="13/05/2025 04:13:31" />
+				<Attribute name="TimeWritten" value="13/05/2025 04:13:31" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492998" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:59:02Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:59:02Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="492998" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="13/05/2025 04:14:02" />
+				<Attribute name="TimeWritten" value="13/05/2025 04:14:02" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=492999" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="492999" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="13/05/2025 04:17:28" />
+				<Attribute name="TimeWritten" value="13/05/2025 04:17:28" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=493000" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:58:58Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:58:58Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="493000" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="13/05/2025 04:17:58" />
+				<Attribute name="TimeWritten" value="13/05/2025 04:17:58" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=493001" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="493001" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="13/05/2025 05:12:04" />
+				<Attribute name="TimeWritten" value="13/05/2025 05:12:04" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=493002" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:59:02Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:59:02Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="493002" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="13/05/2025 05:13:02" />
+				<Attribute name="TimeWritten" value="13/05/2025 05:13:02" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=493003" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="1202" />
+				<Attribute name="EventIdentifier" value="-2147482446" />
+				<Attribute name="EventType" value="2" />
+				<Attribute name="InsertionStrings" value="[0x534 : No mapping between account names and security IDs was done.&#xD;&#xA;&#xD;&#xA;Advanced help for this problem is available on https://support.microsoft.com. Query for &quot;troubleshooting 1202 events&quot;. &#xD;&#xA;&#xD;&#xA;Error 0x534 occurs when a user account in one or more Group Policy objects (GPOs) could not be resolved to a SID.  This error is possibly caused by a mistyped or deleted user account referenced in either the User Rights or Restricted Groups branch of a GPO.  To resolve this event, contact an administrator in the domain to perform the following actions: &#xD;&#xA;&#xD;&#xA;1.&#x9;Identify accounts that could not be resolved to a SID:&#xD;&#xA;&#xD;&#xA;From the command prompt, type: FIND /I &quot;Cannot find&quot;  %SYSTEMROOT%\Security\Logs\winlogon.log&#xD;&#xA;&#xD;&#xA;The string following &quot;Cannot find&quot; in the FIND output identifies the problem account names.&#xD;&#xA;&#xD;&#xA;Example: Cannot find JohnDough.&#xD;&#xA;&#xD;&#xA;In this case, the SID for username &quot;JohnDough&quot; could not be determined. This most likely occurs because the account was deleted, renamed, or is spelled differently (e.g. &quot;JohnDoe&quot;). &#xD;&#xA;&#xD;&#xA;2.&#x9;Use RSoP to identify the specific User Rights, Restricted Groups, and Source GPOs that contain the problem accounts:&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; RSoP.msc&#xD;&#xA;b.&#x9;Review the results for Computer Configuration\Windows Settings\Security Settings\Local Policies\User Rights Assignment and Computer Configuration\Windows Settings\Security Settings\Local Policies\Restricted Groups for any errors flagged with a red X.&#xD;&#xA;c.&#x9;For any User Right or Restricted Group marked with a red X, the corresponding GPO that contains the problem policy setting is listed under the column entitled &quot;Source GPO&quot;. Note the specific User Rights, Restricted Groups and containing Source GPOs that are generating errors. &#xD;&#xA;&#xD;&#xA;3.&#x9;Remove unresolved accounts from Group Policy&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; MMC.EXE&#xD;&#xA;b.&#x9;From the File menu select &quot;Add/Remove Snap-in...&quot;&#xD;&#xA;c.&#x9;From the &quot;Add/Remove Snap-in&quot; dialog box select &quot;Add...&quot;&#xD;&#xA;d.&#x9;In the &quot;Add Standalone Snap-in&quot; dialog box select &quot;Group Policy&quot; and click &quot;Add&quot;&#xD;&#xA;e.&#x9;In the &quot;Select Group Policy Object&quot; dialog box click the &quot;Browse&quot; button.&#xD;&#xA;f.&#x9;On the &quot;Browse for a Group Policy Object&quot; dialog box choose the &quot;All&quot; tab&#xD;&#xA;g.&#x9;For each source GPO identified in step 2, correct the specific User Rights or Restricted Groups that were flagged with a red X in step 2. These User Rights or Restricted Groups can be corrected by removing or correcting any references to the problem accounts that were identified in step 1.]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Security policies were propagated with warning. 0x534 : No mapping between account names and security IDs was done.&#xD;&#xA;&#xD;&#xA;Advanced help for this problem is available on https://support.microsoft.com. Query for &quot;troubleshooting 1202 events&quot;. &#xD;&#xA;&#xD;&#xA;Error 0x534 occurs when a user account in one or more Group Policy objects (GPOs) could not be resolved to a SID.  This error is possibly caused by a mistyped or deleted user account referenced in either the User Rights or Restricted Groups branch of a GPO.  To resolve this event, contact an administrator in the domain to perform the following actions: &#xD;&#xA;&#xD;&#xA;1.&#x9;Identify accounts that could not be resolved to a SID:&#xD;&#xA;&#xD;&#xA;From the command prompt, type: FIND /I &quot;Cannot find&quot;  %SYSTEMROOT%\Security\Logs\winlogon.log&#xD;&#xA;&#xD;&#xA;The string following &quot;Cannot find&quot; in the FIND output identifies the problem account names.&#xD;&#xA;&#xD;&#xA;Example: Cannot find JohnDough.&#xD;&#xA;&#xD;&#xA;In this case, the SID for username &quot;JohnDough&quot; could not be determined. This most likely occurs because the account was deleted, renamed, or is spelled differently (e.g. &quot;JohnDoe&quot;). &#xD;&#xA;&#xD;&#xA;2.&#x9;Use RSoP to identify the specific User Rights, Restricted Groups, and Source GPOs that contain the problem accounts:&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; RSoP.msc&#xD;&#xA;b.&#x9;Review the results for Computer Configuration\Windows Settings\Security Settings\Local Policies\User Rights Assignment and Computer Configuration\Windows Settings\Security Settings\Local Policies\Restricted Groups for any errors flagged with a red X.&#xD;&#xA;c.&#x9;For any User Right or Restricted Group marked with a red X, the corresponding GPO that contains the problem policy setting is listed under the column entitled &quot;Source GPO&quot;. Note the specific User Rights, Restricted Groups and containing Source GPOs that are generating errors. &#xD;&#xA;&#xD;&#xA;3.&#x9;Remove unresolved accounts from Group Policy&#xD;&#xA;&#xD;&#xA;a.&#x9;Start -&gt; Run -&gt; MMC.EXE&#xD;&#xA;b.&#x9;From the File menu select &quot;Add/Remove Snap-in...&quot;&#xD;&#xA;c.&#x9;From the &quot;Add/Remove Snap-in&quot; dialog box select &quot;Add...&quot;&#xD;&#xA;d.&#x9;In the &quot;Add Standalone Snap-in&quot; dialog box select &quot;Group Policy&quot; and click &quot;Add&quot;&#xD;&#xA;e.&#x9;In the &quot;Select Group Policy Object&quot; dialog box click the &quot;Browse&quot; button.&#xD;&#xA;f.&#x9;On the &quot;Browse for a Group Policy Object&quot; dialog box choose the &quot;All&quot; tab&#xD;&#xA;g.&#x9;For each source GPO identified in step 2, correct the specific User Rights or Restricted Groups that were flagged with a red X in step 2. These User Rights or Restricted Groups can be corrected by removing or correcting any references to the problem accounts that were identified in step 1." />
+				<Attribute name="RecordNumber" value="493003" />
+				<Attribute name="SourceName" value="SceCli" />
+				<Attribute name="TimeGenerated" value="13/05/2025 05:29:23" />
+				<Attribute name="TimeWritten" value="13/05/2025 05:29:23" />
+				<Attribute name="Type" value="Warning" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=493004" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="493004" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="13/05/2025 05:46:40" />
+				<Attribute name="TimeWritten" value="13/05/2025 05:46:40" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=493005" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:59:15Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:59:15Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="493005" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="13/05/2025 05:47:15" />
+				<Attribute name="TimeWritten" value="13/05/2025 05:47:15" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=493006" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="493006" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="13/05/2025 06:07:36" />
+				<Attribute name="TimeWritten" value="13/05/2025 06:07:36" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=493007" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:59:06Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:59:06Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="493007" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="13/05/2025 06:08:06" />
+				<Attribute name="TimeWritten" value="13/05/2025 06:08:06" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=493008" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="493008" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="13/05/2025 06:51:25" />
+				<Attribute name="TimeWritten" value="13/05/2025 06:51:25" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=493009" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:58:55Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:58:55Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="493009" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="13/05/2025 06:51:55" />
+				<Attribute name="TimeWritten" value="13/05/2025 06:51:55" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=493010" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16394" />
+				<Attribute name="EventIdentifier" value="-1073725430" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Offline downlevel migration succeeded." />
+				<Attribute name="RecordNumber" value="493010" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="13/05/2025 07:02:41" />
+				<Attribute name="TimeWritten" value="13/05/2025 07:02:41" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+		<HostMetaData identifier="\\KSDC01\root\cimv2:Win32_NTLogEvent.Logfile=&quot;Application&quot;,RecordNumber=493011" type="wmi">
+			<Attributes>
+				<Attribute name="Category" value="0" />
+				<Attribute name="ComputerName" value="KSDC01.keshet.dom" />
+				<Attribute name="EventCode" value="16384" />
+				<Attribute name="EventIdentifier" value="1073758208" />
+				<Attribute name="EventType" value="3" />
+				<Attribute name="InsertionStrings" value="[2025-05-18T14:59:12Z;RulesEngine]" />
+				<Attribute name="Logfile" value="Application" />
+				<Attribute name="Message" value="Successfully scheduled Software Protection service for re-start at 2025-05-18T14:59:12Z. Reason: RulesEngine." />
+				<Attribute name="RecordNumber" value="493011" />
+				<Attribute name="SourceName" value="Microsoft-Windows-Security-SPP" />
+				<Attribute name="TimeGenerated" value="13/05/2025 07:03:12" />
+				<Attribute name="TimeWritten" value="13/05/2025 07:03:12" />
+				<Attribute name="Type" value="Information" />
+			</Attributes>
+		</HostMetaData>
+	</HostMetaDatas>
+</HostMetaDataQueryResult>

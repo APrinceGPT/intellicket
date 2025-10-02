@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HostInformation time="Tue May 13 07:14:12 UTC 2025" version="50.0.3692" note="1111">
+	<Host id="1111">
+		<HostGroupID>34</HostGroupID>
+		<HostTypeID>0</HostTypeID>
+		<SecurityProfileID>265</SecurityProfileID>
+		<Hostname>KSDC01.keshet.dom</Hostname>
+		<Description></Description>
+		<Certificate>MIIDZjCCAk6gAwIBAgICBFcwDQYJKoZIhvcNAQELBQAwTjE0MDIGCgmSJomT8ixkARkWJEYxREJF
+RkU0LUQxMEQtMDMxRS0xRjAxLUE4QzZDOTI3QUM5MjEWMBQGA1UEBRMNMTY1ODA1ODEzNDUyODAe
+Fw0yNDA5MDcxMTQxNTdaFw0zMjA3MTMxMTQyMTRaMFsxWTBXBgoJkiaJk/IsZAEZFklGMURCRUZF
+NC1EMTBELTAzMUUtMUYwMS1BOEM2QzkyN0FDOTI6M0NBMDU3NkItMDIyOC0zQUI4LTVGMjUtMUIy
+MjNDNUM5RUVEMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAr1kbDS+1Hi516mFsIWnj
+I1lMiBXyAkcrNos+7qe6xpzWvLfKo1ysrBrTUaCNMMCorvx6MX1rW0Uh+ziQVsE3+LsZOBq/9t6Q
+iTe8K1SGgmFd3THcvwkL7KWzftUbFMZo9fxcBBVe+YYmIsnm3mszMBxziuTtrE6HR3kroj89TcPh
++JRigKrmVlZ/kmPstkZKubPfO0KpgJuhBBXXaMtNMii2byDpYLyhjbcugxUiyKCkPmM/lF3an+vY
+avTS24AB6olDzaQZVz6EfcCOhFhNHdRNQ03qlBvEtpliuu9K9piY2s/KbOWayJn5R0knnrUPSbLq
+62EHaZXzlEbeIY8+YQIDAQABo0EwPzARBglghkgBhvhCAQEEBAMCBsAwCwYDVR0PBAQDAgWgMB0G
+A1UdJQQWMBQGCCsGAQUFBwMBBggrBgEFBQcDAjANBgkqhkiG9w0BAQsFAAOCAQEAkuJrXzw4sszz
+7LNg3q9QPd4crFnzWfjFiEoYGzNUuF1erB4eU0qZ+CxSUcUnTZnmgwMrp8A97tRSDM5K4j8wjo/V
+25qKMavGYgdW6mSXy77J3CeLJNMosyaUd8qCWEiezhIfgzmp79idu/8sflL2Er1nUO8v42+e+qHP
+Bt3ExMC/mDvkCsiEIp9PuiHOrc2+lRUJbFjiWT/FqOZNOMO29Nf7i9shwNUyPSSjvAyG2OfcQkPv
+XPUMmQHjtX7nEd9tYtHK9cQd++zrT/IgdX2sp5LJf4A/bs7SwZKC8WDZjdQ1rYFaTjoXaWzGQ9lQ
+UyvT/TVF6qZo3B6QfAX5xj8PwA==
+</Certificate>
+		<CertExpiry>1725667200000</CertExpiry>
+		<StateCode>0</StateCode>
+		<Created>1725795717633</Created>
+		<LastModified>1747120270700</LastModified>
+		<LastUpdateAttempt isNull="true"/>
+		<AgentStateCode>0</AgentStateCode>
+		<AgentErrorCode>0</AgentErrorCode>
+		<RequiresUpdate>false</RequiresUpdate>
+		<RequiresScan>false</RequiresScan>
+		<AgentFingerprint>13:80:3A:2F:54:0B:EF:12:D8:9B:A2:27:5D:8C:5D:6D:BC:91:A6:E2</AgentFingerprint>
+		<AgentReportedHostType>Windows;10;0;20348;;x86_64;272;2;7</AgentReportedHostType>
+		<AgentGUID>3CA0576B-0228-3AB8-5F25-1B223C5C9EED</AgentGUID>
+		<AllowDSMToAgentComms>false</AllowDSMToAgentComms>
+		<AgentToDSMHeartbeat>10</AgentToDSMHeartbeat>
+		<AgentReportedShortHostType></AgentReportedShortHostType>
+		<AgentReportedVersion>Trend Micro Deep Security Agent (20.0.1.23340)</AgentReportedVersion>
+		<Locked>false</Locked>
+		<LastIPUsed></LastIPUsed>
+		<RequiresUpgrade>false</RequiresUpgrade>
+		<RequiresStatusCheck>false</RequiresStatusCheck>
+		<ScheduleID isNull="true"/>
+		<RequiresLogFetch>false</RequiresLogFetch>
+		<DirectoryDN isNull="true"/>
+		<DirectoryUniqueID isNull="true"/>
+		<DirectorySyncState>0</DirectorySyncState>
+		<AgentType>0</AgentType>
+		<DetectionEngineState>-1</DetectionEngineState>
+		<RequiresDetectionEngineExec>false</RequiresDetectionEngineExec>
+		<HostAssetImportanceID isNull="true"/>
+		<Externally>false</Externally>
+		<ExternalID></ExternalID>
+		<VirtualType>0</VirtualType>
+		<VirtualName></VirtualName>
+		<VirtualHostType></VirtualHostType>
+		<VirtualID>0</VirtualID>
+		<VirtualPowerState>0</VirtualPowerState>
+		<DisplayName></DisplayName>
+		<AutoRequiresUpdate>-1</AutoRequiresUpdate>
+		<Capabilities>1362294621</Capabilities>
+		<ESXVersion></ESXVersion>
+		<FastPathDriverVersion></FastPathDriverVersion>
+		<ParentHostID isNull="true"/>
+		<VirtualUuid>4217e2c8-00ef-a72a-b0e8-2b020de74fdc</VirtualUuid>
+		<VirtualApplianceID isNull="true"/>
+		<RequiresVirtualStatusTasks>false</RequiresVirtualStatusTasks>
+		<Incarnation>0</Incarnation>
+		<ComponentUpdateState>0</ComponentUpdateState>
+		<VFileDriverVersion></VFileDriverVersion>
+		<ActivateAfter isNull="true"/>
+		<RelayListID isNull="true"/>
+		<CloudObjectType>0</CloudObjectType>
+		<CloudObjectRecordID>0</CloudObjectRecordID>
+		<RemoteAgentlessRecordPointer></RemoteAgentlessRecordPointer>
+		<ComponentVersionStatus>2</ComponentVersionStatus>
+		<VCenterUuid></VCenterUuid>
+		<CurrentlyInstallingExtensions></CurrentlyInstallingExtensions>
+		<ComponentVersionStatusDate>1747120204411</ComponentVersionStatusDate>
+		<LastAgentUpgradeAttempt>1733864288529</LastAgentUpgradeAttempt>
+		<RequiresAgentDiagnostics>false</RequiresAgentDiagnostics>
+		<AgentDiagnosticsFlags></AgentDiagnosticsFlags>
+		<AgentDiagnosticsDownloadID>0</AgentDiagnosticsDownloadID>
+		<SecurityProfileLocked>false</SecurityProfileLocked>
+		<CloudExternalId></CloudExternalId>
+		<FileBackUpState>0</FileBackUpState>
+		<LastFileBackUpComplete isNull="true"/>
+		<LastFileBackUpStarted isNull="true"/>
+		<CandidateCloudProvider isNull="true"/>
+		<DockerRunning>false</DockerRunning>
+		<JSONEventToken></JSONEventToken>
+		<CredentialCryptoInfo>SHA256WithRSA;RSA;2048</CredentialCryptoInfo>
+		<DockerVersion isNull="true"/>
+		<PreCalculatedBifData>{&quot;physicalMachine&quot;:false,&quot;agentReportedCloudType&quot;:null}</PreCalculatedBifData>
+		<DockerPollFailures>0</DockerPollFailures>
+		<NextDockerPoll isNull="true"/>
+		<AgentReportedAmazonAccountId isNull="true"/>
+		<AgentReportedAmazonRegion isNull="true"/>
+		<AgentReportedAmazonInstanceId isNull="true"/>
+		<AgentReportedAmazonDirectoryId isNull="true"/>
+		<AgentReportedAmazonUserId isNull="true"/>
+		<HostGUID>6AF9B305-FE3D-4D61-8AF3-EB3483B2F1F6</HostGUID>
+		<SecureBootEnabled>false</SecureBootEnabled>
+		<SecureBootKeyEnrolled>false</SecureBootKeyEnrolled>
+		<CrioRunning>false</CrioRunning>
+		<CrioVersion isNull="true"/>
+		<PodmanRunning>false</PodmanRunning>
+		<PodmanVersion isNull="true"/>
+		<RingSetting isNull="true"/>
+		<AgentReportedAmazonAppStreamType isNull="true"/>
+		<IsPotentialClone>true</IsPotentialClone>
+		<AgentReportedXBCBusinessID isNull="true"/>
+		<VFSFilterDriverVersion>Unsupported</VFSFilterDriverVersion>
+		<FilterDriverVersion>Unsupported</FilterDriverVersion>
+		<enableUnifiedPolicy isNull="true"/>
+		<AntiMalwareHost id="1111">
+			<HostID>1111</HostID>
+			<AntiMalwareState>2</AntiMalwareState>
+			<LastAntiMalwareEventID isNull="true"/>
+			<LastAntiMalwareEventFetch isNull="true"/>
+			<AntiMalwareManualScanState>0</AntiMalwareManualScanState>
+			<AntiMalwareScheduledScanState>0</AntiMalwareScheduledScanState>
+			<LastAMManualScanComplete isNull="true"/>
+			<LastAMScheduledScanComplete>1746864184617</LastAMScheduledScanComplete>
+			<LastAMManualScanStart isNull="true"/>
+			<LastAMScheduledScanStart isNull="true"/>
+			<LocalAntiMalwareDatabaseGUID>b34e501e-e720-61bc-d062-7da33166c6cc</LocalAntiMalwareDatabaseGUID>
+			<LastAntiMalwareSpywareEventID isNull="true"/>
+			<LastWebReputationEventID isNull="true"/>
+			<LastWebReputationEventFetch isNull="true"/>
+			<LocalWebReputationDatabaseGUID></LocalWebReputationDatabaseGUID>
+			<AntiMalwareQuickScanState>0</AntiMalwareQuickScanState>
+			<LastAMQuickScanStart isNull="true"/>
+			<LastAMQuickScanComplete isNull="true"/>
+			<LastAntiMalwareAegisEventID isNull="true"/>
+			<LastAntiMalwareAdcEventID isNull="true"/>
+			<AMScheduledScanCancelAt>1746900119227</AMScheduledScanCancelAt>
+			<LastSensorActivityEventID isNull="true"/>
+			<LastSensorIndicatorEventID isNull="true"/>
+			<RealtimeScanDirListInherited>false</RealtimeScanDirListInherited>
+			<RealtimeScanFileExtListInherited>false</RealtimeScanFileExtListInherited>
+			<RealtimeExcludedScanDirListInherited>false</RealtimeExcludedScanDirListInherited>
+			<RealtimeExcludedScanFileExtListInherited>false</RealtimeExcludedScanFileExtListInherited>
+			<RealtimeExcludedScanFileListInherited>false</RealtimeExcludedScanFileListInherited>
+			<RealtimeExcludedScanProcessImageFileListInherited>false</RealtimeExcludedScanProcessImageFileListInherited>
+			<ManualScanDirListInherited>false</ManualScanDirListInherited>
+			<ManualScanFileExtListInherited>false</ManualScanFileExtListInherited>
+			<ManualExcludedScanDirListInherited>false</ManualExcludedScanDirListInherited>
+			<ManualExcludedScanFileExtListInherited>false</ManualExcludedScanFileExtListInherited>
+			<ManualExcludedScanFileListInherited>false</ManualExcludedScanFileListInherited>
+			<ScheduledScanDirListInherited>false</ScheduledScanDirListInherited>
+			<ScheduledScanFileExtListInherited>false</ScheduledScanFileExtListInherited>
+			<ScheduledExcludedScanDirListInherited>false</ScheduledExcludedScanDirListInherited>
+			<ScheduledExcludedScanFileExtListInherited>false</ScheduledExcludedScanFileExtListInherited>
+			<ScheduledExcludedScanFileListInherited>false</ScheduledExcludedScanFileListInherited>
+			<DriverOffline>false</DriverOffline>
+			<DriverFallback>false</DriverFallback>
+			<DriverOfflineReason>0</DriverOfflineReason>
+			<RealTimeAutoApplyState>-1</RealTimeAutoApplyState>
+		</AntiMalwareHost>
+		<AppControlHost id="1111">
+			<HostID>1111</HostID>
+			<AppControlState>-1</AppControlState>
+			<LastAppControlEventID isNull="true"/>
+			<LastAppControlEventFetch isNull="true"/>
+			<LocalAppControlDatabaseGUID></LocalAppControlDatabaseGUID>
+			<InventoryState>0</InventoryState>
+			<InventoryBuildingState>0</InventoryBuildingState>
+			<LastAgentInventoryItemID>0</LastAgentInventoryItemID>
+			<MoreInventoryItems>false</MoreInventoryItems>
+			<RulesetID isNull="true"/>
+			<Lockdown isNull="true"/>
+			<LockdownState isNull="true"/>
+			<TrustedUpdateState isNull="true"/>
+			<WhitelistMode isNull="true"/>
+			<CurrentRulesetID isNull="true"/>
+			<CurrentRulesetVersion isNull="true"/>
+			<DriverState isNull="true"/>
+			<MoveToHostGroup isNull="true"/>
+			<TrustedUpdateEndTime isNull="true"/>
+			<TrustedUpdateDuration isNull="true"/>
+			<RulesetUpdateMode>0</RulesetUpdateMode>
+			<TrustedUpdateStartTime isNull="true"/>
+			<DriftLimitState>0</DriftLimitState>
+			<RulesetCompatibilityState>0</RulesetCompatibilityState>
+			<Capabilities>0</Capabilities>
+			<AgentReportedGlobalRulesetVersion isNull="true"/>
+			<TrustRulesetID isNull="true"/>
+			<AgentReportedTrustRulesetID isNull="true"/>
+			<AgentReportedTrustRulesetVersion isNull="true"/>
+		</AppControlHost>
+		<IntegrityHost id="1111">
+			<HostID>1111</HostID>
+			<SystemIntegrityState>-1</SystemIntegrityState>
+			<IntegrityScanState>0</IntegrityScanState>
+			<RebuildBaselineState>0</RebuildBaselineState>
+			<LastAgentEntityID isNull="true"/>
+			<LastIntegrityLogFetch>1747120137744</LastIntegrityLogFetch>
+			<LastIntegrityScanComplete>1747077058000</LastIntegrityScanComplete>
+			<LastFullBaselineComplete>1741434602400</LastFullBaselineComplete>
+			<LastAgentIntegrityEventID isNull="true"/>
+			<LocalIntegrityDatabaseGUID>1fd01cac-a86d-77fe-7d18-86d4a9a4e871</LocalIntegrityDatabaseGUID>
+			<BeganSupportingViewableBaseline>1725795717849</BeganSupportingViewableBaseline>
+			<Capabilities>3</Capabilities>
+			<EventMode>2</EventMode>
+			<AgentReportedEventMode>2</AgentReportedEventMode>
+			<EventModeTransPhase>0</EventModeTransPhase>
+		</IntegrityHost>
+		<LogInspectionHost id="1111">
+			<HostID>1111</HostID>
+			<LogInspectionState>-1</LogInspectionState>
+			<LastLogInspectionEventID isNull="true"/>
+			<LastLogInspectionEventFetch isNull="true"/>
+			<LocalLogInspectionDatabaseGUID></LocalLogInspectionDatabaseGUID>
+		</LogInspectionHost>
+		<NetworkHost id="1111">
+			<HostID>1111</HostID>
+			<StatefulFilterID isNull="true"/>
+			<LastPacketLogFetch>1747120276000</LastPacketLogFetch>
+			<LastPayloadLogFetch>1747120276000</LastPayloadLogFetch>
+			<NetworkControlState>-1</NetworkControlState>
+			<VulnerabilityShieldState>-1</VulnerabilityShieldState>
+			<MostRecentPacketEvent>1746959775985</MostRecentPacketEvent>
+			<MostRecentPayloadEvent isNull="true"/>
+		</NetworkHost>
+		<SAPHost id="1111">
+			<HostID>1111</HostID>
+			<SAPState>-1</SAPState>
+			<LocalOverrideState isNull="true"/>
+			<ConcurrentSession isNull="true"/>
+			<SAPDimension isNull="true"/>
+		</SAPHost>
+	</Host>
+	<HostIntegrityRule isBridge="true" id="4309">
+		<HostID>1111</HostID>
+		<IntegrityRuleID>149</IntegrityRuleID>
+		<AssignBy>RECOSCAN</AssignBy>
+	</HostIntegrityRule>
+	<HostIntegrityRule isBridge="true" id="4310">
+		<HostID>1111</HostID>
+		<IntegrityRuleID>87</IntegrityRuleID>
+		<AssignBy>RECOSCAN</AssignBy>
+	</HostIntegrityRule>
+	<HostIntegrityRule isBridge="true" id="4311">
+		<HostID>1111</HostID>
+		<IntegrityRuleID>102</IntegrityRuleID>
+		<AssignBy>RECOSCAN</AssignBy>
+	</HostIntegrityRule>
+	<HostIntegrityRule isBridge="true" id="4312">
+		<HostID>1111</HostID>
+		<IntegrityRuleID>157</IntegrityRuleID>
+		<AssignBy>RECOSCAN</AssignBy>
+	</HostIntegrityRule>
+	<HostIntegrityRule isBridge="true" id="4313">
+		<HostID>1111</HostID>
+		<IntegrityRuleID>148</IntegrityRuleID>
+		<AssignBy>RECOSCAN</AssignBy>
+	</HostIntegrityRule>
+	<HostIntegrityRule isBridge="true" id="4314">
+		<HostID>1111</HostID>
+		<IntegrityRuleID>170</IntegrityRuleID>
+		<AssignBy>RECOSCAN</AssignBy>
+	</HostIntegrityRule>
+	<HostIntegrityRule isBridge="true" id="4315">
+		<HostID>1111</HostID>
+		<IntegrityRuleID>121</IntegrityRuleID>
+		<AssignBy>RECOSCAN</AssignBy>
+	</HostIntegrityRule>
+	<HostIntegrityRule isBridge="true" id="4316">
+		<HostID>1111</HostID>
+		<IntegrityRuleID>103</IntegrityRuleID>
+		<AssignBy>RECOSCAN</AssignBy>
+	</HostIntegrityRule>
+	<HostIntegrityRule isBridge="true" id="4317">
+		<HostID>1111</HostID>
+		<IntegrityRuleID>198</IntegrityRuleID>
+		<AssignBy>RECOSCAN</AssignBy>
+	</HostIntegrityRule>
+	<HostIntegrityRule isBridge="true" id="4318">
+		<HostID>1111</HostID>
+		<IntegrityRuleID>120</IntegrityRuleID>
+		<AssignBy>RECOSCAN</AssignBy>
+	</HostIntegrityRule>
+	<HostIntegrityRule isBridge="true" id="4319">
+		<HostID>1111</HostID>
+		<IntegrityRuleID>174</IntegrityRuleID>
+		<AssignBy>RECOSCAN</AssignBy>
+	</HostIntegrityRule>
+	<HostIntegrityRule isBridge="true" id="4320">
+		<HostID>1111</HostID>
+		<IntegrityRuleID>180</IntegrityRuleID>
+		<AssignBy>RECOSCAN</AssignBy>
+	</HostIntegrityRule>
+	<HostIntegrityRule isBridge="true" id="4321">
+		<HostID>1111</HostID>
+		<IntegrityRuleID>122</IntegrityRuleID>
+		<AssignBy>RECOSCAN</AssignBy>
+	</HostIntegrityRule>
+	<HostIntegrityRule isBridge="true" id="4322">
+		<HostID>1111</HostID>
+		<IntegrityRuleID>193</IntegrityRuleID>
+		<AssignBy>RECOSCAN</AssignBy>
+	</HostIntegrityRule>
+	<HostIntegrityRule isBridge="true" id="4323">
+		<HostID>1111</HostID>
+		<IntegrityRuleID>126</IntegrityRuleID>
+		<AssignBy>RECOSCAN</AssignBy>
+	</HostIntegrityRule>
+	<HostIntegrityRule isBridge="true" id="4324">
+		<HostID>1111</HostID>
+		<IntegrityRuleID>125</IntegrityRuleID>
+		<AssignBy>RECOSCAN</AssignBy>
+	</HostIntegrityRule>
+	<HostIntegrityRule isBridge="true" id="4325">
+		<HostID>1111</HostID>
+		<IntegrityRuleID>171</IntegrityRuleID>
+		<AssignBy>RECOSCAN</AssignBy>
+	</HostIntegrityRule>
+	<HostIntegrityRule isBridge="true" id="4326">
+		<HostID>1111</HostID>
+		<IntegrityRuleID>8</IntegrityRuleID>
+		<AssignBy>RECOSCAN</AssignBy>
+	</HostIntegrityRule>
+	<HostIntegrityRule isBridge="true" id="4327">
+		<HostID>1111</HostID>
+		<IntegrityRuleID>178</IntegrityRuleID>
+		<AssignBy>RECOSCAN</AssignBy>
+	</HostIntegrityRule>
+	<HostIntegrityRule isBridge="true" id="4328">
+		<HostID>1111</HostID>
+		<IntegrityRuleID>202</IntegrityRuleID>
+		<AssignBy>RECOSCAN</AssignBy>
+	</HostIntegrityRule>
+	<HostIntegrityRule isBridge="true" id="4435">
+		<HostID>1111</HostID>
+		<IntegrityRuleID>265</IntegrityRuleID>
+		<AssignBy>RECOSCAN</AssignBy>
+	</HostIntegrityRule>
+	<HostInterface id="1234">
+		<HostID>1111</HostID>
+		<InterfaceTypeID isNull="true"/>
+		<MAC>00:50:56:A6:4A:DA</MAC>
+		<Name>Ethernet0</Name>
+		<DHCP>false</DHCP>
+		<NotAvailable>false</NotAvailable>
+		<DisplayName></DisplayName>
+		<HostBridgeID isNull="true"/>
+		<VirtualDeviceKey isNull="true"/>
+	</HostInterface>
+	<HostInterfaceIP id="1435">
+		<HostInterfaceID>1234</HostInterfaceID>
+		<IP>10.0.1.111</IP>
+		<NotAvailable>false</NotAvailable>
+		<IpAsInt>167772527</IpAsInt>
+	</HostInterfaceIP>
+	<HostPayloadFilter2 isBridge="true" id="33208">
+		<HostID>1111</HostID>
+		<PayloadFilter2ID>10803</PayloadFilter2ID>
+		<AssignBy>RECOSCAN</AssignBy>
+	</HostPayloadFilter2>
+	<HostPayloadFilter2 isBridge="true" id="33209">
+		<HostID>1111</HostID>
+		<PayloadFilter2ID>10802</PayloadFilter2ID>
+		<AssignBy>RECOSCAN</AssignBy>
+	</HostPayloadFilter2>
+	<HostPayloadFilter2 isBridge="true" id="33211">
+		<HostID>1111</HostID>
+		<PayloadFilter2ID>10811</PayloadFilter2ID>
+		<AssignBy>RECOSCAN</AssignBy>
+	</HostPayloadFilter2>
+	<HostPayloadFilter2 isBridge="true" id="37488">
+		<HostID>1111</HostID>
+		<PayloadFilter2ID>6937</PayloadFilter2ID>
+		<AssignBy>RECOSCAN</AssignBy>
+	</HostPayloadFilter2>
+	<HostPayloadFilter2 isBridge="true" id="37489">
+		<HostID>1111</HostID>
+		<PayloadFilter2ID>6998</PayloadFilter2ID>
+		<AssignBy>RECOSCAN</AssignBy>
+	</HostPayloadFilter2>
+	<HostPayloadFilter2 isBridge="true" id="37490">
+		<HostID>1111</HostID>
+		<PayloadFilter2ID>7883</PayloadFilter2ID>
+		<AssignBy>RECOSCAN</AssignBy>
+	</HostPayloadFilter2>
+	<HostPayloadFilter2 isBridge="true" id="37491">
+		<HostID>1111</HostID>
+		<PayloadFilter2ID>7239</PayloadFilter2ID>
+		<AssignBy>RECOSCAN</AssignBy>
+	</HostPayloadFilter2>
+	<HostPayloadFilter2 isBridge="true" id="37492">
+		<HostID>1111</HostID>
+		<PayloadFilter2ID>7686</PayloadFilter2ID>
+		<AssignBy>RECOSCAN</AssignBy>
+	</HostPayloadFilter2>
+	<HostPayloadFilter2 isBridge="true" id="37775">
+		<HostID>1111</HostID>
+		<PayloadFilter2ID>10898</PayloadFilter2ID>
+		<AssignBy>RECOSCAN</AssignBy>
+	</HostPayloadFilter2>
+	<HostPayloadFilter2 isBridge="true" id="39070">
+		<HostID>1111</HostID>
+		<PayloadFilter2ID>10941</PayloadFilter2ID>
+		<AssignBy>RECOSCAN</AssignBy>
+	</HostPayloadFilter2>
+	<HostPayloadFilter2 isBridge="true" id="39071">
+		<HostID>1111</HostID>
+		<PayloadFilter2ID>10942</PayloadFilter2ID>
+		<AssignBy>RECOSCAN</AssignBy>
+	</HostPayloadFilter2>
+	<HostComponent id="1162200">
+		<HostID>1111</HostID>
+		<Type>1000</Type>
+		<Identifier>0</Identifier>
+		<Version>12.5</Version>
+		<ComponentID>1</ComponentID>
+	</HostComponent>
+	<HostComponent id="1162201">
+		<HostID>1111</HostID>
+		<Type>1000</Type>
+		<Identifier>0</Identifier>
+		<Version>5.5.1000</Version>
+		<ComponentID>2</ComponentID>
+	</HostComponent>
+	<HostComponent id="1162202">
+		<HostID>1111</HostID>
+		<Type>1000</Type>
+		<Identifier>0</Identifier>
+		<Version>7.3.1006</Version>
+		<ComponentID>3</ComponentID>
+	</HostComponent>
+	<HostComponent id="1162203">
+		<HostID>1111</HostID>
+		<Type>1000</Type>
+		<Identifier>0</Identifier>
+		<Version>110400</Version>
+		<ComponentID>4</ComponentID>
+	</HostComponent>
+	<HostComponent id="1162204">
+		<HostID>1111</HostID>
+		<Type>1000</Type>
+		<Identifier>0</Identifier>
+		<Version>110300</Version>
+		<ComponentID>5</ComponentID>
+	</HostComponent>
+	<HostComponent id="1162205">
+		<HostID>1111</HostID>
+		<Type>1000</Type>
+		<Identifier>0</Identifier>
+		<Version>110000</Version>
+		<ComponentID>6</ComponentID>
+	</HostComponent>
+	<HostComponent id="1162208">
+		<HostID>1111</HostID>
+		<Type>1000</Type>
+		<Identifier>0</Identifier>
+		<Version>24.550.1002</Version>
+		<ComponentID>8</ComponentID>
+	</HostComponent>
+	<HostComponent id="1162210">
+		<HostID>1111</HostID>
+		<Type>1000</Type>
+		<Identifier>0</Identifier>
+		<Version>0.253.00</Version>
+		<ComponentID>10</ComponentID>
+	</HostComponent>
+	<HostComponent id="1162211">
+		<HostID>1111</HostID>
+		<Type>1000</Type>
+		<Identifier>0</Identifier>
+		<Version>1.584.00</Version>
+		<ComponentID>11</ComponentID>
+	</HostComponent>
+	<HostComponent id="1162212">
+		<HostID>1111</HostID>
+		<Type>1000</Type>
+		<Identifier>0</Identifier>
+		<Version>2.833.00</Version>
+		<ComponentID>12</ComponentID>
+	</HostComponent>
+	<HostComponent id="1162214">
+		<HostID>1111</HostID>
+		<Type>1000</Type>
+		<Identifier>0</Identifier>
+		<Version>1634</Version>
+		<ComponentID>14</ComponentID>
+	</HostComponent>
+	<HostComponent id="1162215">
+		<HostID>1111</HostID>
+		<Type>1000</Type>
+		<Identifier>0</Identifier>
+		<Version>17.3</Version>
+		<ComponentID>15</ComponentID>
+	</HostComponent>
+	<HostComponent id="1162216">
+		<HostID>1111</HostID>
+		<Type>1000</Type>
+		<Identifier>0</Identifier>
+		<Version>200005</Version>
+		<ComponentID>16</ComponentID>
+	</HostComponent>
+	<HostComponent id="1162217">
+		<HostID>1111</HostID>
+		<Type>1000</Type>
+		<Identifier>0</Identifier>
+		<Version>1.238.00</Version>
+		<ComponentID>18</ComponentID>
+	</HostComponent>
+	<HostComponent id="1162218">
+		<HostID>1111</HostID>
+		<Type>1000</Type>
+		<Identifier>0</Identifier>
+		<Version>1.265.00</Version>
+		<ComponentID>19</ComponentID>
+	</HostComponent>
+	<HostComponent id="1162220">
+		<HostID>1111</HostID>
+		<Type>1000</Type>
+		<Identifier>0</Identifier>
+		<Version>1764</Version>
+		<ComponentID>21</ComponentID>
+	</HostComponent>
+	<HostComponent id="1162222">
+		<HostID>1111</HostID>
+		<Type>1000</Type>
+		<Identifier>0</Identifier>
+		<Version>1.7.2</Version>
+		<ComponentID>23</ComponentID>
+	</HostComponent>
+	<HostComponent id="1162209">
+		<HostID>1111</HostID>
+		<Type>1000</Type>
+		<Identifier>0</Identifier>
+		<Version>2.337.00</Version>
+		<ComponentID>9</ComponentID>
+	</HostComponent>
+	<HostComponent id="1162206">
+		<HostID>1111</HostID>
+		<Type>1000</Type>
+		<Identifier>0</Identifier>
+		<Version>2.051.00</Version>
+		<ComponentID>7</ComponentID>
+	</HostComponent>
+	<HostComponent id="1162221">
+		<HostID>1111</HostID>
+		<Type>1000</Type>
+		<Identifier>0</Identifier>
+		<Version>149764</Version>
+		<ComponentID>22</ComponentID>
+	</HostComponent>
+	<HostComponent id="1162224">
+		<HostID>1111</HostID>
+		<Type>1000</Type>
+		<Identifier>0</Identifier>
+		<Version>1.511.00</Version>
+		<ComponentID>25</ComponentID>
+	</HostComponent>
+	<HostComponent id="1162225">
+		<HostID>1111</HostID>
+		<Type>1000</Type>
+		<Identifier>0</Identifier>
+		<Version>1564</Version>
+		<ComponentID>232</ComponentID>
+	</HostComponent>
+	<HostComponent id="1162213">
+		<HostID>1111</HostID>
+		<Type>1000</Type>
+		<Identifier>0</Identifier>
+		<Version>28.33</Version>
+		<ComponentID>13</ComponentID>
+	</HostComponent>
+	<HostComponent id="1162223">
+		<HostID>1111</HostID>
+		<Type>1000</Type>
+		<Identifier>0</Identifier>
+		<Version>281233</Version>
+		<ComponentID>24</ComponentID>
+	</HostComponent>
+	<HostComponent id="1162207">
+		<HostID>1111</HostID>
+		<Type>1000</Type>
+		<Identifier>0</Identifier>
+		<Version>430564</Version>
+		<ComponentID>199</ComponentID>
+	</HostComponent>
+	<HostComponent id="1162219">
+		<HostID>1111</HostID>
+		<Type>1000</Type>
+		<Identifier>0</Identifier>
+		<Version>4.305.64</Version>
+		<ComponentID>20</ComponentID>
+	</HostComponent>
+	<HostComponent id="1166729">
+		<HostID>1111</HostID>
+		<Type>1000</Type>
+		<Identifier>0</Identifier>
+		<Version>20.197.00</Version>
+		<ComponentID>17</ComponentID>
+	</HostComponent>
+</HostInformation>

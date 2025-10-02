@@ -1,0 +1,43 @@
+
+<ComponentInfoAll>
+  <ComponentInfoResult type='localPatterns'>
+    <ComponentInfo region='-1' klass='3' platform='-1' language='-1' name='c3t1208221992l-1p-1r-1o-1' oem='-1' type='1208221992' version='5.5.1000'/>
+    <ComponentInfo region='-1' klass='3' platform='-1' language='-1' name='c3t1208222214l-1p-1r-1o-1' oem='-1' type='1208222214' version='7.3.1006'/>
+    <ComponentInfo region='-1' klass='3' platform='-1' language='-1' name='c3t1208221762l-1p-1r-1o-1' oem='-1' type='1208221762' version='110400'/>
+    <ComponentInfo region='-1' klass='3' platform='-1' language='-1' name='c3t1208221763l-1p-1r-1o1' oem='1' type='1208221763' version='110300'/>
+    <ComponentInfo region='-1' klass='3' platform='-1' language='-1' name='c3t1208221764l-1p-1r-1o1' oem='1' type='1208221764' version='110000'/>
+    <ComponentInfo region='-1' klass='3' platform='-1' language='-1' name='c3t1082130432l-1p-1r-1o-1' oem='-1' type='1082130432' version='2.051.00'/>
+    <ComponentInfo region='-1' klass='3' platform='-1' language='-1' name='c3t1208222019l-1p-1r-1o-1' oem='-1' type='1208222019' version='281233'/>
+  </ComponentInfoResult>
+  <ComponentInfoAllOthers>
+    <ComponentInfo name='c2t1207960129l-1p5889r-1o-1' version='8.55.1333'/>
+    <ComponentInfo name='c2t1075838976l1p5889r1o1' version='8.55.1333'/>
+    <ComponentInfo name='c2t1207960131l-1p5889r-1o-1' version='8.55.1333'/>
+    <ComponentInfo name='c2t1090519040l1p5889r1o1' version='9.5.1194'/>
+    <ComponentInfo name='c2t679477256l1p5889r1o1' version='2.59.1001'/>
+    <ComponentInfo name='c2t1207959844l1p5889r1o1' version='1.5.1058'/>
+    <ComponentInfo name='c2t1207959907l1p5889r1o1' version='2.9.1181'/>
+    <ComponentInfo name='c2t1207959909l1p5889r1o1' version='2.9.1181'/>
+    <ComponentInfo name='c2t1207959929l1p5889r1o1' version='8.55.1333'/>
+    <ComponentInfo name='c2t1207960116l-1p5889r-1o-1' version='20.0.165'/>
+    <ComponentInfo name='c9t922l1p5889r1o1' version='6.6.6570'/>
+    <ComponentInfo name='c9t923l1p5889r1o1' version='6.6.6570'/>
+    <ComponentInfo name='c9t924l1p5889r1o1' version='6.6.6570'/>
+    <ComponentInfo name='c9t2749l1p5889r1o1' version='6.6.6570'/>
+    <ComponentInfo name='c9t2750l1p5889r1o1' version='6.6.6570'/>
+    <ComponentInfo name='c9t2751l1p5889r1o1' version='6.6.6570'/>
+    <ComponentInfo name='c9t2752l1p5889r1o1' version='6.6.6570'/>
+    <ComponentInfo name='c9t2753l1p5889r1o1' version='6.6.6570'/>
+    <ComponentInfo name='c9t2754l1p5889r1o1' version='6.6.6570'/>
+    <ComponentInfo name='c9t934l1p5889r1o1' version='6.6.6570'/>
+    <ComponentInfo name='c9t942l1p5889r1o1' version='2.61.1144'/>
+    <ComponentInfo name='c9t952l1p5889r1o1' version='6.6.6570'/>
+    <ComponentInfo name='c9t960l1p5889r1o1' version='6.6.6570'/>
+    <ComponentInfo name='c9t968l1p5889r1o1' version='6.6.6570'/>
+    <ComponentInfo name='c9t932l1p5889r1o1' version='6.6.6570'/>
+    <ComponentInfo name='c9t2740l1p5889r1o1' version='1.5.1058'/>
+    <ComponentInfo name='c9t2758l1p5889r1o1' version='2.9.1181'/>
+    <ComponentInfo name='c9t2788l-1p5889r-1o-1' version='12.0.149'/>
+    <ComponentInfo name='c3t1208222248l-1p-1r-1o-1' version='1'/>
+  </ComponentInfoAllOthers>
+</ComponentInfoAll>

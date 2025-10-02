@@ -1,0 +1,834 @@
+Time,Level,Event ID,Event,Tag(s),Event Origin,Target,Action By,Manager,Description
+"May 13, 2025 10:11:48",Info,2206,Security Update: Pattern Update on Agents/Appliances Skipped,,Agent,KSDC01.keshet.dom,System,hbp00524s-798,"Security Update: Pattern Update on Agents/Appliances skipped
+
+Agent/Appliance Event(s):
+
+Time: May 13, 2025 10:11:44
+Level: Info
+Event ID: 9020
+Event: Security Update: Pattern Update on Agents/Appliances Skipped
+Description: Deep Security Agent did not perform a pattern update because Anti-malware is off. Pattern updates are necessary only when using the Anti-malware feature.
+
+Update skipped because the AM feature is off"
+"May 13, 2025 10:11:46",Info,710,Events Retrieved,,Agent,KSDC01.keshet.dom,System,hbp00523s-798,"Agent/Appliance Event(s):
+
+Time: May 13, 2025 10:11:18
+Level: Info
+Event ID: 2000
+Event: Policy Sent
+Description: Security Policy sent to computer."
+"May 13, 2025 10:11:18",Info,720,Policy Sent,,Agent,KSDC01.keshet.dom,System,hbp00523s-798,The policy (fingerprint F4:EE:55:D5:D8:DA:23:AB:FF:C3:5C:02:E0:03:2B:B9:93:CD:2D:60) was successfully sent to the agent.
+"May 13, 2025 10:11:10",Info,252,Computer Updated,,Manager,KSDC01.keshet.dom,Linoy Katie (urn:cloudone:identity:de-1:865801819801:v1-user/a9bbb66e-e2fc-47f4-a03c-6932ae297554),gui21-3692,"When the update was performed, the following changes were made:
+
+Anti-Malware changed from ""Inherited"" to ""Off, installed"".
+
+The following setting(s) changed:
+
+""Anti-Malware State"" changed from ""Inherited"" to ""Off"".
+
+After updating, the target had the following properties:
+
+Name: KSDC01.keshet.dom
+Description: 
+Group: Computers > Keshet-System Servers
+Agent Version: 20.0.1.23340
+Appliance: N/A
+Policy: Keshet-System Servers
+Locked: No
+Anti-Malware: Off, installed
+Web Reputation: Inherited
+Device Control: Inherited
+Application Control: Inherited
+Integrity Monitoring: Inherited
+Log Inspection: Inherited
+Firewall: Inherited
+Intrusion Prevention: Inherited
+Scanner (SAP): Inherited
+Asset Value: None
+
+The following items are assigned directly to the computer, for the full configuration please also view the Policy (if assigned).
+
+Malware Scan Configurations:
+Real-Time Scan: Inherited
+Manual Scan: Inherited
+Scheduled Scan: Inherited
+
+Anti-Malware Inclusion Lists:
+Real-Time Scan: 
+Directory: Not Inherited
+Directory: Enforcement of Inheritance Disabled
+Directory List: None
+File Extension: Not Inherited
+File Extension: Enforcement of Inheritance Disabled
+File Extension List: None
+Manual Scan: 
+Directory: Not Inherited
+Directory: Enforcement of Inheritance Disabled
+Directory List: None
+File Extension: Not Inherited
+File Extension: Enforcement of Inheritance Disabled
+File Extension List: None
+Scheduled Scan: 
+Directory: Not Inherited
+Directory: Enforcement of Inheritance Disabled
+Directory List: None
+File Extension: Not Inherited
+File Extension: Enforcement of Inheritance Disabled
+File Extension List: None
+
+Anti-Malware Exclusion Lists:
+Real-Time Scan: 
+File: Not Inherited
+File: Enforcement of Inheritance Disabled
+File List: None
+Directory: Not Inherited
+Directory: Enforcement of Inheritance Disabled
+Directory List: None
+File Extension: Not Inherited
+File Extension: Enforcement of Inheritance Disabled
+File Extension List: None
+Process Image File: Not Inherited
+Process Image File: Enforcement of Inheritance Disabled
+Process Image File List: None
+Manual Scan: 
+File: Not Inherited
+File: Enforcement of Inheritance Disabled
+File List: None
+Directory: Not Inherited
+Directory: Enforcement of Inheritance Disabled
+Directory List: None
+File Extension: Not Inherited
+File Extension: Enforcement of Inheritance Disabled
+File Extension List: None
+Scheduled Scan: 
+File: Not Inherited
+File: Enforcement of Inheritance Disabled
+File List: None
+Directory: Not Inherited
+Directory: Enforcement of Inheritance Disabled
+Directory List: None
+File Extension: Not Inherited
+File Extension: Enforcement of Inheritance Disabled
+File Extension List: None
+
+Current Device Control Exception Rules: None
+
+Integrity Monitoring Rules:
+     1002767 - Microsoft Windows - Attributes of system32 directory modified (ATT&CK T1222)
+     1002773 - Microsoft Windows - 'Hosts' file modified
+     1002775 - Microsoft Windows - Network configuration files modified
+     1002777 - Microsoft Windows - System configuration file modified
+     1002778 - Microsoft Windows - System .dll or .exe files modified (ATT&CK T1036.003, T1222.001)
+     1002779 - Microsoft Windows - System File Modified
+     1002780 - Microsoft Windows - Installed software attributes modified (ATT&CK T1195.002, T1554)
+     1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)
+     1002786 - Microsoft Windows - Microsoft hotfixes registry keys modified (ATT&CK T1112)
+     1002787 - Microsoft Windows - Registry values of event log modified (ATT&CK T1070.001, T1562.002)
+     1002859 - Microsoft Windows - LSA Authentication Packages modified (ATT&CK T1547.002)
+     1002860 - Microsoft Windows - SAM registry keys modified (ATT&CK T1098, T1136)
+     1002869 - Microsoft Windows - DNS Server (ATT&CK T1554, T1584.002)
+     1003019 - Application - Trend Micro Deep Security Agent / Relay
+     1003517 - Microsoft Windows - System driver files modified
+     1005041 - Threat - Suspicious Microsoft Windows Files Detected
+     1005042 - Threat - Suspicious Microsoft Windows Registry Entries Detected
+     1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005)
+     1010353 - Microsoft Windows - LSA Notification Packages modified (ATT&CK T1556.002)
+     1011151 - Microsoft Windows - Active directory registry keys modified (ATT&CK  T1112)
+     1012288 - Vulnerability - Microsoft Windows Active Directory Elevation of Privilege (CVE-2025-21293) (ATT&CK T1112, T1546.003, T1574.011)
+
+Log Inspection Rules: None
+
+Global (All Interfaces)
+
+     Firewall Rules: None
+
+     Firewall Stateful Configuration: Off
+
+     Intrusion Prevention Rules:
+          Assigned Intrusion Prevention Rules without Assigned Application Type:
+               1000128 - HTTP Protocol Decoding
+               1004715 - HTTP Web Client Decoding
+               1007596 - Identified Possible Ransomware File Extension Rename Activity Over Network Share
+               1007913 - Identified Possible Ransomware File Extension Rename Activity Over Network Share - Client
+               1011058 - Identified DCERPC EFSRPC Methods Call Over SMB Protocol (PetitPotam)
+               1012182 - Microsoft Windows LNK File UI Misrepresentation Vulnerability Over HTTP (ZDI-25-148)
+               1012183 - Microsoft Windows LNK File UI Misrepresentation Vulnerability Over SMB (ZDI-25-148)
+               1012187 - Microsoft Windows SMB Denial of Service Vulnerability (CVE-2024-43642)
+               1012282 - Microsoft Windows Themes Spoofing Vulnerability (CVE-2025-21308)
+               1012336 - Microsoft Windows Kerberos Security Feature Bypass Vulnerability (CVE-2025-29809)
+               1012338 - Microsoft Windows Defender Credential Guard Security Feature Bypass Vulnerability (CVE-2025-29809)
+
+Interface: Ethernet0 - 00:50:56:A6:4A:DA
+
+     Firewall Rules: None
+
+     Firewall Stateful Configuration: Inherited
+
+     Intrusion Prevention Rules: None
+
+Interface: Ethernet0 - 00:50:56:A6:4A:DA (IP: 10.0.1.111)
+
+     Firewall Rules: None
+
+Components:
+     Deep Security Agent Index (Windows 64-bit)=>12.5
+     Platform Configuration Pattern (All Platforms)=>5.5.1000
+     System Driver Configuration (All Platforms)=>7.3.1006
+     Scan Exception Pattern (All Platforms)=>110400
+     Scan Exception OEM Pattern (All Platforms)=>110300
+     Scan Exception Local Pattern (All Platforms)=>110000
+     Advanced Threat Scan Engine (Windows 64-bit)=>24.550.1002
+     IntelliTrap Pattern (All Platforms)=>0.253.00
+     Memory Inspection Pattern (All Platforms)=>1.584.00
+     Spyware Active Monitoring Pattern (All Platforms)=>2.833.00
+     Damage Cleanup Template (All Platforms)=>1634
+     Damage Cleanup Engine Configuration (All Platforms)=>17.3
+     Real-time Scan Flow Pattern (All Platforms)=>200005
+     Behavior Monitoring Configuration Pattern (All Platforms)=>1.238.00
+     Policy Enforcement Pattern (All Platforms)=>1.265.00
+     Memory Scan Trigger Pattern (Windows 64-bit)=>1764
+     Damage Recovery Pattern (All Platforms)=>1.7.2
+     IntelliTrap Exception Pattern (All Platforms)=>2.337.00
+     Digital Signature Pattern (All Platforms)=>2.051.00
+     Threat Tracing Pattern (Windows 64-bit)=>149764
+     Advanced Threat Correlation Pattern (All Platforms)=>1.511.00
+     Adversary Tactics and Techniques Detection Pattern (Windows 64-bit)=>1564
+     Spyware/Grayware Pattern (All Platforms)=>28.33
+     Endpoint Sensor Trusted Pattern (All Platforms)=>281233
+     Threat Behavior Tracing Pattern (Windows 64-bit)=>430564
+     Behavior Monitoring Detection Pattern (Windows 64-bit)=>4.305.64
+     Smart Scan Agent Pattern (All Platforms)=>20.197.00
+
+The following (non-inherited) settings are in effect:
+
+""Anti-Malware State"" is ""Off""."
+"May 13, 2025 10:10:05",Info,2204,Security Update: Pattern Update on Agents/Appliances Successful,,Agent,KSDC01.keshet.dom,System,hbp00524s-798,"Anti-Malware Component Update succeeded
+
+Agent/Appliance Event(s):
+
+Time: May 13, 2025 10:09:59
+Level: Info
+Event ID: 9016
+Event: Anti-Malware Component Update Successful
+Description: Anti-Malware Component Update was successful.
+
+Update success"
+"May 13, 2025 10:10:04",Info,276,Update: Summary Information,,Manager,KSDC01.keshet.dom,System,hbp00524s-798,"When the update was performed, the following changes were made:
+
+Component ""Smart Scan Agent Pattern"" Version Changed from 20.195.00 to 20.197.00.
+
+After updating, the target had the following properties:
+
+Name: KSDC01.keshet.dom
+Description: 
+Group: Computers > Keshet-System Servers
+Agent Version: 20.0.1.23340
+Appliance: N/A
+Policy: Keshet-System Servers
+Locked: No
+Anti-Malware: Inherited
+Web Reputation: Inherited
+Device Control: Inherited
+Application Control: Inherited
+Integrity Monitoring: Inherited
+Log Inspection: Inherited
+Firewall: Inherited
+Intrusion Prevention: Inherited
+Scanner (SAP): Inherited
+Asset Value: None
+
+The following items are assigned directly to the computer, for the full configuration please also view the Policy (if assigned).
+
+Malware Scan Configurations:
+Real-Time Scan: Inherited
+Manual Scan: Inherited
+Scheduled Scan: Inherited
+
+Anti-Malware Inclusion Lists:
+Real-Time Scan: 
+Directory: Not Inherited
+Directory: Enforcement of Inheritance Disabled
+Directory List: None
+File Extension: Not Inherited
+File Extension: Enforcement of Inheritance Disabled
+File Extension List: None
+Manual Scan: 
+Directory: Not Inherited
+Directory: Enforcement of Inheritance Disabled
+Directory List: None
+File Extension: Not Inherited
+File Extension: Enforcement of Inheritance Disabled
+File Extension List: None
+Scheduled Scan: 
+Directory: Not Inherited
+Directory: Enforcement of Inheritance Disabled
+Directory List: None
+File Extension: Not Inherited
+File Extension: Enforcement of Inheritance Disabled
+File Extension List: None
+
+Anti-Malware Exclusion Lists:
+Real-Time Scan: 
+File: Not Inherited
+File: Enforcement of Inheritance Disabled
+File List: None
+Directory: Not Inherited
+Directory: Enforcement of Inheritance Disabled
+Directory List: None
+File Extension: Not Inherited
+File Extension: Enforcement of Inheritance Disabled
+File Extension List: None
+Process Image File: Not Inherited
+Process Image File: Enforcement of Inheritance Disabled
+Process Image File List: None
+Manual Scan: 
+File: Not Inherited
+File: Enforcement of Inheritance Disabled
+File List: None
+Directory: Not Inherited
+Directory: Enforcement of Inheritance Disabled
+Directory List: None
+File Extension: Not Inherited
+File Extension: Enforcement of Inheritance Disabled
+File Extension List: None
+Scheduled Scan: 
+File: Not Inherited
+File: Enforcement of Inheritance Disabled
+File List: None
+Directory: Not Inherited
+Directory: Enforcement of Inheritance Disabled
+Directory List: None
+File Extension: Not Inherited
+File Extension: Enforcement of Inheritance Disabled
+File Extension List: None
+
+Current Device Control Exception Rules: None
+
+Integrity Monitoring Rules:
+     1002767 - Microsoft Windows - Attributes of system32 directory modified (ATT&CK T1222)
+     1002773 - Microsoft Windows - 'Hosts' file modified
+     1002775 - Microsoft Windows - Network configuration files modified
+     1002777 - Microsoft Windows - System configuration file modified
+     1002778 - Microsoft Windows - System .dll or .exe files modified (ATT&CK T1036.003, T1222.001)
+     1002779 - Microsoft Windows - System File Modified
+     1002780 - Microsoft Windows - Installed software attributes modified (ATT&CK T1195.002, T1554)
+     1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)
+     1002786 - Microsoft Windows - Microsoft hotfixes registry keys modified (ATT&CK T1112)
+     1002787 - Microsoft Windows - Registry values of event log modified (ATT&CK T1070.001, T1562.002)
+     1002859 - Microsoft Windows - LSA Authentication Packages modified (ATT&CK T1547.002)
+     1002860 - Microsoft Windows - SAM registry keys modified (ATT&CK T1098, T1136)
+     1002869 - Microsoft Windows - DNS Server (ATT&CK T1554, T1584.002)
+     1003019 - Application - Trend Micro Deep Security Agent / Relay
+     1003517 - Microsoft Windows - System driver files modified
+     1005041 - Threat - Suspicious Microsoft Windows Files Detected
+     1005042 - Threat - Suspicious Microsoft Windows Registry Entries Detected
+     1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005)
+     1010353 - Microsoft Windows - LSA Notification Packages modified (ATT&CK T1556.002)
+     1011151 - Microsoft Windows - Active directory registry keys modified (ATT&CK  T1112)
+     1012288 - Vulnerability - Microsoft Windows Active Directory Elevation of Privilege (CVE-2025-21293) (ATT&CK T1112, T1546.003, T1574.011)
+
+Log Inspection Rules: None
+
+Global (All Interfaces)
+
+     Firewall Rules: None
+
+     Firewall Stateful Configuration: Off
+
+     Intrusion Prevention Rules:
+          Assigned Intrusion Prevention Rules without Assigned Application Type:
+               1000128 - HTTP Protocol Decoding
+               1004715 - HTTP Web Client Decoding
+               1007596 - Identified Possible Ransomware File Extension Rename Activity Over Network Share
+               1007913 - Identified Possible Ransomware File Extension Rename Activity Over Network Share - Client
+               1011058 - Identified DCERPC EFSRPC Methods Call Over SMB Protocol (PetitPotam)
+               1012182 - Microsoft Windows LNK File UI Misrepresentation Vulnerability Over HTTP (ZDI-25-148)
+               1012183 - Microsoft Windows LNK File UI Misrepresentation Vulnerability Over SMB (ZDI-25-148)
+               1012187 - Microsoft Windows SMB Denial of Service Vulnerability (CVE-2024-43642)
+               1012282 - Microsoft Windows Themes Spoofing Vulnerability (CVE-2025-21308)
+               1012336 - Microsoft Windows Kerberos Security Feature Bypass Vulnerability (CVE-2025-29809)
+               1012338 - Microsoft Windows Defender Credential Guard Security Feature Bypass Vulnerability (CVE-2025-29809)
+
+Interface: Ethernet0 - 00:50:56:A6:4A:DA
+
+     Firewall Rules: None
+
+     Firewall Stateful Configuration: Inherited
+
+     Intrusion Prevention Rules: None
+
+Interface: Ethernet0 - 00:50:56:A6:4A:DA (IP: 10.0.1.111)
+
+     Firewall Rules: None
+
+Components:
+     Deep Security Agent Index (Windows 64-bit)=>12.5
+     Platform Configuration Pattern (All Platforms)=>5.5.1000
+     System Driver Configuration (All Platforms)=>7.3.1006
+     Scan Exception Pattern (All Platforms)=>110400
+     Scan Exception OEM Pattern (All Platforms)=>110300
+     Scan Exception Local Pattern (All Platforms)=>110000
+     Advanced Threat Scan Engine (Windows 64-bit)=>24.550.1002
+     IntelliTrap Pattern (All Platforms)=>0.253.00
+     Memory Inspection Pattern (All Platforms)=>1.584.00
+     Spyware Active Monitoring Pattern (All Platforms)=>2.833.00
+     Damage Cleanup Template (All Platforms)=>1634
+     Damage Cleanup Engine Configuration (All Platforms)=>17.3
+     Real-time Scan Flow Pattern (All Platforms)=>200005
+     Behavior Monitoring Configuration Pattern (All Platforms)=>1.238.00
+     Policy Enforcement Pattern (All Platforms)=>1.265.00
+     Memory Scan Trigger Pattern (Windows 64-bit)=>1764
+     Damage Recovery Pattern (All Platforms)=>1.7.2
+     IntelliTrap Exception Pattern (All Platforms)=>2.337.00
+     Digital Signature Pattern (All Platforms)=>2.051.00
+     Threat Tracing Pattern (Windows 64-bit)=>149764
+     Advanced Threat Correlation Pattern (All Platforms)=>1.511.00
+     Adversary Tactics and Techniques Detection Pattern (Windows 64-bit)=>1564
+     Spyware/Grayware Pattern (All Platforms)=>28.33
+     Endpoint Sensor Trusted Pattern (All Platforms)=>281233
+     Threat Behavior Tracing Pattern (Windows 64-bit)=>430564
+     Behavior Monitoring Detection Pattern (Windows 64-bit)=>4.305.64
+     Smart Scan Agent Pattern (All Platforms)=>20.197.00"
+"May 13, 2025 10:09:36",Info,710,Events Retrieved,,Agent,KSDC01.keshet.dom,System,hbp00523s-798,"Agent/Appliance Event(s):
+
+Time: May 13, 2025 10:09:06
+Level: Info
+Event ID: 2000
+Event: Policy Sent
+Description: Security Policy sent to computer."
+"May 13, 2025 10:09:36",Warning,926,Smart Protection Server Disconnected for Smart Scan,,Agent,KSDC01.keshet.dom,System,hbp00523s-798,"Disconnected from Smart Protection Server for Smart Scan. This could be due to a configuration issue, or due to network connectivity.
+
+Agent/Appliance Event(s):
+
+Time: May 13, 2025 10:09:26
+Level: Warning
+Event ID: 9012
+Event: Smart Protection Server Disconnected for Smart Scan
+Description: Disconnected from Smart Protection Server: http://10.0.1.245/tmcss : Error message=536870920[0x20000008](ICRC_NETWORK_ERROR), 503[0x1f7](HTTP response code : 503)"
+"May 13, 2025 10:09:07",Info,720,Policy Sent,,Agent,KSDC01.keshet.dom,System,hbp00524s-798,The policy (fingerprint 59:52:71:6B:56:52:04:A7:EE:D6:83:85:E9:68:6C:3C:B5:AB:89:0E) was successfully sent to the agent.
+"May 13, 2025 10:09:01",Info,252,Computer Updated,,Manager,KSDC01.keshet.dom,Linoy Katie (urn:cloudone:identity:de-1:865801819801:v1-user/a9bbb66e-e2fc-47f4-a03c-6932ae297554),gui21-3692,"When the update was performed, the following changes were made:
+
+Anti-Malware changed from ""Off, installed"" to ""Inherited"".
+
+The following setting(s) changed:
+
+""Anti-Malware State"" changed from ""Off"" to ""Inherited"".
+
+After updating, the target had the following properties:
+
+Name: KSDC01.keshet.dom
+Description: 
+Group: Computers > Keshet-System Servers
+Agent Version: 20.0.1.23340
+Appliance: N/A
+Policy: Keshet-System Servers
+Locked: No
+Anti-Malware: Inherited
+Web Reputation: Inherited
+Device Control: Inherited
+Application Control: Inherited
+Integrity Monitoring: Inherited
+Log Inspection: Inherited
+Firewall: Inherited
+Intrusion Prevention: Inherited
+Scanner (SAP): Inherited
+Asset Value: None
+
+The following items are assigned directly to the computer, for the full configuration please also view the Policy (if assigned).
+
+Malware Scan Configurations:
+Real-Time Scan: Inherited
+Manual Scan: Inherited
+Scheduled Scan: Inherited
+
+Anti-Malware Inclusion Lists:
+Real-Time Scan: 
+Directory: Not Inherited
+Directory: Enforcement of Inheritance Disabled
+Directory List: None
+File Extension: Not Inherited
+File Extension: Enforcement of Inheritance Disabled
+File Extension List: None
+Manual Scan: 
+Directory: Not Inherited
+Directory: Enforcement of Inheritance Disabled
+Directory List: None
+File Extension: Not Inherited
+File Extension: Enforcement of Inheritance Disabled
+File Extension List: None
+Scheduled Scan: 
+Directory: Not Inherited
+Directory: Enforcement of Inheritance Disabled
+Directory List: None
+File Extension: Not Inherited
+File Extension: Enforcement of Inheritance Disabled
+File Extension List: None
+
+Anti-Malware Exclusion Lists:
+Real-Time Scan: 
+File: Not Inherited
+File: Enforcement of Inheritance Disabled
+File List: None
+Directory: Not Inherited
+Directory: Enforcement of Inheritance Disabled
+Directory List: None
+File Extension: Not Inherited
+File Extension: Enforcement of Inheritance Disabled
+File Extension List: None
+Process Image File: Not Inherited
+Process Image File: Enforcement of Inheritance Disabled
+Process Image File List: None
+Manual Scan: 
+File: Not Inherited
+File: Enforcement of Inheritance Disabled
+File List: None
+Directory: Not Inherited
+Directory: Enforcement of Inheritance Disabled
+Directory List: None
+File Extension: Not Inherited
+File Extension: Enforcement of Inheritance Disabled
+File Extension List: None
+Scheduled Scan: 
+File: Not Inherited
+File: Enforcement of Inheritance Disabled
+File List: None
+Directory: Not Inherited
+Directory: Enforcement of Inheritance Disabled
+Directory List: None
+File Extension: Not Inherited
+File Extension: Enforcement of Inheritance Disabled
+File Extension List: None
+
+Current Device Control Exception Rules: None
+
+Integrity Monitoring Rules:
+     1002767 - Microsoft Windows - Attributes of system32 directory modified (ATT&CK T1222)
+     1002773 - Microsoft Windows - 'Hosts' file modified
+     1002775 - Microsoft Windows - Network configuration files modified
+     1002777 - Microsoft Windows - System configuration file modified
+     1002778 - Microsoft Windows - System .dll or .exe files modified (ATT&CK T1036.003, T1222.001)
+     1002779 - Microsoft Windows - System File Modified
+     1002780 - Microsoft Windows - Installed software attributes modified (ATT&CK T1195.002, T1554)
+     1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)
+     1002786 - Microsoft Windows - Microsoft hotfixes registry keys modified (ATT&CK T1112)
+     1002787 - Microsoft Windows - Registry values of event log modified (ATT&CK T1070.001, T1562.002)
+     1002859 - Microsoft Windows - LSA Authentication Packages modified (ATT&CK T1547.002)
+     1002860 - Microsoft Windows - SAM registry keys modified (ATT&CK T1098, T1136)
+     1002869 - Microsoft Windows - DNS Server (ATT&CK T1554, T1584.002)
+     1003019 - Application - Trend Micro Deep Security Agent / Relay
+     1003517 - Microsoft Windows - System driver files modified
+     1005041 - Threat - Suspicious Microsoft Windows Files Detected
+     1005042 - Threat - Suspicious Microsoft Windows Registry Entries Detected
+     1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005)
+     1010353 - Microsoft Windows - LSA Notification Packages modified (ATT&CK T1556.002)
+     1011151 - Microsoft Windows - Active directory registry keys modified (ATT&CK  T1112)
+     1012288 - Vulnerability - Microsoft Windows Active Directory Elevation of Privilege (CVE-2025-21293) (ATT&CK T1112, T1546.003, T1574.011)
+
+Log Inspection Rules: None
+
+Global (All Interfaces)
+
+     Firewall Rules: None
+
+     Firewall Stateful Configuration: Off
+
+     Intrusion Prevention Rules:
+          Assigned Intrusion Prevention Rules without Assigned Application Type:
+               1000128 - HTTP Protocol Decoding
+               1004715 - HTTP Web Client Decoding
+               1007596 - Identified Possible Ransomware File Extension Rename Activity Over Network Share
+               1007913 - Identified Possible Ransomware File Extension Rename Activity Over Network Share - Client
+               1011058 - Identified DCERPC EFSRPC Methods Call Over SMB Protocol (PetitPotam)
+               1012182 - Microsoft Windows LNK File UI Misrepresentation Vulnerability Over HTTP (ZDI-25-148)
+               1012183 - Microsoft Windows LNK File UI Misrepresentation Vulnerability Over SMB (ZDI-25-148)
+               1012187 - Microsoft Windows SMB Denial of Service Vulnerability (CVE-2024-43642)
+               1012282 - Microsoft Windows Themes Spoofing Vulnerability (CVE-2025-21308)
+               1012336 - Microsoft Windows Kerberos Security Feature Bypass Vulnerability (CVE-2025-29809)
+               1012338 - Microsoft Windows Defender Credential Guard Security Feature Bypass Vulnerability (CVE-2025-29809)
+
+Interface: Ethernet0 - 00:50:56:A6:4A:DA
+
+     Firewall Rules: None
+
+     Firewall Stateful Configuration: Inherited
+
+     Intrusion Prevention Rules: None
+
+Interface: Ethernet0 - 00:50:56:A6:4A:DA (IP: 10.0.1.111)
+
+     Firewall Rules: None
+
+Components:
+     Deep Security Agent Index (Windows 64-bit)=>12.5
+     Platform Configuration Pattern (All Platforms)=>5.5.1000
+     System Driver Configuration (All Platforms)=>7.3.1006
+     Scan Exception Pattern (All Platforms)=>110400
+     Scan Exception OEM Pattern (All Platforms)=>110300
+     Scan Exception Local Pattern (All Platforms)=>110000
+     Advanced Threat Scan Engine (Windows 64-bit)=>24.550.1002
+     IntelliTrap Pattern (All Platforms)=>0.253.00
+     Memory Inspection Pattern (All Platforms)=>1.584.00
+     Spyware Active Monitoring Pattern (All Platforms)=>2.833.00
+     Damage Cleanup Template (All Platforms)=>1634
+     Damage Cleanup Engine Configuration (All Platforms)=>17.3
+     Real-time Scan Flow Pattern (All Platforms)=>200005
+     Behavior Monitoring Configuration Pattern (All Platforms)=>1.238.00
+     Policy Enforcement Pattern (All Platforms)=>1.265.00
+     Memory Scan Trigger Pattern (Windows 64-bit)=>1764
+     Damage Recovery Pattern (All Platforms)=>1.7.2
+     IntelliTrap Exception Pattern (All Platforms)=>2.337.00
+     Digital Signature Pattern (All Platforms)=>2.051.00
+     Threat Tracing Pattern (Windows 64-bit)=>149764
+     Advanced Threat Correlation Pattern (All Platforms)=>1.511.00
+     Adversary Tactics and Techniques Detection Pattern (Windows 64-bit)=>1564
+     Spyware/Grayware Pattern (All Platforms)=>28.33
+     Endpoint Sensor Trusted Pattern (All Platforms)=>281233
+     Threat Behavior Tracing Pattern (Windows 64-bit)=>430564
+     Behavior Monitoring Detection Pattern (Windows 64-bit)=>4.305.64
+     Smart Scan Agent Pattern (All Platforms)=>20.195.00"
+"May 12, 2025 23:08:03",Info,2206,Security Update: Pattern Update on Agents/Appliances Skipped,,Agent,KSDC01.keshet.dom,System,hbp00525s-798,"Security Update: Pattern Update on Agents/Appliances skipped
+
+Agent/Appliance Event(s):
+
+Time: May 12, 2025 23:07:58
+Level: Info
+Event ID: 9020
+Event: Security Update: Pattern Update on Agents/Appliances Skipped
+Description: Deep Security Agent did not perform a pattern update because Anti-malware is off. Pattern updates are necessary only when using the Anti-malware feature.
+
+Update skipped because the AM feature is off"
+"May 12, 2025 23:01:34",Info,273,Security Update: Security Update Check and Download Requested,,Manager,KSDC01.keshet.dom,System,job00124-3692,No Description
+"May 12, 2025 22:11:03",Info,1671,Scan for Integrity Completed,,Agent,KSDC01.keshet.dom,System,hbp00523s-798,"Scan for Integrity Completed
+
+Agent/Appliance Event(s):
+
+Time: May 12, 2025 22:10:58
+Level: Info
+Event ID: 8002
+Event: Scan for Change Completed
+Description: Scan for change completed in 113 seconds. 3 changes cataloged"
+"May 12, 2025 12:09:51",Info,2206,Security Update: Pattern Update on Agents/Appliances Skipped,,Agent,KSDC01.keshet.dom,System,hbp00524s-798,"Security Update: Pattern Update on Agents/Appliances skipped
+
+Agent/Appliance Event(s):
+
+Time: May 12, 2025 12:09:47
+Level: Info
+Event ID: 9020
+Event: Security Update: Pattern Update on Agents/Appliances Skipped
+Description: Deep Security Agent did not perform a pattern update because Anti-malware is off. Pattern updates are necessary only when using the Anti-malware feature.
+
+Update skipped because the AM feature is off"
+"May 12, 2025 12:03:54",Info,273,Security Update: Security Update Check and Download Requested,,Manager,KSDC01.keshet.dom,System,job00125-3692,No Description
+"May 12, 2025 11:02:46",Info,710,Events Retrieved,,Agent,KSDC01.keshet.dom,System,hbp00525s-798,"Agent/Appliance Event(s):
+
+Time: May 12, 2025 11:02:42
+Level: Info
+Event ID: 2000
+Event: Policy Sent
+Description: Security Policy sent to computer."
+"May 12, 2025 11:02:46",Info,2206,Security Update: Pattern Update on Agents/Appliances Skipped,,Agent,KSDC01.keshet.dom,System,hbp00525s-798,"Security Update: Pattern Update on Agents/Appliances skipped
+
+Agent/Appliance Event(s):
+
+Time: May 12, 2025 11:02:41
+Level: Info
+Event ID: 9020
+Event: Security Update: Pattern Update on Agents/Appliances Skipped
+Description: Deep Security Agent did not perform a pattern update because Anti-malware is off. Pattern updates are necessary only when using the Anti-malware feature.
+
+Update skipped because the AM feature is off"
+"May 12, 2025 11:02:42",Info,720,Policy Sent,,Agent,KSDC01.keshet.dom,System,hbp00524s-798,The policy (fingerprint B3:37:C3:A4:02:70:CA:DF:55:CC:7A:F1:B0:B3:CC:B9:48:5D:D1:01) was successfully sent to the agent.
+"May 12, 2025 11:02:37",Info,256,Send Policy Requested,,Manager,KSDC01.keshet.dom,Alexander Tomchuk (urn:cloudone:identity:de-1:865801819801:v1-user/f6272eea-2e90-4210-8b78-5dd9b8fa3e45),gui24-3692,No Description
+"May 12, 2025 11:02:34",Info,268,Get Events Requested,,Manager,KSDC01.keshet.dom,Alexander Tomchuk (urn:cloudone:identity:de-1:865801819801:v1-user/f6272eea-2e90-4210-8b78-5dd9b8fa3e45),gui24-3692,No Description
+"May 12, 2025 10:55:48",Info,710,Events Retrieved,,Agent,KSDC01.keshet.dom,System,hbp00524s-798,"Agent/Appliance Event(s):
+
+Time: May 12, 2025 10:55:22
+Level: Info
+Event ID: 2000
+Event: Policy Sent
+Description: Security Policy sent to computer."
+"May 12, 2025 10:55:23",Info,720,Policy Sent,,Agent,KSDC01.keshet.dom,System,hbp00524s-798,The policy (fingerprint B3:37:C3:A4:02:70:CA:DF:55:CC:7A:F1:B0:B3:CC:B9:48:5D:D1:01) was successfully sent to the agent.
+"May 12, 2025 10:55:16",Info,252,Computer Updated,,Manager,KSDC01.keshet.dom,Alexander Tomchuk (urn:cloudone:identity:de-1:865801819801:v1-user/f6272eea-2e90-4210-8b78-5dd9b8fa3e45),gui24-3692,"When the update was performed, the following changes were made:
+
+Anti-Malware changed from ""Inherited"" to ""Off, installed"".
+
+The following setting(s) changed:
+
+""Anti-Malware State"" changed from ""Inherited"" to ""Off"".
+
+After updating, the target had the following properties:
+
+Name: KSDC01.keshet.dom
+Description: 
+Group: Computers > Keshet-System Servers
+Agent Version: 20.0.1.23340
+Appliance: N/A
+Policy: Keshet-System Servers
+Locked: No
+Anti-Malware: Off, installed
+Web Reputation: Inherited
+Device Control: Inherited
+Application Control: Inherited
+Integrity Monitoring: Inherited
+Log Inspection: Inherited
+Firewall: Inherited
+Intrusion Prevention: Inherited
+Scanner (SAP): Inherited
+Asset Value: None
+
+The following items are assigned directly to the computer, for the full configuration please also view the Policy (if assigned).
+
+Malware Scan Configurations:
+Real-Time Scan: Inherited
+Manual Scan: Inherited
+Scheduled Scan: Inherited
+
+Anti-Malware Inclusion Lists:
+Real-Time Scan: 
+Directory: Not Inherited
+Directory: Enforcement of Inheritance Disabled
+Directory List: None
+File Extension: Not Inherited
+File Extension: Enforcement of Inheritance Disabled
+File Extension List: None
+Manual Scan: 
+Directory: Not Inherited
+Directory: Enforcement of Inheritance Disabled
+Directory List: None
+File Extension: Not Inherited
+File Extension: Enforcement of Inheritance Disabled
+File Extension List: None
+Scheduled Scan: 
+Directory: Not Inherited
+Directory: Enforcement of Inheritance Disabled
+Directory List: None
+File Extension: Not Inherited
+File Extension: Enforcement of Inheritance Disabled
+File Extension List: None
+
+Anti-Malware Exclusion Lists:
+Real-Time Scan: 
+File: Not Inherited
+File: Enforcement of Inheritance Disabled
+File List: None
+Directory: Not Inherited
+Directory: Enforcement of Inheritance Disabled
+Directory List: None
+File Extension: Not Inherited
+File Extension: Enforcement of Inheritance Disabled
+File Extension List: None
+Process Image File: Not Inherited
+Process Image File: Enforcement of Inheritance Disabled
+Process Image File List: None
+Manual Scan: 
+File: Not Inherited
+File: Enforcement of Inheritance Disabled
+File List: None
+Directory: Not Inherited
+Directory: Enforcement of Inheritance Disabled
+Directory List: None
+File Extension: Not Inherited
+File Extension: Enforcement of Inheritance Disabled
+File Extension List: None
+Scheduled Scan: 
+File: Not Inherited
+File: Enforcement of Inheritance Disabled
+File List: None
+Directory: Not Inherited
+Directory: Enforcement of Inheritance Disabled
+Directory List: None
+File Extension: Not Inherited
+File Extension: Enforcement of Inheritance Disabled
+File Extension List: None
+
+Current Device Control Exception Rules: None
+
+Integrity Monitoring Rules:
+     1002767 - Microsoft Windows - Attributes of system32 directory modified (ATT&CK T1222)
+     1002773 - Microsoft Windows - 'Hosts' file modified
+     1002775 - Microsoft Windows - Network configuration files modified
+     1002777 - Microsoft Windows - System configuration file modified
+     1002778 - Microsoft Windows - System .dll or .exe files modified (ATT&CK T1036.003, T1222.001)
+     1002779 - Microsoft Windows - System File Modified
+     1002780 - Microsoft Windows - Installed software attributes modified (ATT&CK T1195.002, T1554)
+     1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)
+     1002786 - Microsoft Windows - Microsoft hotfixes registry keys modified (ATT&CK T1112)
+     1002787 - Microsoft Windows - Registry values of event log modified (ATT&CK T1070.001, T1562.002)
+     1002859 - Microsoft Windows - LSA Authentication Packages modified (ATT&CK T1547.002)
+     1002860 - Microsoft Windows - SAM registry keys modified (ATT&CK T1098, T1136)
+     1002869 - Microsoft Windows - DNS Server (ATT&CK T1554, T1584.002)
+     1003019 - Application - Trend Micro Deep Security Agent / Relay
+     1003517 - Microsoft Windows - System driver files modified
+     1005041 - Threat - Suspicious Microsoft Windows Files Detected
+     1005042 - Threat - Suspicious Microsoft Windows Registry Entries Detected
+     1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005)
+     1010353 - Microsoft Windows - LSA Notification Packages modified (ATT&CK T1556.002)
+     1011151 - Microsoft Windows - Active directory registry keys modified (ATT&CK  T1112)
+     1012288 - Vulnerability - Microsoft Windows Active Directory Elevation of Privilege (CVE-2025-21293) (ATT&CK T1112, T1546.003, T1574.011)
+
+Log Inspection Rules: None
+
+Global (All Interfaces)
+
+     Firewall Rules: None
+
+     Firewall Stateful Configuration: Off
+
+     Intrusion Prevention Rules:
+          Assigned Intrusion Prevention Rules without Assigned Application Type:
+               1000128 - HTTP Protocol Decoding
+               1004715 - HTTP Web Client Decoding
+               1007596 - Identified Possible Ransomware File Extension Rename Activity Over Network Share
+               1007913 - Identified Possible Ransomware File Extension Rename Activity Over Network Share - Client
+               1011058 - Identified DCERPC EFSRPC Methods Call Over SMB Protocol (PetitPotam)
+               1012182 - Microsoft Windows LNK File UI Misrepresentation Vulnerability Over HTTP (ZDI-25-148)
+               1012183 - Microsoft Windows LNK File UI Misrepresentation Vulnerability Over SMB (ZDI-25-148)
+               1012187 - Microsoft Windows SMB Denial of Service Vulnerability (CVE-2024-43642)
+               1012282 - Microsoft Windows Themes Spoofing Vulnerability (CVE-2025-21308)
+               1012336 - Microsoft Windows Kerberos Security Feature Bypass Vulnerability (CVE-2025-29809)
+               1012338 - Microsoft Windows Defender Credential Guard Security Feature Bypass Vulnerability (CVE-2025-29809)
+
+Interface: Ethernet0 - 00:50:56:A6:4A:DA
+
+     Firewall Rules: None
+
+     Firewall Stateful Configuration: Inherited
+
+     Intrusion Prevention Rules: None
+
+Interface: Ethernet0 - 00:50:56:A6:4A:DA (IP: 10.0.1.111)
+
+     Firewall Rules: None
+
+Components:
+     Deep Security Agent Index (Windows 64-bit)=>12.5
+     Platform Configuration Pattern (All Platforms)=>5.5.1000
+     System Driver Configuration (All Platforms)=>7.3.1006
+     Scan Exception Pattern (All Platforms)=>110400
+     Scan Exception OEM Pattern (All Platforms)=>110300
+     Scan Exception Local Pattern (All Platforms)=>110000
+     Advanced Threat Scan Engine (Windows 64-bit)=>24.550.1002
+     IntelliTrap Pattern (All Platforms)=>0.253.00
+     Memory Inspection Pattern (All Platforms)=>1.584.00
+     Spyware Active Monitoring Pattern (All Platforms)=>2.833.00
+     Damage Cleanup Template (All Platforms)=>1634
+     Damage Cleanup Engine Configuration (All Platforms)=>17.3
+     Real-time Scan Flow Pattern (All Platforms)=>200005
+     Behavior Monitoring Configuration Pattern (All Platforms)=>1.238.00
+     Policy Enforcement Pattern (All Platforms)=>1.265.00
+     Memory Scan Trigger Pattern (Windows 64-bit)=>1764
+     Damage Recovery Pattern (All Platforms)=>1.7.2
+     IntelliTrap Exception Pattern (All Platforms)=>2.337.00
+     Digital Signature Pattern (All Platforms)=>2.051.00
+     Threat Tracing Pattern (Windows 64-bit)=>149764
+     Advanced Threat Correlation Pattern (All Platforms)=>1.511.00
+     Adversary Tactics and Techniques Detection Pattern (Windows 64-bit)=>1564
+     Spyware/Grayware Pattern (All Platforms)=>28.33
+     Endpoint Sensor Trusted Pattern (All Platforms)=>281233
+     Threat Behavior Tracing Pattern (Windows 64-bit)=>430564
+     Behavior Monitoring Detection Pattern (Windows 64-bit)=>4.305.64
+     Smart Scan Agent Pattern (All Platforms)=>20.195.00
+
+The following (non-inherited) settings are in effect:
+
+""Anti-Malware State"" is ""Off""."

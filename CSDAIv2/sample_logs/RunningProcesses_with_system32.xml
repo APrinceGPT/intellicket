@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RunningProcesses>
+    <Process Name="c:\windows\system32\svchost.exe" ProcessId="1234" />
+    <Process Name="C:\WINDOWS\SYSTEM32\EXPLORER.EXE" ProcessId="5678" />
+    <Process Name="chrome.exe" ProcessId="9012" />
+    <Process Name="system32\lsass.exe" ProcessId="3456" />
+    <Process Name="outlook.exe" ProcessId="7890" />
+    <Process Name="C:\Windows\System32\dwm.exe" ProcessId="2345" />
+    <Process Name="java.exe" ProcessId="6789" />
+    <Process Name="winlogon.exe" ProcessId="1111" />
+    <Process Name="code.exe" ProcessId="2222" />
+    <Process Name="spoolsv.exe" ProcessId="3333" />
+    <Process Name="notepad.exe" ProcessId="4444" />
+    <Process Name="C:\Windows\System32\RuntimeBroker.exe" ProcessId="5555" />
+    <Process Name="firefox.exe" ProcessId="6666" />
+    <Process Name="services.exe" ProcessId="7777" />
+    <Process Name="excel.exe" ProcessId="8888" />
+    <Process Name="csrss.exe" ProcessId="9999" />
+</RunningProcesses>

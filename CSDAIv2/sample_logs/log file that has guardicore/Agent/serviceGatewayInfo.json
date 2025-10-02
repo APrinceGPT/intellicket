@@ -1,0 +1,1 @@
+{"services":{"gcs":{"allowFallback":true},"fps":{"urls":["http://10.0.1.245:8080"]},"lau":{"allowFallback":true,"urls":["https://10.0.1.245/iau_server.dll/"]}}}

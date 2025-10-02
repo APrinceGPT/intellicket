@@ -16,7 +16,6 @@ import {
   Wrench,
   Info,
   AlertCircle,
-  XCircle,
   X,
   ArrowLeft,
   Bug,
@@ -29,7 +28,40 @@ interface AMSPAnalysisResult {
   status: string
   summary: string
   details: string[]
-  recommendations: string[]
+  recommendations: Array<{
+    kb_id: string
+    title: string
+    category: string
+    priority: string
+    estimated_time: string
+    difficulty: string
+    prerequisites: string[]
+    steps: Array<{
+      step_number: number
+      instruction: string
+      command: string
+      expected_result: string
+    }>
+    verification: string[]
+    troubleshooting_tips: string[]
+    related_articles: string[]
+  }>
+  log_interpretation?: {
+    title: string
+    summary: string
+    entries: Array<{
+      line_number: number
+      timestamp: string
+      level: string
+      component: string
+      raw_message: string
+      ai_interpretation: string
+      severity_indicator: string
+      action_required: string
+    }>
+    patterns_detected: string[]
+    ai_insights: string
+  }
   errors?: Array<{
     line: number
     timestamp: string
@@ -729,80 +761,301 @@ export default function AMSPAnalyzerPage() {
               )}
             </div>
 
-            {/* Critical Issues Card */}
-            {analysisResult.critical_errors && analysisResult.critical_errors.length > 0 && (
-              <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:border-red-500/40 transition-all duration-300 mb-8">
+            {/* Log Interpretation Card - AI-Powered Line-by-Line Analysis */}
+            {analysisResult.log_interpretation && (
+              <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:border-purple-500/40 transition-all duration-300 mb-8">
                 <CardHeader className="pb-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-red-700 rounded-xl flex items-center justify-center">
-                      <XCircle className="h-6 w-6 text-white" />
+                    <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-xl flex items-center justify-center">
+                      <FileText className="h-6 w-6 text-white" />
                     </div>
                     <div>
-                      <CardTitle className="text-white text-xl">Critical Issues</CardTitle>
-                      <CardDescription className="text-gray-300">High-priority issues requiring immediate attention</CardDescription>
+                      <CardTitle className="text-white text-xl flex items-center gap-2">
+                        🔍 Log Interpretation
+                        <Badge className="bg-purple-500/20 text-purple-300 border-purple-500/30 text-xs">
+                          AI-Powered
+                        </Badge>
+                      </CardTitle>
+                      <CardDescription className="text-gray-300">
+                        {analysisResult.log_interpretation.summary}
+                      </CardDescription>
                     </div>
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-4 max-h-80 overflow-y-auto">
-                    {analysisResult.critical_errors.slice(0, 5).map((error, index) => (
-                      <div key={index} className="bg-white/5 backdrop-blur-sm border border-red-500/30 rounded-lg p-4">
-                        <div className="flex items-start gap-3">
-                          <AlertTriangle className="h-5 w-5 text-red-400 mt-0.5 flex-shrink-0" />
-                          <div className="flex-1">
-                            <div className="flex items-center gap-2 mb-2">
-                              <span className="text-red-300 font-medium text-sm">Line {error.line}</span>
-                              <span className="text-gray-400 text-xs">•</span>
-                              <span className="text-gray-400 text-xs">{error.timestamp}</span>
-                              <Badge variant="outline" className="text-red-300 border-red-500/30 text-xs">
-                                {error.operation}
-                              </Badge>
+                  {/* AI Insights Summary */}
+                  <div className="bg-gradient-to-r from-purple-500/10 to-indigo-500/10 rounded-lg p-4 mb-6 border border-purple-500/30">
+                    <div className="flex items-start gap-3">
+                      <Brain className="h-5 w-5 text-purple-400 mt-0.5 flex-shrink-0" />
+                      <div>
+                        <h4 className="text-purple-300 font-semibold mb-2">🤖 AI Analysis Overview</h4>
+                        <p className="text-gray-300 text-sm leading-relaxed">{analysisResult.log_interpretation.ai_insights}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Patterns Detected */}
+                  <div className="mb-6">
+                    <h4 className="text-white font-semibold mb-3 flex items-center gap-2">
+                      <Target className="h-4 w-4 text-blue-400" />
+                      Detected Patterns
+                    </h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      {analysisResult.log_interpretation.patterns_detected.map((pattern, index) => (
+                        <div key={index} className="bg-white/5 rounded-lg p-3 border border-blue-500/20">
+                          <span className="text-blue-300 text-sm">{pattern}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Line-by-Line Analysis */}
+                  <div className="space-y-4 max-h-96 overflow-y-auto">
+                    <h4 className="text-white font-semibold mb-4 flex items-center gap-2">
+                      <Activity className="h-4 w-4 text-green-400" />
+                      Line-by-Line AI Analysis
+                    </h4>
+                    {analysisResult.log_interpretation.entries.map((entry, index) => {
+                      // Ensure all entry properties are safe for rendering
+                      const safeEntry = {
+                        line_number: String(entry?.line_number || index + 1),
+                        timestamp: String(entry?.timestamp || ''),
+                        severity_indicator: String(entry?.severity_indicator || entry?.level || 'INFO'),
+                        component: String(entry?.component || 'AMSP'),
+                        raw_message: String(entry?.raw_message || ''),
+                        ai_interpretation: String(entry?.ai_interpretation || ''),
+                        action_required: entry?.action_required ? String(entry.action_required) : null
+                      };
+                      
+                      return (
+                      <div key={index} className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4 hover:border-purple-500/30 transition-colors">
+                        {/* Entry Header */}
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="flex items-center gap-3">
+                            <Badge variant="outline" className="text-xs font-mono">
+                              Line {safeEntry.line_number}
+                            </Badge>
+                            <span className="text-xs text-gray-400">{safeEntry.timestamp}</span>
+                            <Badge className={`text-xs ${
+                              safeEntry.severity_indicator === 'ERROR' ? 'bg-red-500/20 text-red-300 border-red-500/30' :
+                              safeEntry.severity_indicator === 'WARN' ? 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30' :
+                              'bg-blue-500/20 text-blue-300 border-blue-500/30'
+                            }`}>
+                              {safeEntry.severity_indicator}
+                            </Badge>
+                          </div>
+                          <Badge variant="outline" className="text-xs">
+                            {safeEntry.component}
+                          </Badge>
+                        </div>
+
+                        {/* Raw Log Message */}
+                        <div className="mb-3 p-3 bg-black/30 rounded-lg border border-gray-600/30">
+                          <p className="text-gray-300 text-sm font-mono leading-relaxed">{safeEntry.raw_message}</p>
+                        </div>
+
+                        {/* AI Interpretation */}
+                        <div className="mb-3 p-3 bg-gradient-to-r from-purple-500/10 to-blue-500/10 rounded-lg border border-purple-500/20">
+                          <div className="flex items-start gap-2">
+                            <Brain className="h-4 w-4 text-purple-400 mt-0.5 flex-shrink-0" />
+                            <div>
+                              <h5 className="text-purple-300 font-medium text-sm mb-1">AI Interpretation</h5>
+                              <p className="text-white text-sm leading-relaxed">{safeEntry.ai_interpretation}</p>
                             </div>
-                            <p className="text-white text-sm">{error.message}</p>
                           </div>
                         </div>
+
+                        {/* Action Required */}
+                        {safeEntry.action_required && (
+                          <div className="flex items-start gap-2 p-3 bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-lg border border-green-500/20">
+                            <Wrench className="h-4 w-4 text-green-400 mt-0.5 flex-shrink-0" />
+                            <div>
+                              <h5 className="text-green-300 font-medium text-sm mb-1">Recommended Action</h5>
+                              <p className="text-green-100 text-sm">{safeEntry.action_required}</p>
+                            </div>
+                          </div>
+                        )}
                       </div>
-                    ))}
-                    {analysisResult.critical_errors.length > 5 && (
-                      <div className="text-center py-2">
-                        <span className="text-gray-400 text-sm">+ {analysisResult.critical_errors.length - 5} more critical issues</span>
-                      </div>
-                    )}
+                      );
+                    })}
                   </div>
                 </CardContent>
               </Card>
             )}
 
-            {/* Recommendations Card */}
+            {/* KB-Style Troubleshooting Guides */}
             {analysisResult.recommendations && analysisResult.recommendations.length > 0 && (
-              <Card className="bg-white/10 backdrop-blur-sm border-white/20 hover:border-green-500/40 transition-all duration-300 mb-8">
-                <CardHeader className="pb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-700 rounded-xl flex items-center justify-center">
+              <div className="space-y-6 mb-8">
+                <div className="text-center mb-6">
+                  <div className="flex items-center justify-center gap-3 mb-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-green-600 rounded-xl flex items-center justify-center">
                       <Wrench className="h-6 w-6 text-white" />
                     </div>
                     <div>
-                      <CardTitle className="text-white text-xl">Troubleshooting Recommendations</CardTitle>
-                      <CardDescription className="text-gray-300">Expert guidance for resolving AMSP issues</CardDescription>
+                      <h3 className="text-2xl font-bold text-white">📚 Knowledge Base Articles</h3>
+                      <p className="text-gray-300">Step-by-step troubleshooting guides powered by AI</p>
                     </div>
                   </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4 max-h-80 overflow-y-auto">
-                    {analysisResult.recommendations.map((recommendation, index) => (
-                      <div key={index} className="flex items-start gap-3 bg-white/5 backdrop-blur-sm border border-green-500/30 rounded-lg p-4">
-                        <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0 mt-0.5">
-                          {index + 1}
+                </div>
+
+                {analysisResult.recommendations.map((kbArticle, index) => {
+                  // Safety check: ensure kbArticle is a proper object with expected structure
+                  if (!kbArticle || typeof kbArticle !== 'object') {
+                    console.error('Invalid kbArticle:', kbArticle);
+                    return null;
+                  }
+                  
+                  // Ensure all required fields are strings/arrays, not objects
+                  const safeKbArticle = {
+                    kb_id: String(kbArticle.kb_id || `AMSP-KB-${index + 1}`),
+                    title: String(kbArticle.title || 'AMSP Issue Resolution'),
+                    category: String(kbArticle.category || 'General'),
+                    priority: String(kbArticle.priority || 'Medium'),
+                    difficulty: String(kbArticle.difficulty || 'Intermediate'),
+                    estimated_time: String(kbArticle.estimated_time || '15-30 minutes'),
+                    prerequisites: Array.isArray(kbArticle.prerequisites) ? kbArticle.prerequisites.map(String) : [],
+                    steps: Array.isArray(kbArticle.steps) ? kbArticle.steps : [],
+                    verification: Array.isArray(kbArticle.verification) ? kbArticle.verification.map(String) : [],
+                    troubleshooting_tips: Array.isArray(kbArticle.troubleshooting_tips) ? kbArticle.troubleshooting_tips.map(String) : []
+                  };
+                  
+                  return (
+                  <Card key={index} className="bg-white/10 backdrop-blur-sm border-white/20 hover:border-emerald-500/40 transition-all duration-300">
+                    {/* KB Article Header */}
+                    <CardHeader className="pb-4">
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-3 mb-2">
+                            <Badge className="bg-emerald-500/20 text-emerald-300 border-emerald-500/30 font-mono text-xs">
+                              {safeKbArticle.kb_id}
+                            </Badge>
+                            <Badge className={`text-xs ${
+                              safeKbArticle.priority === 'Critical' || safeKbArticle.priority === 'High' 
+                                ? 'bg-red-500/20 text-red-300 border-red-500/30'
+                                : safeKbArticle.priority === 'Medium'
+                                ? 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30'
+                                : 'bg-green-500/20 text-green-300 border-green-500/30'
+                            }`}>
+                              {safeKbArticle.priority} Priority
+                            </Badge>
+                            <Badge variant="outline" className="text-xs">
+                              {safeKbArticle.difficulty}
+                            </Badge>
+                          </div>
+                          <CardTitle className="text-white text-lg mb-2">{safeKbArticle.title}</CardTitle>
+                          <div className="flex items-center gap-4 text-sm text-gray-400">
+                            <span className="flex items-center gap-1">
+                              <Target className="h-3 w-3" />
+                              {safeKbArticle.category}
+                            </span>
+                            <span className="flex items-center gap-1">
+                              ⏱️ {safeKbArticle.estimated_time}
+                            </span>
+                          </div>
                         </div>
-                        <div 
-                          className="text-green-100 text-sm leading-relaxed flex-1"
-                          dangerouslySetInnerHTML={{ __html: recommendation }}
-                        />
                       </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+                    </CardHeader>
+
+                    <CardContent>
+                      {/* Prerequisites */}
+                      {safeKbArticle.prerequisites && safeKbArticle.prerequisites.length > 0 && (
+                        <div className="mb-6 p-4 bg-blue-500/10 rounded-lg border border-blue-500/20">
+                          <h4 className="text-blue-300 font-semibold mb-2 flex items-center gap-2">
+                            <Info className="h-4 w-4" />
+                            Prerequisites
+                          </h4>
+                          <ul className="space-y-1 text-blue-100 text-sm">
+                            {safeKbArticle.prerequisites.map((prereq, prereqIndex) => (
+                              <li key={prereqIndex} className="flex items-start gap-2">
+                                <span className="text-blue-400 mt-1">•</span>
+                                {prereq}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      {/* Step-by-Step Instructions */}
+                      <div className="mb-6">
+                        <h4 className="text-white font-semibold mb-4 flex items-center gap-2">
+                          <Wrench className="h-4 w-4 text-emerald-400" />
+                          Step-by-Step Instructions
+                        </h4>
+                        <div className="space-y-4">
+                          {safeKbArticle.steps.map((step, stepIndex) => (
+                            <div key={stepIndex} className="bg-white/5 rounded-lg p-4 border border-white/10">
+                              <div className="flex items-start gap-4">
+                                <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
+                                  {step.step_number}
+                                </div>
+                                <div className="flex-1">
+                                  <p className="text-white text-sm mb-3 leading-relaxed">{step.instruction}</p>
+                                  
+                                  {step.command && (
+                                    <div className="mb-3 p-3 bg-black/40 rounded-lg border border-gray-600/30">
+                                      <div className="flex items-center gap-2 mb-2">
+                                        <span className="text-xs text-gray-400 font-mono">Command:</span>
+                                      </div>
+                                      <code className="text-emerald-300 text-sm font-mono">{step.command}</code>
+                                    </div>
+                                  )}
+
+                                  {step.expected_result && (
+                                    <div className="p-3 bg-emerald-500/10 rounded-lg border border-emerald-500/20">
+                                      <div className="flex items-center gap-2 mb-1">
+                                        <CheckCircle className="h-3 w-3 text-emerald-400" />
+                                        <span className="text-emerald-300 text-xs font-medium">Expected Result:</span>
+                                      </div>
+                                      <p className="text-emerald-100 text-xs">{step.expected_result}</p>
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Verification Steps */}
+                      {safeKbArticle.verification && safeKbArticle.verification.length > 0 && (
+                        <div className="mb-6 p-4 bg-green-500/10 rounded-lg border border-green-500/20">
+                          <h4 className="text-green-300 font-semibold mb-3 flex items-center gap-2">
+                            <CheckCircle className="h-4 w-4" />
+                            Verification Steps
+                          </h4>
+                          <ul className="space-y-2 text-green-100 text-sm">
+                            {safeKbArticle.verification.map((verification, verifyIndex) => (
+                              <li key={verifyIndex} className="flex items-start gap-2">
+                                <CheckCircle className="h-3 w-3 text-green-400 mt-1 flex-shrink-0" />
+                                {verification}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      {/* Troubleshooting Tips */}
+                      {safeKbArticle.troubleshooting_tips && safeKbArticle.troubleshooting_tips.length > 0 && (
+                        <div className="p-4 bg-yellow-500/10 rounded-lg border border-yellow-500/20">
+                          <h4 className="text-yellow-300 font-semibold mb-3 flex items-center gap-2">
+                            <AlertTriangle className="h-4 w-4" />
+                            Troubleshooting Tips
+                          </h4>
+                          <ul className="space-y-2 text-yellow-100 text-sm">
+                            {safeKbArticle.troubleshooting_tips.map((tip, tipIndex) => (
+                              <li key={tipIndex} className="flex items-start gap-2">
+                                <span className="text-yellow-400 mt-1">💡</span>
+                                {String(tip)}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                  );
+                })}
+              </div>
             )}
 
             {/* New Analysis Button */}

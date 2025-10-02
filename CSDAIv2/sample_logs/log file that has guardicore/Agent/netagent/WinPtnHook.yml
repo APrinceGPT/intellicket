@@ -1,0 +1,12 @@
+OSName: Windows Server 2022 Standard
+OSVer: 6.3:10:0:20348:2966:2009
+PtnVer: 1.0.241-795f9a
+HookList:
+    - ProcPath: C:\Windows\System32\
+      ProcName: lsass.exe
+      ProcVer: 10.0.20348.2849
+      DllPath: C:\Windows\system32\
+      DllName: ncrypt.dll
+      DllVer: 10.0.20348.2849
+      DllSha256: 183348500ca8ad473bbb964a8513a5435c18157d054280d8db2d951f2bf4022e
+MissingList: []

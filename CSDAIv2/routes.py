@@ -93,7 +93,8 @@ from wizard_templates import (
 
 # Import analyzer classes
 
-from analyzers import DSAgentLogAnalyzer, AMSPAnalyzer, ConflictAnalyzer, ResourceAnalyzer, DSAgentOfflineAnalyzer, DiagnosticPackageAnalyzer
+from analyzers import DSAgentLogAnalyzer, ConflictAnalyzer, ResourceAnalyzer, DSAgentOfflineAnalyzer, DiagnosticPackageAnalyzer
+# Note: AMSPAnalyzer deliberately excluded - use modern API routes only
 
 
 
@@ -930,14 +931,15 @@ def start_analysis(analysis_session_id):
                 
 
         elif analysis_type == "amsp_logs":
-
-            analyzer = AMSPAnalyzer(session_manager=session_manager, session_id=analysis_session_id)
-
-            analysis_results = analyzer.analyze_log_file(temp_paths[0])
-
-            result = format_amsp_results(analysis_results)
-
-            raw_result = f"AMSP Anti-Malware Log Analysis Results:\n\n{analysis_results.get('summary', 'No summary available')}"
+            # MODERN API: AMSP analysis now uses dedicated API endpoints only
+            result = """
+            <div class="alert alert-info">
+                <h4><i class="fas fa-info-circle"></i> AMSP Analysis Available via API</h4>
+                <p>AMSP analysis has been modernized and is now available through the dedicated API endpoints.</p>
+                <p>Please use the modern Intellicket frontend interface for AMSP log analysis.</p>
+            </div>
+            """
+            raw_result = "AMSP Analysis - Please use modern API endpoints"
 
             
 
@@ -1210,14 +1212,15 @@ def run_analysis_background(analysis_session_id):
                 
 
         elif analysis_type == "amsp_logs":
-
-            analyzer = AMSPAnalyzer(session_manager=session_manager, session_id=analysis_session_id)
-
-            analysis_results = analyzer.analyze_log_file(temp_paths[0])
-
-            result = format_amsp_results(analysis_results)
-
-            raw_result = f"AMSP Anti-Malware Log Analysis Results:\n\n{analysis_results.get('summary', 'No summary available')}"
+            # MODERN API: AMSP analysis now uses dedicated API endpoints only
+            result = """
+            <div class="alert alert-info">
+                <h4><i class="fas fa-info-circle"></i> AMSP Analysis Available via API</h4>
+                <p>AMSP analysis has been modernized and is now available through the dedicated API endpoints.</p>
+                <p>Please use the modern Intellicket frontend interface for AMSP log analysis.</p>
+            </div>
+            """
+            raw_result = "AMSP Analysis - Please use modern API endpoints"
 
             
 
@@ -2373,109 +2376,7 @@ def generate_ai_summary_for_ds_logs(analysis: Dict[str, Any]) -> str:
     
     return ai_summary
 
-def format_amsp_results(analysis: Dict[str, Any]) -> str:
 
-    """Format AMSP analysis results as HTML"""
-
-    summary = analysis['summary']
-
-    
-
-    if summary['critical_count'] > 0:
-
-        status_color = "#dc3545"
-
-        status_text = "CRITICAL AMSP ISSUES DETECTED"
-
-        status_icon = '<i class="fas fa-exclamation-circle text-danger"></i>'
-
-    elif summary['error_count'] > 5:
-
-        status_color = "#fd7e14"
-
-        status_text = "MULTIPLE AMSP ERRORS DETECTED"
-
-        status_icon = '<i class="fa-solid fa-exclamation-triangle"></i>'
-
-    elif analysis['installation_summary']['failures'] > 0:
-
-        status_color = "#ffc107"
-
-        status_text = "INSTALLATION ISSUES DETECTED"
-
-        status_icon = '<i class="fa-solid fa-exclamation-triangle"></i>'
-
-    else:
-
-        status_color = "#198754"
-
-        status_text = "AMSP HEALTHY"
-
-        status_icon = '<i class="fa-solid fa-check-circle text-success"></i>'
-
-    
-
-    html = f"""
-    <div class="mb-4">
-
-        <h4 style="color: {status_color};">{status_icon} AMSP Anti-Malware Analysis - Status: {status_text}</h4>
-
-    </div>
-
-    
-
-    <div class="row mb-4">
-
-        <div class="col-md-6">
-            <div class="card">
-            <div class="card-header"><i class="fas fa-chart-bar"></i> Summary Statistics</div>
-
-                <div class="card-body">
-
-                    <p><strong>Total Lines:</strong> {summary['total_lines']:,}</p>
-
-                    <p><strong>Parsed Lines:</strong> {summary['parsed_lines']:,}</p>
-
-                    <p><strong>Critical Issues:</strong> <span style="color: #dc3545;">{summary['critical_count']}</span></p>
-
-                    <p><strong>Errors:</strong> <span style="color: #fd7e14;">{summary['error_count']}</span></p>
-
-                    <p><strong>Warnings:</strong> <span style="color: #ffc107;">{summary['warning_count']}</span></p>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="col-md-6">
-
-            <div class="card">
-            <div class="card-header"><i class="fas fa-lightbulb"></i> Installation Summary</div>
-
-                <div class="card-body">
-
-                    <p><strong>Driver Installations:</strong> {analysis['installation_summary']['driver_installations']}</p>
-
-                    <p><strong>Service Startups:</strong> {analysis['installation_summary']['service_startups']}</p>
-
-                    <p><strong>Pattern Updates:</strong> {analysis['installation_summary']['pattern_updates']}</p>
-
-                    <p><strong>Configuration Changes:</strong> {analysis['installation_summary']['configuration_changes']}</p>
-
-                    <p><strong>Failures:</strong> <span style="color: #dc3545;">{analysis['installation_summary']['failures']}</span></p>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    """
-
-    return html
 
 
 

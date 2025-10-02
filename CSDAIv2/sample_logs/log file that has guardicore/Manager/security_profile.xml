@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SecurityProfileInformation date="May 13, 2025 10:14" version="50.0.3692" note="265">
+	<SecurityProfile id="265">
+		<TBUID></TBUID>
+		<Name>Keshet-System Servers</Name>
+		<Description></Description>
+		<ScheduleID isNull="true"/>
+		<MultipleInterfaceTypes>false</MultipleInterfaceTypes>
+		<CountersReset isNull="true"/>
+		<DetectionEngineState>-1</DetectionEngineState>
+		<OnAssignCustomAction></OnAssignCustomAction>
+		<OnUnassignCustomAction></OnUnassignCustomAction>
+		<AutoRequiresUpdate>-1</AutoRequiresUpdate>
+		<ParentSecurityProfileID isNull="true"/>
+		<CreatingV1RoleID isNull="true"/>
+		<v1PolicyGuid isNull="true"/>
+		<v1PolicyName isNull="true"/>
+		<AntiMalwareSecurityProfile id="265">
+			<SecurityProfileID>265</SecurityProfileID>
+			<AntiMalwareState>0</AntiMalwareState>
+			<RealtimeScanDirListInherited>false</RealtimeScanDirListInherited>
+			<RealtimeScanFileExtListInherited>false</RealtimeScanFileExtListInherited>
+			<RealtimeExcludedScanDirListInherited>false</RealtimeExcludedScanDirListInherited>
+			<RealtimeExcludedScanFileExtListInherited>false</RealtimeExcludedScanFileExtListInherited>
+			<RealtimeExcludedScanFileListInherited>false</RealtimeExcludedScanFileListInherited>
+			<RealtimeExcludedScanProcessImageFileListInherited>false</RealtimeExcludedScanProcessImageFileListInherited>
+			<ManualScanDirListInherited>false</ManualScanDirListInherited>
+			<ManualScanFileExtListInherited>false</ManualScanFileExtListInherited>
+			<ManualExcludedScanDirListInherited>false</ManualExcludedScanDirListInherited>
+			<ManualExcludedScanFileExtListInherited>false</ManualExcludedScanFileExtListInherited>
+			<ManualExcludedScanFileListInherited>false</ManualExcludedScanFileListInherited>
+			<ScheduledScanDirListInherited>false</ScheduledScanDirListInherited>
+			<ScheduledScanFileExtListInherited>false</ScheduledScanFileExtListInherited>
+			<ScheduledExcludedScanDirListInherited>false</ScheduledExcludedScanDirListInherited>
+			<ScheduledExcludedScanFileExtListInherited>false</ScheduledExcludedScanFileExtListInherited>
+			<ScheduledExcludedScanFileListInherited>false</ScheduledExcludedScanFileListInherited>
+			<RealtimeScanDirListEnforceInheritance>false</RealtimeScanDirListEnforceInheritance>
+			<RealtimeScanFileExtListEnforceInheritance>false</RealtimeScanFileExtListEnforceInheritance>
+			<RealtimeExcludedScanDirListEnforceInheritance>true</RealtimeExcludedScanDirListEnforceInheritance>
+			<RealtimeExcludedScanFileExtListEnforceInheritance>true</RealtimeExcludedScanFileExtListEnforceInheritance>
+			<RealtimeExcludedScanFileListEnforceInheritance>true</RealtimeExcludedScanFileListEnforceInheritance>
+			<RealtimeExcludedScanProcessImageFileListEnforceInheritance isNull="true"/>
+			<ManualScanDirListEnforceInheritance>false</ManualScanDirListEnforceInheritance>
+			<ManualScanFileExtListEnforceInheritance>false</ManualScanFileExtListEnforceInheritance>
+			<ManualExcludedScanDirListEnforceInheritance>false</ManualExcludedScanDirListEnforceInheritance>
+			<ManualExcludedScanFileExtListEnforceInheritance>false</ManualExcludedScanFileExtListEnforceInheritance>
+			<ManualExcludedScanFileListEnforceInheritance>false</ManualExcludedScanFileListEnforceInheritance>
+			<ScheduledScanDirListEnforceInheritance>false</ScheduledScanDirListEnforceInheritance>
+			<ScheduledScanFileExtListEnforceInheritance>false</ScheduledScanFileExtListEnforceInheritance>
+			<ScheduledExcludedScanDirListEnforceInheritance>false</ScheduledExcludedScanDirListEnforceInheritance>
+			<ScheduledExcludedScanFileExtListEnforceInheritance>false</ScheduledExcludedScanFileExtListEnforceInheritance>
+			<ScheduledExcludedScanFileListEnforceInheritance>false</ScheduledExcludedScanFileListEnforceInheritance>
+			<RealTimeAutoApplyState>-1</RealTimeAutoApplyState>
+		</AntiMalwareSecurityProfile>
+		<AppControlSecurityProfile id="265">
+			<SecurityProfileID>265</SecurityProfileID>
+			<AppControlState>-1</AppControlState>
+			<RulesetID isNull="true"/>
+			<Lockdown isNull="true"/>
+			<WhitelistMode isNull="true"/>
+			<TrustRulesetID isNull="true"/>
+		</AppControlSecurityProfile>
+		<IntegritySecurityProfile id="265">
+			<SecurityProfileID>265</SecurityProfileID>
+			<SystemIntegrityState>0</SystemIntegrityState>
+		</IntegritySecurityProfile>
+		<LogInspectionSecurityProfile id="265">
+			<SecurityProfileID>265</SecurityProfileID>
+			<LogInspectionState>-1</LogInspectionState>
+		</LogInspectionSecurityProfile>
+		<NetworkSecurityProfile id="265">
+			<SecurityProfileID>265</SecurityProfileID>
+			<StatefulFilterID isNull="true"/>
+			<NetworkControlState>0</NetworkControlState>
+			<VulnerabilityShieldState>0</VulnerabilityShieldState>
+		</NetworkSecurityProfile>
+		<SAPSecurityProfile id="265">
+			<SecurityProfileID>265</SecurityProfileID>
+			<SAPState>-1</SAPState>
+		</SAPSecurityProfile>
+	</SecurityProfile>
+	<SecurityProfileAntiMalware isBridge="true" id="298">
+		<TBUID></TBUID>
+		<SecurityProfileID>265</SecurityProfileID>
+		<RealTime1_AntiMalwareID>1</RealTime1_AntiMalwareID>
+		<RealTime2_AntiMalwareID isNull="true"/>
+		<RealTime3_AntiMalwareID isNull="true"/>
+		<RealTime4_AntiMalwareID isNull="true"/>
+		<RealTime5_AntiMalwareID isNull="true"/>
+		<Manual_AntiMalwareID>4</Manual_AntiMalwareID>
+		<Scheduled_AntiMalwareID>3</Scheduled_AntiMalwareID>
+		<RealTime1_ScheduleID>4</RealTime1_ScheduleID>
+		<RealTime2_ScheduleID isNull="true"/>
+		<RealTime3_ScheduleID isNull="true"/>
+		<RealTime4_ScheduleID isNull="true"/>
+		<RealTime5_ScheduleID isNull="true"/>
+		<RealTimeEnableOveride>true</RealTimeEnableOveride>
+		<ManualEnableOveride>true</ManualEnableOveride>
+		<ScheduledEnableOveride>true</ScheduledEnableOveride>
+	</SecurityProfileAntiMalware>
+	<SecurityProfileScanFileList isBridge="true" id="133">
+		<SecurityProfileID>265</SecurityProfileID>
+		<ScanFileListID>1</ScanFileListID>
+		<ScanType>0</ScanType>
+		<ScanScope>1</ScanScope>
+		<CreatedTime>1742297308221</CreatedTime>
+	</SecurityProfileScanFileList>
+	<SecurityProfileScanFileList isBridge="true" id="134">
+		<SecurityProfileID>265</SecurityProfileID>
+		<ScanFileListID>2</ScanFileListID>
+		<ScanType>0</ScanType>
+		<ScanScope>1</ScanScope>
+		<CreatedTime>1742297308227</CreatedTime>
+	</SecurityProfileScanFileList>
+	<ScanFileList id="1">
+		<TBUID>DFE037D4-7B72-4809-BC3C-FD60F3099952</TBUID>
+		<Name>File Exclusions (Windows)</Name>
+		<Description></Description>
+		<Items>${windir}\Prefetch*.pf&lt;:&gt;${Systemdrive}\inetpub\logs*.log&lt;:&gt;${windir}\System32\winevt\logs*.evtx&lt;:&gt;${windir}\SoftwareDistribution\DataStore\DataStore.edb&lt;:&gt;c:\Program Files\GFI\LanGuard 12\languard.exe&lt;:&gt;c:\Program Files\GFI\LanGuard 12 Agent\Httpd\bin\httpd.exe&lt;:&gt;c:\Program Files\GFI\LanGuard 12 Agent\lnsscomm.exe&lt;:&gt;c:\windows\backbox.exe&lt;:&gt;c:\Program Files\GFI\LanGuard 12 Agent\lnssatt.exe&lt;:&gt;c:\Program Files\GFI\LanGuard 12 Agent\lnsscorollary.exe&lt;:&gt;c:\Program Files\GFI\LanGuard 12 Agent\update.exe&lt;:&gt;sqlserver.exe&lt;:&gt;C:\Program Files (x86)\Trend Micro\OfficeScan\PCCSRV\Web\Service\dbserver.exe</Items>
+		<Version></Version>
+		<UserEdited>true</UserEdited>
+		<CreatingV1RoleID isNull="true"/>
+		<AnchoredPolicyID isNull="true"/>
+		<v1CommonObjectGuid isNull="true"/>
+		<v1CommonObjectName isNull="true"/>
+	</ScanFileList>
+	<ScanFileList id="2">
+		<TBUID>744ED36D-37EB-9956-D745-BE1C9FD7BCCB</TBUID>
+		<Name>Process Image Files (Windows)</Name>
+		<Description></Description>
+		<Items>C:\Program Files\Citrix\User Profile Manager\UserProfileManager.exe&lt;:&gt;C:\Program Files\Citrix\Server Resource Management\Memory Optimization Management\Program\CtxSFOSvc.exe&lt;:&gt;C:\Program Files\Windows Defender Advanced Threat Protection\MsSense.exe&lt;:&gt;C:\Program Files\Windows Defender Advanced Threat Protection\SenseCncProxy.exe&lt;:&gt;C:\Program Files\Windows Defender Advanced Threat Protection\SenseSampleUploader.exe&lt;:&gt;C:\Program Files\Windows Defender Advanced Threat Protection\SenseIR.exe&lt;:&gt;C:\Program Files\Windows Defender Advanced Threat Protection\SenseCM.exe&lt;:&gt;C:\Program Files\Windows Defender\MsMpEng.exe&lt;:&gt;C:\Program Files\Windows Defender\MpCmdRun.exe&lt;:&gt;C:\Program Files\Windows Defender\NisSrv.exe</Items>
+		<Version></Version>
+		<UserEdited>false</UserEdited>
+		<CreatingV1RoleID isNull="true"/>
+		<AnchoredPolicyID isNull="true"/>
+		<v1CommonObjectGuid isNull="true"/>
+		<v1CommonObjectName isNull="true"/>
+	</ScanFileList>
+	<SecurityProfileScanDirectoryList isBridge="true" id="133">
+		<SecurityProfileID>265</SecurityProfileID>
+		<ScanDirectoryListID>1</ScanDirectoryListID>
+		<ScanType>0</ScanType>
+		<ScanScope>1</ScanScope>
+		<CreatedTime>1742297308211</CreatedTime>
+	</SecurityProfileScanDirectoryList>
+	<SecurityProfileScanDirectoryList isBridge="true" id="134">
+		<SecurityProfileID>265</SecurityProfileID>
+		<ScanDirectoryListID>34</ScanDirectoryListID>
+		<ScanType>0</ScanType>
+		<ScanScope>1</ScanScope>
+		<CreatedTime>1742297308218</CreatedTime>
+	</SecurityProfileScanDirectoryList>
+	<ScanDirectoryList id="1">
+		<TBUID>DFCB0726-ED39-4ECC-B987-01E0B1DF9A89</TBUID>
+		<Name>Directory Exclusions (Windows)</Name>
+		<Description></Description>
+		<Items>${ProgramFiles}\Microsoft Monitoring Agent\Agent\Health Service State\&lt;:&gt;${Windir}\Logs\&lt;:&gt;${Systemdrive}\WindowsAzure\Logs\&lt;:&gt;${Systemdrive}\Packages\Plugins\Microsoft.EnterpriseCloud.Monitoring.MicrosoftMonitoringAgent\&lt;:&gt;</Items>
+		<Version></Version>
+		<UserEdited>false</UserEdited>
+		<CreatingV1RoleID isNull="true"/>
+		<AnchoredPolicyID isNull="true"/>
+		<v1CommonObjectGuid isNull="true"/>
+		<v1CommonObjectName isNull="true"/>
+	</ScanDirectoryList>
+	<ScanDirectoryList id="34">
+		<TBUID></TBUID>
+		<Name>Base Directory</Name>
+		<Description></Description>
+		<Items>x:\Exchange-Logs\*\ #exchange logs&lt;:&gt;w:\Exchange-Logs\*\ #exchange logs&lt;:&gt;*:\ExchangeDB\*\ #exchange db&lt;:&gt;c:\Program Files\GFI\*\&lt;:&gt;c:\Documents and settings\all users\application data\GFI\*\&lt;:&gt;c:\ProgramData\GFI\*\&lt;:&gt;c:\Program Files (x86)\GFI\*\&lt;:&gt;C:\Program Files (x86)\Microsoft SQL Server\*\&lt;:&gt;C:\Program Files (x86)\Trend Micro\OfficeScan\*\&lt;:&gt;C:\Users\evadmin\AppData\Local\Temp\*\&lt;:&gt;G:\indexing\*\&lt;:&gt;D:\Enterprise Vault Stores\*\&lt;:&gt;E:\msmq\*\&lt;:&gt;M:\EVaultCache\*\&lt;:&gt;G:\Enterprise vault stores\*\&lt;:&gt;M:\Enterprise vault stores\*\&lt;:&gt;C:\Program Files\Commvault\Simpana\SoftwareCache\&lt;:&gt;C:\Program Files\Commvault\CS_DR\&lt;:&gt;C:\Program Files\Commvault\Simpana\iDataAgent\JobResults\&lt;:&gt;C:\Program Files\HDS\*\&lt;:&gt;F:\GDDB_ME2\*\&lt;:&gt;F:\GDDB_ME1\*\&lt;:&gt;C:\Program Files (x86)\Trend Micro\OfficeScan\PCCSRV\HTTPDB\*\&lt;:&gt;C:\Program Files\Microsoft SQL Server\*\&lt;:&gt;C:\Program Files\AccessLayers\*\&lt;:&gt;C:\PROGRAM FILES\VISION SOLUTIONS\DOUBLE-TAKE\*\&lt;:&gt;J:\DT Queue\*\&lt;:&gt;c:\program files\carbonite\replication\&lt;:&gt;</Items>
+		<Version></Version>
+		<UserEdited>true</UserEdited>
+		<CreatingV1RoleID isNull="true"/>
+		<AnchoredPolicyID isNull="true"/>
+		<v1CommonObjectGuid isNull="true"/>
+		<v1CommonObjectName isNull="true"/>
+	</ScanDirectoryList>
+</SecurityProfileInformation>

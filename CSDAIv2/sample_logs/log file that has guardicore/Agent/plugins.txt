@@ -1,0 +1,105 @@
+Windows;10;0;20348;;x86_64;272;2;7 20.0.1.23340
+tmufe:{
+  version = "20.0.1-23340",
+  deps = {
+  }
+}
+im:{
+  version = "20.0.1-23340",
+  type = "feature",
+  deps = {
+    dssp = {
+      type = "plugin",
+      optional = true
+    }
+  }
+}
+fw:{
+  version = "20.0.1-23340",
+  type = "feature",
+  deps = {
+    fwdpi = {
+      type = "plugin"
+    },
+    filter = {
+      type = "plugin"
+    }
+  }
+}
+update:{
+  version = "20.0.1-23340"
+}
+dssp:{
+  version = "20.0.1-23340",
+  type = "plugin",
+  deps = {
+    tmufe = {
+      type = "Plugin"
+    },
+    update = {
+      type = "Plugin"
+    }
+  }
+}
+sensor:{
+  version = "20.0.1-23340",
+  type = "feature",
+  deps = {
+    response = {
+      type = "plugin",
+      optional = true
+    },
+    dssp = {
+      type = "plugin",
+      optional = true
+    }
+  }
+}
+am:{
+  version = "20.0.1-23340",
+  type = "feature",
+  deps = {
+    dssp = {
+      type = "plugin",
+      optional = true
+    }
+  }
+}
+fwdpi:{
+  version = "20.0.1-23340",
+  deps = {
+    filter = {
+      type = "plugin"
+    }
+  }
+}
+filter:{
+  version = "20.0.1-23340",
+  deps = {
+    ProcInfo = {
+      type = "Plugin"
+    }
+  }
+}
+dpi:{
+  version = "20.0.1-23340",
+  type = "feature",
+  deps = {
+    filter = {
+      type = "plugin"
+    },
+    fwdpi = {
+      type = "plugin"
+    },
+    NETAGENT = {
+      type = "plugin"
+    }
+  }
+}
+netagent:{
+  version = "20.0.1-23340"
+}
+core:{
+  type = "agent",
+  version = "20.0.1-23340"
+}

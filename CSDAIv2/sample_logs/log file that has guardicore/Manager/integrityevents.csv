@@ -1,0 +1,979 @@
+Time,Computer,Reason,Tag(s),Change,Rank,Severity,Type,Key,User,Process,Description,Event Origin
+"May 12, 2025 11:09:38",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""stopped"" to ""running""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: running",Agent
+"May 12, 2025 11:06:01",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""7AD18F74F0ED0BCB87D5C8F83385374BD5919DD96CB4AFBB5660E516B3434309"" to ""FA2D5683C42DFBCCC956DCD99387A0848D857F2399C3C2617F7F26A14CDE1EEE""
+
+After the change the File had the following attributes:
+
+   SHA-256: FA2D5683C42DFBCCC956DCD99387A0848D857F2399C3C2617F7F26A14CDE1EEE",Agent
+"May 12, 2025 11:20:22",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""7AD18F74F0ED0BCB87D5C8F83385374BD5919DD96CB4AFBB5660E516B3434309"" to ""38C405BD47567D5F4FD1B444EDD3E35183968D1D7B2D287E0D97F2AA27750565""
+
+After the change the File had the following attributes:
+
+   SHA-256: 38C405BD47567D5F4FD1B444EDD3E35183968D1D7B2D287E0D97F2AA27750565",Agent
+"May 12, 2025 11:17:22",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""running"" to ""stopped""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: stopped",Agent
+"May 12, 2025 11:13:54",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""FA2D5683C42DFBCCC956DCD99387A0848D857F2399C3C2617F7F26A14CDE1EEE"" to ""7AD18F74F0ED0BCB87D5C8F83385374BD5919DD96CB4AFBB5660E516B3434309""
+
+After the change the File had the following attributes:
+
+   SHA-256: 7AD18F74F0ED0BCB87D5C8F83385374BD5919DD96CB4AFBB5660E516B3434309",Agent
+"May 12, 2025 12:01:06",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""38C405BD47567D5F4FD1B444EDD3E35183968D1D7B2D287E0D97F2AA27750565"" to ""5BAF2FC1DCDE84B0D385CD4855CF86EC3431C0735EC44885C3A4FDFF20285C46""
+
+After the change the File had the following attributes:
+
+   SHA-256: 5BAF2FC1DCDE84B0D385CD4855CF86EC3431C0735EC44885C3A4FDFF20285C46",Agent
+"May 12, 2025 12:26:17",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""running"" to ""stopped""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: stopped",Agent
+"May 12, 2025 12:20:36",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""stopped"" to ""running""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: running",Agent
+"May 12, 2025 12:37:13",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""5BAF2FC1DCDE84B0D385CD4855CF86EC3431C0735EC44885C3A4FDFF20285C46"" to ""6DCF29E6DE76DCF79938FA4AB087FB3A8C8A48B2A0472E6FEAD4E14EA5414E58""
+
+After the change the File had the following attributes:
+
+   SHA-256: 6DCF29E6DE76DCF79938FA4AB087FB3A8C8A48B2A0472E6FEAD4E14EA5414E58",Agent
+"May 12, 2025 12:36:45",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\flighting\onesettings\refreshcache,NT AUTHORITY\SYSTEM,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""D7E730E74C6E99BB112C717246681E03EE954A2B9716746FC23A37DB085AD9C8"" to ""14A0B9CDDFF5D522568E64DD3D207E7147BE1A91FA7688023C8F117C0CBD9441""
+
+After the change the File had the following attributes:
+
+   SHA-256: 14A0B9CDDFF5D522568E64DD3D207E7147BE1A91FA7688023C8F117C0CBD9441",Agent
+"May 12, 2025 12:56:12",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""6DCF29E6DE76DCF79938FA4AB087FB3A8C8A48B2A0472E6FEAD4E14EA5414E58"" to ""11E145F02D3830468A2096D088885AF9FC239692FF32F637EE3CE1F785C6B6D7""
+
+After the change the File had the following attributes:
+
+   SHA-256: 11E145F02D3830468A2096D088885AF9FC239692FF32F637EE3CE1F785C6B6D7",Agent
+"May 12, 2025 13:24:48",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""stopped"" to ""running""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: running",Agent
+"May 12, 2025 13:34:09",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""running"" to ""stopped""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: stopped",Agent
+"May 12, 2025 13:51:16",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""11E145F02D3830468A2096D088885AF9FC239692FF32F637EE3CE1F785C6B6D7"" to ""A1DC5AE499D2EB309164730A693A4D7923DADA23B8CF4E24D9AC42520AF93686""
+
+After the change the File had the following attributes:
+
+   SHA-256: A1DC5AE499D2EB309164730A693A4D7923DADA23B8CF4E24D9AC42520AF93686",Agent
+"May 12, 2025 14:26:34",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""A1DC5AE499D2EB309164730A693A4D7923DADA23B8CF4E24D9AC42520AF93686"" to ""8CE291513775DB3C6C1288C7DC63960BCF0E63CF8B630233C951CA72E3934F51""
+
+After the change the File had the following attributes:
+
+   SHA-256: 8CE291513775DB3C6C1288C7DC63960BCF0E63CF8B630233C951CA72E3934F51",Agent
+"May 12, 2025 14:26:05",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\flighting\onesettings\refreshcache,NT AUTHORITY\SYSTEM,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""14A0B9CDDFF5D522568E64DD3D207E7147BE1A91FA7688023C8F117C0CBD9441"" to ""756FF100AF2B2408C8E02465F2BDCE171710E48C868C440A0F84A86DC092473F""
+
+After the change the File had the following attributes:
+
+   SHA-256: 756FF100AF2B2408C8E02465F2BDCE171710E48C868C440A0F84A86DC092473F",Agent
+"May 12, 2025 14:32:59",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""stopped"" to ""running""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: running",Agent
+"May 12, 2025 14:38:23",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""running"" to ""stopped""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: stopped",Agent
+"May 12, 2025 14:46:21",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""8CE291513775DB3C6C1288C7DC63960BCF0E63CF8B630233C951CA72E3934F51"" to ""8DB8BDAE1C7C55114D8B244A5ABC2AF301B351A23DC1BBC47B741830B50D78D1""
+
+After the change the File had the following attributes:
+
+   SHA-256: 8DB8BDAE1C7C55114D8B244A5ABC2AF301B351A23DC1BBC47B741830B50D78D1",Agent
+"May 12, 2025 15:39:06",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""stopped"" to ""running""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: running",Agent
+"May 12, 2025 15:41:26",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""8DB8BDAE1C7C55114D8B244A5ABC2AF301B351A23DC1BBC47B741830B50D78D1"" to ""942D1A6338392F304019023F75CC3228996C6D5EA0B1B01FEF9A6F652A576EF5""
+
+After the change the File had the following attributes:
+
+   SHA-256: 942D1A6338392F304019023F75CC3228996C6D5EA0B1B01FEF9A6F652A576EF5",Agent
+"May 12, 2025 15:41:38",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""running"" to ""stopped""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: stopped",Agent
+"May 12, 2025 16:13:56",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""942D1A6338392F304019023F75CC3228996C6D5EA0B1B01FEF9A6F652A576EF5"" to ""22E3C2B15278ED71520E787708A1A7AE417E10450EF9710E1C0B64D4EBE69A6E""
+
+After the change the File had the following attributes:
+
+   SHA-256: 22E3C2B15278ED71520E787708A1A7AE417E10450EF9710E1C0B64D4EBE69A6E",Agent
+"May 12, 2025 16:17:49",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\flighting\onesettings\refreshcache,NT AUTHORITY\SYSTEM,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""756FF100AF2B2408C8E02465F2BDCE171710E48C868C440A0F84A86DC092473F"" to ""9EF04F0D3F6A3311CE19050990FC76041EE11C61C06AE506664C7C472F5FFFE5""
+
+After the change the File had the following attributes:
+
+   SHA-256: 9EF04F0D3F6A3311CE19050990FC76041EE11C61C06AE506664C7C472F5FFFE5",Agent
+"May 12, 2025 16:18:19",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""22E3C2B15278ED71520E787708A1A7AE417E10450EF9710E1C0B64D4EBE69A6E"" to ""0B72F36C30C3C66A13D0BA7CCC717CF01BC88C950B9F69037BB66CBE4A82F66A""
+
+After the change the File had the following attributes:
+
+   SHA-256: 0B72F36C30C3C66A13D0BA7CCC717CF01BC88C950B9F69037BB66CBE4A82F66A",Agent
+"May 12, 2025 16:36:31",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""0B72F36C30C3C66A13D0BA7CCC717CF01BC88C950B9F69037BB66CBE4A82F66A"" to ""3DC3C263B0C01093B97AA521DBCE5F301EE74AE37C1F63D773CA966F2B648598""
+
+After the change the File had the following attributes:
+
+   SHA-256: 3DC3C263B0C01093B97AA521DBCE5F301EE74AE37C1F63D773CA966F2B648598",Agent
+"May 12, 2025 16:49:35",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""running"" to ""stopped""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: stopped",Agent
+"May 12, 2025 16:47:26",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""stopped"" to ""running""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: running",Agent
+"May 12, 2025 16:50:29",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""stopped"" to ""running""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: running",Agent
+"May 12, 2025 16:52:38",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""running"" to ""stopped""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: stopped",Agent
+"May 12, 2025 17:31:35",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""3DC3C263B0C01093B97AA521DBCE5F301EE74AE37C1F63D773CA966F2B648598"" to ""849ADAD96E6E68A25F222D4FEC973AF2E22858ED5E410871005F007EFF44CC86""
+
+After the change the File had the following attributes:
+
+   SHA-256: 849ADAD96E6E68A25F222D4FEC973AF2E22858ED5E410871005F007EFF44CC86",Agent
+"May 12, 2025 17:47:04",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\flighting\onesettings\refreshcache,NT AUTHORITY\SYSTEM,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""9EF04F0D3F6A3311CE19050990FC76041EE11C61C06AE506664C7C472F5FFFE5"" to ""9BE04855B2919C90A651231FC807DCB54547C3187F2370DC4BB90CAD0028E9C7""
+
+After the change the File had the following attributes:
+
+   SHA-256: 9BE04855B2919C90A651231FC807DCB54547C3187F2370DC4BB90CAD0028E9C7",Agent
+"May 12, 2025 17:47:34",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""849ADAD96E6E68A25F222D4FEC973AF2E22858ED5E410871005F007EFF44CC86"" to ""8CE291513775DB3C6C1288C7DC63960BCF0E63CF8B630233C951CA72E3934F51""
+
+After the change the File had the following attributes:
+
+   SHA-256: 8CE291513775DB3C6C1288C7DC63960BCF0E63CF8B630233C951CA72E3934F51",Agent
+"May 12, 2025 17:54:44",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""stopped"" to ""running""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: running",Agent
+"May 12, 2025 17:56:02",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""running"" to ""stopped""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: stopped",Agent
+"May 12, 2025 18:26:40",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""8CE291513775DB3C6C1288C7DC63960BCF0E63CF8B630233C951CA72E3934F51"" to ""20E606083A5E7E2EE81B6603E49CE247215B14B5339094931EAD3338729A4648""
+
+After the change the File had the following attributes:
+
+   SHA-256: 20E606083A5E7E2EE81B6603E49CE247215B14B5339094931EAD3338729A4648",Agent
+"May 12, 2025 19:07:43",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""running"" to ""stopped""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: stopped",Agent
+"May 12, 2025 19:02:41",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""stopped"" to ""running""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: running",Agent
+"May 12, 2025 19:15:30",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""running"" to ""stopped""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: stopped",Agent
+"May 12, 2025 19:13:07",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""stopped"" to ""running""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: running",Agent
+"May 12, 2025 19:21:46",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""20E606083A5E7E2EE81B6603E49CE247215B14B5339094931EAD3338729A4648"" to ""34276072E3F10EA89FF2758D56774932428C733120C983374593E69AA85C20E1""
+
+After the change the File had the following attributes:
+
+   SHA-256: 34276072E3F10EA89FF2758D56774932428C733120C983374593E69AA85C20E1",Agent
+"May 12, 2025 19:44:52",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\flighting\onesettings\refreshcache,NT AUTHORITY\SYSTEM,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""9BE04855B2919C90A651231FC807DCB54547C3187F2370DC4BB90CAD0028E9C7"" to ""6F84913E92B59CDB333E6910F6767ECEE4263A62689B276A83B75EDC1C8CA4CC""
+
+After the change the File had the following attributes:
+
+   SHA-256: 6F84913E92B59CDB333E6910F6767ECEE4263A62689B276A83B75EDC1C8CA4CC",Agent
+"May 12, 2025 19:45:22",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""34276072E3F10EA89FF2758D56774932428C733120C983374593E69AA85C20E1"" to ""38C405BD47567D5F4FD1B444EDD3E35183968D1D7B2D287E0D97F2AA27750565""
+
+After the change the File had the following attributes:
+
+   SHA-256: 38C405BD47567D5F4FD1B444EDD3E35183968D1D7B2D287E0D97F2AA27750565",Agent
+"May 12, 2025 20:16:51",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""38C405BD47567D5F4FD1B444EDD3E35183968D1D7B2D287E0D97F2AA27750565"" to ""5A5D370ECF6CE890C62C320B72E8CE0D0926A7F8C24A8055C50C155B2BFF85EC""
+
+After the change the File had the following attributes:
+
+   SHA-256: 5A5D370ECF6CE890C62C320B72E8CE0D0926A7F8C24A8055C50C155B2BFF85EC",Agent
+"May 12, 2025 20:37:59",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""5A5D370ECF6CE890C62C320B72E8CE0D0926A7F8C24A8055C50C155B2BFF85EC"" to ""1DB8DEE73EA57794BF5FCDD01700D1C4DF6CF76B8408BEA6CD1161B7A2504CC1""
+
+After the change the File had the following attributes:
+
+   SHA-256: 1DB8DEE73EA57794BF5FCDD01700D1C4DF6CF76B8408BEA6CD1161B7A2504CC1",Agent
+"May 12, 2025 21:11:56",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""1DB8DEE73EA57794BF5FCDD01700D1C4DF6CF76B8408BEA6CD1161B7A2504CC1"" to ""22E3C2B15278ED71520E787708A1A7AE417E10450EF9710E1C0B64D4EBE69A6E""
+
+After the change the File had the following attributes:
+
+   SHA-256: 22E3C2B15278ED71520E787708A1A7AE417E10450EF9710E1C0B64D4EBE69A6E",Agent
+"May 12, 2025 21:17:13",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""stopped"" to ""running""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: running",Agent
+"May 12, 2025 21:13:58",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""22E3C2B15278ED71520E787708A1A7AE417E10450EF9710E1C0B64D4EBE69A6E"" to ""A0C6862C4109AED7FD4067939AEA01221F138F58BAA029C87F0164D7CBBF96EB""
+
+After the change the File had the following attributes:
+
+   SHA-256: A0C6862C4109AED7FD4067939AEA01221F138F58BAA029C87F0164D7CBBF96EB",Agent
+"May 12, 2025 21:22:52",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""running"" to ""stopped""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: stopped",Agent
+"May 12, 2025 21:39:05",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\flighting\onesettings\refreshcache,NT AUTHORITY\SYSTEM,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""6F84913E92B59CDB333E6910F6767ECEE4263A62689B276A83B75EDC1C8CA4CC"" to ""4DEAB7738E0BD883CBC7CFA1B59408C0A2D714FBC4EFCA2C6E1458963588169F""
+
+After the change the File had the following attributes:
+
+   SHA-256: 4DEAB7738E0BD883CBC7CFA1B59408C0A2D714FBC4EFCA2C6E1458963588169F",Agent
+"May 12, 2025 21:39:35",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""A0C6862C4109AED7FD4067939AEA01221F138F58BAA029C87F0164D7CBBF96EB"" to ""849ADAD96E6E68A25F222D4FEC973AF2E22858ED5E410871005F007EFF44CC86""
+
+After the change the File had the following attributes:
+
+   SHA-256: 849ADAD96E6E68A25F222D4FEC973AF2E22858ED5E410871005F007EFF44CC86",Agent
+"May 12, 2025 22:07:02",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""849ADAD96E6E68A25F222D4FEC973AF2E22858ED5E410871005F007EFF44CC86"" to ""D790D87B7BABD225D80181127F4BC8156637F65FA7584768F617A69EA29DCE6E""
+
+After the change the File had the following attributes:
+
+   SHA-256: D790D87B7BABD225D80181127F4BC8156637F65FA7584768F617A69EA29DCE6E",Agent
+"May 12, 2025 22:09:53",KSDC01.keshet.dom,1002767 - Microsoft Windows - Attributes of system32 directory modified (ATT&CK T1222),,Updated,50,High,Directory,c:\windows\System32,N/A,N/A,"When scanned the following changes were detected:
+
+   Last Modified changed from ""May 11, 2025 16:43:23"" to ""May 12, 2025 18:13:30""
+
+After the change the Directory had the following attributes:
+
+   Created: May 8, 2021 08:06:51
+   Group: NT SERVICE\TrustedInstaller
+   Last Modified: May 12, 2025 18:13:30
+   Owner: NT SERVICE\TrustedInstaller
+   Permissions: D:PARAI(A;;FA;;;S-1-5-80-956008885-3418522649-1831038044-1853292631-2271478464)(A;CIIO;GA;;;S-1-5-80-956008885-3418522649-1831038044-1853292631-2271478464)(A;;0x1301bf;;;SY)(A;OICIIO;GA;;;SY)(A;;0x1301bf;;;BA)(A;OICIIO;GA;;;BA)(A;;0x1200a9;;;BU)(A;OICIIO;GXGR;;;BU)(A;OICIIO;GA;;;CO)(A;;0x1200a9;;;AC)(A;OICIIO;GXGR;;;AC)(A;;0x1200a9;;;S-1-15-2-2)(A;OICIIO;GXGR;;;S-1-15-2-2)",Agent
+"May 12, 2025 22:10:40",KSDC01.keshet.dom,1003019 - Application - Trend Micro Deep Security Agent / Relay,,Updated,25,Medium,Registry Value,HKEY_LOCAL_MACHINE\SOFTWARE\TrendMicro\Deep Security Agent\FeatureMgr\LastFlags,N/A,N/A,"When scanned the following changes were detected:
+
+   SHA-1 changed from ""4595206BDD97474D5982ABCE2D3FD26A83090129"" to ""B491BFC0F860B50F80C0386996B4F999E59AC5C4""
+
+After the change the Registry Value had the following attributes:
+
+   SHA-1: B491BFC0F860B50F80C0386996B4F999E59AC5C4
+   Size: 4
+   Type: REG_DWORD",Agent
+"May 12, 2025 22:10:25",KSDC01.keshet.dom,1003019 - Application - Trend Micro Deep Security Agent / Relay,,Updated,25,Medium,Registry Key,HKEY_LOCAL_MACHINE\SOFTWARE\TrendMicro\Deep Security Agent\FeatureMgr,N/A,N/A,"When scanned the following changes were detected:
+
+   Last Modified changed from ""March 18, 2025 11:44:06"" to ""May 12, 2025 07:55:42""
+
+After the change the Registry Key had the following attributes:
+
+   Group: NT AUTHORITY\SYSTEM
+   Last Modified: May 12, 2025 07:55:42
+   Owner: BUILTIN\Administrators
+   Permissions: D:(A;OICI;KR;;;WD)(A;OICI;KA;;;BA)(A;OICI;KA;;;SY)",Agent
+"May 13, 2025 07:30:39",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""running"" to ""stopped""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: stopped",Agent
+"May 12, 2025 22:27:57",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""stopped"" to ""running""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: running",Agent
+"May 12, 2025 22:25:18",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""running"" to ""stopped""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: stopped",Agent
+"May 12, 2025 22:22:52",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""stopped"" to ""running""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: running",Agent
+"May 12, 2025 22:33:35",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""running"" to ""stopped""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: stopped",Agent
+"May 12, 2025 23:02:07",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""D790D87B7BABD225D80181127F4BC8156637F65FA7584768F617A69EA29DCE6E"" to ""07BAE920C186E7918A854C0EEF16B1D2DD8996DAC787292E8B38A9759D532612""
+
+After the change the File had the following attributes:
+
+   SHA-256: 07BAE920C186E7918A854C0EEF16B1D2DD8996DAC787292E8B38A9759D532612",Agent
+"May 12, 2025 23:30:44",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""07BAE920C186E7918A854C0EEF16B1D2DD8996DAC787292E8B38A9759D532612"" to ""1C317A3341D745611D32128CF053A6DFB9707FC2D12B0285F32E1745A261E03F""
+
+After the change the File had the following attributes:
+
+   SHA-256: 1C317A3341D745611D32128CF053A6DFB9707FC2D12B0285F32E1745A261E03F",Agent
+"May 12, 2025 23:30:15",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\flighting\onesettings\refreshcache,NT AUTHORITY\SYSTEM,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""4DEAB7738E0BD883CBC7CFA1B59408C0A2D714FBC4EFCA2C6E1458963588169F"" to ""62B0436F6EC74BB7FE8CC92D8CB050909E2937F688C2DCDEE211FEF7474E88DE""
+
+After the change the File had the following attributes:
+
+   SHA-256: 62B0436F6EC74BB7FE8CC92D8CB050909E2937F688C2DCDEE211FEF7474E88DE",Agent
+"May 12, 2025 23:33:58",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""stopped"" to ""running""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: running",Agent
+"May 12, 2025 23:40:17",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""running"" to ""stopped""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: stopped",Agent
+"May 12, 2025 23:57:13",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""1C317A3341D745611D32128CF053A6DFB9707FC2D12B0285F32E1745A261E03F"" to ""6DCF29E6DE76DCF79938FA4AB087FB3A8C8A48B2A0472E6FEAD4E14EA5414E58""
+
+After the change the File had the following attributes:
+
+   SHA-256: 6DCF29E6DE76DCF79938FA4AB087FB3A8C8A48B2A0472E6FEAD4E14EA5414E58",Agent
+"May 13, 2025 00:18:48",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\flighting\onesettings\refreshcache,NT AUTHORITY\SYSTEM,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""62B0436F6EC74BB7FE8CC92D8CB050909E2937F688C2DCDEE211FEF7474E88DE"" to ""9B8036CFD6249CCCF5B51551301C1433510E6570A346CF3350FB9A4DD0D8E2B0""
+
+After the change the File had the following attributes:
+
+   SHA-256: 9B8036CFD6249CCCF5B51551301C1433510E6570A346CF3350FB9A4DD0D8E2B0",Agent
+"May 13, 2025 00:19:18",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""6DCF29E6DE76DCF79938FA4AB087FB3A8C8A48B2A0472E6FEAD4E14EA5414E58"" to ""DFD76676897BC5A668E94C4904604812EA40B8E69FAA416C2A80D0B1176AB842""
+
+After the change the File had the following attributes:
+
+   SHA-256: DFD76676897BC5A668E94C4904604812EA40B8E69FAA416C2A80D0B1176AB842",Agent
+"May 13, 2025 00:43:34",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""running"" to ""stopped""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: stopped",Agent
+"May 13, 2025 00:38:12",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""stopped"" to ""running""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: running",Agent
+"May 13, 2025 00:52:19",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""DFD76676897BC5A668E94C4904604812EA40B8E69FAA416C2A80D0B1176AB842"" to ""0B72F36C30C3C66A13D0BA7CCC717CF01BC88C950B9F69037BB66CBE4A82F66A""
+
+After the change the File had the following attributes:
+
+   SHA-256: 0B72F36C30C3C66A13D0BA7CCC717CF01BC88C950B9F69037BB66CBE4A82F66A",Agent
+"May 13, 2025 01:18:42",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\flighting\onesettings\refreshcache,NT AUTHORITY\SYSTEM,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""9B8036CFD6249CCCF5B51551301C1433510E6570A346CF3350FB9A4DD0D8E2B0"" to ""DC8A0F38E4B13EDDF0938225112C8311DA16FC326C84C845F8845FF29817B51B""
+
+After the change the File had the following attributes:
+
+   SHA-256: DC8A0F38E4B13EDDF0938225112C8311DA16FC326C84C845F8845FF29817B51B",Agent
+"May 13, 2025 01:19:11",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""0B72F36C30C3C66A13D0BA7CCC717CF01BC88C950B9F69037BB66CBE4A82F66A"" to ""BB6F3457FB3182E1CF334F5E0BE36680B16FB424688CA4C0C7BA389DEC518280""
+
+After the change the File had the following attributes:
+
+   SHA-256: BB6F3457FB3182E1CF334F5E0BE36680B16FB424688CA4C0C7BA389DEC518280",Agent
+"May 13, 2025 01:41:55",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\flighting\onesettings\refreshcache,NT AUTHORITY\SYSTEM,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""DC8A0F38E4B13EDDF0938225112C8311DA16FC326C84C845F8845FF29817B51B"" to ""ED0BE859FCE2C6EAF7DEEC60F4DFC574F6F60818DCB7ECBBA220E5747ECF08C4""
+
+After the change the File had the following attributes:
+
+   SHA-256: ED0BE859FCE2C6EAF7DEEC60F4DFC574F6F60818DCB7ECBBA220E5747ECF08C4",Agent
+"May 13, 2025 01:42:22",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""BB6F3457FB3182E1CF334F5E0BE36680B16FB424688CA4C0C7BA389DEC518280"" to ""38C405BD47567D5F4FD1B444EDD3E35183968D1D7B2D287E0D97F2AA27750565""
+
+After the change the File had the following attributes:
+
+   SHA-256: 38C405BD47567D5F4FD1B444EDD3E35183968D1D7B2D287E0D97F2AA27750565",Agent
+"May 13, 2025 01:47:25",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""38C405BD47567D5F4FD1B444EDD3E35183968D1D7B2D287E0D97F2AA27750565"" to ""25B57F5EB4CDDE27A009835D92B1D699E9D9978F0C21D7612E74A75B9926A5DF""
+
+After the change the File had the following attributes:
+
+   SHA-256: 25B57F5EB4CDDE27A009835D92B1D699E9D9978F0C21D7612E74A75B9926A5DF",Agent
+"May 13, 2025 02:14:00",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""25B57F5EB4CDDE27A009835D92B1D699E9D9978F0C21D7612E74A75B9926A5DF"" to ""FEAEFC3D24AC0092F211B963F679D07FCAA930DC8F4A0D574C6792AC2CD645FD""
+
+After the change the File had the following attributes:
+
+   SHA-256: FEAEFC3D24AC0092F211B963F679D07FCAA930DC8F4A0D574C6792AC2CD645FD",Agent
+"May 13, 2025 02:42:30",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""FEAEFC3D24AC0092F211B963F679D07FCAA930DC8F4A0D574C6792AC2CD645FD"" to ""C9803C112B2A48C5F2578A8CFCA31D22619920A7510D2B61C8D4652B391B223D""
+
+After the change the File had the following attributes:
+
+   SHA-256: C9803C112B2A48C5F2578A8CFCA31D22619920A7510D2B61C8D4652B391B223D",Agent
+"May 13, 2025 02:55:30",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""stopped"" to ""running""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: running",Agent
+"May 13, 2025 02:57:54",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""running"" to ""stopped""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: stopped",Agent
+"May 13, 2025 03:15:34",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""running"" to ""stopped""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: stopped",Agent
+"May 13, 2025 03:12:55",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""stopped"" to ""running""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: running",Agent
+"May 13, 2025 03:37:35",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""C9803C112B2A48C5F2578A8CFCA31D22619920A7510D2B61C8D4652B391B223D"" to ""849ADAD96E6E68A25F222D4FEC973AF2E22858ED5E410871005F007EFF44CC86""
+
+After the change the File had the following attributes:
+
+   SHA-256: 849ADAD96E6E68A25F222D4FEC973AF2E22858ED5E410871005F007EFF44CC86",Agent
+"May 13, 2025 04:01:04",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""849ADAD96E6E68A25F222D4FEC973AF2E22858ED5E410871005F007EFF44CC86"" to ""5EA9136D1297A71D1B79BB4F72022E6F5875F562FD5B331448CE315260379065""
+
+After the change the File had the following attributes:
+
+   SHA-256: 5EA9136D1297A71D1B79BB4F72022E6F5875F562FD5B331448CE315260379065",Agent
+"May 13, 2025 04:02:16",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""running"" to ""stopped""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: stopped",Agent
+"May 13, 2025 03:59:36",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""stopped"" to ""running""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: running",Agent
+"May 13, 2025 04:15:55",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\flighting\onesettings\refreshcache,NT AUTHORITY\SYSTEM,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""ED0BE859FCE2C6EAF7DEEC60F4DFC574F6F60818DCB7ECBBA220E5747ECF08C4"" to ""AA5C8A846261ACA05990A627F625319FB554F66AB9B1C0C855D05E328EFB916C""
+
+After the change the File had the following attributes:
+
+   SHA-256: AA5C8A846261ACA05990A627F625319FB554F66AB9B1C0C855D05E328EFB916C",Agent
+"May 13, 2025 04:16:23",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""5EA9136D1297A71D1B79BB4F72022E6F5875F562FD5B331448CE315260379065"" to ""6D29A957731B271CAD8645FA107BD10143C4CB998DD603B706A65FF7F5EC7BB6""
+
+After the change the File had the following attributes:
+
+   SHA-256: 6D29A957731B271CAD8645FA107BD10143C4CB998DD603B706A65FF7F5EC7BB6",Agent
+"May 13, 2025 04:32:41",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""6D29A957731B271CAD8645FA107BD10143C4CB998DD603B706A65FF7F5EC7BB6"" to ""5695C1C007CA2443F6F442AA526A828BD7D51D8DB55C95FF5BADEEF4B4C96FE5""
+
+After the change the File had the following attributes:
+
+   SHA-256: 5695C1C007CA2443F6F442AA526A828BD7D51D8DB55C95FF5BADEEF4B4C96FE5",Agent
+"May 13, 2025 05:08:38",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""stopped"" to ""running""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: running",Agent
+"May 13, 2025 05:10:23",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""stopped"" to ""running""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: running",Agent
+"May 13, 2025 05:09:45",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""running"" to ""stopped""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: stopped",Agent
+"May 13, 2025 05:13:26",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""running"" to ""stopped""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: stopped",Agent
+"May 13, 2025 05:25:11",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""5695C1C007CA2443F6F442AA526A828BD7D51D8DB55C95FF5BADEEF4B4C96FE5"" to ""BB6F3457FB3182E1CF334F5E0BE36680B16FB424688CA4C0C7BA389DEC518280""
+
+After the change the File had the following attributes:
+
+   SHA-256: BB6F3457FB3182E1CF334F5E0BE36680B16FB424688CA4C0C7BA389DEC518280",Agent
+"May 13, 2025 05:27:47",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""BB6F3457FB3182E1CF334F5E0BE36680B16FB424688CA4C0C7BA389DEC518280"" to ""4DD5070527C0C47E1A55B1DDD4DDE78E4C968B92D58F8818B507AC5BEFC09064""
+
+After the change the File had the following attributes:
+
+   SHA-256: 4DD5070527C0C47E1A55B1DDD4DDE78E4C968B92D58F8818B507AC5BEFC09064",Agent
+"May 13, 2025 06:09:58",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\flighting\onesettings\refreshcache,NT AUTHORITY\SYSTEM,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""AA5C8A846261ACA05990A627F625319FB554F66AB9B1C0C855D05E328EFB916C"" to ""D27CF046B882D48610A7D4CFEB972C52A060832E54C7D034310BF06EF88E02E4""
+
+After the change the File had the following attributes:
+
+   SHA-256: D27CF046B882D48610A7D4CFEB972C52A060832E54C7D034310BF06EF88E02E4",Agent
+"May 13, 2025 06:15:40",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""stopped"" to ""running""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: running",Agent
+"May 13, 2025 06:10:27",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""4DD5070527C0C47E1A55B1DDD4DDE78E4C968B92D58F8818B507AC5BEFC09064"" to ""579B33F6848AD621FDCEC17C9C6D7B3C4C4333040C1635BB2C25B88D11FD9B50""
+
+After the change the File had the following attributes:
+
+   SHA-256: 579B33F6848AD621FDCEC17C9C6D7B3C4C4333040C1635BB2C25B88D11FD9B50",Agent
+"May 13, 2025 06:22:53",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""579B33F6848AD621FDCEC17C9C6D7B3C4C4333040C1635BB2C25B88D11FD9B50"" to ""1A5156BB808EDBA8C5D0492C8ABA6A1606282330EDCBBC5E7E7269895F9EF4FB""
+
+After the change the File had the following attributes:
+
+   SHA-256: 1A5156BB808EDBA8C5D0492C8ABA6A1606282330EDCBBC5E7E7269895F9EF4FB",Agent
+"May 13, 2025 06:20:17",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""running"" to ""stopped""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: stopped",Agent
+"May 13, 2025 07:08:16",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""1A5156BB808EDBA8C5D0492C8ABA6A1606282330EDCBBC5E7E7269895F9EF4FB"" to ""A1DC5AE499D2EB309164730A693A4D7923DADA23B8CF4E24D9AC42520AF93686""
+
+After the change the File had the following attributes:
+
+   SHA-256: A1DC5AE499D2EB309164730A693A4D7923DADA23B8CF4E24D9AC42520AF93686",Agent
+"May 13, 2025 07:07:47",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\flighting\onesettings\refreshcache,NT AUTHORITY\SYSTEM,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""D27CF046B882D48610A7D4CFEB972C52A060832E54C7D034310BF06EF88E02E4"" to ""A203FD6DF424D9B414660B95D7B123F670CB0C4936727D71A845EC804931C55A""
+
+After the change the File had the following attributes:
+
+   SHA-256: A203FD6DF424D9B414660B95D7B123F670CB0C4936727D71A845EC804931C55A",Agent
+"May 13, 2025 07:17:58",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""D790D87B7BABD225D80181127F4BC8156637F65FA7584768F617A69EA29DCE6E"" to ""A0C6862C4109AED7FD4067939AEA01221F138F58BAA029C87F0164D7CBBF96EB""
+
+After the change the File had the following attributes:
+
+   SHA-256: A0C6862C4109AED7FD4067939AEA01221F138F58BAA029C87F0164D7CBBF96EB",Agent
+"May 13, 2025 07:14:02",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""A1DC5AE499D2EB309164730A693A4D7923DADA23B8CF4E24D9AC42520AF93686"" to ""D790D87B7BABD225D80181127F4BC8156637F65FA7584768F617A69EA29DCE6E""
+
+After the change the File had the following attributes:
+
+   SHA-256: D790D87B7BABD225D80181127F4BC8156637F65FA7584768F617A69EA29DCE6E",Agent
+"May 13, 2025 07:12:46",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""stopped"" to ""running""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: running",Agent
+"May 13, 2025 07:18:10",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""running"" to ""stopped""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: stopped",Agent
+"May 13, 2025 07:23:51",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""stopped"" to ""running""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: running",Agent
+"May 13, 2025 07:50:26",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,RemoteRegistry,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""stopped"" to ""running""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k localService -p
+   Start Type: automatic
+   State: running",Agent
+"May 13, 2025 07:56:29",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,RemoteRegistry,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""running"" to ""stopped""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k localService -p
+   Start Type: automatic
+   State: stopped",Agent
+"May 13, 2025 08:04:08",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\windowsupdate\scheduled start,NT AUTHORITY\SYSTEM,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""272D6FCFA7495AF672DE430D437FB967C4404132D7CC97AAE4C99D997F8C1D3D"" to ""3CA8A691077B4F4EBCFB53CAF3F1C8E1B5A2A79D03F9E3E8A616A1C624AF814A""
+
+After the change the File had the following attributes:
+
+   SHA-256: 3CA8A691077B4F4EBCFB53CAF3F1C8E1B5A2A79D03F9E3E8A616A1C624AF814A",Agent
+"May 13, 2025 08:12:06",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\flighting\onesettings\refreshcache,NT AUTHORITY\SYSTEM,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""A203FD6DF424D9B414660B95D7B123F670CB0C4936727D71A845EC804931C55A"" to ""58F696CC9EBAA2998116D48EC0D48854AE070E81CAC38816ABA97323EF47C65F""
+
+After the change the File had the following attributes:
+
+   SHA-256: 58F696CC9EBAA2998116D48EC0D48854AE070E81CAC38816ABA97323EF47C65F",Agent
+"May 13, 2025 08:13:02",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""A0C6862C4109AED7FD4067939AEA01221F138F58BAA029C87F0164D7CBBF96EB"" to ""D790D87B7BABD225D80181127F4BC8156637F65FA7584768F617A69EA29DCE6E""
+
+After the change the File had the following attributes:
+
+   SHA-256: D790D87B7BABD225D80181127F4BC8156637F65FA7584768F617A69EA29DCE6E",Agent
+"May 13, 2025 08:33:32",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""stopped"" to ""running""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: running",Agent
+"May 13, 2025 08:35:40",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""running"" to ""stopped""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: stopped",Agent
+"May 13, 2025 08:47:15",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""D790D87B7BABD225D80181127F4BC8156637F65FA7584768F617A69EA29DCE6E"" to ""9EEC0474C8E3FD4BC2281362AD8F92A04C9820999BE685765FA8952627F1A4C8""
+
+After the change the File had the following attributes:
+
+   SHA-256: 9EEC0474C8E3FD4BC2281362AD8F92A04C9820999BE685765FA8952627F1A4C8",Agent
+"May 13, 2025 09:08:06",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""9EEC0474C8E3FD4BC2281362AD8F92A04C9820999BE685765FA8952627F1A4C8"" to ""5BAF2FC1DCDE84B0D385CD4855CF86EC3431C0735EC44885C3A4FDFF20285C46""
+
+After the change the File had the following attributes:
+
+   SHA-256: 5BAF2FC1DCDE84B0D385CD4855CF86EC3431C0735EC44885C3A4FDFF20285C46",Agent
+"May 13, 2025 09:38:11",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""stopped"" to ""running""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: running",Agent
+"May 13, 2025 09:39:02",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""running"" to ""stopped""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: stopped",Agent
+"May 13, 2025 09:47:10",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""running"" to ""stopped""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: stopped",Agent
+"May 13, 2025 09:41:26",KSDC01.keshet.dom,"1002781 - Microsoft Windows - Attributes of services modified (ATT&CK T1036.004, T1543.003)",,Updated,25,Medium,Service,dcsvc,N/A,N/A,"When scanned the following changes were detected:
+
+   State changed from ""stopped"" to ""running""
+
+After the change the Service had the following attributes:
+
+   Binary Path Name: C:\Windows\system32\svchost.exe -k netsvcs -p
+   Start Type: manual
+   State: running",Agent
+"May 13, 2025 09:51:25",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\flighting\onesettings\refreshcache,NT AUTHORITY\SYSTEM,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""58F696CC9EBAA2998116D48EC0D48854AE070E81CAC38816ABA97323EF47C65F"" to ""5703F2A9AAD95042E08F927CFB2A1512AE3ED04B7EFD04319A10F995740AC4FA""
+
+After the change the File had the following attributes:
+
+   SHA-256: 5703F2A9AAD95042E08F927CFB2A1512AE3ED04B7EFD04319A10F995740AC4FA",Agent
+"May 13, 2025 09:51:55",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""5BAF2FC1DCDE84B0D385CD4855CF86EC3431C0735EC44885C3A4FDFF20285C46"" to ""B232C69B2E05186EC15946A91947657543749F06982EA2B7BF3B127D0503371C""
+
+After the change the File had the following attributes:
+
+   SHA-256: B232C69B2E05186EC15946A91947657543749F06982EA2B7BF3B127D0503371C",Agent
+"May 13, 2025 10:03:12",KSDC01.keshet.dom,1006076 - Microsoft Windows - Task scheduler entries modified (ATT&CK T1053.005),,Updated,25,Medium,File,c:\windows\system32\tasks\microsoft\windows\softwareprotectionplatform\svcrestarttask,NT AUTHORITY\NETWORK SERVICE,C:\Windows\System32\svchost.exe,"When scanned the following changes were detected:
+
+   SHA-256 changed from ""B232C69B2E05186EC15946A91947657543749F06982EA2B7BF3B127D0503371C"" to ""11E145F02D3830468A2096D088885AF9FC239692FF32F637EE3CE1F785C6B6D7""
+
+After the change the File had the following attributes:
+
+   SHA-256: 11E145F02D3830468A2096D088885AF9FC239692FF32F637EE3CE1F785C6B6D7",Agent

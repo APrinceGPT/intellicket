@@ -1,0 +1,62 @@
+Top 10 Busy Proc [1]: 
+                       Name = c:\program files\trend micro\deep security manager\deep security manager.exe
+                      Count = 315570817
+      AMSP_EVENT_ID_PROCESS = 22828
+       AMSP_EVENT_ID_FILEIO = 315547989
+Top 10 Busy Proc [2]: 
+                       Name = c:\windows\system32\svchost.exe
+                      Count = 7496464
+      AMSP_EVENT_ID_PROCESS = 3370609
+     AMSP_EVENT_ID_REGISTRY = 915206
+       AMSP_EVENT_ID_FILEIO = 3210649
+Top 10 Busy Proc [3]: 
+                       Name = system
+                      Count = 1360981
+      AMSP_EVENT_ID_PROCESS = 1168555
+     AMSP_EVENT_ID_REGISTRY = 10379
+       AMSP_EVENT_ID_FILEIO = 182047
+Top 10 Busy Proc [4]: 
+                       Name = c:\windows\system32\services.exe
+                      Count = 937547
+      AMSP_EVENT_ID_PROCESS = 514171
+     AMSP_EVENT_ID_REGISTRY = 78503
+       AMSP_EVENT_ID_FILEIO = 344873
+Top 10 Busy Proc [5]: 
+                       Name = c:\windows\system32\wbem\wmiprvse.exe
+                      Count = 879628
+      AMSP_EVENT_ID_PROCESS = 440624
+     AMSP_EVENT_ID_REGISTRY = 11595
+       AMSP_EVENT_ID_FILEIO = 409923
+          AMSP_EVENT_ID_API = 17486
+Top 10 Busy Proc [6]: 
+                       Name = c:\program files\mozilla firefox\firefox.exe
+                      Count = 521847
+      AMSP_EVENT_ID_PROCESS = 157951
+     AMSP_EVENT_ID_REGISTRY = 1205
+       AMSP_EVENT_ID_FILEIO = 338726
+          AMSP_EVENT_ID_API = 6
+   AMSP_EVENT_ID_SUSPICIOUS = 23959
+Top 10 Busy Proc [7]: 
+                       Name = c:\windows\system32\taskhostw.exe
+                      Count = 413765
+      AMSP_EVENT_ID_PROCESS = 45357
+     AMSP_EVENT_ID_REGISTRY = 309571
+       AMSP_EVENT_ID_FILEIO = 58837
+Top 10 Busy Proc [8]: 
+                       Name = c:\windows\system32\conhost.exe
+                      Count = 359219
+      AMSP_EVENT_ID_PROCESS = 294730
+       AMSP_EVENT_ID_FILEIO = 64489
+Top 10 Busy Proc [9]: 
+                       Name = c:\windows\system32\msiexec.exe
+                      Count = 185675
+      AMSP_EVENT_ID_PROCESS = 39932
+     AMSP_EVENT_ID_REGISTRY = 9812
+       AMSP_EVENT_ID_FILEIO = 135931
+Top 10 Busy Proc [10]: 
+                       Name = c:\windows\system32\windowspowershell\v1.0\powershell.exe
+                      Count = 168238
+      AMSP_EVENT_ID_PROCESS = 45423
+       AMSP_EVENT_ID_FILEIO = 104006
+   AMSP_EVENT_ID_SUSPICIOUS = 7757
+         AMSP_EVENT_ID_AMSI = 11052

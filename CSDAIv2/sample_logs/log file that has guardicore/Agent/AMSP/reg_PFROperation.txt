@@ -1,0 +1,4 @@
+
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager
+    PendingFileRenameOperations    REG_MULTI_SZ    \??\C:\Windows\TEMP\.gc_uuid.tmp\0\??\C:\Windows\SystemTemp\ddc9d5ea-a2ce-41f4-ad7c-e6a61942f2e4.tmp\0\??\C:\Windows\system32\spool\V4Dirs\540ABBD7-6283-44E6-8E1E-0A0C3E0A6729\69b8a4a.BUD\0\??\C:\Windows\system32\spool\V4Dirs\540ABBD7-6283-44E6-8E1E-0A0C3E0A6729\69b8a4a.gpd\0\??\C:\Windows\system32\spool\V4Dirs\540ABBD7-6283-44E6-8E1E-0A0C3E0A6729\pdc.xml\0\??\C:\Windows\system32\spool\V4Dirs\540ABBD7-6283-44E6-8E1E-0A0C3E0A6729\0\??\C:\Windows\system32\spool\V4Dirs\F769765C-401F-4B04-81F6-6429599D27D0\69b8a4a.BUD\0\??\C:\Windows\system32\spool\V4Dirs\F769765C-401F-4B04-81F6-6429599D27D0\69b8a4a.gpd\0\??\C:\Windows\system32\spool\V4Dirs\F769765C-401F-4B04-81F6-6429599D27D0\pdc.xml\0\??\C:\Windows\system32\spool\V4Dirs\F769765C-401F-4B04-81F6-6429599D27D0
+
